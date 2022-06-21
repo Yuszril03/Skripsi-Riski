@@ -27,11 +27,72 @@
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/summernote/summernote-bs4.min.css">
 
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+
     <style>
+        #map {
+
+            position: static;
+            top: 0;
+            bottom: 0;
+            height: 300px;
+            width: auto;
+        }
+
+        .mapboxgl-canvas {
+            border-radius: 15px;
+        }
+
+        .mapboxgl-ctrl-bottom-left {
+            display: none;
+        }
+
+        .mapboxgl-ctrl-bottom-right {
+            display: none;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .overlay button {
+            font: 600 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            background-color: #3386c0;
+            color: #fff;
+            display: inline-block;
+            margin: 0;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .coordinates {
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            position: absolute;
+            bottom: 40px;
+            left: 10px;
+            padding: 5px 10px;
+            margin: 0;
+            font-size: 11px;
+            line-height: 18px;
+            border-radius: 3px;
+            display: none;
+        }
+
+        .overlay button:hover {
+            background-color: #4ea0da;
+        }
+
         .file-upload {
             height: max-content;
             border: 2px dotted gray;
             border-radius: 15px;
+            margin-bottom: 10px;
 
         }
 
@@ -53,6 +114,8 @@
             height: 100px;
         }
     </style>
+
+    <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js" charset="utf-8"></script>
 
 </head>
 
@@ -103,6 +166,28 @@
                                     <div class="col-lg-6 col-12">
 
                                         <div class="form-group">
+                                            <label for="">Foto Profil Wisata</label>
+                                        </div>
+                                        <div class="file-upload">
+                                            <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
+                                            <div class="Imagees">
+                                                <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" id="NoneImage" alt="">
+                                                <img src="" id="AddImage" alt="">
+                                            </div>
+                                            <center>
+                                                <div class="image-upload-wrap" style="margin-top: -110px ;">
+                                                    <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
+
+                                                    <div class="drag-text mt-4">
+                                                        <h6 style="margin-top:-20px;">Drag and drop files or select add Image</h6>
+                                                    </div>
+                                                </div>
+                                                <p class="image-title">Uploaded Image</p>
+                                            </center>
+
+                                        </div>
+
+                                        <div class="form-group">
                                             <label for="">Nama Wisata</label>
                                             <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Masukan Nama Wisata">
                                         </div>
@@ -124,39 +209,24 @@
                                                 <input style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                                             </div>
                                         </div>
+
+
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div id="map"></div>
+                                        <pre style="opacity: 0;" id="coordinates" class="coordinates"></pre>
+                                        <div class="overlay">
+                                            <!-- <button id="replay">Replay</button> -->
+                                            <p id="ok"></p>
+                                        </div>
                                         <div class="form-group">
                                             <label for="">Alamat Wisata</label>
-                                            <textarea class="form-control" style="border-radius: 15px;" name="" id="" cols="10"></textarea>
+                                            <textarea readonly class="form-control" style="border-radius: 15px;" name="alamat" id="alamat" cols="10"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Deskripsi Wisata</label>
                                             <textarea class="form-control" style="border-radius: 15px;" name="" id="" cols="10"></textarea>
                                         </div>
-
-                                    </div>
-                                    <div class="col-lg-6 col-12">
-                                        <div class="form-group">
-                                            <label for="">Foto Profil Wisata</label>
-                                        </div>
-                                        <div class="file-upload">
-                                            <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
-                                            <div class="Imagees">
-                                                <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" id="NoneImage" alt="">
-                                                <img src="" id="AddImage" alt="">
-                                            </div>
-                                            <center>
-                                                <div class="image-upload-wrap" style="margin-top: -110px ;">
-                                                    <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
-
-                                                    <div class="drag-text mt-4">
-                                                        <h6 style="margin-top:-20px;">Drag and drop files or select add Image</h6>
-                                                    </div>
-                                                </div>
-                                                <p class="image-title">Uploaded Image</p>
-                                            </center>
-                                           
-                                        </div>
-
                                     </div>
                                 </div>
                                 <div class="float-right">
@@ -218,6 +288,8 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
 
+    <script src="https://api.mapbox.com/geocoding/v5/mapbox.places/117.1485239363954,-0.569178092470267.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw"></script>
+
     <script>
         $('#btnCancelImage').hide()
         $('#AddImage').hide()
@@ -268,6 +340,37 @@
         $('.image-upload-wrap').bind('dragleave', function() {
             $('.image-upload-wrap').removeClass('image-dropping');
         });
+
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw';
+        const coordinates = document.getElementById('coordinates');
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [117.1485239363954, -0.569178092470267],
+            zoom: 10
+        });
+
+        const marker = new mapboxgl.Marker({
+                draggable: true
+            })
+            .setLngLat([117.1485239363954, -0.569178092470267])
+            .addTo(map);
+
+        function onDragEnd() {
+            const lngLat = marker.getLngLat();
+            coordinates.style.display = 'block';
+            coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+
+            $.ajax({
+                url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw`,
+                dataType: "JSON"
+            }).done(result => {
+                $("#alamat").val(result.features[0].place_name)
+            })
+
+        }
+
+        marker.on('dragend', onDragEnd);
     </script>
 </body>
 
