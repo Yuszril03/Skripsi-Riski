@@ -8,4 +8,9 @@ class Administrator extends BaseController
     {
         return view('Administrator/Home');
     }
+
+    public function MitraWisata()
+    {
+        return view('Administrator/Mitra-Wisata');
+    }
 }
