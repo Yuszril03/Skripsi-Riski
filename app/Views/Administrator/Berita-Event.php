@@ -45,15 +45,56 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            
-            <section class="conten">
+
+            <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12"></div>
-                        <h3 class="page-header"><i class="fas fa-user-secret"></i> Administrator</h3>
-                        <ol class="breadcrumb">
-                            <li><i class="fa fa-laptop"></i>Berita & Admin</li>
-                        </ol>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Dashboard</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Berita & Event</li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="float-right"><button style="border-radius: 10px;" class="btn btn-success">Tambah +</button></div>
+                </div>
+                <h4>Data Berita & Event</h4>
+                <br>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Judul</th>
+                                        <th>Berita</th>
+                                        <th>Alamat</th>
+                                        <th>Tanggal</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>a</td>
+                                        <td>b</td>
+                                        <td>c</td>
+                                        <td>d</td>
+                                        <td>e</td>
+                                        <td><button class="btn btn-primary"><i class="fa fa-info"></i></button><button class="btn btn-warning"><i class="fa fa-pen"></i></button><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </section>
