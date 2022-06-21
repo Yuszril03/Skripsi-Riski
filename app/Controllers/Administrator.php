@@ -11,6 +11,14 @@ class Administrator extends BaseController
 
     public function BeritaEvent()
     {
-        return view('Administrator/Berita-Event');
+        return view('Administrator/Berita-Event/Berita-Event');
+    }
+    public function tambahBeritaEvent()
+    {
+        return view('Administrator/Berita-Event/tambahBerita-Event');
+    }
+    public function detailBeritaEvent()
+    {
+        return view('Administrator/Berita-Event/detailBerita-Event');
     }
 }

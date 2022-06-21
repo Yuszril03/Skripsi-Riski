@@ -50,7 +50,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <h1 class="m-0">Tambah Berita & Event</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -65,37 +65,43 @@
 
             <section class="content">
                 <div class="container-fluid">
-                    <div class="float-right"><button style="border-radius: 10px;" class="btn btn-success">Tambah +</button></div>
-                </div>
-                <h4>Data Berita & Event</h4>
-                <br>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Judul</th>
-                                        <th>Berita</th>
-                                        <th>Alamat</th>
-                                        <th>Tanggal</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>a</td>
-                                        <td>b</td>
-                                        <td>c</td>
-                                        <td>d</td>
-                                        <td>e</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-info"></i></button><button class="btn btn-warning"><i class="fa fa-pen"></i></button><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="card card-outline card-warning" style="border-radius: 15px;">
+                        <div class="card-body">
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <label for="gambar-BeritaEvent" class="col-form-label">Gambar</label>
+                                            <input type="file" class="form-control-file" id="gambar-BeritaEvent">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="judul-BeritaEvent" class="col-form-label">Judul:</label>
+                                            <input type="text" class="form-control" id="judul-BeritaEvent">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
+                                            <textarea class="form-control" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
+                                            <textarea class="form-control" id="lamat-BeritaEvent" cols="30" rows="3"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
+                                            <input type="date" class="form-control" id="tanggal-BeritaEvent">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-right">
+                                    <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
+                                    <button type="button" onclick="location.href='<?= base_url() ?>/Berita-Event'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
+
+
+
                 </div>
             </section>
 
