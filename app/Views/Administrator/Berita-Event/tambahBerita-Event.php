@@ -27,6 +27,10 @@
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/summernote/summernote-bs4.min.css">
 
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js" charset="utf-8"></script>
+
     <style>
         .file-upload {
             height: max-content;
@@ -51,6 +55,63 @@
         .file-upload-input {
             opacity: 0;
             height: 100px;
+        }
+
+        #map {
+
+            position: relative;
+            top: 0;
+            bottom: 0;
+            height: 300px;
+            width: auto;
+        }
+
+        .mapboxgl-canvas {
+            border-radius: 15px;
+        }
+
+        .mapboxgl-ctrl-bottom-left {
+            display: none;
+        }
+
+        .mapboxgl-ctrl-bottom-right {
+            display: none;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .overlay button {
+            font: 600 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            background-color: #3386c0;
+            color: #fff;
+            display: inline-block;
+            margin: 0;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .coordinates {
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            position: absolute;
+            bottom: 40px;
+            left: 10px;
+            padding: 5px 10px;
+            margin: 0;
+            font-size: 11px;
+            line-height: 18px;
+            border-radius: 3px;
+            display: none;
+        }
+
+        .overlay button:hover {
+            background-color: #4ea0da;
         }
     </style>
 </head>
@@ -134,9 +195,15 @@
 
                                     </div>
                                     <div class="col-lg-6 col-12">
+                                        <div id="map"></div>
+                                        <pre style="opacity: 0;" id="coordinates" class="coordinates"></pre>
+                                        <div class="overlay">
+                                            <!-- <button id="replay">Replay</button> -->
+                                            <p id="ok"></p>
+                                        </div>
                                         <div class="form-group">
                                             <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
-                                            <textarea class="form-control" style="border-radius: 15px;" id="lamat-BeritaEvent" cols="30" rows="2"></textarea>
+                                            <textarea readonly class="form-control" style="border-radius: 15px;" id="alamat-BeritaEvent" cols="30" rows="2"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -248,6 +315,37 @@
     $('.image-upload-wrap').bind('dragleave', function() {
         $('.image-upload-wrap').removeClass('image-dropping');
     });
+
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw';
+    const coordinates = document.getElementById('coordinates');
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [117.1485239363954, -0.569178092470267],
+        zoom: 10
+    });
+
+    const marker = new mapboxgl.Marker({
+            draggable: true
+        })
+        .setLngLat([117.1485239363954, -0.569178092470267])
+        .addTo(map);
+
+    function onDragEnd() {
+        const lngLat = marker.getLngLat();
+        coordinates.style.display = 'block';
+        coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+
+        $.ajax({
+            url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw`,
+            dataType: "JSON"
+        }).done(result => {
+            $("#alamat-BeritaEvent").val(result.features[0].place_name)
+        })
+
+    }
+
+    marker.on('dragend', onDragEnd);
 </script>
 
 </html>

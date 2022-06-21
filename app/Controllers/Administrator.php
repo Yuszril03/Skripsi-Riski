@@ -21,4 +21,8 @@ class Administrator extends BaseController
     {
         return view('Administrator/Berita-Event/detailBerita-Event');
     }
+    public function editBeritaEvent()
+    {
+        return view('Administrator/Berita-Event/editBerita-Event');
+    }
 }

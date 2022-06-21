@@ -35,6 +35,7 @@ $routes->get('/', 'Administrator::index');
 $routes->get('/Berita-Event', 'Administrator::BeritaEvent');
 $routes->get('/tambahBerita-Event', 'Administrator::tambahBeritaEvent');
 $routes->get('/detailBerita-Event', 'Administrator::detailBeritaEvent');
+$routes->get('/editBerita-Event', 'Administrator::editBeritaEvent');
 
 /*
  * --------------------------------------------------------------------
