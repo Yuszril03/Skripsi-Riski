@@ -19,7 +19,7 @@
     <!-- JQVMap -->
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/dists/css/adminlte.min.css">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
@@ -33,7 +33,7 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="<?= base_url() ?>/AdminLTE/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+            <img class="animation__shake" src="<?= base_url() ?>/AdminLTE/dists/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
         </div>
 
         <!-- Navbar -->
@@ -195,7 +195,7 @@
                                                 <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
                                             </div>
                                             <!-- /.direct-chat-infos -->
-                                            <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
+                                            <img class="direct-chat-img" src="dists/img/user1-128x128.jpg" alt="message user image">
                                             <!-- /.direct-chat-img -->
                                             <div class="direct-chat-text">
                                                 Is this template really for free? That's unbelievable!
@@ -211,7 +211,7 @@
                                                 <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
                                             </div>
                                             <!-- /.direct-chat-infos -->
-                                            <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
+                                            <img class="direct-chat-img" src="dists/img/user3-128x128.jpg" alt="message user image">
                                             <!-- /.direct-chat-img -->
                                             <div class="direct-chat-text">
                                                 You better believe it!
@@ -227,7 +227,7 @@
                                                 <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
                                             </div>
                                             <!-- /.direct-chat-infos -->
-                                            <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
+                                            <img class="direct-chat-img" src="dists/img/user1-128x128.jpg" alt="message user image">
                                             <!-- /.direct-chat-img -->
                                             <div class="direct-chat-text">
                                                 Working with AdminLTE on a great new app! Wanna join?
@@ -243,7 +243,7 @@
                                                 <span class="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
                                             </div>
                                             <!-- /.direct-chat-infos -->
-                                            <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
+                                            <img class="direct-chat-img" src="dists/img/user3-128x128.jpg" alt="message user image">
                                             <!-- /.direct-chat-img -->
                                             <div class="direct-chat-text">
                                                 I would love to.
@@ -260,7 +260,7 @@
                                         <ul class="contacts-list">
                                             <li>
                                                 <a href="#">
-                                                    <img class="contacts-list-img" src="dist/img/user1-128x128.jpg" alt="User Avatar">
+                                                    <img class="contacts-list-img" src="dists/img/user1-128x128.jpg" alt="User Avatar">
 
                                                     <div class="contacts-list-info">
                                                         <span class="contacts-list-name">
@@ -275,7 +275,7 @@
                                             <!-- End Contact Item -->
                                             <li>
                                                 <a href="#">
-                                                    <img class="contacts-list-img" src="dist/img/user7-128x128.jpg" alt="User Avatar">
+                                                    <img class="contacts-list-img" src="dists/img/user7-128x128.jpg" alt="User Avatar">
 
                                                     <div class="contacts-list-info">
                                                         <span class="contacts-list-name">
@@ -290,7 +290,7 @@
                                             <!-- End Contact Item -->
                                             <li>
                                                 <a href="#">
-                                                    <img class="contacts-list-img" src="dist/img/user3-128x128.jpg" alt="User Avatar">
+                                                    <img class="contacts-list-img" src="dists/img/user3-128x128.jpg" alt="User Avatar">
 
                                                     <div class="contacts-list-info">
                                                         <span class="contacts-list-name">
@@ -305,7 +305,7 @@
                                             <!-- End Contact Item -->
                                             <li>
                                                 <a href="#">
-                                                    <img class="contacts-list-img" src="dist/img/user5-128x128.jpg" alt="User Avatar">
+                                                    <img class="contacts-list-img" src="dists/img/user5-128x128.jpg" alt="User Avatar">
 
                                                     <div class="contacts-list-info">
                                                         <span class="contacts-list-name">
@@ -320,7 +320,7 @@
                                             <!-- End Contact Item -->
                                             <li>
                                                 <a href="#">
-                                                    <img class="contacts-list-img" src="dist/img/user6-128x128.jpg" alt="User Avatar">
+                                                    <img class="contacts-list-img" src="dists/img/user6-128x128.jpg" alt="User Avatar">
 
                                                     <div class="contacts-list-info">
                                                         <span class="contacts-list-name">
@@ -335,7 +335,7 @@
                                             <!-- End Contact Item -->
                                             <li>
                                                 <a href="#">
-                                                    <img class="contacts-list-img" src="dist/img/user8-128x128.jpg" alt="User Avatar">
+                                                    <img class="contacts-list-img" src="dists/img/user8-128x128.jpg" alt="User Avatar">
 
                                                     <div class="contacts-list-info">
                                                         <span class="contacts-list-name">
@@ -683,11 +683,11 @@
     <!-- overlayScrollbars -->
     <script src="<?= base_url() ?>/AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="<?= base_url() ?>/AdminLTE/dist/js/adminlte.js"></script>
+    <script src="<?= base_url() ?>/AdminLTE/dists/js/adminlte.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="<?= base_url() ?>/AdminLTE/dist/js/demo.js"></script>
+    <script src="<?= base_url() ?>/AdminLTE/dists/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="<?= base_url() ?>/AdminLTE/dist/js/pages/dashboard.js"></script>
+    <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
 </body>
 
 </html>
