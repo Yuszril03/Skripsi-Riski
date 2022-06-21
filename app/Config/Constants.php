@@ -9,10 +9,19 @@
  | CodeIgniter to refer to the Application directory. Change
  | this constant to change the namespace that all application
  | classes should use.
+
+ 
  |
  | NOTE: changing this will require manually modifying the
  | existing namespaces of App\* namespaced-classes.
  */
+
+// $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https://' . $_SERVER['HTTP_HOST'] : 'http://' . $_SERVER['HTTP_HOST'];
+$protocol = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . '' . str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']) . "/";
+// $protocol .= "://" . $_SERVER['HTTP_HOST'];
+// $protocol .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
+defined('BASE') || define('BASE', $protocol);
+
 defined('APP_NAMESPACE') || define('APP_NAMESPACE', 'App');
 
 /*
