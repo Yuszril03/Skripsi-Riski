@@ -33,6 +33,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Administrator::index');
 $routes->get('/Mitra-Wisata', 'Administrator::MitraWisata');
+$routes->get('/Tambah-Mitra-Wisata', 'Administrator::TambahMitraWisata');
 
 /*
  * --------------------------------------------------------------------
