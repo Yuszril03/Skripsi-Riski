@@ -98,44 +98,45 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
+                                            <label for="">Foto Profil Wisata</label>
+
+                                            <div class="file-upload">
+                                                <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
+                                                <div class="Imagees">
+                                                    <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" id="NoneImage" alt="">
+                                                    <img src="" id="AddImage" alt="">
+                                                </div>
+                                                <center>
+                                                    <div class="image-upload-wrap" style="margin-top: -110px ;">
+                                                        <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
+
+                                                        <div class="drag-text mt-4">
+                                                            <h6 style="margin-top:-20px;">Drag and drop files or select add Image</h6>
+                                                        </div>
+                                                    </div>
+                                                    <p class="image-title">Uploaded Image</p>
+                                                </center>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="judul-BeritaEvent" class="col-form-label">Judul:</label>
-                                            <input type="text" class="form-control" id="judul-BeritaEvent">
+                                            <input type="text" class="form-control" style="border-radius: 15px;" id="judul-BeritaEvent">
                                         </div>
                                         <div class="form-group">
                                             <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
-                                            <textarea class="form-control" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
-                                            <textarea class="form-control" id="lamat-BeritaEvent" cols="30" rows="3"></textarea>
+                                            <textarea class="form-control" style="border-radius: 15px;" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
-                                            <input type="date" class="form-control" id="tanggal-BeritaEvent">
+                                            <input type="date" class="form-control" style="border-radius: 15px;" id="tanggal-BeritaEvent">
                                         </div>
 
                                     </div>
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
-                                            <label for="">Foto Profil Wisata</label>
-                                        </div>
-                                        <div class="file-upload">
-                                            <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
-                                            <div class="Imagees">
-                                                <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" id="NoneImage" alt="">
-                                                <img src="" id="AddImage" alt="">
-                                            </div>
-                                            <center>
-                                                <div class="image-upload-wrap" style="margin-top: -110px ;">
-                                                    <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
-
-                                                    <div class="drag-text mt-4">
-                                                        <h6 style="margin-top:-20px;">Drag and drop files or select add Image</h6>
-                                                    </div>
-                                                </div>
-                                                <p class="image-title">Uploaded Image</p>
-                                            </center>
-
+                                            <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
+                                            <textarea class="form-control" style="border-radius: 15px;" id="lamat-BeritaEvent" cols="30" rows="2"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -146,9 +147,6 @@
                             </form>
                         </div>
                     </div>
-
-
-
                 </div>
             </section>
 

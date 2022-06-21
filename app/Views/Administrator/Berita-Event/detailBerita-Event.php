@@ -72,23 +72,23 @@
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
                                             <label for="gambar-BeritaEvent" class="col-form-label">Gambar</label>
-                                            <input type="file" class="form-control-file" id="gambar-BeritaEvent">
+                                            <input type="file" class="form-control-file" style="border-radius: 15px;" id="gambar-BeritaEvent">
                                         </div>
                                         <div class="form-group">
                                             <label for="judul-BeritaEvent" class="col-form-label">Judul:</label>
-                                            <input type="text" class="form-control" id="judul-BeritaEvent">
+                                            <input type="text" class="form-control" style="border-radius: 15px;" id="judul-BeritaEvent">
                                         </div>
                                         <div class="form-group">
                                             <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
-                                            <textarea class="form-control" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
+                                            <textarea class="form-control" style="border-radius: 15px;" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
-                                            <textarea class="form-control" id="lamat-BeritaEvent" cols="30" rows="3"></textarea>
+                                            <textarea class="form-control" style="border-radius: 15px;" id="lamat-BeritaEvent" cols="30" rows="3"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
-                                            <input type="date" class="form-control" id="tanggal-BeritaEvent">
+                                            <input type="date" class="form-control" style="border-radius: 15px;" id="tanggal-BeritaEvent">
                                         </div>
                                     </div>
                                 </div>
