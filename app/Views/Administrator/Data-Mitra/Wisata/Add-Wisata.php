@@ -146,7 +146,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="<?= base_url() ?>/Mitra-Wisata">Mitra Wisata</a></li>
+                                <li class="breadcrumb-item active">Mitra Wisata</li>
                                 <li class="breadcrumb-item active">Tambah Mitra Wisata</li>
                             </ol>
                         </div><!-- /.col -->
@@ -230,8 +230,8 @@
                                     </div>
                                 </div>
                                 <div class="float-right">
-                                    <button class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
-                                    <button class="btn btn-secondary m-1" style="border-radius: 15px;">Close</button>
+                                    <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
+                                    <button type="button" onclick="KeluarForm()" class="btn btn-secondary m-1" style="border-radius: 15px;">Close</button>
                                 </div>
                             </form>
                         </div>
@@ -287,14 +287,31 @@
     <script src="<?= base_url() ?>/AdminLTE/dists/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script src="https://api.mapbox.com/geocoding/v5/mapbox.places/117.1485239363954,-0.569178092470267.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw"></script>
 
     <script>
         $('#btnCancelImage').hide()
         $('#AddImage').hide()
         $('.image-title').hide()
         $('#NoneImage').show()
+
+        function KeluarForm() {
+            Swal.fire({
+                title: 'Apa kamu yakin?',
+                text: "Meninggalkan halaman ini",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.href = "<?= base_url() ?>/Mitra-Wisata"
+                }
+            })
+        }
 
         function readURL(input) {
             if (input.files && input.files[0]) {
