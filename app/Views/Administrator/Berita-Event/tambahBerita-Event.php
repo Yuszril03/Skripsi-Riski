@@ -26,6 +26,33 @@
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/summernote/summernote-bs4.min.css">
+
+    <style>
+        .file-upload {
+            height: max-content;
+            border: 2px dotted gray;
+            border-radius: 15px;
+
+        }
+
+        .Imagees {
+            min-height: 200px;
+            width: 50%;
+            margin: auto;
+            object-fit: cover;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .Imagees img {
+            width: 100%;
+        }
+
+        .file-upload-input {
+            opacity: 0;
+            height: 100px;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -71,10 +98,6 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
-                                            <label for="gambar-BeritaEvent" class="col-form-label">Gambar</label>
-                                            <input type="file" class="form-control-file" id="gambar-BeritaEvent">
-                                        </div>
-                                        <div class="form-group">
                                             <label for="judul-BeritaEvent" class="col-form-label">Judul:</label>
                                             <input type="text" class="form-control" id="judul-BeritaEvent">
                                         </div>
@@ -89,6 +112,30 @@
                                         <div class="form-group">
                                             <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
                                             <input type="date" class="form-control" id="tanggal-BeritaEvent">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <label for="">Foto Profil Wisata</label>
+                                        </div>
+                                        <div class="file-upload">
+                                            <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
+                                            <div class="Imagees">
+                                                <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" id="NoneImage" alt="">
+                                                <img src="" id="AddImage" alt="">
+                                            </div>
+                                            <center>
+                                                <div class="image-upload-wrap" style="margin-top: -110px ;">
+                                                    <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
+
+                                                    <div class="drag-text mt-4">
+                                                        <h6 style="margin-top:-20px;">Drag and drop files or select add Image</h6>
+                                                    </div>
+                                                </div>
+                                                <p class="image-title">Uploaded Image</p>
+                                            </center>
+
                                         </div>
                                     </div>
                                 </div>
@@ -152,5 +199,57 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
 </body>
+
+<script>
+    $('#btnCancelImage').hide()
+    $('#AddImage').hide()
+    $('.image-title').hide()
+    $('#NoneImage').show()
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('.image-upload-wrap').hide();
+
+                $('.file-upload-image').attr('src', e.target.result);
+                $('.file-upload-content').show();
+
+                $('.image-title').html(input.files[0].name);
+
+                $('#AddImage').show()
+                $('#NoneImage').hide()
+
+                document.getElementById('AddImage').src = e.target.result;
+            };
+            $('#btnCancelImage').show()
+            $('.image-title').show()
+            reader.readAsDataURL(input.files[0]);
+
+
+        } else {
+            removeUpload();
+        }
+    }
+
+    function removeUpload() {
+        document.getElementById("uploadFilee").value = "";
+        $('#btnCancelImage').hide()
+        $('#AddImage').hide()
+        $('#NoneImage').show()
+        $('.image-title').hide()
+        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
+    }
+    $('.image-upload-wrap').bind('dragover', function() {
+        $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function() {
+        $('.image-upload-wrap').removeClass('image-dropping');
+    });
+</script>
 
 </html>
