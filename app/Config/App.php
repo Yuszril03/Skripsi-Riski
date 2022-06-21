@@ -23,7 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = BASE;
+    public $baseURL = "http://localhost/Skripsi-Riski/public/";
 
     /**
      * --------------------------------------------------------------------------
