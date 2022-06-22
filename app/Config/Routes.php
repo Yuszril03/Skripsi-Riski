@@ -32,11 +32,16 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Administrator::index');
+
+//Wisata
 $routes->get('/Mitra-Wisata', 'Administrator::MitraWisata');
 $routes->get('/Tambah-Mitra-Wisata', 'Administrator::TambahMitraWisata');
 $routes->get('/Edit-Mitra-Wisata', 'Administrator::EditMitraWisata');
 $routes->get('/Detail-Mitra-Wisata', 'Administrator::DetailMitraWisata');
 
+//Hotel
+$routes->get('/Mitra-Hotel', 'Administrator::MitraHotel');
+$routes->get('/Tambah-Mitra-Hotel', 'Administrator::TambahMitraHotel');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -50,12 +50,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Mitra Wisata</h1>
+                            <h1 class="m-0">Mitra Hotel</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Mitra Wisata</li>
+                                <li class="breadcrumb-item active">Mitra Hotel</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -68,7 +68,7 @@
                 <div class="container-fluid">
 
                     <div class="float-right">
-                        <button onclick="location.href='<?= base_url() ?>/Tambah-Mitra-Wisata'" class="btn btn-success" style="border-radius: 15px;">
+                        <button onclick="location.href='<?= base_url() ?>/Tambah-Mitra-Hotel'" class="btn btn-success" style="border-radius: 15px;">
                             <i class="fa fa-plus-circle"></i> Tambah Mitra
                         </button>
                     </div>
@@ -79,9 +79,9 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Nama Wisata</th>
-                                            <th>Alamat Wisata</th>
-                                            <th>Status Wisata</th>
+                                            <th>Nama Hotel</th>
+                                            <th>Alamat Hotel</th>
+                                            <th>Status Hotel</th>
                                             <th>Aksi </th>
                                         </tr>
                                     </thead>
