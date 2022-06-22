@@ -36,6 +36,9 @@ $routes->get('/Berita-Event', 'Administrator::BeritaEvent');
 $routes->get('/tambahBerita-Event', 'Administrator::tambahBeritaEvent');
 $routes->get('/detailBerita-Event', 'Administrator::detailBeritaEvent');
 $routes->get('/editBerita-Event', 'Administrator::editBeritaEvent');
+$routes->get('/Data-User', 'Administrator::DataUser');
+$routes->get('/tambahData-User', 'Administrator::tambahDataUser');
+$routes->get('/editData-User', 'Administrator::editDataUser');
 
 /*
  * --------------------------------------------------------------------

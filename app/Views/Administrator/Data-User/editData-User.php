@@ -59,63 +59,6 @@
             opacity: 0;
             height: 100px;
         }
-
-        #map {
-
-            position: relative;
-            top: 0;
-            bottom: 0;
-            height: 300px;
-            width: auto;
-        }
-
-        .mapboxgl-canvas {
-            border-radius: 15px;
-        }
-
-        .mapboxgl-ctrl-bottom-left {
-            display: none;
-        }
-
-        .mapboxgl-ctrl-bottom-right {
-            display: none;
-        }
-
-        .overlay {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-
-        .overlay button {
-            font: 600 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-            background-color: #3386c0;
-            color: #fff;
-            display: inline-block;
-            margin: 0;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 3px;
-        }
-
-        .coordinates {
-            background: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            position: absolute;
-            bottom: 40px;
-            left: 10px;
-            padding: 5px 10px;
-            margin: 0;
-            font-size: 11px;
-            line-height: 18px;
-            border-radius: 3px;
-            display: none;
-        }
-
-        .overlay button:hover {
-            background-color: #4ea0da;
-        }
     </style>
 </head>
 
@@ -162,12 +105,12 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
-                                            <label for="">Foto Profil Wisata</label>
+                                            <label for="">Upload Foto Profil</label>
 
                                             <div class="file-upload">
                                                 <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
                                                 <div class="Imagees">
-                                                    <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" id="NoneImage" alt="">
+                                                    <img src="<?= base_url() ?>/Image/Icon/UploadProfile.svg" id="NoneImage" alt="">
                                                     <img src="" id="AddImage" alt="">
                                                 </div>
                                                 <center>
@@ -184,53 +127,68 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="judul-BeritaEvent" class="col-form-label">Judul:</label>
-                                            <input type="text" class="form-control" style="border-radius: 15px;" id="judul-BeritaEvent">
+                                            <label for="judul-BeritaEvent" class="col-form-label">Nama Pengguna</label>
+                                            <input type="text" class="form-control" style="border-radius: 15px;" id="judul-BeritaEvent" placeholder="Nama">
                                         </div>
                                         <div class="form-group">
-                                            <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
-                                            <textarea class="form-control" style="border-radius: 15px;" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
+                                            <label for="EmailData-Usert" class="col-form-label">Email</label>
+                                            <input type="text" class="form-control" style="border-radius: 15px;" id="EmailData-User" placeholder="email@example.com">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
-                                            <!-- <input type="date" class="form-control" style="border-radius: 15px;" id="tanggal-BeritaEvent"> -->
-                                            <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YYYY" value="2022-01-09" style="border-radius: 15px;" id="tanggal-BeritaEvent">
-
-                                        </div>
-
                                     </div>
                                     <div class="col-lg-6 col-12">
-                                        <div id="map"></div>
-                                        <pre style="opacity: 0;" id="coordinates" class="coordinates"></pre>
-                                        <div class="overlay">
-                                            <!-- <button id="replay">Replay</button> -->
-                                            <p id="ok"></p>
+                                        <div class="form-group">
+                                            <label for="alamatUser">Alamat</label>
+                                            <textarea type="text" name="" id="alamatUser" class="form-control" placeholder="Alamat" aria-describedby="helpId" style="border-radius: 15px;"></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
-                                            <textarea readonly class="form-control" style="border-radius: 15px;" id="alamat-BeritaEvent" cols="30" rows="2"></textarea>
+                                            <label for="judul-BeritaEvent" class="col-form-label">Nomor Telpon</label>
+                                            <input type="text" class="form-control" name="angka" placeholder="No telp/Hp" style="border-radius: 15px;">
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="isi-BeritaEvent" class="col-form-label">Jenis Kelamin</label>
+                                            <div class="row ml-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="form-check-input" name="gender" id="inlineRadio1" value="checkedValue">
+                                                    <label class="form-check-label" for="inlineRadio1">
+                                                        Laki - Laki
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="form-check-input" name="gender" id="inlineRadio2" value="checkedValue">
+                                                    <label class="form-check-label" for="inlineRadio2">
+                                                        Perempuan
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tanggal-LahirPengguna" class="col-form-label">Tanggal Lahir</label>
+                                            <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggal-LahirPengguna">
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="float-right">
                                     <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
-                                    <button type="button" onclick="location.href='<?= base_url() ?>/Berita-Event'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
+                                    <button type="button" onclick="location.href='<?= base_url() ?>/Data-User'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
                                 </div>
-                            </form>
                         </div>
+                        </form>
                     </div>
                 </div>
-            </section>
-
         </div>
-        <!-- /.content-wrapper -->
-        <?= view('Administrator/Template-Admin/Footer') ?>
+        </section>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+    </div>
+    <!-- /.content-wrapper -->
+    <?= view('Administrator/Template-Admin/Footer') ?>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
 
@@ -330,28 +288,6 @@
         zoom: 10
     });
 
-    const marker = new mapboxgl.Marker({
-            draggable: true
-        })
-        .setLngLat([117.1485239363954, -0.569178092470267])
-        .addTo(map);
-
-    function onDragEnd() {
-        const lngLat = marker.getLngLat();
-        coordinates.style.display = 'block';
-        coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
-
-        $.ajax({
-            url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw`,
-            dataType: "JSON"
-        }).done(result => {
-            $("#alamat-BeritaEvent").val(result.features[0].place_name)
-        })
-
-    }
-
-    marker.on('dragend', onDragEnd);
-
     $("input").on("change", function() {
         this.setAttribute(
             "data-date",
@@ -359,6 +295,13 @@
             .format(this.getAttribute("data-date-format"))
         )
     }).trigger("change")
+
+    function hanyaAngka(event) {
+        var angka = (event.which) ? event.which : event.keyCode
+        if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
+            return false;
+        return true;
+    }
 </script>
 
 </html>

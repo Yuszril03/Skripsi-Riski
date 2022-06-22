@@ -25,4 +25,16 @@ class Administrator extends BaseController
     {
         return view('Administrator/Berita-Event/editBerita-Event');
     }
+    public function DataUser()
+    {
+        return view('Administrator/Data-User/Data-User');
+    }
+    public function tambahDataUser()
+    {
+        return view('Administrator/Data-User/tambahData-User');
+    }
+    public function editDataUser()
+    {
+        return view('Administrator/Data-User/editData-User');
+    }
 }

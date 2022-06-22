@@ -31,6 +31,9 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js" charset="utf-8"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
     <style>
         .file-upload {
             height: max-content;
@@ -182,7 +185,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="judul-BeritaEvent" class="col-form-label">Judul:</label>
-                                            <input type="text" class="form-control" style="border-radius: 15px;" id="judul-BeritaEvent">
+                                            <input type="text" class="form-control" style="border-radius: 15px;" placeholder="Isi Judul" id="judul-BeritaEvent">
                                         </div>
                                         <div class="form-group">
                                             <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
@@ -190,7 +193,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
-                                            <input type="date" class="form-control" style="border-radius: 15px;" id="tanggal-BeritaEvent">
+                                            <input type="date" class="form-control" data-date="" onchange="(hanyaAngka)" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggal-BeritaEvent">
                                         </div>
 
                                     </div>
@@ -346,6 +349,29 @@
     }
 
     marker.on('dragend', onDragEnd);
+
+    $("input").on("change", function() {
+        this.setAttribute(
+            "data-date",
+            moment(this.value, "YYYY-MM-DD")
+            .format(this.getAttribute("data-date-format"))
+        )
+    }).trigger("change")
+
+    $("input").on("change", function() {
+        this.setAttribute(
+            "data-date",
+            moment(this.value, "YYYY-MM-DD")
+            .format(this.getAttribute("data-date-format"))
+        )
+    }).trigger("change")
+
+    function hanyaAngka(event) {
+        var angka = (event.which) ? event.which : event.keyCode
+        if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
+            return false;
+        return true;
+    }
 </script>
 
 </html>

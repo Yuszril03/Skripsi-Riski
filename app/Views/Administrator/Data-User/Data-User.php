@@ -50,12 +50,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data Berita & Event</h1>
+                            <h1 class="m-0">Data User</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Berita & Event</li>
+                                <li class="breadcrumb-item active">Data User</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -66,7 +66,7 @@
             <section class="content">
                 <div class="container-fluid">
                     <div class="float-right">
-                        <button onclick=" location.href=' <?= base_url() ?>/tambahBerita-Event'" style="border-radius: 15px;" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah</button>
+                        <button onclick=" location.href=' <?= base_url() ?>/tambahData-User'" style="border-radius: 15px;" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah</button>
                     </div>
                 </div>
                 <br>
@@ -78,22 +78,24 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th align="center">Judul</th>
-                                        <th align="center">Berita</th>
-                                        <th align="center">Alamat</th>
-                                        <th align="center">Tanggal</th>
+                                        <th align="center">Nama Pengguna</th>
+                                        <th align="center">Jenis Kelamin</th>
+                                        <th align="center">No Telp</th>
+                                        <th align="center">Email</th>
+                                        <th align="center">Status</th>
                                         <th align="center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>b</td>
                                         <td>c</td>
                                         <td>d</td>
                                         <td>e</td>
+                                        <td>f</td>
+                                        <td>g</td>
                                         <td>
                                             <button type="button" onclick="location.href='<?= base_url() ?>/detailBerita-Event'" class="btn btn-primary btn-sm"><i class="fa fa-info-circle"></i></button>
-                                            <button type="button" onclick="location.href='<?= base_url() ?>/editBerita-Event'" class="btn btn-warning btn-sm"><i class="fa fa-pen-alt"></i></button>
+                                            <button type="button" onclick="location.href='<?= base_url() ?>/editData-User'" class="btn btn-warning btn-sm"><i class="fa fa-pen-alt"></i></button>
                                             <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
