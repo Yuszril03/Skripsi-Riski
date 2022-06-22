@@ -249,6 +249,7 @@
                             <div class="float-right">
                                 <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
                                 <button type="button" onclick="KeluarForm()" class="btn btn-secondary m-1" style="border-radius: 15px;">Close</button>
+                                <button type="button" class="btn btn-danger m-1" style="border-radius: 15px;">Reset</button>
                             </div>
                         </div>
                     </div>
@@ -353,6 +354,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                     <button type="button" class="btn btn-primary">Simpan</button>
+
                                 </div>
                             </div>
                         </div>

@@ -42,6 +42,8 @@ $routes->get('/Detail-Mitra-Wisata', 'Administrator::DetailMitraWisata');
 //Hotel
 $routes->get('/Mitra-Hotel', 'Administrator::MitraHotel');
 $routes->get('/Tambah-Mitra-Hotel', 'Administrator::TambahMitraHotel');
+$routes->get('/Edit-Mitra-Hotel', 'Administrator::EditMitraHotel');
+$routes->get('/Detail-Mitra-Hotel', 'Administrator::DetailMitraHotel');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

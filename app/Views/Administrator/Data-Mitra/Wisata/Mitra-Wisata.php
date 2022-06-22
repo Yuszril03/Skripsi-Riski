@@ -93,7 +93,7 @@
                                             <td>
                                                 <button onclick="location.href='<?= base_url() ?>/Detail-Mitra-Wisata'" class="btn btn-info btn-sm" title="Detail Data"><i class="fa fa-info-circle"></i></button>
                                                 <button onclick="location.href='<?= base_url() ?>/Edit-Mitra-Wisata'" class="btn btn-warning btn-sm" title="Edit Data"><i class="fa fa-pen-alt"></i></button>
-                                                <button class="btn btn-danger btn-sm" title="Hapus Data"><i class="fa fa-trash-alt"></i></button>
+                                                <button class="btn btn-danger btn-sm" title="Hapus Data"><i class="fas fa-power-off"></i></button>
                                             </td>
                                         </tr>
                                     </tbody>

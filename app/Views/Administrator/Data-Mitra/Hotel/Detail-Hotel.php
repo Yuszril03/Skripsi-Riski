@@ -50,12 +50,16 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Mitra Hotel</h1>
+                            <h1 class="m-0">
+                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Mitra-Hotel`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
+                                Detail Hotel
+                            </h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Mitra Hotel</li>
+                                <li class="breadcrumb-item active">Detail Hotel</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -67,38 +71,60 @@
             <section class="content">
                 <div class="container-fluid">
 
-                    <div class="float-right">
-                        <button onclick="location.href='<?= base_url() ?>/Tambah-Mitra-Hotel'" class="btn btn-success" style="border-radius: 15px;">
-                            <i class="fa fa-plus-circle"></i> Tambah Mitra
-                        </button>
-                    </div>
-                    <br><br>
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
+                            <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" width="300" alt="">
+                            <h4 class="mt-2 font-weight-bold">Nama Hotel</h4>
+                            <div class="d-flex flex-row">
+                                <div class="pr-1">
+                                    <p style="font-size: 14px;" class="text-muted">
+                                        Rating
+                                        <span class="text-warning">(4.5)</span>
+                                    </p>
+                                </div>
+                                <div class="pr-1">|</div>
+                                <div>
+                                    <p style="font-size: 14px;" class="text-muted">
+                                        Komentar
+                                        <span class="text-primary">(10)</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <p>
+                                <i class="fa fa-map-pin"></i>
+                                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock
+                            </p>
+
+                            <p> <b>Deskripsi</b></p>
+                            <p>
+                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
+                            </p>
+                            <p> <b>Kamar Hotel</b></p>
                             <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama Hotel</th>
-                                            <th>Alamat Hotel</th>
-                                            <th>Status Hotel</th>
-                                            <th>Aksi </th>
-                                        </tr>
-                                    </thead>
+                                <table class="table table-sm table-striped">
                                     <tbody>
                                         <tr>
-                                            <td>Text</td>
-                                            <td>Text</td>
-                                            <td>Text</td>
                                             <td>
-                                                <button onclick="location.href='<?= base_url() ?>/Detail-Mitra-Hotel'" class="btn btn-info btn-sm" title="Detail Data"><i class="fa fa-info-circle"></i></button>
-                                                <button onclick="location.href='<?= base_url() ?>/Edit-Mitra-Hotel'" class="btn btn-warning btn-sm" title="Edit Data"><i class="fa fa-pen-alt"></i></button>
-                                                <button class="btn btn-danger btn-sm" title="Non Aktif Data"><i class="fas fa-power-off"></i></button>
+                                                <p>
+                                                    <b>Nama Kamar</b> <br>
+                                                    <span class="text-muted">Fasilita Kamar</span>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p>
+                                                    <b>Nama Kamar</b> <br>
+                                                    <span class="text-muted">Fasilita Kamar</span>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <i class="fa fa-check-circle fa-2x"></i>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+
                         </div>
                     </div>
 

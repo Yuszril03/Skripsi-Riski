@@ -36,4 +36,12 @@ class Administrator extends BaseController
     {
         return view('Administrator/Data-Mitra/Hotel/Add-Hotel');
     }
+    public function EditMitraHotel($id = false)
+    {
+        return view('Administrator/Data-Mitra/Hotel/Edit-Hotel');
+    }
+    public function DetailMitraHotel($id = false)
+    {
+        return view('Administrator/Data-Mitra/Hotel/Detail-Hotel');
+    }
 }
