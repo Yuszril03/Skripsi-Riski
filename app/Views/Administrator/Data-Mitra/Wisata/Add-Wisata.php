@@ -33,11 +33,15 @@
     <style>
         #map {
 
-            position: static;
+            position: relative;
             top: 0;
             bottom: 0;
             height: 300px;
             width: auto;
+        }
+
+        canvas {
+            height: 300px;
         }
 
         .mapboxgl-canvas {
