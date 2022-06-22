@@ -147,7 +147,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Detail Berita & Event</h1>
+                            <!-- <h1 class="m-0">Detail Berita & Event</h1> -->
+
+                            <h1 class="m-0">
+                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Berita-Event`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
+                                Detail Wisata
+                            </h1>
+
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -169,53 +175,41 @@
                                 <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" width="300" id="NoneImage" alt="">
                             </div>
                             <!-- /image -->
-                            
-
-                                <h4 class="mt-2 font-weight-bold">Nama Judul</h4>
-                                <div class="d-flex flex-row">
-                                    <div class="pr-1">
-                                        <p style="font-size: 14px;" class="text-muted">
-                                            10/5/2022
-                                        </p>
-                                    </div>
+                            <h4 class="mt-2 font-weight-bold">Nama Judul</h4>
+                            <div class="d-flex flex-row">
+                                <div class="pr-1">
+                                    <p style="font-size: 14px;" class="text-muted">
+                                        10/5/2022
+                                    </p>
                                 </div>
-
-
-                                <p>
-                                    <b>Berita</b>
-                                </p>
-
-                                <p>
-                                    Gananta tidak dapat menjelaskan lebih lanjut apakah petugas tersebut merupakan pengawal pribadi Buya Arrazy atau bukan. Menurutnya, tidak berwenang baginya untuk menyampaikan hal tersebut.
-                                    00:00 / 00:00
-                                    AdCrew
-
-                                    "Penugasan itu khusus dan sifatnya sangat rahasia. Kami tidak mendapatkan informasi mengenai itu," ujar Gananta.
-
-                                    Gananta juga memastikan bahwa pihaknya tidak bisa memproses hukum atas insiden penembakan ini. Pasalnya, wewenang Polres Tuban adalah unsur pidana umum. Sementara unsur pidana umum itu sendiri sudah gugur saat keluarga Buya Arrazy Hasyim mengikhlaskan korban meninggal.
-
-                                    Baca artikel detiknews, "Anak Buya Arrazy Tertembak, Pemilik Senpi Anggota Polri Ditarik Mabes" selengkapnya https://news.detik.com/berita/d-6142011/anak-buya-arrazy-tertembak-pemilik-senpi-anggota-polri-ditarik-mabes.
-
-                                    Download Apps Detikcom Sekarang https://apps.detik.com/detik/
-                                </p>
-
-                                <p><b>Lokasi Event</b></p>
-                                <p>
-                                    <i class="fa fa-map-pin"></i> Jl.blalasfalsjk kec bkasjkfhslfas kel jkshfjkashjfkhsa
-                                </p>
-                                <p>
-                                    <b>Tanggal Event</b>
-                                </p>
-                                <p<i class="fa fa-calendar"></i> 10/10/2022</p>
-
-
-
-
-
-                            
-                            <div class="lg-2">
-                                <button type="button" onclick="location.href='<?= base_url() ?>/Berita-Event'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
                             </div>
+
+                            <p>
+                                <b>Berita</b>
+                            </p>
+
+                            <p>
+                                Gananta tidak dapat menjelaskan lebih lanjut apakah petugas tersebut merupakan pengawal pribadi Buya Arrazy atau bukan. Menurutnya, tidak berwenang baginya untuk menyampaikan hal tersebut.
+                                00:00 / 00:00
+                                AdCrew
+
+                                "Penugasan itu khusus dan sifatnya sangat rahasia. Kami tidak mendapatkan informasi mengenai itu," ujar Gananta.
+
+                                Gananta juga memastikan bahwa pihaknya tidak bisa memproses hukum atas insiden penembakan ini. Pasalnya, wewenang Polres Tuban adalah unsur pidana umum. Sementara unsur pidana umum itu sendiri sudah gugur saat keluarga Buya Arrazy Hasyim mengikhlaskan korban meninggal.
+
+                                Baca artikel detiknews, "Anak Buya Arrazy Tertembak, Pemilik Senpi Anggota Polri Ditarik Mabes" selengkapnya https://news.detik.com/berita/d-6142011/anak-buya-arrazy-tertembak-pemilik-senpi-anggota-polri-ditarik-mabes.
+
+                                Download Apps Detikcom Sekarang https://apps.detik.com/detik/
+                            </p>
+
+                            <p><b>Lokasi Event</b></p>
+                            <p>
+                                <i class="fa fa-map-pin"></i> Jl.blalasfalsjk kec bkasjkfhslfas kel jkshfjkashjfkhsa
+                            </p>
+                            <p>
+                                <b>Tanggal Event</b>
+                            </p>
+                            <p><i class="fa fa-calendar"></i> 10/10/2022</p>
                         </div>
                     </div>
             </section>
