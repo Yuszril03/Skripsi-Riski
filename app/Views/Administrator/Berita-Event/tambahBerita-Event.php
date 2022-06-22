@@ -188,10 +188,6 @@
                                             <input type="text" class="form-control" style="border-radius: 15px;" placeholder="Isi Judul" id="judul-BeritaEvent">
                                         </div>
                                         <div class="form-group">
-                                            <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
-                                            <textarea class="form-control" style="border-radius: 15px;" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
-                                        </div>
-                                        <div class="form-group">
                                             <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
                                             <input type="date" class="form-control" data-date="" onchange="(hanyaAngka)" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggal-BeritaEvent">
                                         </div>
@@ -206,9 +202,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
-                                            <textarea readonly class="form-control" style="border-radius: 15px;" id="alamat-BeritaEvent" cols="30" rows="2"></textarea>
+                                            <textarea readonly class="form-control" style="border-radius: 15px; height: 130px;" id="alamat-BeritaEvent" cols="30" rows="2"></textarea>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
+                                    <textarea class="form-control" style="border-radius: 15px;" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
                                 </div>
                                 <div class="float-right">
                                     <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>

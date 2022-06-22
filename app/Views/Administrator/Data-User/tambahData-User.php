@@ -84,7 +84,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Tambah Berita & Event</h1>
+                            <h1 class="m-0">Tambah User</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -106,7 +106,6 @@
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
                                             <label for="">Upload Foto Profil</label>
-
                                             <div class="file-upload">
                                                 <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
                                                 <div class="Imagees">
@@ -137,13 +136,13 @@
                                     </div>
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
-                                          <label for="alamatUser">Alamat</label>
-                                          <textarea type="text" name="" id="alamatUser" class="form-control" placeholder="Alamat" aria-describedby="helpId" style="border-radius: 15px;"></textarea>
+                                            <label for="alamatUser">Alamat</label>
+                                            <textarea type="text" name="" id="alamatUser" class="form-control" placeholder="Alamat" aria-describedby="helpId" style="border-radius: 15px;"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="noTelp" class="col-form-label">Nomor Telpon</label>
                                             <input type="text" class="form-control" name="angka" placeholder="No telp/Hp" id="noTelp" style="border-radius: 15px;">
-                                            
+
                                         </div>
                                         <div class="form-group">
                                             <label for="isi-BeritaEvent" class="col-form-label">Jenis Kelamin</label>

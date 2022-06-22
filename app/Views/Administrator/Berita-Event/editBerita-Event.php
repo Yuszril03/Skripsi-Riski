@@ -141,7 +141,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Tambah Berita & Event</h1>
+                            <h1 class="m-0">Edit Berita & Event</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -185,17 +185,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="judul-BeritaEvent" class="col-form-label">Judul:</label>
-                                            <input type="text" class="form-control" style="border-radius: 15px;" id="judul-BeritaEvent">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
-                                            <textarea class="form-control" style="border-radius: 15px;" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
+                                            <input type="text" class="form-control" style="border-radius: 15px;" placeholder="Isi Judul" id="judul-BeritaEvent">
                                         </div>
                                         <div class="form-group">
                                             <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
-                                            <!-- <input type="date" class="form-control" style="border-radius: 15px;" id="tanggal-BeritaEvent"> -->
-                                            <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YYYY" value="2022-01-09" style="border-radius: 15px;" id="tanggal-BeritaEvent">
-
+                                            <input type="date" class="form-control" data-date="" onchange="(hanyaAngka)" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggal-BeritaEvent">
                                         </div>
 
                                     </div>
@@ -208,9 +202,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
-                                            <textarea readonly class="form-control" style="border-radius: 15px;" id="alamat-BeritaEvent" cols="30" rows="2"></textarea>
+                                            <textarea readonly class="form-control" style="border-radius: 15px; height: 130px;" id="alamat-BeritaEvent" cols="30" rows="2"></textarea>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
+                                    <textarea class="form-control" style="border-radius: 15px;" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
                                 </div>
                                 <div class="float-right">
                                     <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
@@ -359,6 +357,21 @@
             .format(this.getAttribute("data-date-format"))
         )
     }).trigger("change")
+
+    $("input").on("change", function() {
+        this.setAttribute(
+            "data-date",
+            moment(this.value, "YYYY-MM-DD")
+            .format(this.getAttribute("data-date-format"))
+        )
+    }).trigger("change")
+
+    function hanyaAngka(event) {
+        var angka = (event.which) ? event.which : event.keyCode
+        if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
+            return false;
+        return true;
+    }
 </script>
 
 </html>

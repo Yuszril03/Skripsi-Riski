@@ -113,6 +113,17 @@
         .overlay button:hover {
             background-color: #4ea0da;
         }
+
+        .coverBerita {
+            min-height: 200px;
+            width: 50%;
+            margin-left: 35%;
+            object-fit: cover;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+
     </style>
 </head>
 
@@ -138,7 +149,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Tambah Berita & Event</h1>
+                            <h1 class="m-0">Detail Berita & Event</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -155,63 +166,40 @@
                 <div class="container-fluid">
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
-                            <form action="">
-                                <div class="row">
-                                    <div class="col-lg-6 col-12">
-                                        <div class="form-group">
-                                            <label for="">Foto Profil Wisata</label>
+                            <div class="coverBerita">
+                                <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" width="300" id="NoneImage" alt="">
+                                <!-- <div class="ImageCover">
 
-                                            <div class="file-upload">
-                                                <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
-                                                <div class="Imagees">
-                                                    <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" id="NoneImage" alt="">
-                                                    <img src="" id="AddImage" alt="">
-                                                </div>
-                                                <center>
-                                                    <div class="image-upload-wrap" style="margin-top: -110px ;">
-                                                        <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
-
-                                                        <div class="drag-text mt-4">
-                                                            <h6 style="margin-top:-20px;">Drag and drop files or select add Image</h6>
-                                                        </div>
-                                                    </div>
-                                                    <p class="image-title">Uploaded Image</p>
-                                                </center>
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="judul-BeritaEvent" class="col-form-label">Judul:</label>
-                                            <input type="text" class="form-control" style="border-radius: 15px;" id="judul-BeritaEvent">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
-                                            <textarea class="form-control" style="border-radius: 15px;" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
-                                            <input type="date" class="form-control" style="border-radius: 15px;" id="tanggal-BeritaEvent">
-                                        </div>
-
+                                </div> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label for="judul-BeritaEvent" class="col-form-label">Judul:</label>
+                                        <input type="text" class="form-control" style="border-radius: 15px;" id="judul-BeritaEvent">
                                     </div>
-                                    <div class="col-lg-6 col-12">
-                                        <div id="map"></div>
-                                        <pre style="opacity: 0;" id="coordinates" class="coordinates"></pre>
-                                        <div class="overlay">
-                                            <!-- <button id="replay">Replay</button> -->
-                                            <p id="ok"></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
-                                            <textarea readonly class="form-control" style="border-radius: 15px;" id="alamat-BeritaEvent" cols="30" rows="2"></textarea>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
+                                        <textarea class="form-control" style="border-radius: 15px;" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
+                                        <input type="date" class="form-control" style="border-radius: 15px;" id="tanggal-BeritaEvent">
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
+                                        <textarea readonly class="form-control" style="border-radius: 15px;" id="alamat-BeritaEvent" cols="30" rows="2"></textarea>
                                     </div>
                                 </div>
-                                <div class="float-right">
-                                    <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
-                                    <button type="button" onclick="location.href='<?= base_url() ?>/Berita-Event'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="float-right">
+                                <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
+                                <button type="button" onclick="location.href='<?= base_url() ?>/Berita-Event'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
