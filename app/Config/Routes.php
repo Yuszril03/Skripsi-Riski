@@ -34,6 +34,8 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Administrator::index');
 $routes->get('/Mitra-Wisata', 'Administrator::MitraWisata');
 $routes->get('/Tambah-Mitra-Wisata', 'Administrator::TambahMitraWisata');
+$routes->get('/Edit-Mitra-Wisata', 'Administrator::EditMitraWisata');
+$routes->get('/Detail-Mitra-Wisata', 'Administrator::DetailMitraWisata');
 
 /*
  * --------------------------------------------------------------------

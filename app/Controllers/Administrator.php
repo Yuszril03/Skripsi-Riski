@@ -18,4 +18,12 @@ class Administrator extends BaseController
     {
         return view('Administrator/Data-Mitra/Wisata/Add-Wisata');
     }
+    public function EditMitraWisata($id = false)
+    {
+        return view('Administrator/Data-Mitra/Wisata/Edit-Wisata');
+    }
+    public function DetailMitraWisata($id = false)
+    {
+        return view('Administrator/Data-Mitra/Wisata/Detail-Wisata');
+    }
 }

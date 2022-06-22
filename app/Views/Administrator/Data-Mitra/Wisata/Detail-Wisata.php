@@ -50,12 +50,16 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Mitra Wisata</h1>
+                            <h1 class="m-0">
+                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Mitra-Wisata`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
+                                Detail Wisata
+                            </h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Mitra Wisata</li>
+                                <li class="breadcrumb-item active">Detail Wisata</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -67,38 +71,41 @@
             <section class="content">
                 <div class="container-fluid">
 
-                    <div class="float-right">
-                        <button onclick="location.href='<?= base_url() ?>/Tambah-Mitra-Wisata'" class="btn btn-success" style="border-radius: 15px;">
-                            <i class="fa fa-plus-circle"></i> Tambah
-                        </button>
-                    </div>
-                    <br><br>
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama Wisata</th>
-                                            <th>Alamat Wisata</th>
-                                            <th>Status Wisata</th>
-                                            <th>Aksi </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Text</td>
-                                            <td>Text</td>
-                                            <td>Text</td>
-                                            <td>
-                                                <button onclick="location.href='<?= base_url() ?>/Detail-Mitra-Wisata'" class="btn btn-info btn-sm" title="Detail Data"><i class="fa fa-info-circle"></i></button>
-                                                <button onclick="location.href='<?= base_url() ?>/Edit-Mitra-Wisata'" class="btn btn-warning btn-sm" title="Edit Data"><i class="fa fa-pen-alt"></i></button>
-                                                <button class="btn btn-danger btn-sm" title="Hapus Data"><i class="fa fa-trash-alt"></i></button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" width="300" alt="">
+                            <h4 class="mt-2 font-weight-bold">Nama Wisata</h4>
+                            <div class="d-flex flex-row">
+                                <div class="pr-1">
+                                    <p style="font-size: 14px;" class="text-muted">
+                                        Rating
+                                        <span class="text-warning">(4.5)</span>
+                                    </p>
+                                </div>
+                                <div class="pr-1">|</div>
+                                <div>
+                                    <p style="font-size: 14px;" class="text-muted">
+                                        Komentar
+                                        <span class="text-primary">(10)</span>
+                                    </p>
+                                </div>
                             </div>
+
+                            <p>
+                                <i class="fa fa-map-pin"></i>
+                                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock
+                            </p>
+
+                            <p> <b>Deskripsi</b></p>
+                            <p>
+                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
+                            </p>
+                            <p> <b>Harga Tiket</b></p>
+                            <ul>
+                                <li>Tiket Anak-Anak : Rp. 1000</li>
+                                <li>Tiket Dewasa : Rp. 1000</li>
+                            </ul>
+
                         </div>
                     </div>
 
