@@ -122,8 +122,6 @@
             padding: 20px;
             border-radius: 15px;
         }
-
-
     </style>
 </head>
 
@@ -166,43 +164,60 @@
                 <div class="container-fluid">
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
+                            <!-- image -->
                             <div class="coverBerita">
                                 <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" width="300" id="NoneImage" alt="">
-                                <!-- <div class="ImageCover">
-
-                                </div> -->
                             </div>
-                            <div class="row">
-                                <div class="col-lg-6 col-12">
-                                    <div class="form-group">
-                                        <label for="judul-BeritaEvent" class="col-form-label">Judul:</label>
-                                        <input type="text" class="form-control" style="border-radius: 15px;" id="judul-BeritaEvent">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
-                                        <textarea class="form-control" style="border-radius: 15px;" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
-                                        <input type="date" class="form-control" style="border-radius: 15px;" id="tanggal-BeritaEvent">
-                                    </div>
+                            <!-- /image -->
+                            
 
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                    <div class="form-group">
-                                        <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
-                                        <textarea readonly class="form-control" style="border-radius: 15px;" id="alamat-BeritaEvent" cols="30" rows="2"></textarea>
+                                <h4 class="mt-2 font-weight-bold">Nama Judul</h4>
+                                <div class="d-flex flex-row">
+                                    <div class="pr-1">
+                                        <p style="font-size: 14px;" class="text-muted">
+                                            10/5/2022
+                                        </p>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="float-right">
-                                <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
+
+
+                                <p>
+                                    <b>Berita</b>
+                                </p>
+
+                                <p>
+                                    Gananta tidak dapat menjelaskan lebih lanjut apakah petugas tersebut merupakan pengawal pribadi Buya Arrazy atau bukan. Menurutnya, tidak berwenang baginya untuk menyampaikan hal tersebut.
+                                    00:00 / 00:00
+                                    AdCrew
+
+                                    "Penugasan itu khusus dan sifatnya sangat rahasia. Kami tidak mendapatkan informasi mengenai itu," ujar Gananta.
+
+                                    Gananta juga memastikan bahwa pihaknya tidak bisa memproses hukum atas insiden penembakan ini. Pasalnya, wewenang Polres Tuban adalah unsur pidana umum. Sementara unsur pidana umum itu sendiri sudah gugur saat keluarga Buya Arrazy Hasyim mengikhlaskan korban meninggal.
+
+                                    Baca artikel detiknews, "Anak Buya Arrazy Tertembak, Pemilik Senpi Anggota Polri Ditarik Mabes" selengkapnya https://news.detik.com/berita/d-6142011/anak-buya-arrazy-tertembak-pemilik-senpi-anggota-polri-ditarik-mabes.
+
+                                    Download Apps Detikcom Sekarang https://apps.detik.com/detik/
+                                </p>
+
+                                <p><b>Lokasi Event</b></p>
+                                <p>
+                                    <i class="fa fa-map-pin"></i> Jl.blalasfalsjk kec bkasjkfhslfas kel jkshfjkashjfkhsa
+                                </p>
+                                <p>
+                                    <b>Tanggal Event</b>
+                                </p>
+                                <p<i class="fa fa-calendar"></i> 10/10/2022</p>
+
+
+
+
+
+                            
+                            <div class="lg-2">
                                 <button type="button" onclick="location.href='<?= base_url() ?>/Berita-Event'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
                             </div>
-
                         </div>
                     </div>
-                </div>
             </section>
 
         </div>
