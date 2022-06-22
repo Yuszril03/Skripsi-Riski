@@ -150,8 +150,8 @@
                             <!-- <h1 class="m-0">Detail Berita & Event</h1> -->
 
                             <h1 class="m-0">
-                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Berita-Event`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
-                                Detail Berita & Event
+                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Data-User`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
+                                Detail User
                             </h1>
 
                         </div><!-- /.col -->
@@ -172,45 +172,43 @@
                         <div class="card-body">
                             <!-- image -->
                             <div class="coverBerita">
-                                <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" width="300" id="NoneImage" alt="">
+                                <img src="<?= base_url() ?>/Image/Icon/UploadProfile.svg" width="300" id="NoneImage" alt="">
                             </div>
                             <!-- /image -->
-                            <h4 class="mt-2 font-weight-bold">Nama Judul</h4>
-                            <div class="d-flex flex-row">
-                                <div class="pr-1">
-                                    <p style="font-size: 14px;" class="text-muted">
-                                        10/5/2022
-                                    </p>
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <p><b>Nama Pengguna</b></p>
+                                            <p>Anto Chibi</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <p><b>Email</b></p>
+                                            <p>harahara@gmail.com</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <p><b>Alamat</b></p>
+                                            <p>Jl.fgsdfyugsgfsgfsgfsgfbysaudtrysgfyusdfgsdyuhfbsadhufusdafhsaudifhasudgfyegfsudahfsjadkhfsjadkfgyaegdshf</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+
+                                        <div class="form-group">
+                                            <p><b>No Telp</b></p>
+                                            <p>084556785858</p>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <p><b>Jenis Kelamin</b></p>
+                                            <p>L</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <p><b>Tanggal Lahir</b></p>
+                                            <p>12/04/1995</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <p>
-                                <b>Berita</b>
-                            </p>
-
-                            <p>
-
-                                Gananta tidak dapat menjelaskan lebih lanjut apakah petugas tersebut merupakan pengawal pribadi Buya Arrazy atau bukan. Menurutnya, tidak berwenang baginya untuk menyampaikan hal tersebut.
-                                00:00 / 00:00
-                                AdCrew
-
-                                "Penugasan itu khusus dan sifatnya sangat rahasia. Kami tidak mendapatkan informasi mengenai itu," ujar Gananta.
-
-                                Gananta juga memastikan bahwa pihaknya tidak bisa memproses hukum atas insiden penembakan ini. Pasalnya, wewenang Polres Tuban adalah unsur pidana umum. Sementara unsur pidana umum itu sendiri sudah gugur saat keluarga Buya Arrazy Hasyim mengikhlaskan korban meninggal.
-
-                                Baca artikel detiknews, "Anak Buya Arrazy Tertembak, Pemilik Senpi Anggota Polri Ditarik Mabes" selengkapnya https://news.detik.com/berita/d-6142011/anak-buya-arrazy-tertembak-pemilik-senpi-anggota-polri-ditarik-mabes.
-
-                                Download Apps Detikcom Sekarang https://apps.detik.com/detik/
-                            </p>
-
-                            <p><b>Lokasi Event</b></p>
-                            <p>
-                                <i class="fa fa-map-pin"></i> Jl.blalasfalsjk kec bkasjkfhslfas kel jkshfjkashjfkhsa
-                            </p>
-                            <p>
-                                <b>Tanggal Event</b>
-                            </p>
-                            <p><i class="fa fa-calendar"></i> 10/10/2022</p>
+                            </form>
                         </div>
                     </div>
             </section>

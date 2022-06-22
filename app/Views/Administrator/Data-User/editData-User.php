@@ -83,7 +83,7 @@
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        <div class="col-sm-6">  
+                        <div class="col-sm-6">
                             <h1 class="m-0">Edit Data User</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
@@ -171,24 +171,24 @@
                                 </div>
                                 <div class="float-right">
                                     <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
-                                    <button type="button" onclick="location.href='<?= base_url() ?>/Data-User'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
+                                    <button type="button" onclick="KeluarForm()" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
                                 </div>
+
+                            </form>
                         </div>
-                        </form>
                     </div>
                 </div>
+            </section>
+
         </div>
-        </section>
+        <!-- /.content-wrapper -->
+        <?= view('Administrator/Template-Admin/Footer') ?>
 
-    </div>
-    <!-- /.content-wrapper -->
-    <?= view('Administrator/Template-Admin/Footer') ?>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
 
@@ -226,6 +226,7 @@
     <script src="<?= base_url() ?>/AdminLTE/dists/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 <script>
@@ -301,6 +302,23 @@
         if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
             return false;
         return true;
+    }
+
+    function KeluarForm() {
+        Swal.fire({
+            title: 'Apa kamu yakin?',
+            text: "Meninggalkan halaman ini",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Iya',
+            cancelButtonText: 'Tidak',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "<?= base_url() ?>/Data-User"
+            }
+        })
     }
 </script>
 

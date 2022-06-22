@@ -172,22 +172,22 @@
                                     <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
                                     <button type="button" onclick="location.href='<?= base_url() ?>/Data-User'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
                                 </div>
+
+                            </form>
                         </div>
-                        </form>
                     </div>
                 </div>
+            </section>
+
         </div>
-        </section>
+        <!-- /.content-wrapper -->
+        <?= view('Administrator/Template-Admin/Footer') ?>
 
-    </div>
-    <!-- /.content-wrapper -->
-    <?= view('Administrator/Template-Admin/Footer') ?>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
 

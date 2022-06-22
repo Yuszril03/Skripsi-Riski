@@ -37,4 +37,8 @@ class Administrator extends BaseController
     {
         return view('Administrator/Data-User/editData-User');
     }
+    public function detailDataUser()
+    {
+        return view('Administrator/Data-User/detailData-User');
+    }
 }
