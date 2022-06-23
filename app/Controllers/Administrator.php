@@ -44,4 +44,39 @@ class Administrator extends BaseController
     {
         return view('Administrator/Data-Mitra/Hotel/Detail-Hotel');
     }
+
+
+    //Mitra Rental
+    public function MitraRental()
+    {
+        return view('Administrator/Data-Mitra/Rental/Mitra-Rental');
+    }
+    public function TambahMitraRental()
+    {
+        return view('Administrator/Data-Mitra/Rental/Add-Rental');
+    }
+    public function EditMitraRental($id = false)
+    {
+        return view('Administrator/Data-Mitra/Rental/Edit-Rental');
+    }
+
+    public function DetailMitraRental($id = false)
+    {
+        return view('Administrator/Data-Mitra/Rental/Detail-Rental');
+    }
+
+    //Pemesanan
+    public function PemesananWisata()
+    {
+        return view('Administrator/Data-Pemesanan/Pemesanan-Wisata');
+    }
+    public function PemesananRental()
+    {
+        return view('Administrator/Data-Pemesanan/Pemesanan-Rental');
+    }
+    public function PemesananHotel()
+    {
+        return view('Administrator/Data-Pemesanan/Pemesanan-Hotel');
+    }
+
 }

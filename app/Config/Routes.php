@@ -44,6 +44,19 @@ $routes->get('/Mitra-Hotel', 'Administrator::MitraHotel');
 $routes->get('/Tambah-Mitra-Hotel', 'Administrator::TambahMitraHotel');
 $routes->get('/Edit-Mitra-Hotel', 'Administrator::EditMitraHotel');
 $routes->get('/Detail-Mitra-Hotel', 'Administrator::DetailMitraHotel');
+
+
+//Rental
+$routes->get('/Mitra-Rental', 'Administrator::MitraRental');
+$routes->get('/Tambah-Mitra-Rental', 'Administrator::TambahMitraRental');
+$routes->get('/Edit-Mitra-Rental', 'Administrator::EditMitraRental');
+$routes->get('/Detail-Mitra-Rental', 'Administrator::DetailMitraRental');
+
+//Pemesanan
+$routes->get('/Pemesanan-Wisata', 'Administrator::PemesananWisata');
+$routes->get('/Pemesanan-Rental', 'Administrator::PemesananRental');
+$routes->get('/Pemesanan-Hotel', 'Administrator::PemesananHotel');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -64,7 +64,7 @@
                      </ul>
                  </li>
                  <li class="nav-item">
-                     <a href="<?= base_url() ?>/Mitra-Hotel" class="nav-link">
+                     <a href="<?= base_url() ?>/Pemesanan-Hotel" class="nav-link">
                          <i class="nav-icon fas fa-th"></i>
                          <p>
                              Widgets
