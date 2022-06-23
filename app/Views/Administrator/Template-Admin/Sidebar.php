@@ -85,7 +85,7 @@
                      <a href="<?= base_url() ?>/Reting-Komentar" class="nav-link">
                          <i class="nav-icon fas fa-th"></i>
                          <p>
-                             Reting & Komentar
+                             Review
                              <!-- <span class="right badge badge-danger">New</span> -->
                          </p>
                      </a>
