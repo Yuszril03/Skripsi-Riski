@@ -25,7 +25,7 @@
                  <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                  <li class="nav-item ">
-                     <a href="<?= base_url() ?>/Pemesanan-Hotel" class="nav-link active">
+                     <a href="<?= base_url() ?>/" class="nav-link active">
                          <i class="nav-icon fas fa-home"></i>
                          <p>
                              Beranda
@@ -34,7 +34,7 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a href="<?= base_url() ?>/Pemesanan-Hotel" class="nav-link">
+                     <a href="<?= base_url() ?>/Berita-Event" class="nav-link">
                          <i class="nav-icon fas fa-newspaper"></i>
                          <p>
                              Berita & Event
@@ -61,19 +61,19 @@
                      </a>
                      <ul class="nav nav-treeview">
                          <li class="nav-item">
-                             <a href="pages/layout/top-nav.html" class="nav-link">
+                             <a href="<?= base_url() ?>/Mitra-Hotel" class="nav-link">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Mitra Hotel</p>
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                             <a href="<?= base_url() ?>/Mitra-Rental" class="nav-link">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Mitra Rental</p>
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="pages/layout/boxed.html" class="nav-link">
+                             <a href="<?= base_url() ?>/Mitra-Wisata" class="nav-link">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Mitra Wisata</p>
                              </a>
@@ -91,19 +91,19 @@
                      </a>
                      <ul class="nav nav-treeview">
                          <li class="nav-item">
-                             <a href="pages/layout/top-nav.html" class="nav-link">
+                             <a href="<?= base_url() ?>/Pemesanan-Hotel" class="nav-link">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Pemesanan Hotel</p>
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                             <a href="<?= base_url() ?>/Pemesanan-Rental" class="nav-link">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Pemesanan Rental</p>
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="pages/layout/boxed.html" class="nav-link">
+                             <a href="<?= base_url() ?>/Pemesanan-Wisata" class="nav-link">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Pemesanan Wisata</p>
                              </a>
