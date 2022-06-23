@@ -9,6 +9,7 @@ class Administrator extends BaseController
         return view('Administrator/Home');
     }
 
+
     //Mitra Wisata
     public function MitraWisata()
     {
@@ -79,4 +80,44 @@ class Administrator extends BaseController
         return view('Administrator/Data-Pemesanan/Pemesanan-Hotel');
     }
 
+    public function BeritaEvent()
+    {
+        return view('Administrator/Berita-Event/Berita-Event');
+    }
+    public function tambahBeritaEvent()
+    {
+        return view('Administrator/Berita-Event/tambahBerita-Event');
+    }
+    public function detailBeritaEvent()
+    {
+        return view('Administrator/Berita-Event/detailBerita-Event');
+    }
+    public function editBeritaEvent()
+    {
+        return view('Administrator/Berita-Event/editBerita-Event');
+    }
+    public function DataUser()
+    {
+        return view('Administrator/Data-User/Data-User');
+    }
+    public function tambahDataUser()
+    {
+        return view('Administrator/Data-User/tambahData-User');
+    }
+    public function editDataUser()
+    {
+        return view('Administrator/Data-User/editData-User');
+    }
+    public function detailDataUser()
+    {
+        return view('Administrator/Data-User/detailData-User');
+    }
+    public function RetingKomentar()
+    {
+        return view('Administrator/Reting-Komentar/Reting-Komentar');
+    }
+    public function detailRetingKomentar()
+    {
+        return view('Administrator/Reting-Komentar/detailReting-Komentar');
+    }
 }

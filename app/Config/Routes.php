@@ -31,6 +31,7 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
 // $routes->get('/', 'Administrator::index');
 
 //Wisata
@@ -61,6 +62,18 @@ $routes->get('/Pemesanan-Hotel', 'Administrator::PemesananHotel');
 //Login
 // $routes->get('/', 'Login::LoginAdmin');
 $routes->get('/', 'Login::LoginMitra');
+
+
+$routes->get('/Berita-Event', 'Administrator::BeritaEvent');
+$routes->get('/tambahBerita-Event', 'Administrator::tambahBeritaEvent');
+$routes->get('/detailBerita-Event', 'Administrator::detailBeritaEvent');
+$routes->get('/editBerita-Event', 'Administrator::editBeritaEvent');
+$routes->get('/Data-User', 'Administrator::DataUser');
+$routes->get('/tambahData-User', 'Administrator::tambahDataUser');
+$routes->get('/editData-User', 'Administrator::editDataUser');
+$routes->get('/detailData-User', 'Administrator::detailDataUser');
+$routes->get('/Reting-Komentar', 'Administrator::RetingKomentar');
+$routes->get('/detailReting-Komentar', 'Administrator::detailRetingKomentar');
 
 
 /*

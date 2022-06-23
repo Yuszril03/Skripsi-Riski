@@ -67,8 +67,26 @@
                      <a href="<?= base_url() ?>/Pemesanan-Hotel" class="nav-link">
                          <i class="nav-icon fas fa-th"></i>
                          <p>
-                             Widgets
-                             <span class="right badge badge-danger">New</span>
+                             Berita & Event
+                             <!-- <span class="right badge badge-danger">New</span> -->
+                         </p>
+                     </a>
+                 </li>
+                 <li class="nav-item">
+                     <a href="<?= base_url() ?>/Data-User" class="nav-link">
+                         <i class="nav-icon fas fa-th"></i>
+                         <p>
+                             Data User
+                             <!-- <span class="right badge badge-danger">New</span> -->
+                         </p>
+                     </a>
+                 </li>
+                 <li class="nav-item">
+                     <a href="<?= base_url() ?>/Reting-Komentar" class="nav-link">
+                         <i class="nav-icon fas fa-th"></i>
+                         <p>
+                             Review
+                             <!-- <span class="right badge badge-danger">New</span> -->
                          </p>
                      </a>
                  </li>
