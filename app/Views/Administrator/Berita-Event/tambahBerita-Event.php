@@ -147,6 +147,7 @@
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Berita & Event</li>
+                                <li class="breadcrumb-item active">Tambah Berita & Event</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -162,7 +163,7 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
-                                            <label for="">Foto Profil Wisata</label>
+                                            <label for="">Gambar Berita</label>
 
                                             <div class="file-upload">
                                                 <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>

@@ -45,4 +45,8 @@ class Administrator extends BaseController
     {
         return view('Administrator/Reting-Komentar/Reting-Komentar');
     }
+    public function detailRetingKomentar()
+    {
+        return view('Administrator/Reting-Komentar/detailReting-Komentar');
+    }
 }

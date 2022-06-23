@@ -158,7 +158,8 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Berita & Event</li>
+                                <li class="breadcrumb-item active">Data User</li>
+                                <li class="breadcrumb-item active">Detail User</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -177,34 +178,37 @@
                             <!-- /image -->
                             <form action="">
                                 <div class="row">
-                                    <div class="col-lg-6 col-12">
+                                    <div class="col-lg-5 col-12">
                                         <div class="form-group">
-                                            <p><b>Nama Pengguna</b></p>
-                                            <p>Anto Chibi</p>
+                                            <p style="color: gray;">Nama Pengguna</p>
+                                            <p class="font-weight-bold" style="margin-top: -15px;">Anto Chibi</p>
                                         </div>
                                         <div class="form-group">
-                                            <p><b>Email</b></p>
-                                            <p>harahara@gmail.com</p>
+                                            <p style="color: gray;">Email</p>
+                                            <p class="font-weight-bold" style="margin-top: -15px;">harahara@gmail.com</p>
                                         </div>
                                         <div class="form-group">
-                                            <p><b>Alamat</b></p>
-                                            <p>Jl.fgsdfyugsgfsgfsgfsgfbysaudtrysgfyusdfgsdyuhfbsadhufusdafhsaudifhasudgfyegfsudahfsjadkhfsjadkfgyaegdshf</p>
+                                            <p style="color: gray;">Alamat</p>
+                                            <p class="font-weight-bold" style="margin-top: -15px;">Jl.fgsdfyugsgfsgfsgfsgfbysaudtrysgfyusdfgsdyuhfbsadhufusdafhsaudifhasudgfyegfsudahfsjadkhfsjadkfgyaegdshf</p>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-12">
+                                    <div class="col-2">
+
+                                    </div>
+                                    <div class="col-lg-5 col-12">
 
                                         <div class="form-group">
-                                            <p><b>No Telp</b></p>
-                                            <p>084556785858</p>
+                                            <p style="color: gray;">No Telp</p>
+                                            <p class="font-weight-bold" style="margin-top: -15px;">084556785858</p>
 
                                         </div>
                                         <div class="form-group">
-                                            <p><b>Jenis Kelamin</b></p>
-                                            <p>L</p>
+                                            <p style="color: gray;">Jenis Kelamin</p>
+                                            <p class="font-weight-bold" style="margin-top: -15px;">L</p>
                                         </div>
                                         <div class="form-group">
-                                            <p><b>Tanggal Lahir</b></p>
-                                            <p>12/04/1995</p>
+                                            <p style="color: gray;">Tanggal Lahir</p>
+                                            <p class="font-weight-bold" style="margin-top: -15px;">12/04/1995</p>
                                         </div>
                                     </div>
                                 </div>

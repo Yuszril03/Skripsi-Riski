@@ -50,7 +50,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data User</h1>
+                            <h1 class="m-0">Data Review</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -64,11 +64,7 @@
             <!-- /.content-header -->
 
             <section class="content">
-                <div class="container-fluid">
-                    <div class="float-right">
-                        <button onclick=" location.href=' <?= base_url() ?>/tambahData-User'" style="border-radius: 15px;" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah</button>
-                    </div>
-                </div>
+
                 <br>
                 <br>
 
@@ -80,8 +76,8 @@
                                     <tr>
                                         <th align="center">Nama Pengguna</th>
                                         <th align="center">Nama Mitra</th>
-                                        <th align="center">Jenis Mitra</th>
-                                        <th align="center">Review</th>
+                                        <!-- <th align="center">Jenis Mitra</th> -->
+                                        <th align="center">Reting</th>
                                         <th align="center">Komentar</th>
                                         <th align="center">tanggapan</th>
                                         <th align="center">Aksi</th>
@@ -94,9 +90,8 @@
                                         <td>c</td>
                                         <td>d</td>
                                         <td>e</td>
-                                        <td>f</td>
                                         <td>
-                                            <button type="button" onclick="location.href='<?= base_url() ?>/detailData-User'" class="btn btn-primary btn-sm">
+                                            <button type="button" onclick="location.href='<?= base_url() ?>/detailReting-Komentar'" class="btn btn-primary btn-sm">
                                                 <i class="fa fa-info-circle"></i>
                                             </button>
                                         </td>

@@ -31,9 +31,6 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js" charset="utf-8"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
     <style>
         .file-upload {
             height: max-content;
@@ -116,6 +113,21 @@
         .overlay button:hover {
             background-color: #4ea0da;
         }
+
+        .coverBerita {
+            min-height: 200px;
+            width: 50%;
+            margin-left: 35%;
+            object-fit: cover;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .colorr {
+            background-color: black;
+            height: 220px;
+            width: 1px;
+        }
     </style>
 </head>
 
@@ -141,13 +153,19 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Edit Berita & Event</h1>
+                            <!-- <h1 class="m-0">Detail Berita & Event</h1> -->
+
+                            <h1 class="m-0">
+                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Reting-Komentar`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
+                                Detail Transaksi
+                            </h1>
+
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Berita & Event</li>
-                                <li class="breadcrumb-item active">Edit Berita & Event</li>
+                                <li class="breadcrumb-item active">Transaksi</li>
+                                <li class="breadcrumb-item active">Detail Transaksi</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -159,66 +177,123 @@
                 <div class="container-fluid">
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
-                            <form action="">
-                                <div class="row">
-                                    <div class="col-lg-6 col-12">
-                                        <div class="form-group">
-                                            <label for="">Gambar Berita</label>
+                            <div class="row">
+                                <div class="col-lg-5 ">
+                                    <div class="form-group">
+                                        <p style="color: gray;">Nama Pengguna</p>
+                                        <p class="font-weight-bold" style="margin-top: -15px;">Anto Chibi</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p style="color: gray;">Nama Mitra</p>
+                                        <p class="font-weight-bold" style="margin-top: -15px;">Bolololo</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p style="color: gray;">Jenis Mitra</p>
+                                        <p class="font-weight-bold" style="margin-top: -15px;">Wisata</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 ">
+                                    <center>
+                                        <div class="colorr">
 
-                                            <div class="file-upload">
-                                                <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
-                                                <div class="Imagees">
-                                                    <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" id="NoneImage" alt="">
-                                                    <img src="" id="AddImage" alt="">
-                                                </div>
-                                                <center>
-                                                    <div class="image-upload-wrap" style="margin-top: -110px ;">
-                                                        <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
+                                        </div>
+                                    </center>
+                                </div>
+                                <div class="col-lg-5 ">
+                                    <div class="form-group">
+                                        <p style="color: gray;">Reting</p>
+                                        <p class="font-weight-bold" style="margin-top: -15px;">4,5</p>
 
-                                                        <div class="drag-text mt-4">
-                                                            <h6 style="margin-top:-20px;">Drag and drop files or select add Image</h6>
-                                                        </div>
-                                                    </div>
-                                                    <p class="image-title">Uploaded Image</p>
-                                                </center>
-
+                                    </div>
+                                    <div class="form-group">
+                                        <p style="color: gray;">Komentar</p>
+                                        <p class="font-weight-bold" style="margin-top: -15px;">bla bla bla bla bla bla bla bla bla</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p style="color: gray;">Tanggal Lahir</p>
+                                        <p class="font-weight-bold" style="margin-top: -15px;">12/04/1995</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <HR>
+                            </HR>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <p style="color: gray;">Kode pemesanan</p>
+                                                <p class="font-weight-bold" style="margin-top: -15px;">38yr9yf9wefh49r9489</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <p style="color: gray;">Tanggal Pemesanan</p>
+                                                <p class="font-weight-bold" style="margin-top: -15px;">10/10/2022</p>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="judul-BeritaEvent" class="col-form-label">Judul:</label>
-                                            <input type="text" class="form-control" style="border-radius: 15px;" placeholder="Isi Judul" id="judul-BeritaEvent">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
-                                            <input type="date" class="form-control" data-date="" onchange="(hanyaAngka)" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggal-BeritaEvent">
-                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <p style="color: gray;">Jumlah Dewasa</p>
+                                                <p class="font-weight-bold" style="margin-top: -15px;">3 <span>Dewasa</span> = Rp. 15.000,- </p>
 
+                                            </div>
+                                            <div class="form-group">
+                                                <p style="color: gray;">Jumlah Anak</p>
+                                                <p class="font-weight-bold" style="margin-top: -15px;">2 <span>Anak</span> = Rp. 10.000,-</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <p style="color: gray;">Total Harga</p>
+                                                <p class="font-weight-bold" style="margin-top: -15px;">Rp.25.000,-</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <img class="images" src="<?= base_url() ?>/image/icon/sebelumreview.svg" width="200" alt="">
+                                </div>
+                            </div>
+                            <!-- image -->
+                            <!-- <div class="coverBerita">
+                                <img src="/Image/Icon/UploadProfile.svg" width="300" id="NoneImage" alt="">
+                            </div> -->
+                            <!-- /image -->
+                            <!-- <form action="">
+                                <div class="row">
+                                    <div class="col-lg-6 col-12 borderkanan">
+                                        <div class="form-group">
+                                            <p><b>Nama Pengguna</b></p>
+                                            <p>Anto Chibi</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <p><b>Nama Mitra</b></p>
+                                            <p>Bolololo</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <p><b>Jenis Mitra</b></p>
+                                            <p>Wisata</p>
+                                        </div>
                                     </div>
                                     <div class="col-lg-6 col-12">
-                                        <div id="map"></div>
-                                        <pre style="opacity: 0;" id="coordinates" class="coordinates"></pre>
-                                        <div class="overlay">
-                                            <!-- <button id="replay">Replay</button> -->
-                                            <p id="ok"></p>
+
+                                        <div class="form-group">
+                                            <p><b>Reting</b></p>
+                                            <p>4,5</p>
+
                                         </div>
                                         <div class="form-group">
-                                            <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
-                                            <textarea readonly class="form-control" style="border-radius: 15px; height: 130px;" id="alamat-BeritaEvent" cols="30" rows="2"></textarea>
+                                            <p><b>Komentar</b></p>
+                                            <p>bla bla bla bla bla bla bla bla bla</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <p><b>Tanggal Lahir</b></p>
+                                            <p>12/04/1995</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
-                                    <textarea class="form-control" style="border-radius: 15px;" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
-                                </div>
-                                <div class="float-right">
-                                    <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
-                                    <button type="button" onclick="KeluarForm()" class="btn btn-secondary m-1" style="border-radius: 15px;">Close</button>
-                                </div>
-                            </form>
+                            </form> -->
                         </div>
                     </div>
-                </div>
             </section>
 
         </div>
@@ -267,7 +342,6 @@
     <script src="<?= base_url() ?>/AdminLTE/dists/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 <script>
@@ -351,46 +425,6 @@
     }
 
     marker.on('dragend', onDragEnd);
-
-    $("input").on("change", function() {
-        this.setAttribute(
-            "data-date",
-            moment(this.value, "YYYY-MM-DD")
-            .format(this.getAttribute("data-date-format"))
-        )
-    }).trigger("change")
-
-    $("input").on("change", function() {
-        this.setAttribute(
-            "data-date",
-            moment(this.value, "YYYY-MM-DD")
-            .format(this.getAttribute("data-date-format"))
-        )
-    }).trigger("change")
-
-    function hanyaAngka(event) {
-        var angka = (event.which) ? event.which : event.keyCode
-        if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
-            return false;
-        return true;
-    }
-
-    function KeluarForm() {
-        Swal.fire({
-            title: 'Apa kamu yakin?',
-            text: "Meninggalkan halaman ini",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Iya',
-            cancelButtonText: 'Tidak',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                location.href = "<?= base_url() ?>/Berita-Event"
-            }
-        })
-    }
 </script>
 
 </html>

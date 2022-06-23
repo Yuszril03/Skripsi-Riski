@@ -41,6 +41,7 @@ $routes->get('/tambahData-User', 'Administrator::tambahDataUser');
 $routes->get('/editData-User', 'Administrator::editDataUser');
 $routes->get('/detailData-User', 'Administrator::detailDataUser');
 $routes->get('/Reting-Komentar', 'Administrator::RetingKomentar');
+$routes->get('/detailReting-Komentar', 'Administrator::detailRetingKomentar');
 
 /*
  * --------------------------------------------------------------------
