@@ -52,12 +52,68 @@
     <script src="<?= base_url() ?>/LoginAdmin/js/bootstrap.min.js"></script>
     <script src="<?= base_url() ?>/LoginAdmin/js/main.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-    <script src="<?= base_url() ?>/ConfigFirebase/Config.js"></script>
 
-    <script>
-        console.log(database)
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            set,
+            update
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+            authDomain: "traveland-429a6.firebaseapp.com",
+            databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "traveland-429a6",
+            storageBucket: "traveland-429a6.appspot.com",
+            messagingSenderId: "569185605053",
+            appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+
+
+        // set(ref(db, 'Data-Administrator/' + "adm3"), {
+        //     Email: "Apaloh",
+        //     KataSandi: "111111"
+        // });
+
+        const upddd = {
+            Email: "Coba",
+            KataSandi: "333"
+        }
+
+        const updates = {};
+        updates['/Data-Administrator/adm3'] = upddd;
+        update(ref(db), updates);
+
+
+
+
+        // var parseJsonAdmin = [];
+
+        // const starCountRef = ref(db, 'Data-Administrator/');
+        // onValue(starCountRef, (snapshot) => {
+        //     const data = snapshot.val();
+        //     const keys = Object.keys(data);
+        //     for (const isi in keys) {
+        //         const ValueItem = ref(db, 'Data-Administrator/' + keys[isi]);
+        //         onValue(ValueItem, (kontenn) => {
+        //             parseJsonAdmin.push(kontenn.val())
+        //         })
+        //     }
+
+        // });
+
+        // console.log(parseJsonAdmin)
     </script>
+
 
 </body>
 
