@@ -104,12 +104,19 @@
             for (const isi in keys) {
                 const ValueItem = ref(db, 'Data-Administrator/' + keys[isi]);
                 onValue(ValueItem, (kontenn) => {
-                    parseJsonAdmin.push(kontenn.val())
+                    let PostD = {
+                        IDkey: keys[isi],
+                        Email: kontenn.val().Email,
+                        KataSandi: kontenn.val().KataSandi,
+                        NamaAdmin: kontenn.val().NamaAdmin
+                    };
+                    parseJsonAdmin.push(PostD)
                 })
             }
 
         });
 
+        // console.log(parseJsonAdmin)
 
         document.getElementById('submitData').addEventListener('click', function() {
             let idLogin = ['Email', 'Pass'];
@@ -124,14 +131,26 @@
             }
             if (jumlah == 0) {
                 let trueLogin = 0;
+                let dataSession = {};
 
                 for (let j = 0; j < parseJsonAdmin.length; j++) {
                     if (document.getElementById('Email').value == parseJsonAdmin[j].Email &&
                         md5(document.getElementById('Pass').value) == parseJsonAdmin[j].KataSandi) {
                         trueLogin = 1;
+                        dataSession = parseJsonAdmin[j];
                     }
                 }
+                // console.log(dataSession)
                 if (trueLogin == 1) {
+
+                    $.ajax({
+                        url: '<?= base_url() ?>/Login/AuthAdmin',
+                        type: "POST",
+                        data: dataSession,
+                        dataType: "JSON"
+                    }).done((result) => {
+                        location.href = "<?= base_url() ?>/Beranda-Admin"
+                    })
 
                 } else {
                     Swal.fire({

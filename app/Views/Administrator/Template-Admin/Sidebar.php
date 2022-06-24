@@ -1,6 +1,6 @@
  <aside class="main-sidebar sidebar-light-warning elevation-4">
      <!-- Brand Logo -->
-     <a href="index3.html" class="brand-link navbar-warning">
+     <a href="<?= base_url() ?>/Beranda-Admin" class="brand-link navbar-warning">
          <img src="<?= base_url() ?>/Image/Icon/LogoAJA.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: 1">
          <span class="brand-text font-weight-bold text-white">TraveLand</span>
      </a>
@@ -10,10 +10,10 @@
          <!-- Sidebar user panel (optional) -->
          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
              <div class="image">
-                 <img src="<?= base_url() ?>/AdminLTE/dists/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                 <img src="<?= base_url() ?>/Image/Icon/profile.png" class="img-circle elevation-2" alt="User Image">
              </div>
              <div class="info">
-                 <a href="#" class="d-block">Alexander Pierce</a>
+                 <a href="<?= base_url() ?>/Beranda-Admin" class="d-block"><?= session()->get('Nama') ?></a>
              </div>
          </div>
 
@@ -25,7 +25,7 @@
                  <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                  <li class="nav-item ">
-                     <a href="<?= base_url() ?>/" class="nav-link active">
+                     <a href="<?= base_url() ?>/Beranda-Admin" class="nav-link active">
                          <i class="nav-icon fas fa-home"></i>
                          <p>
                              Beranda
