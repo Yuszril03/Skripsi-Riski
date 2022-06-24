@@ -66,7 +66,7 @@
             <section class="content">
                 <div class="container-fluid">
                     <div class="float-right">
-                        <button onclick=" location.href=' <?= base_url() ?>/tambahBerita-Event'" style="border-radius: 15px;" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah</button>
+                        <button onclick=" location.href=' <?= base_url() ?>/Tambah-Berita-Event'" style="border-radius: 15px;" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah</button>
                     </div>
                 </div>
                 <br>
@@ -92,8 +92,8 @@
                                         <td>d</td>
                                         <td>e</td>
                                         <td>
-                                            <button type="button" onclick="location.href='<?= base_url() ?>/detailBerita-Event'" class="btn btn-primary btn-sm"><i class="fa fa-info-circle"></i></button>
-                                            <button type="button" onclick="location.href='<?= base_url() ?>/editBerita-Event'" class="btn btn-warning btn-sm"><i class="fa fa-pen-alt"></i></button>
+                                            <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Berita-Event'" class="btn btn-primary btn-sm"><i class="fa fa-info-circle"></i></button>
+                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Berita-Event'" class="btn btn-warning btn-sm"><i class="fa fa-pen-alt"></i></button>
                                             <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
                                         </td>
                                     </tr>

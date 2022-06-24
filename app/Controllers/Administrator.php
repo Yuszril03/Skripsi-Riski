@@ -80,37 +80,40 @@ class Administrator extends BaseController
         return view('Administrator/Data-Pemesanan/Pemesanan-Hotel');
     }
 
+    //Berita Event
     public function BeritaEvent()
     {
         return view('Administrator/Berita-Event/Berita-Event');
     }
     public function tambahBeritaEvent()
     {
-        return view('Administrator/Berita-Event/tambahBerita-Event');
+        return view('Administrator/Berita-Event/Tambah-Berita-Event');
     }
     public function detailBeritaEvent()
     {
-        return view('Administrator/Berita-Event/detailBerita-Event');
+        return view('Administrator/Berita-Event/Detail-Berita-Event');
     }
     public function editBeritaEvent()
     {
-        return view('Administrator/Berita-Event/editBerita-Event');
+        return view('Administrator/Berita-Event/Edit-Berita-Event');
     }
+
+    //Data User
     public function DataUser()
     {
         return view('Administrator/Data-User/Data-User');
     }
     public function tambahDataUser()
     {
-        return view('Administrator/Data-User/tambahData-User');
+        return view('Administrator/Data-User/Tambah-Data-User');
     }
     public function editDataUser()
     {
-        return view('Administrator/Data-User/editData-User');
+        return view('Administrator/Data-User/Edit-Data-User');
     }
     public function detailDataUser()
     {
-        return view('Administrator/Data-User/detailData-User');
+        return view('Administrator/Data-User/Detail-Data-User');
     }
     public function RetingKomentar()
     {

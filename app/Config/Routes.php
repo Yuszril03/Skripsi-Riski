@@ -63,15 +63,19 @@ $routes->get('/Pemesanan-Hotel', 'Administrator::PemesananHotel');
 // $routes->get('/', 'Login::LoginAdmin');
 // $routes->get('/', 'Login::LoginMitra');
 
-
+//Berita & Event
 $routes->get('/Berita-Event', 'Administrator::BeritaEvent');
-$routes->get('/tambahBerita-Event', 'Administrator::tambahBeritaEvent');
-$routes->get('/detailBerita-Event', 'Administrator::detailBeritaEvent');
-$routes->get('/editBerita-Event', 'Administrator::editBeritaEvent');
+$routes->get('/Tambah-Berita-Event', 'Administrator::tambahBeritaEvent');
+$routes->get('/Detail-Berita-Event', 'Administrator::detailBeritaEvent');
+$routes->get('/Edit-Berita-Event', 'Administrator::editBeritaEvent');
+
+//Data User
 $routes->get('/Data-User', 'Administrator::DataUser');
-$routes->get('/tambahData-User', 'Administrator::tambahDataUser');
-$routes->get('/editData-User', 'Administrator::editDataUser');
-$routes->get('/detailData-User', 'Administrator::detailDataUser');
+$routes->get('/Tambah-Data-User', 'Administrator::tambahDataUser');
+$routes->get('/Edit-Data-User', 'Administrator::editDataUser');
+$routes->get('/Detail-Data-User', 'Administrator::detailDataUser');
+
+//Review
 $routes->get('/Reting-Komentar', 'Administrator::RetingKomentar');
 $routes->get('/detailReting-Komentar', 'Administrator::detailRetingKomentar');
 
