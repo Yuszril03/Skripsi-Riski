@@ -1,8 +1,8 @@
  <aside class="main-sidebar sidebar-light-warning elevation-4">
      <!-- Brand Logo -->
      <a href="index3.html" class="brand-link navbar-warning">
-         <img src="<?= base_url() ?>/AdminLTE/dists/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-         <span class="brand-text font-weight-light">AdminLTE 3</span>
+         <img src="<?= base_url() ?>/Image/Icon/LogoAJA.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: 1">
+         <span class="brand-text font-weight-bold text-white">TraveLand</span>
      </a>
 
      <!-- Sidebar -->

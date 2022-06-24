@@ -1,3 +1,8 @@
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+      <img class="animation__shake" src="<?= base_url() ?>/Image/Icon/penuhLogo.png" alt="AdminLTELogo"  width="160">
+  </div>
+
   <nav class="main-header navbar navbar-expand navbar-light navbar-warning">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
