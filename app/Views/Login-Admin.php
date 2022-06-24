@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-    <title>Login 10</title>
+    <title>TraveLand - Login Administrator</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>/Image/Icon/LogoAJA.png" />
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center mb-5">
-                    <img src="<?= base_url() ?>/Image/Icon/penuhLogo.png" width="110" alt="">
+                    <img src="<?= base_url() ?>/Image/Icon/LogoAJAwhite.png" width="110" alt="">
                     <h2 class="heading-section">Masuk Administrator</h2>
                 </div>
             </div>
@@ -29,14 +29,14 @@
                         <!-- <h3 class="mb-4 text-center">Have an account?</h3> -->
                         <form action="#" class="signin-form">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Email" required>
+                                <input type="text" class="form-control" id="Email" placeholder="Email" required>
                             </div>
                             <div class="form-group">
-                                <input id="password-field" type="password" class="form-control" placeholder="Kata Sandi" required>
-                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                <input id="Pass" type="password" class="form-control" placeholder="Kata Sandi" required>
+                                <span toggle="#Pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary submit px-3">Masuk</button>
+                                <button type="button" id="submitData" class="form-control btn btn-primary submit px-3">Masuk</button>
                             </div>
 
                         </form>
@@ -51,7 +51,8 @@
     <script src="<?= base_url() ?>/LoginAdmin/js/popper.js"></script>
     <script src="<?= base_url() ?>/LoginAdmin/js/bootstrap.min.js"></script>
     <script src="<?= base_url() ?>/LoginAdmin/js/main.js"></script>
-
+    <script src="<?= base_url() ?>/MD5/md5.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script type="module">
         // Import the functions you need from the SDKs you need
@@ -84,34 +85,71 @@
         //     KataSandi: "111111"
         // });
 
-        const upddd = {
-            Email: "Coba",
-            KataSandi: "333"
-        }
+        // const upddd = {
+        //     Email: "Coba",
+        //     KataSandi: "333"
+        // }
 
-        const updates = {};
-        updates['/Data-Administrator/adm3'] = upddd;
-        update(ref(db), updates);
-
-
+        // const updates = {};
+        // updates['/Data-Administrator/adm3'] = upddd;
+        // update(ref(db), updates);
 
 
-        // var parseJsonAdmin = [];
+        var parseJsonAdmin = [];
 
-        // const starCountRef = ref(db, 'Data-Administrator/');
-        // onValue(starCountRef, (snapshot) => {
-        //     const data = snapshot.val();
-        //     const keys = Object.keys(data);
-        //     for (const isi in keys) {
-        //         const ValueItem = ref(db, 'Data-Administrator/' + keys[isi]);
-        //         onValue(ValueItem, (kontenn) => {
-        //             parseJsonAdmin.push(kontenn.val())
-        //         })
-        //     }
+        const starCountRef = ref(db, 'Data-Administrator/');
+        onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            const keys = Object.keys(data);
+            for (const isi in keys) {
+                const ValueItem = ref(db, 'Data-Administrator/' + keys[isi]);
+                onValue(ValueItem, (kontenn) => {
+                    parseJsonAdmin.push(kontenn.val())
+                })
+            }
 
-        // });
+        });
 
-        // console.log(parseJsonAdmin)
+
+        document.getElementById('submitData').addEventListener('click', function() {
+            let idLogin = ['Email', 'Pass'];
+            var jumlah = 0;
+            for (let i = 0; i < idLogin.length; i++) {
+                if (document.getElementById(idLogin[i]).value == "") {
+                    jumlah++;
+                    $('#' + idLogin[i]).addClass('is-invalid')
+                } else {
+                    $('#' + idLogin[i]).removeClass('is-invalid')
+                }
+            }
+            if (jumlah == 0) {
+                let trueLogin = 0;
+
+                for (let j = 0; j < parseJsonAdmin.length; j++) {
+                    if (document.getElementById('Email').value == parseJsonAdmin[j].Email &&
+                        md5(document.getElementById('Pass').value) == parseJsonAdmin[j].KataSandi) {
+                        trueLogin = 1;
+                    }
+                }
+                if (trueLogin == 1) {
+
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Email atau Kata Sandi Tidak Valid!'
+                    })
+                }
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Email atau Kata Sandi Tidak Boleh Kosong!'
+                })
+            }
+
+        })
     </script>
 
 
