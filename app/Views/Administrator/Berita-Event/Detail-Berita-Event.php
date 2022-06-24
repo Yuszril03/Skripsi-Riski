@@ -179,7 +179,7 @@
                             <h4 class="mt-2 font-weight-bold">Nama Judul</h4>
                             <div class="d-flex flex-row">
                                 <div class="pr-1">
-                                    <p style="font-size: 14px;" class="text-muted">
+                                    <p style="font-size: 14px; margin-top: -12px;" class="text-muted">
                                         10/5/2022
                                     </p>
                                 </div>
