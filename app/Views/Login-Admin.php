@@ -19,6 +19,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center mb-5">
+                    <img src="<?= base_url() ?>/Image/Icon/penuhLogo.png" width="110" alt="">
                     <h2 class="heading-section">Masuk Administrator</h2>
                 </div>
             </div>
@@ -37,9 +38,9 @@
                             <div class="form-group">
                                 <button type="submit" class="form-control btn btn-primary submit px-3">Masuk</button>
                             </div>
-                            
+
                         </form>
-                        
+
                     </div>
                 </div>
             </div>
@@ -50,6 +51,13 @@
     <script src="<?= base_url() ?>/LoginAdmin/js/popper.js"></script>
     <script src="<?= base_url() ?>/LoginAdmin/js/bootstrap.min.js"></script>
     <script src="<?= base_url() ?>/LoginAdmin/js/main.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="<?= base_url() ?>/ConfigFirebase/Config.js"></script>
+
+    <script>
+        console.log(database)
+    </script>
 
 </body>
 
