@@ -218,7 +218,8 @@
                             Gender: kontenn.val().Gender,
                             Telefon: kontenn.val().TelefonCustomer,
                             Status: kontenn.val().StatusCustomer,
-                            Email: kontenn.val().EmailCustomer
+                            Email: kontenn.val().EmailCustomer,
+                            fotoCustomer: kontenn.val().fotoCustomer
                         };
                         parseJsonCustomer.push(PostD)
                     })
@@ -291,7 +292,8 @@
                             Gender: kontenn.val().Gender,
                             TelefonCustomer: kontenn.val().TelefonCustomer,
                             StatusCustomer: 0,
-                            EmailCustomer: kontenn.val().EmailCustomer
+                            EmailCustomer: kontenn.val().EmailCustomer,
+                            fotoCustomer: kontenn.val().fotoCustomer
                         };
                         const updates = {};
                         updates['/Master-Data-Customer/' + idData] = PostD;
@@ -303,7 +305,20 @@
                             'Data berhasil di non aktifkan.',
                             'success'
                         )
-                        location.reload();
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Data berhasil di non aktifkan.',
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Okey'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+
                         // LoadData()
                     })
 
@@ -335,7 +350,8 @@
                             Gender: kontenn.val().Gender,
                             TelefonCustomer: kontenn.val().TelefonCustomer,
                             StatusCustomer: 1,
-                            EmailCustomer: kontenn.val().EmailCustomer
+                            EmailCustomer: kontenn.val().EmailCustomer,
+                            fotoCustomer: kontenn.val().fotoCustomer
                         };
                         const updates = {};
                         updates['/Master-Data-Customer/' + idData] = PostD;
@@ -346,7 +362,20 @@
                             'Data berhasil di aktifkan.',
                             'success'
                         )
-                        location.reload();
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Data berhasil di aktifkan.',
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Okey'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+
                         // LoadData()
                     })
                 }
