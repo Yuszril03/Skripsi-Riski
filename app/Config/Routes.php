@@ -70,10 +70,10 @@ $routes->get('/Detail-Berita-Event', 'Administrator::detailBeritaEvent');
 $routes->get('/Edit-Berita-Event', 'Administrator::editBeritaEvent');
 
 //Data User
-$routes->get('/Data-User', 'Administrator::DataUser');
-$routes->get('/Tambah-Data-User', 'Administrator::tambahDataUser');
-$routes->get('/Edit-Data-User', 'Administrator::editDataUser');
-$routes->get('/Detail-Data-User', 'Administrator::detailDataUser');
+$routes->get('/Data-Customer', 'Administrator::DataCustomer');
+$routes->get('/Tambah-Data-Customer', 'Administrator::tambahDataCustomer');
+$routes->get('/Edit-Data-Customer', 'Administrator::editDataCustomer');
+$routes->get('/Detail-Data-Customer', 'Administrator::detailDataCustomer');
 
 //Review
 $routes->get('/Reting-Komentar', 'Administrator::RetingKomentar');

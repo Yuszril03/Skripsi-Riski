@@ -6,7 +6,11 @@ class Administrator extends BaseController
 {
     public function index()
     {
-        return view('Administrator/Home');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Home');
+        }
     }
 
 
@@ -99,21 +103,21 @@ class Administrator extends BaseController
     }
 
     //Data User
-    public function DataUser()
+    public function DataCustomer()
     {
-        return view('Administrator/Data-User/Data-User');
+        return view('Administrator/Data-Customer/Data-Customer');
     }
-    public function tambahDataUser()
+    public function tambahDataCustomer()
     {
-        return view('Administrator/Data-User/Tambah-Data-User');
+        return view('Administrator/Data-Customer/Tambah-Data-Customer');
     }
-    public function editDataUser()
+    public function editDataCustomer()
     {
-        return view('Administrator/Data-User/Edit-Data-User');
+        return view('Administrator/Data-Customer/Edit-Data-Customer');
     }
-    public function detailDataUser()
+    public function detailDataCustomer()
     {
-        return view('Administrator/Data-User/Detail-Data-User');
+        return view('Administrator/Data-Customer/Detail-Data-Customer');
     }
     public function RetingKomentar()
     {

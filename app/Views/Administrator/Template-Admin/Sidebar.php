@@ -43,10 +43,10 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a href="<?= base_url() ?>/Data-User" class="nav-link">
+                     <a href="<?= base_url() ?>/Data-Customer" class="nav-link">
                          <i class="nav-icon fas fa-users"></i>
                          <p>
-                             Data User
+                             Data Customer
                              <!-- <span class="right badge badge-danger">New</span> -->
                          </p>
                      </a>
