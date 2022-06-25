@@ -72,7 +72,7 @@ $routes->get('/Edit-Berita-Event', 'Administrator::editBeritaEvent');
 //Data User
 $routes->get('/Data-Customer', 'Administrator::DataCustomer');
 $routes->get('/Tambah-Data-Customer', 'Administrator::tambahDataCustomer');
-$routes->get('/Edit-Data-Customer', 'Administrator::editDataCustomer');
+$routes->get('/Edit-Data-Customer' . '/(:any)', 'Administrator::editDataCustomer/$1');
 $routes->get('/Detail-Data-Customer', 'Administrator::detailDataCustomer');
 
 //Review

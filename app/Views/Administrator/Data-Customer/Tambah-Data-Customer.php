@@ -125,11 +125,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="namaUser" class="col-form-label">NIK Pengguna</label>
-                                            <input type="text" class="form-control" style="border-radius: 15px;" id="nikCust" placeholder="Nama">
+                                            <label for="namaUser" class="col-form-label">NIK Pengguna <sup><span class="text-danger">*</span></sup></label>
+                                            <input type="text" class="form-control" onkeypress="return hanyaAngka(this)" style="border-radius: 15px;" id="nikCust" placeholder="Nama">
                                         </div>
                                         <div class="form-group">
-                                            <label for="namaUser" class="col-form-label">Nama Pengguna</label>
+                                            <label for="namaUser" class="col-form-label">Nama Pengguna <sup><span class="text-danger">*</span></sup></label>
                                             <input type="text" class="form-control" style="border-radius: 15px;" id="namaCust" placeholder="Nama">
                                         </div>
 
@@ -138,17 +138,17 @@
 
 
                                         <div class="form-group">
-                                            <label for="EmailData-User" class="col-form-label">Email</label>
+                                            <label for="EmailData-User" class="col-form-label">Email <sup><span class="text-danger">*</span></sup></label>
                                             <input type="text" class="form-control" style="border-radius: 15px;" id="emailCust" placeholder="email@example.com">
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="noTelp" class="col-form-label">Nomor Telpon</label>
+                                            <label for="noTelp" class="col-form-label">Nomor Telpon <sup><span class="text-danger">*</span></sup></label>
                                             <input type="text" class="form-control" onkeypress="return hanyaAngka(this)" name="angka" placeholder="No telp/Hp" id="telpCust" style="border-radius: 15px;">
 
                                         </div>
                                         <div class="form-group">
-                                            <label for="isi-BeritaEvent" class="col-form-label">Jenis Kelamin</label>
+                                            <label for="isi-BeritaEvent" class="col-form-label">Jenis Kelamin <sup><span class="text-danger">*</span></sup></label>
                                             <div class="row ml-2">
                                                 <div class="form-check form-check-inline">
                                                     <input type="radio" class="form-check-input" name="gender" id="inlineRadio1" value="1">
@@ -165,11 +165,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="tanggal-LahirPengguna" class="col-form-label">Tanggal Lahir</label>
+                                            <label for="tanggal-LahirPengguna" class="col-form-label">Tanggal Lahir <sup><span class="text-danger">*</span></sup></label>
                                             <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tglCust">
                                         </div>
                                         <div class="form-group">
-                                            <label for="alamatUser">Alamat</label>
+                                            <label for="alamatUser">Alamat <sup><span class="text-danger">*</span></sup></label>
                                             <textarea type="text" name="" id="alamatCust" class="form-control" placeholder="Alamat" aria-describedby="helpId" style="border-radius: 15px;"></textarea>
                                         </div>
                                     </div>
@@ -269,23 +269,21 @@
     const db = getDatabase();
     const storage = getStorage();
 
-    // var parseJsonAdmin = [];
+    var parseJsonAdmin = [];
 
-    // const starCountRef = ref(db, 'Master-Data-Customer/');
-    // onValue(starCountRef, (snapshot) => {
-    //     const data = snapshot.val();
-    //     const keys = Object.keys(data);
-    //     for (const isi in keys) {
-    //         const ValueItem = ref(db, 'Master-Data-Customer/' + keys[isi]);
-    //         onValue(ValueItem, (kontenn) => {
-    //             let PostD = {
-    //                 IDkey: keys[isi]
-    //             };
-    //             parseJsonAdmin.push(PostD)
-    //         })
-    //     }
+    const starCountRef = ref(db, 'Master-Data-Customer/');
+    onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        const keys = Object.keys(data);
+        for (const isi in keys) {
+            const ValueItem = ref(db, 'Master-Data-Customer/' + keys[isi]);
+            onValue(ValueItem, (kontenn) => {
 
-    // });
+                parseJsonAdmin.push(Number(keys[isi]))
+            })
+        }
+
+    });
 
 
     document.getElementById('submitData').addEventListener('click', function() {
@@ -295,128 +293,138 @@
         let gender = $('input[name="gender"]:checked').val();
 
 
-        for (let i = 0; i < idData.length; i++) {
-            if (i == 4) {
-                if (Boolean(gender) == false) {
-                    $('#inlineRadio1').addClass('is-invalid')
-                    $('#inlineRadio2').addClass('is-invalid')
+        if (parseJsonAdmin.includes(Number(document.getElementById('nikCust').value)) == false) {
+
+            for (let i = 0; i < idData.length; i++) {
+                if (i == 4) {
+                    if (Boolean(gender) == false) {
+                        $('#inlineRadio1').addClass('is-invalid')
+                        $('#inlineRadio2').addClass('is-invalid')
+                        jumlah++;
+                    } else {
+                        $('#inlineRadio1').removeClass('is-invalid')
+                        $('#inlineRadio2').removeClass('is-invalid')
+                    }
+                } else if (document.getElementById(idData[i]).value == "") {
+                    $('#' + idData[i]).addClass('is-invalid')
                     jumlah++;
                 } else {
-                    $('#inlineRadio1').removeClass('is-invalid')
-                    $('#inlineRadio2').removeClass('is-invalid')
+                    $('#' + idData[i]).removeClass('is-invalid')
                 }
-            } else if (document.getElementById(idData[i]).value == "") {
-                $('#' + idData[i]).addClass('is-invalid')
-                jumlah++;
-            } else {
-                $('#' + idData[i]).removeClass('is-invalid')
             }
-        }
-        if (jumlah == 0) {
-            if (Boolean(fileupload) == false) {
-                ///Add data to realtime
-                set(ref(db, 'Master-Data-Customer/' + document.getElementById('nikCust').value), {
-                    NamaCustomer: document.getElementById('namaCust').value,
-                    Gender: Number(gender),
-                    TelefonCustomer: document.getElementById('telpCust').value + "",
-                    StatusCustomer: 1,
-                    EmailCustomer: document.getElementById('emailCust').value,
-                    TanggalBuat: new Date().toLocaleString("id-ID"),
-                    TanggalUpdate: new Date().toLocaleString("id-ID"),
-                    fotoCustomer: ""
-                });
-                set(ref(db, 'Master-Data-Account-Customer/' + document.getElementById('nikCust').value), {
-                    KataSandi: md5("12345678")
-                });
+            if (jumlah == 0) {
+                if (Boolean(fileupload) == false) {
+                    ///Add data to realtime
+                    set(ref(db, 'Master-Data-Customer/' + document.getElementById('nikCust').value), {
+                        NamaCustomer: document.getElementById('namaCust').value,
+                        Gender: Number(gender),
+                        TelefonCustomer: document.getElementById('telpCust').value + "",
+                        StatusCustomer: 1,
+                        EmailCustomer: document.getElementById('emailCust').value,
+                        TanggalBuat: new Date().toLocaleString("id-ID"),
+                        TanggalUpdate: new Date().toLocaleString("id-ID"),
+                        fotoCustomer: ""
+                    });
+                    set(ref(db, 'Master-Data-Account-Customer/' + document.getElementById('nikCust').value), {
+                        KataSandi: md5("12345678")
+                    });
 
-                Swal.fire({
-                    title: 'Berhasil',
-                    text: 'Data berhasil tersimpan.',
-                    icon: 'success',
-                    showCancelButton: false,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Okey'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        location.href = "<?= base_url() ?>/Data-Customer"
-                    }
-                })
-
-            } else {
-                const storageRef = refImage(storage, 'images-customer/' + new Date().getTime() + '-' + fileupload.name);
-
-                // Upload the file and metadata
-                const uploadTask = uploadBytesResumable(storageRef, fileupload);
-
-                // Register three observers:
-                // 1. 'state_changed' observer, called any time the state changes
-                // 2. Error observer, called on failure
-                // 3. Completion observer, called on successful completion
-                uploadTask.on('state_changed',
-                    (snapshot) => {
-                        // Observe state change events such as progress, pause, and resume
-                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                        console.log('Upload is ' + progress + '% done');
-                        switch (snapshot.state) {
-                            case 'paused':
-                                console.log('Upload is paused');
-                                break;
-                            case 'running':
-                                console.log('Upload is running');
-                                break;
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: 'Data berhasil tersimpan.',
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Okey'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.href = "<?= base_url() ?>/Data-Customer"
                         }
-                    },
-                    (error) => {
-                        // Handle unsuccessful uploads
-                    },
-                    () => {
-                        // Handle successful uploads on complete
-                        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                            console.log('File available at', downloadURL);
-                            set(ref(db, 'Master-Data-Customer/' + document.getElementById('nikCust').value), {
-                                NamaCustomer: document.getElementById('namaCust').value,
-                                Gender: Number(gender),
-                                TelefonCustomer: document.getElementById('telpCust').value + "",
-                                StatusCustomer: 1,
-                                EmailCustomer: document.getElementById('emailCust').value,
-                                TanggalBuat: new Date().toLocaleString("id-ID"),
-                                TanggalUpdate: new Date().toLocaleString("id-ID"),
-                                fotoCustomer: downloadURL
-                            });
-                            set(ref(db, 'Master-Data-Account-Customer/' + document.getElementById('nikCust').value), {
-                                KataSandi: md5("12345678")
-                            });
-                        });
-                    }
-                );
+                    })
 
+                } else {
+                    const storageRef = refImage(storage, 'images-customer/' + new Date().getTime() + '-' + fileupload.name);
+
+                    // Upload the file and metadata
+                    const uploadTask = uploadBytesResumable(storageRef, fileupload);
+
+                    // Register three observers:
+                    // 1. 'state_changed' observer, called any time the state changes
+                    // 2. Error observer, called on failure
+                    // 3. Completion observer, called on successful completion
+                    uploadTask.on('state_changed',
+                        (snapshot) => {
+                            // Observe state change events such as progress, pause, and resume
+                            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            console.log('Upload is ' + progress + '% done');
+                            switch (snapshot.state) {
+                                case 'paused':
+                                    console.log('Upload is paused');
+                                    break;
+                                case 'running':
+                                    console.log('Upload is running');
+                                    break;
+                            }
+                        },
+                        (error) => {
+                            // Handle unsuccessful uploads
+                        },
+                        () => {
+                            // Handle successful uploads on complete
+                            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                console.log('File available at', downloadURL);
+                                set(ref(db, 'Master-Data-Customer/' + document.getElementById('nikCust').value), {
+                                    NamaCustomer: document.getElementById('namaCust').value,
+                                    Gender: Number(gender),
+                                    TelefonCustomer: document.getElementById('telpCust').value + "",
+                                    StatusCustomer: 1,
+                                    EmailCustomer: document.getElementById('emailCust').value,
+                                    TanggalBuat: new Date().toLocaleString("id-ID"),
+                                    TanggalUpdate: new Date().toLocaleString("id-ID"),
+                                    fotoCustomer: downloadURL
+                                });
+                                set(ref(db, 'Master-Data-Account-Customer/' + document.getElementById('nikCust').value), {
+                                    KataSandi: md5("12345678")
+                                });
+                            });
+                        }
+                    );
+
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: 'Data berhasil tersimpan.',
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Okey'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.href = "<?= base_url() ?>/Data-Customer"
+                        }
+                    })
+
+                }
+            } else {
                 Swal.fire({
-                    title: 'Berhasil',
-                    text: 'Data berhasil tersimpan.',
-                    icon: 'success',
-                    showCancelButton: false,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Okey'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        location.href = "<?= base_url() ?>/Data-Customer"
-                    }
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Kolom pengisian Tidak Boleh Kosong!'
                 })
-
             }
+
         } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Email atau Kata Sandi Tidak Boleh Kosong!'
+                text: 'NIK sudah digunakan!'
             })
         }
 
-        // console.log(fileupload)
+
     })
 </script>
 

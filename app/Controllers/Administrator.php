@@ -111,9 +111,12 @@ class Administrator extends BaseController
     {
         return view('Administrator/Data-Customer/Tambah-Data-Customer');
     }
-    public function editDataCustomer()
+    public function editDataCustomer($id = false)
     {
-        return view('Administrator/Data-Customer/Edit-Data-Customer');
+        $data = [
+            'DataID' => $id
+        ];
+        return view('Administrator/Data-Customer/Edit-Data-Customer', $data);
     }
     public function detailDataCustomer()
     {
