@@ -181,7 +181,6 @@
         const db = getDatabase();
 
 
-        var parseJsonCustomer = [];
         var table = $('#Table').DataTable({
             "lengthChange": false,
             "language": {
@@ -202,6 +201,10 @@
         LoadData()
 
         function LoadData() {
+            table
+                .clear()
+                .draw(false);
+            var parseJsonCustomer = [];
             const starCountRef = ref(db, 'Master-Data-Customer/');
             onValue(starCountRef, (snapshot) => {
                 const data = snapshot.val();
@@ -229,12 +232,12 @@
                         ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
                                             <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-warning btn-sm m-1"><i class="fa fa-pen-alt"></i></button>
-                                            <button id="PowerCustomer" onclick="TidakAktif(${parseJsonCustomer[i].IDkey})"  type="button" class="btn btn-danger btn-sm m-1"><i class="fas fa-power-off"></i></button>`;
+                                            <button data-id="${parseJsonCustomer[i].IDkey}" id="PowerCustomer"  type="button" class="tidakatif btn btn-danger btn-sm m-1"><i class="fas fa-power-off"></i></button>`;
                     } else {
                         StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
                         ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
-                                            <button id="PowerCustomer" onclick="Aktif(${parseJsonCustomer[i].IDkey})"  type="button" class="btn btn-success btn-sm"><i class="fas fa-power-off"></i></button>`;
+                                            <button data-id="${parseJsonCustomer[i].IDkey}" id="PowerCustomer"  type="button" class="aktif btn btn-success btn-sm"><i class="fas fa-power-off"></i></button>`;
                     }
 
                     if (parseJsonCustomer[i].Gender == 1) {
@@ -263,32 +266,10 @@
             });
         }
 
-        function Aktif() {
-
-            Swal.fire({
-                title: 'Apakah Anda Yakin?',
-                text: "Untuk Aktifkan Customer Ini ?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Iya!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                }
-            })
-
-        }
-
-        function TidakAktif(idData) {
 
 
+        $(document).on('click', '.tidakatif', function() {
+            var idData = $(this).data('id');
 
             Swal.fire({
                 title: 'Apakah Anda Yakin?',
@@ -302,24 +283,75 @@
             }).then((result) => {
 
                 if (result.isConfirmed) {
-                    const upddd = {
-                        StatusCustomer: 0
-                    }
 
-                    const updates = {};
-                    updates['/Master-Data-Customer/' + idData] = upddd;
-                    update(ref(db), updates);
+                    const ValueItem = ref(db, 'Master-Data-Customer/' + idData);
+                    onValue(ValueItem, (kontenn) => {
+                        let PostD = {
+                            NamaCustomer: kontenn.val().NamaCustomer,
+                            Gender: kontenn.val().Gender,
+                            TelefonCustomer: kontenn.val().TelefonCustomer,
+                            StatusCustomer: 0,
+                            EmailCustomer: kontenn.val().EmailCustomer
+                        };
+                        const updates = {};
+                        updates['/Master-Data-Customer/' + idData] = PostD;
+                        update(ref(db), updates);
+                        // table.row.reload();
 
-                    LoadData()
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
+                        Swal.fire(
+                            'Berhasil!',
+                            'Data berhasil di non aktifkan.',
+                            'success'
+                        )
+                        location.reload();
+                        // LoadData()
+                    })
+
+
+
+
                 }
             })
+        })
 
-        }
+        $(document).on('click', '.aktif', function() {
+            var idData = $(this).data('id');
+
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Untuk Aktifkan Customer Ini ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const ValueItem = ref(db, 'Master-Data-Customer/' + idData);
+                    onValue(ValueItem, (kontenn) => {
+                        let PostD = {
+                            NamaCustomer: kontenn.val().NamaCustomer,
+                            Gender: kontenn.val().Gender,
+                            TelefonCustomer: kontenn.val().TelefonCustomer,
+                            StatusCustomer: 1,
+                            EmailCustomer: kontenn.val().EmailCustomer
+                        };
+                        const updates = {};
+                        updates['/Master-Data-Customer/' + idData] = PostD;
+                        update(ref(db), updates);
+                        // table.row.reload();
+                        Swal.fire(
+                            'Berhasil!',
+                            'Data berhasil di aktifkan.',
+                            'success'
+                        )
+                        location.reload();
+                        // LoadData()
+                    })
+                }
+            })
+        })
     </script>
 
 </body>

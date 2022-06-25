@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Administrator - Home</title>
+    <title>TraveLand - Tambah Customer</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -65,7 +65,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-      
+
 
         <!-- Navbar -->
         <?= view('Administrator/Template-Admin/Header') ?>
@@ -81,13 +81,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Tambah User</h1>
+                            <h1 class="m-0">Tambah Customer</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Data User</li>
-                                <li class="breadcrumb-item active">Tambah User</li>
+                                <li class="breadcrumb-item"><a href="<?= base_url() ?>/Beranda-Admin">Home</a></li>
+                                <li class="breadcrumb-item active">Data Customer</li>
+                                <li class="breadcrumb-item active">Tambah Customer</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -125,21 +125,21 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="namaUser" class="col-form-label">Nama Pengguna</label>
-                                            <input type="text" class="form-control" style="border-radius: 15px;" id="namaUser" placeholder="Nama">
+                                            <input type="text" class="form-control" style="border-radius: 15px;" id="namaCust" placeholder="Nama">
                                         </div>
                                         <div class="form-group">
                                             <label for="EmailData-User" class="col-form-label">Email</label>
-                                            <input type="text" class="form-control" style="border-radius: 15px;" id="EmailData-User" placeholder="email@example.com">
+                                            <input type="text" class="form-control" style="border-radius: 15px;" id="emailCust" placeholder="email@example.com">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
                                             <label for="alamatUser">Alamat</label>
-                                            <textarea type="text" name="" id="alamatUser" class="form-control" placeholder="Alamat" aria-describedby="helpId" style="border-radius: 15px;"></textarea>
+                                            <textarea type="text" name="" id="alamatCust" class="form-control" placeholder="Alamat" aria-describedby="helpId" style="border-radius: 15px;"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="noTelp" class="col-form-label">Nomor Telpon</label>
-                                            <input type="text" class="form-control" name="angka" placeholder="No telp/Hp" id="noTelp" style="border-radius: 15px;">
+                                            <input type="text" class="form-control" onkeypress="return hanyaAngka(this)" name="angka" placeholder="No telp/Hp" id="telpCust" style="border-radius: 15px;">
 
                                         </div>
                                         <div class="form-group">
@@ -161,13 +161,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="tanggal-LahirPengguna" class="col-form-label">Tanggal Lahir</label>
-                                            <input type="date" class="form-control" data-date="" onchange="(hanyaAngka)" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggal-LahirPengguna">
+                                            <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tglCust">
                                         </div>
                                     </div>
 
                                 </div>
                                 <div class="float-right">
-                                    <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
+                                    <button type="button" id="submitData" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
                                     <button type="button" onclick="location.href='<?= base_url() ?>/Data-User'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
                                 </div>
 
@@ -223,7 +223,38 @@
     <script src="<?= base_url() ?>/AdminLTE/dists/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import {
+        initializeApp
+    } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+    import {
+        getDatabase,
+        ref,
+        onValue,
+        set,
+        update
+    } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+        authDomain: "traveland-429a6.firebaseapp.com",
+        databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "traveland-429a6",
+        storageBucket: "traveland-429a6.appspot.com",
+        messagingSenderId: "569185605053",
+        appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+
+    document.getElementById('submitData').addEventListener('click', function() {
+        let idLogin = ['namaCust', 'emailCust', 'alamatCust', 'telpCust', 'tglCust'];
+    })
+</script>
 
 <script>
     $('#btnCancelImage').hide()
@@ -293,9 +324,10 @@
         )
     }).trigger("change")
 
-    function hanyaAngka(event) {
-        var angka = (event.which) ? event.which : event.keyCode
-        if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
+    function hanyaAngka(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+
             return false;
         return true;
     }
