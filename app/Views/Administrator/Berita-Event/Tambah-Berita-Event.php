@@ -122,7 +122,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-       
+
 
         <!-- Navbar -->
         <?= view('Administrator/Template-Admin/Header') ?>
@@ -161,11 +161,10 @@
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
                                             <label for="">Gambar Berita</label>
-
                                             <div class="file-upload">
                                                 <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
                                                 <div class="Imagees">
-                                                    <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" id="NoneImage" alt="">
+                                                    <img src="<?= base_url() ?>/Image/Icon/UploadProfile.svg" id="NoneImage" alt="">
                                                     <img src="" id="AddImage" alt="">
                                                 </div>
                                                 <center>
@@ -182,12 +181,12 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="judul-BeritaEvent" class="col-form-label">Judul:</label>
-                                            <input type="text" class="form-control" style="border-radius: 15px;" placeholder="Isi Judul" id="judul-BeritaEvent">
+                                            <label for="judul" class="col-form-label">Judul:</label>
+                                            <input type="text" class="form-control" style="border-radius: 15px;" placeholder="Isi Judul" id="judul">
                                         </div>
                                         <div class="form-group">
                                             <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
-                                            <input type="date" class="form-control" data-date="" onchange="(hanyaAngka)" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggal-BeritaEvent">
+                                            <input type="date" class="form-control" data-date="" onchange="(hanyaAngka)" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggalBeritaEvent">
                                         </div>
 
                                     </div>
@@ -200,17 +199,18 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
-                                            <textarea readonly class="form-control" style="border-radius: 15px; height: 130px;" id="alamat-BeritaEvent" cols="30" rows="2"></textarea>
+                                            <textarea readonly class="form-control" style="border-radius: 15px; height: 130px;" id="alamatBeritaEvent" cols="30" rows="2"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
-                                    <textarea class="form-control" style="border-radius: 15px;" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
+                                    <textarea class="form-control" style="border-radius: 15px;" id="isiBeritaEvent" cols="30" rows="5"></textarea>
                                 </div>
                                 <div class="float-right">
-                                    <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
-                                    <button type="button" onclick="location.href='<?= base_url() ?>/Berita-Event'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
+                                    <button type="button" id="dadakan" class="btn btn-primary m-1" style="border-radius: 15px;">dadakan</button>
+                                    <button type="button" id="submitData" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
+                                    <button type="button" onclick="location.href='<?= base_url() ?>/BeritaEvent'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
                                 </div>
                             </form>
                         </div>
@@ -264,112 +264,220 @@
     <script src="<?= base_url() ?>/AdminLTE/dists/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
-</body>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            set,
+            update
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+            authDomain: "traveland-429a6.firebaseapp.com",
+            databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "traveland-429a6",
+            storageBucket: "traveland-429a6.appspot.com",
+            messagingSenderId: "569185605053",
+            appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
 
-<script>
-    $('#btnCancelImage').hide()
-    $('#AddImage').hide()
-    $('.image-title').hide()
-    $('#NoneImage').show()
+        let parseJsonBerita = [];
+        let LastID = ""
 
-    function readURL(input) {
-        if (input.files && input.files[0]) {
+        var parseJsonAdmin = [];
 
-            var reader = new FileReader();
+        const starCountRef = ref(db, 'Data-Berita-Event/');
+        onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            const keys = Object.keys(data);
+            for (const isi in keys) {
+                const ValueItem = ref(db, 'Data-Berita-Event/' + keys[isi]);
+                onValue(ValueItem, (kontenn) => {
+                    let LastID = keys[isi]
+                    let PostD = {
+                        IDkey: keys[isi],
+                    };
+                    parseJsonAdmin.push(PostD)
+                })
+            }
 
-            reader.onload = function(e) {
-                $('.image-upload-wrap').hide();
-
-                $('.file-upload-image').attr('src', e.target.result);
-                $('.file-upload-content').show();
-
-                $('.image-title').html(input.files[0].name);
-
-                $('#AddImage').show()
-                $('#NoneImage').hide()
-
-                document.getElementById('AddImage').src = e.target.result;
-            };
-            $('#btnCancelImage').show()
-            $('.image-title').show()
-            reader.readAsDataURL(input.files[0]);
+        });
 
 
-        } else {
-            removeUpload();
-        }
-    }
 
-    function removeUpload() {
-        document.getElementById("uploadFilee").value = "";
+        // let judulBE = document.getElementById('judul').value;
+        document.getElementById('submitData').addEventListener('click', function() {
+            let form = ['judul', 'tanggalBeritaEvent', 'alamatBeritaEvent', 'isiBeritaEvent'];
+            var angka = 0;
+            for (let i = 0; i < form.length; i++) {
+                if (document.getElementById(form[i]).value == "") {
+                    angka++;
+                    $('#' + form[i]).addClass('is-invalid')
+                } else {
+                    $('#' + form[i]).removeClass('is-invalid')
+                }
+            }
+
+            if (angka == 0) {
+
+                if (parseJsonAdmin.length == 0) {
+                    set(ref(db, 'Data-Berita-Event/' + "BE-1"), {
+                        Judul: document.getElementById('judul').value,
+                        TanggalEvent: document.getElementById('tanggalBeritaEvent').value,
+                        Alamat: document.getElementById('alamatBeritaEvent').value,
+                        IsiBerita: document.getElementById('isiBeritaEvent').value,
+                        LinkImage: "",
+                        Langlitute: "",
+                        Latitute: ""
+                    });
+                } else {
+                    var idLst = parseJsonAdmin[parseJsonAdmin.length - 1].IDkey
+                    let SplitData = idLst.split("-");
+                    let nextID = "BE-" + (Number(SplitData[1]) + 1);
+                    set(ref(db, 'Data-Berita-Event/' + nextID), {
+                        Judul: document.getElementById('judul').value,
+                        TanggalEvent: document.getElementById('tanggalBeritaEvent').value,
+                        Alamat: document.getElementById('alamatBeritaEvent').value,
+                        IsiBerita: document.getElementById('isiBeritaEvent').value,
+                        LinkImage: "",
+                        Langlitute: "",
+                        Latitute: ""
+                    });
+                }
+
+                // set(ref(db, 'Data-Berita-Event/' + ""), {
+
+                //     Judul: document.getElementById('judul').value,
+                //     TanggalEvent: document.getElementById('tanggal-BeritaEvent').value,
+                //     Alamat: document.getElementById('alamat-BeritaEvent').value,
+                //     IsiBerita: document.getElementById('isi-BeritaEvent').value,
+                //     LinkImage: "",
+                //     Langlitute: "",
+                //     Latitute: ""
+                // });
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Judul, Berita dan Alamat Tidak Boleh Kosong!'
+                })
+            }
+
+        })
+    </script>
+
+    <script>
         $('#btnCancelImage').hide()
         $('#AddImage').hide()
-        $('#NoneImage').show()
         $('.image-title').hide()
-        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-        $('.file-upload-content').hide();
-        $('.image-upload-wrap').show();
-    }
-    $('.image-upload-wrap').bind('dragover', function() {
-        $('.image-upload-wrap').addClass('image-dropping');
-    });
-    $('.image-upload-wrap').bind('dragleave', function() {
-        $('.image-upload-wrap').removeClass('image-dropping');
-    });
+        $('#NoneImage').show()
 
-    mapboxgl.accessToken = 'pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw';
-    const coordinates = document.getElementById('coordinates');
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [117.1485239363954, -0.569178092470267],
-        zoom: 10
-    });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
 
-    const marker = new mapboxgl.Marker({
-            draggable: true
-        })
-        .setLngLat([117.1485239363954, -0.569178092470267])
-        .addTo(map);
+                var reader = new FileReader();
 
-    function onDragEnd() {
-        const lngLat = marker.getLngLat();
-        coordinates.style.display = 'block';
-        coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+                reader.onload = function(e) {
+                    $('.image-upload-wrap').hide();
 
-        $.ajax({
-            url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw`,
-            dataType: "JSON"
-        }).done(result => {
-            $("#alamat-BeritaEvent").val(result.features[0].place_name)
-        })
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
 
-    }
+                    $('.image-title').html(input.files[0].name);
 
-    marker.on('dragend', onDragEnd);
+                    $('#AddImage').show()
+                    $('#NoneImage').hide()
 
-    $("input").on("change", function() {
-        this.setAttribute(
-            "data-date",
-            moment(this.value, "YYYY-MM-DD")
-            .format(this.getAttribute("data-date-format"))
-        )
-    }).trigger("change")
+                    document.getElementById('AddImage').src = e.target.result;
+                };
+                $('#btnCancelImage').show()
+                $('.image-title').show()
+                reader.readAsDataURL(input.files[0]);
 
-    $("input").on("change", function() {
-        this.setAttribute(
-            "data-date",
-            moment(this.value, "YYYY-MM-DD")
-            .format(this.getAttribute("data-date-format"))
-        )
-    }).trigger("change")
 
-    function hanyaAngka(event) {
-        var angka = (event.which) ? event.which : event.keyCode
-        if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
-            return false;
-        return true;
-    }
-</script>
+            } else {
+                removeUpload();
+            }
+        }
+
+        function removeUpload() {
+            document.getElementById("uploadFilee").value = "";
+            $('#btnCancelImage').hide()
+            $('#AddImage').hide()
+            $('#NoneImage').show()
+            $('.image-title').hide()
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+        }
+        $('.image-upload-wrap').bind('dragover', function() {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function() {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
+
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw';
+        const coordinates = document.getElementById('coordinates');
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [117.1485239363954, -0.569178092470267],
+            zoom: 10
+        });
+
+        const marker = new mapboxgl.Marker({
+                draggable: true
+            })
+            .setLngLat([117.1485239363954, -0.569178092470267])
+            .addTo(map);
+
+        function onDragEnd() {
+            const lngLat = marker.getLngLat();
+            coordinates.style.display = 'block';
+            coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+
+            $.ajax({
+                url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw`,
+                dataType: "JSON"
+            }).done(result => {
+                $("#alamatBeritaEvent").val(result.features[0].place_name)
+            })
+
+        }
+
+        marker.on('dragend', onDragEnd);
+
+        $("input").on("change", function() {
+            this.setAttribute(
+                "data-date",
+                moment(this.value, "YYYY-MM-DD")
+                .format(this.getAttribute("data-date-format"))
+            )
+        }).trigger("change")
+
+        $("input").on("change", function() {
+            this.setAttribute(
+                "data-date",
+                moment(this.value, "YYYY-MM-DD")
+                .format(this.getAttribute("data-date-format"))
+            )
+        }).trigger("change")
+    </script>
+
+
+</body>
+
+
 
 </html>
