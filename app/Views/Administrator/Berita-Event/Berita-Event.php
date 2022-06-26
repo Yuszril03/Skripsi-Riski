@@ -265,13 +265,12 @@
                     const ValueItem = ref(db, 'Data-Berita-Event/' + idData);
                     onValue(ValueItem, (kontenn) => {
                         let PostD = {
-                            IDkey: keys[isi],
+                            
                             Judul: kontenn.val().Judul,
                             Berita: kontenn.val().IsiBerita,
                             Alamat: kontenn.val().Alamat,
                             TanggalAcara: kontenn.val().TanggalEvent,
-                            Status: kontenn.val().StatusBerita,
-                            Status: 0
+                            StatusBerita: 0
 
                         };
                         const updates = {};
@@ -325,12 +324,12 @@
                     const ValueItem = ref(db, 'Data-Berita-Event/' + idData);
                     onValue(ValueItem, (kontenn) => {
                         let PostD = {
-                            NamaCustomer: kontenn.val().NamaCustomer,
-                            Gender: kontenn.val().Gender,
-                            TelefonCustomer: kontenn.val().TelefonCustomer,
-                            StatusCustomer: 1,
-                            EmailCustomer: kontenn.val().EmailCustomer,
-                            fotoCustomer: kontenn.val().fotoCustomer
+    
+                            Judul: kontenn.val().Judul,
+                            Berita: kontenn.val().IsiBerita,
+                            Alamat: kontenn.val().Alamat,
+                            TanggalAcara: kontenn.val().TanggalEvent,
+                            StatusBerita: 0
                         };
                         const updates = {};
                         updates['/Data-Berita-Event/' + idData] = PostD;
