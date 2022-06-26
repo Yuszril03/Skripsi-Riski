@@ -216,7 +216,7 @@
                     })
                 }
 
-                
+
 
                 for (let i = 0; i < parseJsonBerita.length; i++) {
                     let StatusData = '';
@@ -226,12 +226,12 @@
                         ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Berita-Event/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
                                             <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Berita-Event/${parseJsonBerita[i].IDkey}'" class="btn btn-warning btn-sm m-1"><i class="fa fa-pen-alt"></i></button>
-                                            <button id="PowerCustomer" onclick="TidakAktif(${parseJsonBerita[i].IDkey})"  type="button" class="btn btn-danger btn-sm m-1"><i class="fas fa-power-off"></i></button>`;
+                                            <button id="PowerCustomer" onclick="TidakAktif(${parseJsonBerita[i].IDkey})"  type="button" class="tidakatif btn btn-danger btn-sm m-1"><i class="fas fa-power-off"></i></button>`;
                     } else {
                         StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
                         ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Berita-Event/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
-                                            <button id="PowerCustomer" onclick="Aktif(${parseJsonBerita[i].IDkey})"  type="button" class="btn btn-success btn-sm"><i class="fas fa-power-off"></i></button>`;
+                                            <button id="PowerCustomer" onclick="Aktif(${parseJsonBerita[i].IDkey})"  type="button" class="aktif btn btn-success btn-sm"><i class="fas fa-power-off"></i></button>`;
                     }
 
                     table.row.add([
@@ -246,6 +246,120 @@
                 }
             })
         }
+        $(document).on('click', '.tidakatif', function() {
+            var idData = $(this).data('id');
+
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Untuk Non Aktifkan Customer Ini ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    const ValueItem = ref(db, 'Data-Berita-Event/' + idData);
+                    onValue(ValueItem, (kontenn) => {
+                        let PostD = {
+                            IDkey: keys[isi],
+                            Judul: kontenn.val().Judul,
+                            Berita: kontenn.val().IsiBerita,
+                            Alamat: kontenn.val().Alamat,
+                            TanggalAcara: kontenn.val().TanggalEvent,
+                            Status: kontenn.val().StatusBerita,
+                            Status: 0
+
+                        };
+                        const updates = {};
+                        updates['/Data-Berita-Event/' + idData] = PostD;
+                        update(ref(db), updates);
+                        // table.row.reload();
+
+                        Swal.fire(
+                            'Berhasil!',
+                            'Data berhasil di non aktifkan.',
+                            'success'
+                        )
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Data berhasil di non aktifkan.',
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Okey'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+
+                        // LoadData()
+                    })
+
+
+
+
+                }
+            })
+        })
+
+        $(document).on('click', '.aktif', function() {
+            var idData = $(this).data('id');
+
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Untuk Aktifkan Customer Ini ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const ValueItem = ref(db, 'Data-Berita-Event/' + idData);
+                    onValue(ValueItem, (kontenn) => {
+                        let PostD = {
+                            NamaCustomer: kontenn.val().NamaCustomer,
+                            Gender: kontenn.val().Gender,
+                            TelefonCustomer: kontenn.val().TelefonCustomer,
+                            StatusCustomer: 1,
+                            EmailCustomer: kontenn.val().EmailCustomer,
+                            fotoCustomer: kontenn.val().fotoCustomer
+                        };
+                        const updates = {};
+                        updates['/Data-Berita-Event/' + idData] = PostD;
+                        update(ref(db), updates);
+                        // table.row.reload();
+                        Swal.fire(
+                            'Berhasil!',
+                            'Data berhasil di aktifkan.',
+                            'success'
+                        )
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Data berhasil di aktifkan.',
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Okey'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+
+                        // LoadData()
+                    })
+                }
+            })
+        })
     </script>
 
 </body>
