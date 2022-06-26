@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -72,17 +73,18 @@
                 <div class="card card-outline card-warning" style="border-radius: 15px;">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table id="Table" class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th align="center">Judul</th>
                                         <th align="center">Berita</th>
                                         <th align="center">Alamat</th>
-                                        <th align="center">Tanggal</th>
+                                        <th align="center">Tanggal Event</th>
+                                        <th align="center">Status</th>
                                         <th align="center">Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <!-- <tbody>
                                     <tr>
                                         <td>b</td>
                                         <td>c</td>
@@ -94,7 +96,7 @@
                                             <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
-                                </tbody>
+                                </tbody> -->
                             </table>
                         </div>
                     </div>
@@ -146,6 +148,106 @@
     <script src="<?= base_url() ?>/AdminLTE/dists/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+
+    <script type="module">
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            set,
+            update
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+            authDomain: "traveland-429a6.firebaseapp.com",
+            databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "traveland-429a6",
+            storageBucket: "traveland-429a6.appspot.com",
+            messagingSenderId: "569185605053",
+            appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+
+        var parseJsonBerita = [];
+        var table = $('#Table').DataTable({
+            "lengthChange": false,
+            "language": {
+                search: '',
+                searchPlaceholder: "Pencarian...",
+                "paginate": {
+                    "next": "Selanjutnya",
+                    "previous": "Sebelumnya"
+                },
+                "info": "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri",
+                "lengthMenu": "Tampilkan _MENU_ entri",
+                "infoEmpty": "Menampilkan 0 hingga 0 of 0 entri",
+                "infoFiltered": "(disaring dari _MAX_ total entri)",
+                "zeroRecords": "Tidak ada data yang cocok ditemukan",
+                "emptyTable": "Tidak ada data di dalam tabel",
+            }
+        });
+        LoadData()
+
+        function LoadData() {
+            const starCountRef = ref(db, 'Data-Berita-Event/');
+            onValue(starCountRef, (snapshot) => {
+                const data = snapshot.val();
+                const keys = Object.keys(data);
+                for (const isi in keys) {
+                    const ValueItem = ref(db, 'Data-Berita-Event/' + keys[isi]);
+                    onValue(ValueItem, (kontenn) => {
+                        let PostD = {
+                            IDkey: keys[isi],
+                            Judul: kontenn.val().Judul,
+                            Berita: kontenn.val().IsiBerita,
+                            Alamat: kontenn.val().Alamat,
+                            TanggalAcara: kontenn.val().TanggalEvent,
+                            Status: kontenn.val().StatusBerita
+                        };
+                        parseJsonBerita.push(PostD)
+                    })
+                }
+
+                
+
+                for (let i = 0; i < parseJsonBerita.length; i++) {
+                    let StatusData = '';
+                    let ActionData = '';
+                    if (parseJsonBerita[i].Status == 1) {
+                        StatusData = `<span class="badge badge-success">Aktif</span>`;
+                        ActionData = `
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Berita-Event/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
+                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Berita-Event/${parseJsonBerita[i].IDkey}'" class="btn btn-warning btn-sm m-1"><i class="fa fa-pen-alt"></i></button>
+                                            <button id="PowerCustomer" onclick="TidakAktif(${parseJsonBerita[i].IDkey})"  type="button" class="btn btn-danger btn-sm m-1"><i class="fas fa-power-off"></i></button>`;
+                    } else {
+                        StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
+                        ActionData = `
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Berita-Event/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
+                                            <button id="PowerCustomer" onclick="Aktif(${parseJsonBerita[i].IDkey})"  type="button" class="btn btn-success btn-sm"><i class="fas fa-power-off"></i></button>`;
+                    }
+
+                    table.row.add([
+                        parseJsonBerita[i].Judul,
+                        parseJsonBerita[i].Berita,
+                        parseJsonBerita[i].Alamat,
+                        parseJsonBerita[i].TanggalAcara,
+                        StatusData,
+                        ActionData
+                    ]).draw(false)
+
+                }
+            })
+        }
+    </script>
+
 </body>
 
 </html>

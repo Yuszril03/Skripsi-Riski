@@ -57,7 +57,7 @@
 
         .file-upload-input {
             opacity: 0;
-            height: 100px;
+            height: 120px;
         }
 
         #map {
@@ -168,7 +168,7 @@
                                                     <img src="" id="AddImage" alt="">
                                                 </div>
                                                 <center>
-                                                    <div class="image-upload-wrap" style="margin-top: -110px ;">
+                                                    <div class="image-upload-wrap" style="margin-top: -150px ;">
                                                         <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
 
                                                         <div class="drag-text mt-4">
@@ -349,6 +349,7 @@
                             Alamat: document.getElementById('alamatBeritaEvent').value,
                             IsiBerita: document.getElementById('isiBeritaEvent').value,
                             LinkImage: "",
+                            StatusBerita: 1,
                             Longlitute: document.getElementById('longlitude').value,
                             Latitute: document.getElementById('latitute').value,
                             TanggalBuat: new Date().toLocaleString("id-ID"),
@@ -364,6 +365,7 @@
                             Alamat: document.getElementById('alamatBeritaEvent').value,
                             IsiBerita: document.getElementById('isiBeritaEvent').value,
                             LinkImage: "",
+                            StatusBerita: 1,
                             Longlitute: document.getElementById('longlitude').value,
                             Latitute: document.getElementById('latitute').value,
                             TanggalBuat: new Date().toLocaleString("id-ID"),
@@ -424,13 +426,14 @@
                                         Alamat: document.getElementById('alamatBeritaEvent').value,
                                         IsiBerita: document.getElementById('isiBeritaEvent').value,
                                         LinkImage: downloadURL,
+                                        StatusBerita: 1,
                                         Longlitute: document.getElementById('longlitude').value,
                                         Latitute: document.getElementById('latitute').value,
                                         TanggalBuat: new Date().toLocaleString("id-ID"),
                                         TanggalUpdate: new Date().toLocaleString("id-ID")
 
                                     });
-                                    
+
                                 } else {
                                     var idLst = parseJsonAdmin[parseJsonAdmin.length - 1].IDkey
                                     let SplitData = idLst.split("-");
@@ -441,6 +444,7 @@
                                         Alamat: document.getElementById('alamatBeritaEvent').value,
                                         IsiBerita: document.getElementById('isiBeritaEvent').value,
                                         LinkImage: downloadURL,
+                                        StatusBerita: 1,
                                         Longlitute: document.getElementById('longlitude').value,
                                         Latitute: document.getElementById('latitute').value,
                                         TanggalBuat: new Date().toLocaleString("id-ID"),

@@ -311,6 +311,7 @@
                     update(ref(db), updates);
 
                     LoadData()
+                    localtion.href = 
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',
