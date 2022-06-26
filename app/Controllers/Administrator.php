@@ -130,12 +130,15 @@ class Administrator extends BaseController
             return view('Administrator/Data-Customer/Edit-Data-Customer', $data);
         }
     }
-    public function detailDataCustomer()
+    public function detailDataCustomer($id = false)
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
         } else {
-            return view('Administrator/Data-Customer/Detail-Data-Customer');
+            $data = [
+                'DataID' => $id
+            ];
+            return view('Administrator/Data-Customer/Detail-Data-Customer', $data);
         }
     }
     public function RetingKomentar()
