@@ -366,16 +366,22 @@
 
 
 
-            document.getElementById('namaCust').value = kontenn.val().NamaCustomer
-            document.getElementById('EmailCust').value = kontenn.val().EmailCustomer
-            document.getElementById('nomorCust').value = kontenn.val().TelefonCustomer
-            document.getElementById('tanggalCust').value = kontenn.val().TanggalLahirCustomer
-            document.getElementById('alamatCust').value = kontenn.val().AlamatCustomer
+            // document.getElementById('namaCust').value = kontenn.val().NamaCustomer
+            // document.getElementById('EmailCust').value = kontenn.val().EmailCustomer
+            // document.getElementById('nomorCust').value = kontenn.val().TelefonCustomer
+            // document.getElementById('tanggalCust').value = kontenn.val().TanggalLahirCustomer
+            // document.getElementById('alamatCust').value = kontenn.val().AlamatCustomer
+            document.getElementById('judul-BeritaEvent').value = kontenn.val().Judul
+            document.getElementById('tanggal-BeritaEvent').value = kontenn.val().TanggalEvent
+            document.getElementById('alamat-BeritaEvent').value = kontenn.val().Alamat
+            document.getElementById('isi-BeritaEvent').value = kontenn.val().IsiBerita
         }
 
-
-
     })
+
+    document.getElementById('submitData').addEventListener
+
+
 </script>
 
 <script>
