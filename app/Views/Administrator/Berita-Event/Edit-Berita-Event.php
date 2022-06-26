@@ -122,7 +122,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-        
+
 
         <!-- Navbar -->
         <?= view('Administrator/Template-Admin/Header') ?>
@@ -266,13 +266,119 @@
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import {
+        initializeApp
+    } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+    import {
+        getDatabase,
+        ref,
+        onValue,
+        set,
+        update
+    } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+    import {
+        getStorage,
+        ref as refImage,
+        uploadBytesResumable,
+        getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-storage.js";
 
-<script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+        authDomain: "traveland-429a6.firebaseapp.com",
+        databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "traveland-429a6",
+        storageBucket: "traveland-429a6.appspot.com",
+        messagingSenderId: "569185605053",
+        appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+    const storage = getStorage();
+
     $('#btnCancelImage').hide()
     $('#AddImage').hide()
     $('.image-title').hide()
     $('#NoneImage').show()
 
+    var parseJsonAdmin = {};
+
+    const ValueItem = ref(db, 'Data-Berita-Event/<?= $DataID ?>');
+    onValue(ValueItem, (kontenn) => {
+        let PostD = {
+            // Nama: kontenn.val().NamaCustomer,
+            // Gender: kontenn.val().Gender,
+            // Telefon: kontenn.val().TelefonCustomer,
+            // Status: kontenn.val().StatusCustomer,
+            // Email: kontenn.val().EmailCustomer,
+            // Alamat: kontenn.val().AlamatCustomer,
+            // tanggalLahir: kontenn.val().TanggalLahirCustomer,
+            // TanggalBuat: kontenn.val().TanggalBuat,
+            // TanggalUpdate: kontenn.val().TanggalUpdate,
+            // fotoCustomer: kontenn.val().fotoCustomer
+
+            Judul: kontenn.val().Judul,
+            IsiBerita: kontenn.val().IsiBerita,
+            Alamat: kontenn.val().Alamat,
+            TanggalEvent: kontenn.val().TanggalEvent,
+            Status: kontenn.val().StatusBerita,
+            LinkImage: kontenn.val().LinkImage,
+            Latitute: kontenn.val().Latitute,
+            Longlitute: kontenn.val().Longlitute,
+            TanggalBuat: kontenn.val().TanggalBuat,
+            TanggalUpdate: kontenn.val().TanggalUpdate
+
+        };
+        parseJsonAdmin = (PostD)
+        if (Boolean(parseJsonAdmin) == false) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Gagal Memuat Data.',
+                icon: 'error',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Okey'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            })
+        } else {
+            if (kontenn.val().LinkImage == "") {
+                $('#btnCancelImage').hide()
+                $('#AddImage').hide()
+                $('.image-title').hide()
+                $('#NoneImage').show()
+                $('.image-upload-wrap').show();
+            } else {
+                document.getElementById('AddImage').src = kontenn.val().LinkImage
+                $('#btnCancelImage').show()
+                $('#AddImage').show()
+                $('.image-title').hide()
+                $('#NoneImage').hide()
+                $('.image-upload-wrap').hide();
+
+            }
+
+
+
+            document.getElementById('namaCust').value = kontenn.val().NamaCustomer
+            document.getElementById('EmailCust').value = kontenn.val().EmailCustomer
+            document.getElementById('nomorCust').value = kontenn.val().TelefonCustomer
+            document.getElementById('tanggalCust').value = kontenn.val().TanggalLahirCustomer
+            document.getElementById('alamatCust').value = kontenn.val().AlamatCustomer
+        }
+
+
+
+    })
+</script>
+
+<script>
     function readURL(input) {
         if (input.files && input.files[0]) {
 
