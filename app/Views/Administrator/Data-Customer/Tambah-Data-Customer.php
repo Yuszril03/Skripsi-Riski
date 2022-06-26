@@ -177,7 +177,7 @@
 
                                 <div class="float-right">
                                     <button type="button" id="submitData" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
-                                    <button type="button" onclick="location.href='<?= base_url() ?>/Data-User'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
+                                    <button type="button" onclick="toBack()" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
                                 </div>
 
                             </form>
@@ -287,148 +287,186 @@
 
 
     document.getElementById('submitData').addEventListener('click', function() {
-        let idData = ['nikCust', 'namaCust', 'emailCust', 'telpCust', 'gender', 'tglCust', 'alamatCust'];
-        let jumlah = 0;
-        const fileupload = $('#uploadFilee').prop('files')[0];
-        let gender = $('input[name="gender"]:checked').val();
+
+        Swal.fire({
+            title: 'Apa anda yakin?',
+            text: "Menyimpan data ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Iya',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let idData = ['nikCust', 'namaCust', 'emailCust', 'telpCust', 'gender', 'tglCust', 'alamatCust'];
+                let jumlah = 0;
+                const fileupload = $('#uploadFilee').prop('files')[0];
+                let gender = $('input[name="gender"]:checked').val();
 
 
-        if (parseJsonAdmin.includes(Number(document.getElementById('nikCust').value)) == false) {
-
-            for (let i = 0; i < idData.length; i++) {
-                if (i == 4) {
-                    if (Boolean(gender) == false) {
-                        $('#inlineRadio1').addClass('is-invalid')
-                        $('#inlineRadio2').addClass('is-invalid')
-                        jumlah++;
-                    } else {
-                        $('#inlineRadio1').removeClass('is-invalid')
-                        $('#inlineRadio2').removeClass('is-invalid')
-                    }
-                } else if (document.getElementById(idData[i]).value == "") {
-                    $('#' + idData[i]).addClass('is-invalid')
-                    jumlah++;
-                } else {
-                    $('#' + idData[i]).removeClass('is-invalid')
-                }
-            }
-            if (jumlah == 0) {
-                if (Boolean(fileupload) == false) {
-                    ///Add data to realtime
-                    set(ref(db, 'Master-Data-Customer/' + document.getElementById('nikCust').value), {
-                        NamaCustomer: document.getElementById('namaCust').value,
-                        Gender: Number(gender),
-                        TelefonCustomer: document.getElementById('telpCust').value + "",
-                        StatusCustomer: 1,
-                        EmailCustomer: document.getElementById('emailCust').value,
-                        TanggalBuat: new Date().toLocaleString("id-ID"),
-                        TanggalUpdate: new Date().toLocaleString("id-ID"),
-                        fotoCustomer: ""
-                    });
-                    set(ref(db, 'Master-Data-Account-Customer/' + document.getElementById('nikCust').value), {
-                        KataSandi: md5("12345678")
-                    });
-
-                    Swal.fire({
-                        title: 'Berhasil',
-                        text: 'Data berhasil tersimpan.',
-                        icon: 'success',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Okey'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            location.href = "<?= base_url() ?>/Data-Customer"
-                        }
-                    })
-
-                } else {
-                    const storageRef = refImage(storage, 'images-customer/' + new Date().getTime() + '-' + fileupload.name);
-
-                    // Upload the file and metadata
-                    const uploadTask = uploadBytesResumable(storageRef, fileupload);
-
-                    // Register three observers:
-                    // 1. 'state_changed' observer, called any time the state changes
-                    // 2. Error observer, called on failure
-                    // 3. Completion observer, called on successful completion
-                    uploadTask.on('state_changed',
-                        (snapshot) => {
-                            // Observe state change events such as progress, pause, and resume
-                            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                            console.log('Upload is ' + progress + '% done');
-                            switch (snapshot.state) {
-                                case 'paused':
-                                    console.log('Upload is paused');
-                                    break;
-                                case 'running':
-                                    console.log('Upload is running');
-                                    break;
+                if (parseJsonAdmin.includes(Number(document.getElementById('nikCust').value)) == false) {
+                    $('#nikCust').removeClass('is-invalid')
+                    for (let i = 0; i < idData.length; i++) {
+                        if (i == 4) {
+                            if (Boolean(gender) == false) {
+                                $('#inlineRadio1').addClass('is-invalid')
+                                $('#inlineRadio2').addClass('is-invalid')
+                                jumlah++;
+                            } else {
+                                $('#inlineRadio1').removeClass('is-invalid')
+                                $('#inlineRadio2').removeClass('is-invalid')
                             }
-                        },
-                        (error) => {
-                            // Handle unsuccessful uploads
-                        },
-                        () => {
-                            // Handle successful uploads on complete
-                            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                                console.log('File available at', downloadURL);
-                                set(ref(db, 'Master-Data-Customer/' + document.getElementById('nikCust').value), {
-                                    NamaCustomer: document.getElementById('namaCust').value,
-                                    Gender: Number(gender),
-                                    TelefonCustomer: document.getElementById('telpCust').value + "",
-                                    StatusCustomer: 1,
-                                    EmailCustomer: document.getElementById('emailCust').value,
-                                    TanggalBuat: new Date().toLocaleString("id-ID"),
-                                    TanggalUpdate: new Date().toLocaleString("id-ID"),
-                                    fotoCustomer: downloadURL
-                                });
-                                set(ref(db, 'Master-Data-Account-Customer/' + document.getElementById('nikCust').value), {
-                                    KataSandi: md5("12345678")
-                                });
+                        } else if (document.getElementById(idData[i]).value == "") {
+                            $('#' + idData[i]).addClass('is-invalid')
+                            jumlah++;
+                        } else {
+                            $('#' + idData[i]).removeClass('is-invalid')
+                        }
+                    }
+                    if (jumlah == 0) {
+                        if (Boolean(fileupload) == false) {
+                            ///Add data to realtime
+                            set(ref(db, 'Master-Data-Customer/' + document.getElementById('nikCust').value), {
+                                NamaCustomer: document.getElementById('namaCust').value,
+                                Gender: Number(gender),
+                                TelefonCustomer: document.getElementById('telpCust').value + "",
+                                StatusCustomer: 1,
+                                EmailCustomer: document.getElementById('emailCust').value,
+                                TanggalLahirCustomer: document.getElementById('tglCust').value,
+                                AlamatCustomer: document.getElementById('alamatCust').value,
+                                TanggalBuat: new Date().toLocaleString("id-ID"),
+                                TanggalUpdate: new Date().toLocaleString("id-ID"),
+                                fotoCustomer: ""
                             });
-                        }
-                    );
+                            set(ref(db, 'Master-Data-Account-Customer/' + document.getElementById('nikCust').value), {
+                                KataSandi: md5("12345678")
+                            });
 
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Data berhasil tersimpan.',
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Okey'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "<?= base_url() ?>/Data-Customer"
+                                }
+                            })
+
+                        } else {
+                            const storageRef = refImage(storage, 'images-customer/' + new Date().getTime() + '-' + fileupload.name);
+
+                            // Upload the file and metadata
+                            const uploadTask = uploadBytesResumable(storageRef, fileupload);
+
+                            // Register three observers:
+                            // 1. 'state_changed' observer, called any time the state changes
+                            // 2. Error observer, called on failure
+                            // 3. Completion observer, called on successful completion
+                            uploadTask.on('state_changed',
+                                (snapshot) => {
+                                    // Observe state change events such as progress, pause, and resume
+                                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                    console.log('Upload is ' + progress + '% done');
+                                    switch (snapshot.state) {
+                                        case 'paused':
+                                            console.log('Upload is paused');
+                                            break;
+                                        case 'running':
+                                            console.log('Upload is running');
+                                            break;
+                                    }
+                                },
+                                (error) => {
+                                    // Handle unsuccessful uploads
+                                },
+                                () => {
+                                    // Handle successful uploads on complete
+                                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                        console.log('File available at', downloadURL);
+                                        set(ref(db, 'Master-Data-Customer/' + document.getElementById('nikCust').value), {
+                                            NamaCustomer: document.getElementById('namaCust').value,
+                                            Gender: Number(gender),
+                                            TelefonCustomer: document.getElementById('telpCust').value + "",
+                                            StatusCustomer: 1,
+                                            EmailCustomer: document.getElementById('emailCust').value,
+                                            TanggalLahirCustomer: document.getElementById('tglCust').value,
+                                            AlamatCustomer: document.getElementById('alamatCust').value,
+                                            TanggalBuat: new Date().toLocaleString("id-ID"),
+                                            TanggalUpdate: new Date().toLocaleString("id-ID"),
+                                            fotoCustomer: downloadURL
+                                        });
+                                        set(ref(db, 'Master-Data-Account-Customer/' + document.getElementById('nikCust').value), {
+                                            KataSandi: md5("12345678")
+                                        });
+                                    });
+                                }
+                            );
+
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Data berhasil tersimpan.',
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Okey'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "<?= base_url() ?>/Data-Customer"
+                                }
+                            })
+
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Kolom pengisian Tidak Boleh Kosong!'
+                        })
+                    }
+
+                } else {
+                    $('#nikCust').addClass('is-invalid')
                     Swal.fire({
-                        title: 'Berhasil',
-                        text: 'Data berhasil tersimpan.',
-                        icon: 'success',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Okey'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            location.href = "<?= base_url() ?>/Data-Customer"
-                        }
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'NIK sudah digunakan!'
                     })
-
                 }
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Kolom pengisian Tidak Boleh Kosong!'
-                })
             }
+        })
 
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'NIK sudah digunakan!'
-            })
-        }
+
 
 
     })
 </script>
 
 <script>
+    function toBack() {
+        Swal.fire({
+            title: 'Apa anda yakin?',
+            text: "Meninggalkan halaman ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Iya',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "<?= base_url() ?>/Data-Customer"
+            }
+        })
+    }
+
     $('#btnCancelImage').hide()
     $('#AddImage').hide()
     $('.image-title').hide()

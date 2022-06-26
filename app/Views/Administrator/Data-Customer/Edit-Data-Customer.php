@@ -102,6 +102,9 @@
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
                             <form action="">
+                                <div class="w-100 bg-gray rounded p-2 mb-2">
+                                    <i class="fas fa-user"></i> Data Pribadi Customer
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
@@ -118,7 +121,7 @@
                                                         <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
 
                                                         <div class="drag-text mt-4">
-                                                            <h6 style="margin-top:-20px;">Drag and drop files or select add Image</h6>
+                                                            <h6 id="textDrop" style="margin-top:-20px;">Drag and drop files or select add Image</h6>
                                                         </div>
                                                     </div>
                                                     <p class="image-title">Uploaded Image</p>
@@ -127,35 +130,33 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="judul-BeritaEvent" class="col-form-label">Nama Pengguna</label>
-                                            <input type="text" class="form-control" style="border-radius: 15px;" id="judul-BeritaEvent" placeholder="Nama">
+                                            <label for="judul-BeritaEvent" class="col-form-label">Nama Pengguna <sup><span class="text-danger">*</span></sup></label>
+                                            <input type="text" class="form-control" style="border-radius: 15px;" id="namaCust" placeholder="Ketik di sini...">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="EmailData-Usert" class="col-form-label">Email</label>
-                                            <input type="text" class="form-control" style="border-radius: 15px;" id="EmailData-User" placeholder="email@example.com">
-                                        </div>
+
                                     </div>
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
-                                            <label for="alamatUser">Alamat</label>
-                                            <textarea type="text" name="" id="alamatUser" class="form-control" placeholder="Alamat" aria-describedby="helpId" style="border-radius: 15px;"></textarea>
+                                            <label for="EmailData-Usert" class="col-form-label">Email <sup><span class="text-danger">*</span></sup></label>
+                                            <input type="text" class="form-control" style="border-radius: 15px;" id="EmailCust" placeholder="Ketik di sini...">
                                         </div>
+
                                         <div class="form-group">
-                                            <label for="judul-BeritaEvent" class="col-form-label">Nomor Telpon</label>
-                                            <input type="text" class="form-control" name="angka" placeholder="No telp/Hp" style="border-radius: 15px;">
+                                            <label for="judul-BeritaEvent" class="col-form-label">Nomor Telpon <sup><span class="text-danger">*</span></sup></label>
+                                            <input type="text" class="form-control" name="angka" id="nomorCust" placeholder="Ketik di sini..." style="border-radius: 15px;">
 
                                         </div>
                                         <div class="form-group">
-                                            <label for="isi-BeritaEvent" class="col-form-label">Jenis Kelamin</label>
+                                            <label for="isi-BeritaEvent" class="col-form-label">Jenis Kelamin <sup><span class="text-danger">*</span></sup></label>
                                             <div class="row ml-2">
                                                 <div class="form-check form-check-inline">
-                                                    <input type="radio" class="form-check-input" name="gender" id="inlineRadio1" value="checkedValue">
+                                                    <input type="radio" class="form-check-input" name="gender" id="inlineRadio1" value="1">
                                                     <label class="form-check-label" for="inlineRadio1">
                                                         Laki - Laki
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input type="radio" class="form-check-input" name="gender" id="inlineRadio2" value="checkedValue">
+                                                    <input type="radio" class="form-check-input" name="gender" id="inlineRadio2" value="0">
                                                     <label class="form-check-label" for="inlineRadio2">
                                                         Perempuan
                                                     </label>
@@ -163,14 +164,35 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="tanggal-LahirPengguna" class="col-form-label">Tanggal Lahir</label>
-                                            <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggal-LahirPengguna">
+                                            <label for="tanggal-LahirPengguna" class="col-form-label">Tanggal Lahir <sup><span class="text-danger">*</span></sup></label>
+                                            <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggalCust">
                                         </div>
                                     </div>
 
                                 </div>
+                                <div class="form-group">
+                                    <label for="alamatUser">Alamat <sup><span class="text-danger">*</span></sup></label>
+                                    <textarea type="text" name="" id="alamatCust" class="form-control" placeholder="Ketik di sini..." aria-describedby="helpId" style="border-radius: 15px;"></textarea>
+                                </div>
+                                <div class="w-100 bg-gray rounded p-2">
+                                    <i class="fas fa-user-cog"></i> Data Akun Customer (Optional)
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="judul-BeritaEvent" class="col-form-label">Kata Sandi Baru</label>
+                                            <input type="password" class="form-control" style="border-radius: 15px;" id="pass" placeholder="Ketik di sini...">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="judul-BeritaEvent" class="col-form-label">Konfirmasi Kata Sandi Baru</label>
+                                            <input type="password" class="form-control" style="border-radius: 15px;" id="Konfpass" placeholder="Ketik di sini...">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="float-right">
-                                    <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
+                                    <button type="button" id="submitData" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
                                     <button type="button" onclick="KeluarForm()" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
                                 </div>
 
@@ -227,99 +249,225 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</body>
+    <script src="<?= base_url() ?>/MD5/md5.min.js"></script>
 
-<script>
-    $('#btnCancelImage').hide()
-    $('#AddImage').hide()
-    $('.image-title').hide()
-    $('#NoneImage').show()
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            set,
+            update
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+        import {
+            getStorage,
+            ref as refImage,
+            uploadBytesResumable,
+            getDownloadURL
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-storage.js";
 
-    function readURL(input) {
-        if (input.files && input.files[0]) {
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+            authDomain: "traveland-429a6.firebaseapp.com",
+            databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "traveland-429a6",
+            storageBucket: "traveland-429a6.appspot.com",
+            messagingSenderId: "569185605053",
+            appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const storage = getStorage();
 
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                $('.image-upload-wrap').hide();
-
-                $('.file-upload-image').attr('src', e.target.result);
-                $('.file-upload-content').show();
-
-                $('.image-title').html(input.files[0].name);
-
-                $('#AddImage').show()
-                $('#NoneImage').hide()
-
-                document.getElementById('AddImage').src = e.target.result;
-            };
-            $('#btnCancelImage').show()
-            $('.image-title').show()
-            reader.readAsDataURL(input.files[0]);
-
-
-        } else {
-            removeUpload();
-        }
-    }
-
-    function removeUpload() {
-        document.getElementById("uploadFilee").value = "";
         $('#btnCancelImage').hide()
         $('#AddImage').hide()
-        $('#NoneImage').show()
         $('.image-title').hide()
-        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-        $('.file-upload-content').hide();
-        $('.image-upload-wrap').show();
-    }
-    $('.image-upload-wrap').bind('dragover', function() {
-        $('.image-upload-wrap').addClass('image-dropping');
-    });
-    $('.image-upload-wrap').bind('dragleave', function() {
-        $('.image-upload-wrap').removeClass('image-dropping');
-    });
+        $('#NoneImage').show()
 
-    mapboxgl.accessToken = 'pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw';
-    const coordinates = document.getElementById('coordinates');
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [117.1485239363954, -0.569178092470267],
-        zoom: 10
-    });
+        var parseJsonAdmin = {};
 
-    $("input").on("change", function() {
-        this.setAttribute(
-            "data-date",
-            moment(this.value, "YYYY-MM-DD")
-            .format(this.getAttribute("data-date-format"))
-        )
-    }).trigger("change")
+        const ValueItem = ref(db, 'Master-Data-Customer/<?= $DataID ?>');
+        onValue(ValueItem, (kontenn) => {
+            let PostD = {
+                Nama: kontenn.val().NamaCustomer,
+                Gender: kontenn.val().Gender,
+                Telefon: kontenn.val().TelefonCustomer,
+                Status: kontenn.val().StatusCustomer,
+                Email: kontenn.val().EmailCustomer,
+                Alamat: kontenn.val().AlamatCustomer,
+                tanggalLahir: kontenn.val().TanggalLahirCustomer,
+                TanggalBuat: kontenn.val().TanggalBuat,
+                TanggalUpdate: kontenn.val().TanggalUpdate,
+                fotoCustomer: kontenn.val().fotoCustomer
+            };
+            parseJsonAdmin = (PostD)
+            if (Boolean(parseJsonAdmin) == false) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Gagal Memuat Data.',
+                    icon: 'error',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Okey'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                })
+            } else {
+                if (kontenn.val().fotoCustomer == "") {
+                    $('#btnCancelImage').hide()
+                    $('#AddImage').hide()
+                    $('.image-title').hide()
+                    $('#NoneImage').show()
+                    $('.image-upload-wrap').show();
+                } else {
+                    document.getElementById('AddImage').src = kontenn.val().fotoCustomer
+                    $('#btnCancelImage').show()
+                    $('#AddImage').show()
+                    $('.image-title').hide()
+                    $('#NoneImage').hide()
+                    $('.image-upload-wrap').hide();
 
-    function hanyaAngka(event) {
-        var angka = (event.which) ? event.which : event.keyCode
-        if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
-            return false;
-        return true;
-    }
+                }
 
-    function KeluarForm() {
-        Swal.fire({
-            title: 'Apa kamu yakin?',
-            text: "Meninggalkan halaman ini",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Iya',
-            cancelButtonText: 'Tidak',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                location.href = "<?= base_url() ?>/Data-User"
+                if (kontenn.val().Gender == 1) {
+                    document.getElementById('inlineRadio1').checked = true
+                } else {
+                    document.getElementById('inlineRadio2').checked = true
+
+                }
+
+                document.getElementById('namaCust').value = kontenn.val().NamaCustomer
+                document.getElementById('EmailCust').value = kontenn.val().EmailCustomer
+                document.getElementById('nomorCust').value = kontenn.val().TelefonCustomer
+                document.getElementById('tanggalCust').value = kontenn.val().TanggalLahirCustomer
+                document.getElementById('alamatCust').value = kontenn.val().AlamatCustomer
             }
+
+
+
         })
-    }
-</script>
+
+        document.getElementById('submitData').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Apa anda yakin?',
+                text: "Menyimpan data ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (document.getElementById('pass').value != "") {
+                        if (document.getElementById('Konfpass').value == "") {
+
+                        } else if (document.getElementById('Konfpass').value != document.getElementById('pass').value) {
+
+                        }
+                    }
+                }
+            })
+        })
+    </script>
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('.image-upload-wrap').hide();
+
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
+
+                    $('.image-title').html(input.files[0].name);
+
+                    $('#AddImage').show()
+                    $('#NoneImage').hide()
+
+                    document.getElementById('AddImage').src = e.target.result;
+                };
+                $('#btnCancelImage').show()
+                $('.image-title').show()
+                reader.readAsDataURL(input.files[0]);
+
+
+            } else {
+                removeUpload();
+            }
+        }
+
+        function removeUpload() {
+            document.getElementById("uploadFilee").value = "";
+            $('#btnCancelImage').hide()
+            $('#AddImage').hide()
+            $('#NoneImage').show()
+            $('.image-title').hide()
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+        }
+        $('.image-upload-wrap').bind('dragover', function() {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function() {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
+
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw';
+        const coordinates = document.getElementById('coordinates');
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [117.1485239363954, -0.569178092470267],
+            zoom: 10
+        });
+
+        $("input").on("change", function() {
+            this.setAttribute(
+                "data-date",
+                moment(this.value, "YYYY-MM-DD")
+                .format(this.getAttribute("data-date-format"))
+            )
+        }).trigger("change")
+
+        function hanyaAngka(event) {
+            var angka = (event.which) ? event.which : event.keyCode
+            if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
+                return false;
+            return true;
+        }
+
+        function KeluarForm() {
+            Swal.fire({
+                title: 'Apa kamu yakin?',
+                text: "Meninggalkan halaman ini",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.href = "<?= base_url() ?>/Data-Customer"
+                }
+            })
+        }
+    </script>
+
+
+</body>
 
 </html>

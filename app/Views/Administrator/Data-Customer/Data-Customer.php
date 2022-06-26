@@ -225,43 +225,61 @@
                     })
                 }
 
-                for (let i = 0; i < parseJsonCustomer.length; i++) {
-                    let StatusData = '';
-                    let ActionData = '';
-                    if (parseJsonCustomer[i].Status == 1) {
-                        StatusData = `<span class="badge badge-success">Aktif</span>`;
-                        ActionData = `
+                if (Boolean(parseJsonCustomer) == false) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Gagal Memuat Data.',
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Okey'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                } else {
+
+                    for (let i = 0; i < parseJsonCustomer.length; i++) {
+                        let StatusData = '';
+                        let ActionData = '';
+                        if (parseJsonCustomer[i].Status == 1) {
+                            StatusData = `<span class="badge badge-success">Aktif</span>`;
+                            ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
                                             <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-warning btn-sm m-1"><i class="fa fa-pen-alt"></i></button>
                                             <button data-id="${parseJsonCustomer[i].IDkey}" id="PowerCustomer"  type="button" class="tidakatif btn btn-danger btn-sm m-1"><i class="fas fa-power-off"></i></button>`;
-                    } else {
-                        StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
-                        ActionData = `
+                        } else {
+                            StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
+                            ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
                                             <button data-id="${parseJsonCustomer[i].IDkey}" id="PowerCustomer"  type="button" class="aktif btn btn-success btn-sm"><i class="fas fa-power-off"></i></button>`;
-                    }
+                        }
 
-                    if (parseJsonCustomer[i].Gender == 1) {
-                        table.row.add([
-                            parseJsonCustomer[i].Nama,
-                            "Laki-Laki",
-                            parseJsonCustomer[i].Telefon,
-                            parseJsonCustomer[i].Email,
-                            StatusData,
-                            ActionData
-                        ]).draw(false)
-                    } else {
-                        table.row.add([
-                            parseJsonCustomer[i].Nama,
-                            "Perempuan",
-                            parseJsonCustomer[i].Telefon,
-                            parseJsonCustomer[i].Email,
-                            StatusData,
-                            ActionData
-                        ]).draw(false)
-                    }
+                        if (parseJsonCustomer[i].Gender == 1) {
+                            table.row.add([
+                                parseJsonCustomer[i].Nama,
+                                "Laki-Laki",
+                                parseJsonCustomer[i].Telefon,
+                                parseJsonCustomer[i].Email,
+                                StatusData,
+                                ActionData
+                            ]).draw(false)
+                        } else {
+                            table.row.add([
+                                parseJsonCustomer[i].Nama,
+                                "Perempuan",
+                                parseJsonCustomer[i].Telefon,
+                                parseJsonCustomer[i].Email,
+                                StatusData,
+                                ActionData
+                            ]).draw(false)
+                        }
 
+                    }
                 }
+
 
 
             });

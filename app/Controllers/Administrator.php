@@ -102,25 +102,41 @@ class Administrator extends BaseController
         return view('Administrator/Berita-Event/Edit-Berita-Event');
     }
 
-    //Data User
+    //Data Customer
     public function DataCustomer()
     {
-        return view('Administrator/Data-Customer/Data-Customer');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Customer/Data-Customer');
+        }
     }
     public function tambahDataCustomer()
     {
-        return view('Administrator/Data-Customer/Tambah-Data-Customer');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Customer/Tambah-Data-Customer');
+        }
     }
     public function editDataCustomer($id = false)
     {
-        $data = [
-            'DataID' => $id
-        ];
-        return view('Administrator/Data-Customer/Edit-Data-Customer', $data);
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            $data = [
+                'DataID' => $id
+            ];
+            return view('Administrator/Data-Customer/Edit-Data-Customer', $data);
+        }
     }
     public function detailDataCustomer()
     {
-        return view('Administrator/Data-Customer/Detail-Data-Customer');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Customer/Detail-Data-Customer');
+        }
     }
     public function RetingKomentar()
     {
