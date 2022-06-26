@@ -226,12 +226,12 @@
                         ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Berita-Event/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
                                             <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Berita-Event/${parseJsonBerita[i].IDkey}'" class="btn btn-warning btn-sm m-1"><i class="fa fa-pen-alt"></i></button>
-                                            <button id="PowerCustomer" onclick="TidakAktif(${parseJsonBerita[i].IDkey})"  type="button" class="tidakatif btn btn-danger btn-sm m-1"><i class="fas fa-power-off"></i></button>`;
+                                            <button data-id="${parseJsonBerita[i].IDkey}" id="PowerCustomer" type="button" class="tidakatif btn btn-danger btn-sm m-1"><i class="fas fa-power-off"></i></button>`;
                     } else {
                         StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
                         ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Berita-Event/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
-                                            <button id="PowerCustomer" onclick="Aktif(${parseJsonBerita[i].IDkey})"  type="button" class="aktif btn btn-success btn-sm"><i class="fas fa-power-off"></i></button>`;
+                                            <button data-id="${parseJsonBerita[i].IDkey}" id="PowerCustomer" type="button" class="aktif btn btn-success btn-sm"><i class="fas fa-power-off"></i></button>`;
                     }
 
                     table.row.add([
@@ -265,12 +265,18 @@
                     const ValueItem = ref(db, 'Data-Berita-Event/' + idData);
                     onValue(ValueItem, (kontenn) => {
                         let PostD = {
-                            
+
                             Judul: kontenn.val().Judul,
-                            Berita: kontenn.val().IsiBerita,
+                            IsiBerita: kontenn.val().IsiBerita,
                             Alamat: kontenn.val().Alamat,
-                            TanggalAcara: kontenn.val().TanggalEvent,
-                            StatusBerita: 0
+                            TanggalEvent: kontenn.val().TanggalEvent,
+                            StatusBerita: 0,
+                            LinkImage: kontenn.val().LinkImage,
+                            Latitute: kontenn.val().Latitute,
+                            Longlitute: kontenn.val().Longlitute,
+                            TanggalBuat: kontenn.val().TanggalBuat,
+                            TanggalUpdate: kontenn.val().TanggalUpdate
+
 
                         };
                         const updates = {};
@@ -324,12 +330,18 @@
                     const ValueItem = ref(db, 'Data-Berita-Event/' + idData);
                     onValue(ValueItem, (kontenn) => {
                         let PostD = {
-    
+
                             Judul: kontenn.val().Judul,
-                            Berita: kontenn.val().IsiBerita,
+                            IsiBerita: kontenn.val().IsiBerita,
                             Alamat: kontenn.val().Alamat,
-                            TanggalAcara: kontenn.val().TanggalEvent,
-                            StatusBerita: 0
+                            TanggalEvent: kontenn.val().TanggalEvent,
+                            StatusBerita: 1,
+                            LinkImage: kontenn.val().LinkImage,
+                            Latitute: kontenn.val().Latitute,
+                            Longlitute: kontenn.val().Longlitute,
+                            TanggalBuat: kontenn.val().TanggalBuat,
+                            TanggalUpdate: kontenn.val().TanggalUpdate
+
                         };
                         const updates = {};
                         updates['/Data-Berita-Event/' + idData] = PostD;
