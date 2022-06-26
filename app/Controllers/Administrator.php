@@ -93,13 +93,19 @@ class Administrator extends BaseController
     {
         return view('Administrator/Berita-Event/Tambah-Berita-Event');
     }
-    public function detailBeritaEvent()
+    public function detailBeritaEvent($id = false)
     {
-        return view('Administrator/Berita-Event/Detail-Berita-Event');
+        $data = [
+            'DataID ' => $id
+        ];
+        return view('Administrator/Berita-Event/Detail-Berita-Event', $data);
     }
-    public function editBeritaEvent()
+    public function editBeritaEvent($id = false)
     {
-        return view('Administrator/Berita-Event/Edit-Berita-Event');
+        $data = [
+            'DataID' => $id
+        ];
+        return view('Administrator/Berita-Event/Edit-Berita-Event',$data);
     }
 
     //Data User

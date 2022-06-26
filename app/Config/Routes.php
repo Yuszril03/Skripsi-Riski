@@ -66,8 +66,8 @@ $routes->get('/', 'Login::LoginAdmin');
 //Berita & Event
 $routes->get('/Berita-Event', 'Administrator::BeritaEvent');
 $routes->get('/Tambah-Berita-Event', 'Administrator::tambahBeritaEvent');
-$routes->get('/Detail-Berita-Event', 'Administrator::detailBeritaEvent');
-$routes->get('/Edit-Berita-Event', 'Administrator::editBeritaEvent');
+$routes->get('/Detail-Berita-Event'.'/(:any)', 'Administrator::detailBeritaEvent/$1');
+$routes->get('/Edit-Berita-Event' . '/(:any)', 'Administrator::editBeritaEvent/$1');
 
 //Data User
 $routes->get('/Data-Customer', 'Administrator::DataCustomer');
