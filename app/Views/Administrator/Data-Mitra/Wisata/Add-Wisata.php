@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Administrator - Home</title>
+    <title>TraveLand - Tambah Mitra Wisata</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>/Image/Icon/LogoAJA.png" />
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -182,7 +184,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="">Telefon Pengguna Mitra</label>
-                                        <input type="text" id="telefonMitra" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                        <input type="text" id="telefonMitra" onkeypress="return hanyaAngka(this)" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Jenis Mitra</label>
@@ -231,7 +233,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1">Rp</span>
                                                 </div>
-                                                <input id="tiketDewasa" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Ketik di sini..." aria-label="Username" aria-describedby="basic-addon1">
+                                                <input id="tiketDewasa" onkeypress="return hanyaAngka(this)" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Ketik di sini..." aria-label="Username" aria-describedby="basic-addon1">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -240,7 +242,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1">Rp</span>
                                                 </div>
-                                                <input id="tiketAnak" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Ketik di sini..." aria-label="Username" aria-describedby="basic-addon1">
+                                                <input id="tiketAnak" onkeypress="return hanyaAngka(this)" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Ketik di sini..." aria-label="Username" aria-describedby="basic-addon1">
                                             </div>
                                         </div>
 
@@ -324,6 +326,7 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?= base_url() ?>/MD5/md5.min.js"></script>
 
     <script type="module">
         // Import the functions you need from the SDKs you need
@@ -360,6 +363,8 @@
         const storage = getStorage();
 
         var parseJsonAdmin = [];
+        var parseJsonPartner = [];
+        var parseJsonEmailPartner = [];
 
         const starCountRef = ref(db, 'Master-Data-Wisata/');
         onValue(starCountRef, (snapshot) => {
@@ -369,7 +374,24 @@
                 const ValueItem = ref(db, 'Master-Data-Wisata/' + keys[isi]);
                 onValue(ValueItem, (kontenn) => {
 
-                    parseJsonAdmin.push(Number(keys[isi]))
+                    parseJsonAdmin.push((keys[isi]))
+                })
+            }
+
+        });
+
+        const starCountRef2 = ref(db, 'Master-Data-Mitra/');
+        onValue(starCountRef2, (snapshot) => {
+            const data = snapshot.val();
+            const keys = Object.keys(data);
+            console.log(keys)
+
+            for (const isi in keys) {
+                const ValueItem = ref(db, 'Master-Data-Mitra/' + keys[isi]);
+                onValue(ValueItem, (kontenn) => {
+
+                    parseJsonPartner.push((keys[isi]));
+                    parseJsonEmailPartner.push(kontenn.val().EmailMitra)
                 })
             }
 
@@ -377,7 +399,8 @@
 
         document.getElementById('submitData').addEventListener('click', function() {
 
-
+            console.log(parseJsonEmailPartner)
+            console.log(parseJsonPartner)
 
             Swal.fire({
                 title: 'Apa anda yakin?',
@@ -390,6 +413,8 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
+
+
                     let idData = ['NamaMitra', 'EmailWisata', 'telefonMitra', 'namaWisata', 'tiketDewasa', 'tiketAnak', 'alamat', 'deskripsi'];
                     let jumlah = 0;
                     const fileupload = $('#uploadFilee').prop('files')[0];
@@ -404,36 +429,175 @@
                     }
                     if (jumlah == 0) {
 
-                        // var CodeID = "";
+                        if (parseJsonEmailPartner.includes((document.getElementById('EmailWisata').value)) == false) {
+                            $('#EmailWisata').removeClass('is-invalid')
+                            var CodeIDWisata = "";
+                            var CodeIDMitra = "";
 
-                        // if (parseJsonAdmin.length == 0) {
-                        //     CodeID = "Wisata-1"
+                            if (parseJsonAdmin.length == 0) {
+                                CodeIDWisata = "Wisata-1"
 
-                        // } else {
+                            } else {
 
-                        //     let lastID = parseJsonAdmin[parseJsonAdmin.length - 1]
-                        //     let spliData = lastID.split('-');
-                        //     CodeID = "Wisata-" + (Number(spliData[1]) + 1)
+                                let lastID = parseJsonAdmin[parseJsonAdmin.length - 1]
+                                let spliData = lastID.split('-');
+                                CodeIDWisata = "Wisata-" + (Number(spliData[1]) + 1)
 
-                        // }
+                            }
+                            if (parseJsonPartner.length == 0) {
+                                CodeIDMitra = "Mitra-1"
 
-                        // if (Boolean(fileupload) == false) {
+                            } else {
 
-                        //     set(ref(db, 'Master-Data-Customer/' + CodeID), {
-                        //         NamaWisata: document.getElementById('namaWisata').value,
-                        //         HargaDewasa: document.getElementById('tiketDewasa').value,
-                        //         StatusWisata: 1,
-                        //         HargaAnak: document.getElementById('tiketAnak').value,
-                        //         AlamatCustomer: document.getElementById('alamat').value,
-                        //         TanggalBuat: new Date().toString("ID"),
-                        //         TanggalUpdate: new Date().toString("ID"),
-                        //         fotoWisata: "",
-                        //         DeskripsiWisata: document.getElementById('deskripsi').value,
-                        //     });
+                                let lastID = parseJsonPartner[parseJsonPartner.length - 1]
+                                let spliData = lastID.split('-');
+                                CodeIDMitra = "Mitra-" + (Number(spliData[1]) + 1)
 
-                        // } else {
+                            }
 
-                        // }
+                            if (Boolean(fileupload) == false) {
+
+                                //Data Master Wisata
+                                set(ref(db, 'Master-Data-Wisata/' + CodeIDWisata), {
+                                    NamaWisata: document.getElementById('namaWisata').value,
+                                    HargaDewasa: document.getElementById('tiketDewasa').value,
+                                    StatusWisata: 1,
+                                    HargaAnak: document.getElementById('tiketAnak').value,
+                                    AlamatCustomer: document.getElementById('alamat').value,
+                                    TanggalBuat: new Date().toString("ID"),
+                                    TanggalUpdate: new Date().toString("ID"),
+                                    fotoWisata: "",
+                                    DeskripsiWisata: document.getElementById('deskripsi').value,
+                                    Longlitude: document.getElementById('longlitude').value,
+                                    Latitude: document.getElementById('latitude').value
+                                });
+                                //Data Master Wisata
+                                set(ref(db, 'Master-Data-Mitra/' + CodeIDMitra), {
+                                    NamaMitra: document.getElementById('NamaMitra').value,
+                                    EmailMitra: document.getElementById('EmailWisata').value,
+                                    StatusMitra: 1,
+                                    TelefonMitra: document.getElementById('telefonMitra').value + "",
+                                    TanggalBuat: new Date().toString("ID"),
+                                    TanggalUpdate: new Date().toString("ID")
+                                });
+
+                                //Data Master Account Wisata
+                                set(ref(db, 'Master-Data-Account-Mitra/' + CodeIDMitra), {
+                                    KataSandiWisata: md5('12345678'),
+                                    JenisMitra: "Mitra-Wisata",
+                                    IDKelolaMitra: CodeIDWisata
+                                });
+
+                                Swal.fire({
+                                    title: 'Berhasil',
+                                    text: 'Data berhasil tersimpan.',
+                                    icon: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Okey'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.href = "<?= base_url() ?>/Mitra-Wisata"
+                                    }
+                                })
+
+
+
+
+                            } else {
+                                const storageRef = refImage(storage, 'images-wisata/' + new Date().getTime() + '-' + fileupload.name);
+
+                                // Upload the file and metadata
+                                const uploadTask = uploadBytesResumable(storageRef, fileupload);
+
+                                // Register three observers:
+                                // 1. 'state_changed' observer, called any time the state changes
+                                // 2. Error observer, called on failure
+                                // 3. Completion observer, called on successful completion
+                                uploadTask.on('state_changed',
+                                    (snapshot) => {
+                                        // Observe state change events such as progress, pause, and resume
+                                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                        console.log('Upload is ' + progress + '% done');
+                                        switch (snapshot.state) {
+                                            case 'paused':
+                                                console.log('Upload is paused');
+                                                break;
+                                            case 'running':
+                                                console.log('Upload is running');
+                                                break;
+                                        }
+                                    },
+                                    (error) => {
+                                        // Handle unsuccessful uploads
+                                    },
+                                    () => {
+                                        // Handle successful uploads on complete
+                                        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                            console.log('File available at', downloadURL);
+                                            //Data Master Wisata
+                                            set(ref(db, 'Master-Data-Wisata/' + CodeIDWisata), {
+                                                NamaWisata: document.getElementById('namaWisata').value,
+                                                HargaDewasa: document.getElementById('tiketDewasa').value,
+                                                StatusWisata: 1,
+                                                HargaAnak: document.getElementById('tiketAnak').value,
+                                                AlamatCustomer: document.getElementById('alamat').value,
+                                                TanggalBuat: new Date().toString("ID"),
+                                                TanggalUpdate: new Date().toString("ID"),
+                                                fotoWisata: downloadURL,
+                                                DeskripsiWisata: document.getElementById('deskripsi').value,
+                                                Longlitude: document.getElementById('longlitude').value,
+                                                Latitude: document.getElementById('latitude').value
+                                            });
+                                            //Data Master Wisata
+                                            set(ref(db, 'Master-Data-Mitra/' + CodeIDMitra), {
+                                                NamaMitra: document.getElementById('NamaMitra').value,
+                                                EmailMitra: document.getElementById('EmailWisata').value,
+                                                StatusMitra: 1,
+                                                TelefonMitra: document.getElementById('telefonMitra').value + "",
+                                                TanggalBuat: new Date().toString("ID"),
+                                                TanggalUpdate: new Date().toString("ID")
+                                            });
+
+                                            //Data Master Account Wisata
+                                            set(ref(db, 'Master-Data-Account-Mitra/' + CodeIDMitra), {
+                                                KataSandiWisata: md5('12345678'),
+                                                JenisMitra: "Mitra-Wisata",
+                                                IDKelolaMitra: CodeIDWisata
+                                            });
+                                        });
+                                    }
+                                );
+
+                                Swal.fire({
+                                    title: 'Berhasil',
+                                    text: 'Data berhasil tersimpan.',
+                                    icon: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Okey'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.href = "<?= base_url() ?>/Mitra-Wisata"
+                                    }
+                                })
+
+                            }
+                        } else {
+                            $('#EmailWisata').addClass('is-invalid')
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Email sudah digunakan!'
+                            })
+
+                        }
+
+
 
                     } else {
                         Swal.fire({
@@ -548,6 +712,15 @@
         }
 
         marker.on('dragend', onDragEnd);
+
+
+        function hanyaAngka(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+                return false;
+            return true;
+        }
     </script>
 </body>
 
