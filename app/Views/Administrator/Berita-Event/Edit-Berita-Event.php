@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
@@ -376,6 +377,8 @@
             document.getElementById('judul-BeritaEvent').value = kontenn.val().Judul
             document.getElementById('tanggal-BeritaEvent').value = kontenn.val().TanggalEvent
             document.getElementById('alamat-BeritaEvent').value = kontenn.val().Alamat
+            document.getElementById('latitute').value = kontenn.val().Latitute
+            document.getElementById('longlitude').value = kontenn.val().Longlitute
             document.getElementById('isi-BeritaEvent').value = kontenn.val().IsiBerita
         }
 
