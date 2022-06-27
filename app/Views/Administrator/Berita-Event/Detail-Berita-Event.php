@@ -261,6 +261,94 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
 </body>
+<!-- <script type="module">
+    // Import the functions you need from the SDKs you need
+    import {
+        initializeApp
+    } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+    import {
+        getDatabase,
+        ref,
+        onValue,
+        set,
+        update
+    } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+    import {
+        getStorage,
+        ref as refImage,
+        uploadBytesResumable,
+        getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-storage.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+        authDomain: "traveland-429a6.firebaseapp.com",
+        databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "traveland-429a6",
+        storageBucket: "traveland-429a6.appspot.com",
+        messagingSenderId: "569185605053",
+        appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+    const storage = getStorage();
+
+    var parseJsonAdmin = {};
+
+    const ValueItem = ref(db, 'Data-Berita-Event/<?= $DataID ?>');
+    onValue(ValueItem, (kontenn) => {
+        let PostD = {
+            Judul: kontenn.val().Judul,
+            IsiBerita: kontenn.val().IsiBerita,
+            Alamat: kontenn.val().Alamat,
+            TanggalEvent: kontenn.val().TanggalEvent,
+            Status: kontenn.val().StatusBerita,
+            LinkImage: kontenn.val().LinkImage,
+            Latitute: kontenn.val().Latitute,
+            Longlitute: kontenn.val().Longlitute,
+            TanggalBuat: kontenn.val().TanggalBuat,
+            TanggalUpdate: kontenn.val().TanggalUpdate
+        };
+        parseJsonAdmin = (PostD)
+        if (Boolean(parseJsonAdmin) == false) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Gagal Memuat Data.',
+                icon: 'error',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Okey'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            })
+        } else {
+            if (kontenn.val().fotoCustomer == "") {
+
+            } else {
+                document.getElementById('AddImage').src = kontenn.val().fotoCustomer
+            }
+
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+
+            document.getElementById('namaCust').innerHTML = kontenn.val().NamaCustomer
+            document.getElementById('emailCUst').innerHTML = kontenn.val().EmailCustomer
+            document.getElementById('nomorCust').innerHTML = kontenn.val().TelefonCustomer
+            document.getElementById('tglCust').innerHTML = new Date(kontenn.val().TanggalLahirCustomer).toLocaleDateString("id-ID", options)
+            document.getElementById('alamatCust').innerHTML = kontenn.val().AlamatCustomer
+            document.getElementById('modified').innerHTML = kontenn.val().TanggalUpdate
+            document.getElementById('created').innerHTML = kontenn.val().TanggalBuat
+        }
+    })
+</script> -->
 
 <script>
     $('#btnCancelImage').hide()

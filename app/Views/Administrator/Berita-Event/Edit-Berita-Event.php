@@ -312,16 +312,6 @@
     const ValueItem = ref(db, 'Data-Berita-Event/<?= $DataID ?>');
     onValue(ValueItem, (kontenn) => {
         let PostD = {
-            // Nama: kontenn.val().NamaCustomer,
-            // Gender: kontenn.val().Gender,
-            // Telefon: kontenn.val().TelefonCustomer,
-            // Status: kontenn.val().StatusCustomer,
-            // Email: kontenn.val().EmailCustomer,
-            // Alamat: kontenn.val().AlamatCustomer,
-            // tanggalLahir: kontenn.val().TanggalLahirCustomer,
-            // TanggalBuat: kontenn.val().TanggalBuat,
-            // TanggalUpdate: kontenn.val().TanggalUpdate,
-            // fotoCustomer: kontenn.val().fotoCustomer
 
             Judul: kontenn.val().Judul,
             IsiBerita: kontenn.val().IsiBerita,
