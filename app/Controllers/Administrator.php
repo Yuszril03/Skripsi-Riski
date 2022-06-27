@@ -96,7 +96,7 @@ class Administrator extends BaseController
     public function detailBeritaEvent($id = false)
     {
         $data = [
-            'DataID ' => $id
+            'DataID' => $id
         ];
         return view('Administrator/Berita-Event/Detail-Berita-Event', $data);
     }

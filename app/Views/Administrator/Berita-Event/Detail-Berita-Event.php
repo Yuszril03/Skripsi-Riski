@@ -171,45 +171,32 @@
                         <div class="card-body">
                             <!-- image -->
                             <div class="coverBerita">
-                                <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" width="300" id="NoneImage" alt="">
+                                <!-- <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" width="300" id="NoneImage" alt=""> -->
+                                <img id="imgBerita" src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="300" id="NoneImage" alt="">
                             </div>
                             <!-- /image -->
-                            <h4 class="mt-2 font-weight-bold">Nama Judul</h4>
+                            <h4 id="judulBeritaEvent" class="mt-2 font-weight-bold">None</h4>
                             <div class="d-flex flex-row">
                                 <div class="pr-1">
-                                    <p style="font-size: 14px; margin-top: -12px;" class="text-muted">
-                                        10/5/2022
+                                    <p id="tanggalBuatBeritaEvent" style="font-size: 14px; margin-top: -12px;" class="text-muted">
+                                        None
                                     </p>
                                 </div>
                             </div>
 
-                            <p>
-                                <b>Berita</b>
+                            <p class="mt-2 font-weight-bold">
+                                Berita
                             </p>
 
-                            <p>
+                            <p id="isiBeritaEvent">None</p>
 
-                                Gananta tidak dapat menjelaskan lebih lanjut apakah petugas tersebut merupakan pengawal pribadi Buya Arrazy atau bukan. Menurutnya, tidak berwenang baginya untuk menyampaikan hal tersebut.
-                                00:00 / 00:00
-                                AdCrew
-
-                                "Penugasan itu khusus dan sifatnya sangat rahasia. Kami tidak mendapatkan informasi mengenai itu," ujar Gananta.
-
-                                Gananta juga memastikan bahwa pihaknya tidak bisa memproses hukum atas insiden penembakan ini. Pasalnya, wewenang Polres Tuban adalah unsur pidana umum. Sementara unsur pidana umum itu sendiri sudah gugur saat keluarga Buya Arrazy Hasyim mengikhlaskan korban meninggal.
-
-                                Baca artikel detiknews, "Anak Buya Arrazy Tertembak, Pemilik Senpi Anggota Polri Ditarik Mabes" selengkapnya https://news.detik.com/berita/d-6142011/anak-buya-arrazy-tertembak-pemilik-senpi-anggota-polri-ditarik-mabes.
-
-                                Download Apps Detikcom Sekarang https://apps.detik.com/detik/
+                            <p class="mt-2 font-weight-bold">Lokasi Event</p>
+                            <p id="alamatBeritaEvent">None
                             </p>
-
-                            <p><b>Lokasi Event</b></p>
-                            <p>
-                                <i class="fa fa-map-pin"></i> Jl.blalasfalsjk kec bkasjkfhslfas kel jkshfjkashjfkhsa
+                            <p class="mt-2 font-weight-bold">
+                                Tanggal Event
                             </p>
-                            <p>
-                                <b>Tanggal Event</b>
-                            </p>
-                            <p><i class="fa fa-calendar"></i> 10/10/2022</p>
+                            <p id="tanggalBeritaEvent">None</p>
                         </div>
                     </div>
             </section>
@@ -261,7 +248,7 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
 </body>
-<!-- <script type="module">
+<script type="module">
     // Import the functions you need from the SDKs you need
     import {
         initializeApp
@@ -326,10 +313,10 @@
                 }
             })
         } else {
-            if (kontenn.val().fotoCustomer == "") {
+            if (kontenn.val().LinkImage == "") {
 
             } else {
-                document.getElementById('AddImage').src = kontenn.val().fotoCustomer
+                document.getElementById('imgBerita').src = kontenn.val().LinkImage
             }
 
             const options = {
@@ -339,16 +326,16 @@
                 day: 'numeric'
             };
 
-            document.getElementById('namaCust').innerHTML = kontenn.val().NamaCustomer
-            document.getElementById('emailCUst').innerHTML = kontenn.val().EmailCustomer
-            document.getElementById('nomorCust').innerHTML = kontenn.val().TelefonCustomer
-            document.getElementById('tglCust').innerHTML = new Date(kontenn.val().TanggalLahirCustomer).toLocaleDateString("id-ID", options)
-            document.getElementById('alamatCust').innerHTML = kontenn.val().AlamatCustomer
+            document.getElementById('judulBeritaEvent').innerHTML = kontenn.val().Judul
+            document.getElementById('isiBeritaEvent').innerHTML = kontenn.val().IsiBerita
+            document.getElementById('alamatBeritaEvent').innerHTML = kontenn.val().Alamat
+            document.getElementById('tanggalBeritaEvent').innerHTML = new Date(kontenn.val().TanggalEvent).toLocaleDateString("id-ID", options)
+            document.getElementById('tanggalBuatBeritaEvent').innerHTML = kontenn.val().TanggalBuat
             document.getElementById('modified').innerHTML = kontenn.val().TanggalUpdate
             document.getElementById('created').innerHTML = kontenn.val().TanggalBuat
         }
     })
-</script> -->
+</script>
 
 <script>
     $('#btnCancelImage').hide()
