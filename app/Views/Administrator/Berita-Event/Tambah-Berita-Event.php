@@ -212,7 +212,7 @@
                                 </div>
                                 <div class="float-right">
                                     <button type="button" id="submitData" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
-                                    <button type="button" onclick="location.href='<?= base_url() ?>/BeritaEvent'" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
+                                    <button type="button" onclick="KeluarFoam()" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
                                 </div>
                             </form>
                         </div>
@@ -598,6 +598,23 @@
                 .format(this.getAttribute("data-date-format"))
             )
         }).trigger("change")
+
+        function KeluarFoam() {
+            Swal.fire({
+                title: 'Apa kamu yakin?',
+                text: "Meninggalkan halaman ini",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.href = "<?= base_url() ?>/Berita-Event"
+                }
+            })
+        }
     </script>
 
 
