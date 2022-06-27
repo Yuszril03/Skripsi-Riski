@@ -283,7 +283,7 @@
 
     var parseJsonAdmin = {};
 
-    const ValueItem = ref(db, 'Data-Berita-Event/<?= $DataID ?>');
+    const ValueItem = ref(db, 'Data-Kegiatan/<?= $DataID ?>');
     onValue(ValueItem, (kontenn) => {
         let PostD = {
             Judul: kontenn.val().Judul,

@@ -77,10 +77,10 @@
                             <table id="Table" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th align="center">Judul</th>
-                                        <th align="center">Berita</th>
-                                        <th align="center">Alamat</th>
-                                        <th align="center">Tanggal Event</th>
+                                        <th align="center">Judul Kegiatan</th>
+                                        <th align="center">Jenis Kegiatan</th>
+                                        <th align="center">Tanggal Buat</th>
+                                        <th align="center">Tanggal Update</th>
                                         <th align="center">Status</th>
                                         <th align="center">Aksi</th>
                                     </tr>
@@ -198,19 +198,19 @@
         LoadData()
 
         function LoadData() {
-            const starCountRef = ref(db, 'Data-Berita-Event/');
+            const starCountRef = ref(db, 'Data-Kegiatan/');
             onValue(starCountRef, (snapshot) => {
                 const data = snapshot.val();
                 const keys = Object.keys(data);
                 for (const isi in keys) {
-                    const ValueItem = ref(db, 'Data-Berita-Event/' + keys[isi]);
+                    const ValueItem = ref(db, 'Data-Kegiatan/' + keys[isi]);
                     onValue(ValueItem, (kontenn) => {
                         let PostD = {
                             IDkey: keys[isi],
                             Judul: kontenn.val().Judul,
-                            Berita: kontenn.val().IsiBerita,
-                            Alamat: kontenn.val().Alamat,
-                            TanggalAcara: kontenn.val().TanggalEvent,
+                            Jenis: kontenn.val().JenisKegiatan,
+                            TanggalNew: kontenn.val().TanggalBuat,
+                            TanggalUp: kontenn.val().TanggalUpdate,
                             Status: kontenn.val().StatusBerita
                         };
                         parseJsonBerita.push(PostD)
@@ -237,9 +237,9 @@
 
                     table.row.add([
                         parseJsonBerita[i].Judul,
-                        parseJsonBerita[i].Berita,
-                        parseJsonBerita[i].Alamat,
-                        parseJsonBerita[i].TanggalAcara,
+                        parseJsonBerita[i].Jenis,
+                        parseJsonBerita[i].TanggalNew,
+                        parseJsonBerita[i].TanggalUp,
                         StatusData,
                         ActionData
                     ]).draw(false)
@@ -263,25 +263,25 @@
 
                 if (result.isConfirmed) {
 
-                    const ValueItem = ref(db, 'Data-Berita-Event/' + idData);
+                    const ValueItem = ref(db, 'Data-Kegiatan/' + idData);
                     onValue(ValueItem, (kontenn) => {
                         let PostD = {
-
                             Judul: kontenn.val().Judul,
-                            IsiBerita: kontenn.val().IsiBerita,
+                            IsiKegiatan: kontenn.val().IsiKegiatan,
                             Alamat: kontenn.val().Alamat,
-                            TanggalEvent: kontenn.val().TanggalEvent,
+                            JenisKegiatan: kontenn.val().JenisKegiatan,
+                            KegiatanYangBerkaitan: kontenn.val().KegiatanYangBerkaitan,
+                            TanggalMulai: kontenn.val().TanggalMulai,
+                            TanggalAkhir: kontenn.val().TanggalAkhir,
                             StatusBerita: 0,
                             LinkImage: kontenn.val().LinkImage,
                             Latitute: kontenn.val().Latitute,
                             Longlitute: kontenn.val().Longlitute,
                             TanggalBuat: kontenn.val().TanggalBuat,
                             TanggalUpdate: kontenn.val().TanggalUpdate
-
-
                         };
                         const updates = {};
-                        updates['/Data-Berita-Event/' + idData] = PostD;
+                        updates['/Data-Kegiatan/' + idData] = PostD;
                         update(ref(db), updates);
                         // table.row.reload();
 
@@ -328,14 +328,17 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    const ValueItem = ref(db, 'Data-Berita-Event/' + idData);
+                    const ValueItem = ref(db, 'Data-Kegiatan/' + idData);
                     onValue(ValueItem, (kontenn) => {
                         let PostD = {
 
                             Judul: kontenn.val().Judul,
-                            IsiBerita: kontenn.val().IsiBerita,
+                            IsiKegiatan: kontenn.val().IsiKegiatan,
                             Alamat: kontenn.val().Alamat,
-                            TanggalEvent: kontenn.val().TanggalEvent,
+                            JenisKegiatan: kontenn.val().JenisKegiatan,
+                            KegiatanYangBerkaitan: kontenn.val().KegiatanYangBerkaitan,
+                            TanggalMulai: kontenn.val().TanggalMulai,
+                            TanggalAkhir: kontenn.val().TanggalAkhir,
                             StatusBerita: 1,
                             LinkImage: kontenn.val().LinkImage,
                             Latitute: kontenn.val().Latitute,
@@ -345,7 +348,7 @@
 
                         };
                         const updates = {};
-                        updates['/Data-Berita-Event/' + idData] = PostD;
+                        updates['/Data-Kegiatan/' + idData] = PostD;
                         update(ref(db), updates);
                         // table.row.reload();
                         Swal.fire(

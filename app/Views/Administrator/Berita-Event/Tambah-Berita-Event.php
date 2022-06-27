@@ -120,6 +120,10 @@
         .overlay button:hover {
             background-color: #4ea0da;
         }
+
+        .select2 .selection .select2-selection ul li {
+            color: black;
+        }
     </style>
 </head>
 
@@ -245,11 +249,12 @@
                                 <div class="form-group">
                                     <label for="judul" class="col-form-label">Kegiatan Yang Berkaitan</label>
                                     <!-- <input type="text" class="form-control" style="border-radius: 15px;" placeholder="Isi Judul" id="tag"> -->
-                                    <select name="" class="form-control js-states" style="border-radius: 15px;" id="tag" multiple>
-                                        <option selected='selected'>Wisata</option>
-                                        <option>white</option>
-                                        <option selected="selected">purple</option>
+                                    <select class="form-control js-states" style="border-radius: 15px; " id="tag" name="tag" multiple>
+                                        <option>Wisata</option>
+                                        <option>Hotel</option>
+                                        <option>Rental Mobil</option>
                                     </select>
+                                    <span id="errorTag" class="text-danger">Mohon untuk mengisi kolom ini</span>
                                 </div>
 
 
@@ -349,12 +354,12 @@
 
         var parseJsonAdmin = [];
 
-        const starCountRef = ref(db, 'Data-Berita-Event/');
+        const starCountRef = ref(db, 'Data-Kegiatan/');
         onValue(starCountRef, (snapshot) => {
             const data = snapshot.val();
             const keys = Object.keys(data);
             for (const isi in keys) {
-                const ValueItem = ref(db, 'Data-Berita-Event/' + keys[isi]);
+                const ValueItem = ref(db, 'Data-Kegiatan/' + keys[isi]);
                 onValue(ValueItem, (kontenn) => {
                     let LastID = keys[isi]
                     let PostD = {
@@ -370,14 +375,29 @@
 
         // let judulBE = document.getElementById('judul').value;
         document.getElementById('submitData').addEventListener('click', function() {
-            let form = ['judul', 'tanggalBeritaEvent', 'alamatBeritaEvent', 'isiBeritaEvent'];
+            let form = ['judul', 'tanggalMulai', 'isiBeritaEvent', 'JenisKegiatan', 'tag'];
             var angka = 0;
             const fileupload = $('#uploadFilee').prop('files')[0];
 
+            const tempsTag = document.getElementsByClassName('select2-selection__choice');
+            let arrayTag = [];
+            for (let i = 0; i < tempsTag.length; i++) {
+                let temps = tempsTag[i].innerText
+                let resultSplit = temps.split("×\n");
+                arrayTag.push(resultSplit[1]);
+            }
+            // console.log(arrayTag.toString())
 
 
             for (let i = 0; i < form.length; i++) {
-                if (document.getElementById(form[i]).value == "") {
+                if (i == 6) {
+                    if (arrayTag.length == 0) {
+                        angka++;
+                        $("#errorTag").show()
+                    } else {
+                        $("#errorTag").hide()
+                    }
+                } else if (document.getElementById(form[i]).value == "") {
                     angka++;
                     $('#' + form[i]).addClass('is-invalid')
                 } else {
@@ -389,11 +409,14 @@
 
                 if (Boolean(fileupload) == false) {
                     if (parseJsonAdmin.length == 0) {
-                        set(ref(db, 'Data-Berita-Event/' + "BE-1"), {
+                        set(ref(db, 'Data-Kegiatan/' + "BE-1"), {
                             Judul: document.getElementById('judul').value,
-                            TanggalEvent: document.getElementById('tanggalBeritaEvent').value,
+                            TanggalMulai: document.getElementById('tanggalMulai').value,
+                            TanggalAkhir: document.getElementById('tanggalAkhir').value,
                             Alamat: document.getElementById('alamatBeritaEvent').value,
-                            IsiBerita: document.getElementById('isiBeritaEvent').value,
+                            IsiKegiatan: document.getElementById('isiBeritaEvent').value,
+                            JenisKegiatan: document.getElementById('JenisKegiatan').value,
+                            KegiatanYangBerkaitan: arrayTag.toString(),
                             LinkImage: "",
                             StatusBerita: 1,
                             Longlitute: document.getElementById('longlitude').value,
@@ -405,11 +428,14 @@
                         var idLst = parseJsonAdmin[parseJsonAdmin.length - 1].IDkey
                         let SplitData = idLst.split("-");
                         let nextID = "BE-" + (Number(SplitData[1]) + 1);
-                        set(ref(db, 'Data-Berita-Event/' + nextID), {
+                        set(ref(db, 'Data-Kegiatan/' + nextID), {
                             Judul: document.getElementById('judul').value,
-                            TanggalEvent: document.getElementById('tanggalBeritaEvent').value,
+                            TanggalMulai: document.getElementById('tanggalMulai').value,
+                            TanggalAkhir: document.getElementById('tanggalAkhir').value,
                             Alamat: document.getElementById('alamatBeritaEvent').value,
-                            IsiBerita: document.getElementById('isiBeritaEvent').value,
+                            IsiKegiatan: document.getElementById('isiBeritaEvent').value,
+                            JenisKegiatan: document.getElementById('JenisKegiatan').value,
+                            KegiatanYangBerkaitan: arrayTag.toString(),
                             LinkImage: "",
                             StatusBerita: 1,
                             Longlitute: document.getElementById('longlitude').value,
@@ -432,7 +458,7 @@
                     })
 
                 } else {
-                    const storageRef = refImage(storage, 'images-berita-event/' + fileupload.name);
+                    const storageRef = refImage(storage, 'images-kegiatan/' + fileupload.name);
 
                     // Upload the file and metadata
                     const uploadTask = uploadBytesResumable(storageRef, fileupload);
@@ -466,11 +492,16 @@
                             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
 
                                 if (parseJsonAdmin.length == 0) {
-                                    set(ref(db, 'Data-Berita-Event/' + "BE-1"), {
+                                    set(ref(db, 'Data-Kegiatan/' + "BE-1"), {
+
+
                                         Judul: document.getElementById('judul').value,
-                                        TanggalEvent: document.getElementById('tanggalBeritaEvent').value,
+                                        TanggalMulai: document.getElementById('tanggalMulai').value,
+                                        TanggalAkhir: document.getElementById('tanggalAkhir').value,
                                         Alamat: document.getElementById('alamatBeritaEvent').value,
-                                        IsiBerita: document.getElementById('isiBeritaEvent').value,
+                                        IsiKegiatan: document.getElementById('isiBeritaEvent').value,
+                                        JenisKegiatan: document.getElementById('JenisKegiatan').value,
+                                        KegiatanYangBerkaitan: arrayTag.toString(),
                                         LinkImage: downloadURL,
                                         StatusBerita: 1,
                                         Longlitute: document.getElementById('longlitude').value,
@@ -478,17 +509,21 @@
                                         TanggalBuat: new Date().toLocaleString("id-ID"),
                                         TanggalUpdate: new Date().toLocaleString("id-ID")
 
+
                                     });
 
                                 } else {
                                     var idLst = parseJsonAdmin[parseJsonAdmin.length - 1].IDkey
                                     let SplitData = idLst.split("-");
                                     let nextID = "BE-" + (Number(SplitData[1]) + 1);
-                                    set(ref(db, 'Data-Berita-Event/' + nextID), {
+                                    set(ref(db, 'Data-Kegiatan/' + nextID), {
                                         Judul: document.getElementById('judul').value,
-                                        TanggalEvent: document.getElementById('tanggalBeritaEvent').value,
+                                        TanggalMulai: document.getElementById('tanggalMulai').value,
+                                        TanggalAkhir: document.getElementById('tanggalAkhir').value,
                                         Alamat: document.getElementById('alamatBeritaEvent').value,
-                                        IsiBerita: document.getElementById('isiBeritaEvent').value,
+                                        IsiKegiatan: document.getElementById('isiBeritaEvent').value,
+                                        JenisKegiatan: document.getElementById('JenisKegiatan').value,
+                                        KegiatanYangBerkaitan: arrayTag.toString(),
                                         LinkImage: downloadURL,
                                         StatusBerita: 1,
                                         Longlitute: document.getElementById('longlitude').value,
@@ -550,6 +585,7 @@
         //     theme: 'bootstrap'
         // })
 
+        $("#errorTag").hide()
         $("#groupMulai").hide()
         $("#groupAkhir").hide()
 
