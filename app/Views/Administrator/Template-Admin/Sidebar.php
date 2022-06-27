@@ -26,7 +26,7 @@
                with font-awesome or any other icon font library -->
                  <li class="nav-item ">
                      <a href="<?= base_url() ?>/Beranda-Admin" class="nav-link active">
-                         <i class="nav-icon fas fa-home"></i>
+                         <i class="nav-icon bi bi-house-door"></i>
                          <p>
                              Beranda
                              <!-- <span class="right badge badge-danger">New</span> -->
@@ -35,7 +35,7 @@
                  </li>
                  <li class="nav-item">
                      <a href="<?= base_url() ?>/Berita-Event" class="nav-link">
-                         <i class="nav-icon fas fa-newspaper"></i>
+                         <i class="nav-icon bi bi-newspaper"></i>
                          <p>
                              Berita & Event
                              <!-- <span class="right badge badge-danger">New</span> -->
@@ -44,7 +44,7 @@
                  </li>
                  <li class="nav-item">
                      <a href="<?= base_url() ?>/Data-Customer" class="nav-link">
-                         <i class="nav-icon fas fa-users"></i>
+                         <i class="nav-icon bi bi-people"></i>
                          <p>
                              Data Customer
                              <!-- <span class="right badge badge-danger">New</span> -->
@@ -53,7 +53,7 @@
                  </li>
                  <li class="nav-item">
                      <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-hands-helping"></i>
+                         <i class="nav-icon bi bi-diagram-3"></i>
                          <p>
                              Data Mitra
                              <i class="fas fa-angle-left right"></i>
@@ -83,7 +83,7 @@
                  </li>
                  <li class="nav-item">
                      <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-list-alt"></i>
+                         <i class="nav-icon bi bi-layout-text-window-reverse"></i>
                          <p>
                              Data Pemesanan
                              <i class="fas fa-angle-left right"></i>

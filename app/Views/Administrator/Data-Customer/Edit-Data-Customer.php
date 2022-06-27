@@ -427,7 +427,7 @@
                                         TanggalLahirCustomer: document.getElementById('tanggalCust').value,
                                         AlamatCustomer: document.getElementById('alamatCust').value,
                                         TanggalBuat: parseJsonAdmin.TanggalBuat,
-                                        TanggalUpdate: new Date().toLocaleString("id-ID"),
+                                        TanggalUpdate: new Date().toString("ID"),
                                     };
                                     const updates = {};
                                     updates['/Master-Data-Customer/<?= $DataID ?>'] = PostD;
@@ -498,7 +498,7 @@
                                                     TanggalLahirCustomer: document.getElementById('tanggalCust').value,
                                                     AlamatCustomer: document.getElementById('alamatCust').value,
                                                     TanggalBuat: parseJsonAdmin.TanggalBuat,
-                                                    TanggalUpdate: new Date().toLocaleString("id-ID"),
+                                                    TanggalUpdate: new Date().toString("ID"),
                                                 };
                                                 const updates = {};
                                                 updates['/Master-Data-Customer/<?= $DataID ?>'] = PostD;

@@ -17,19 +17,35 @@ class Administrator extends BaseController
     //Mitra Wisata
     public function MitraWisata()
     {
-        return view('Administrator/Data-Mitra/Wisata/Mitra-Wisata');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Wisata/Mitra-Wisata');
+        }
     }
     public function TambahMitraWisata()
     {
-        return view('Administrator/Data-Mitra/Wisata/Add-Wisata');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Wisata/Add-Wisata');
+        }
     }
     public function EditMitraWisata($id = false)
     {
-        return view('Administrator/Data-Mitra/Wisata/Edit-Wisata');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Wisata/Edit-Wisata');
+        }
     }
     public function DetailMitraWisata($id = false)
     {
-        return view('Administrator/Data-Mitra/Wisata/Detail-Wisata');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Wisata/Detail-Wisata');
+        }
     }
 
     //Mitra Hotel

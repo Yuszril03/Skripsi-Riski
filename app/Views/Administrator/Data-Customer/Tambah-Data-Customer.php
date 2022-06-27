@@ -337,8 +337,8 @@
                                 EmailCustomer: document.getElementById('emailCust').value,
                                 TanggalLahirCustomer: document.getElementById('tglCust').value,
                                 AlamatCustomer: document.getElementById('alamatCust').value,
-                                TanggalBuat: new Date().toLocaleString("id-ID"),
-                                TanggalUpdate: new Date().toLocaleString("id-ID"),
+                                TanggalBuat: new Date().toString("ID"),
+                                TanggalUpdate: new Date().toString("ID"),
                                 fotoCustomer: ""
                             });
                             set(ref(db, 'Master-Data-Account-Customer/' + document.getElementById('nikCust').value), {
@@ -400,8 +400,8 @@
                                             EmailCustomer: document.getElementById('emailCust').value,
                                             TanggalLahirCustomer: document.getElementById('tglCust').value,
                                             AlamatCustomer: document.getElementById('alamatCust').value,
-                                            TanggalBuat: new Date().toLocaleString("id-ID"),
-                                            TanggalUpdate: new Date().toLocaleString("id-ID"),
+                                            TanggalBuat: new Date().toString("ID"),
+                                            TanggalUpdate: new Date().toString("ID"),
                                             fotoCustomer: downloadURL
                                         });
                                         set(ref(db, 'Master-Data-Account-Customer/' + document.getElementById('nikCust').value), {

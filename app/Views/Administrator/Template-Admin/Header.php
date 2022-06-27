@@ -45,7 +45,7 @@
           </li>
           <li class="nav-item dropdown">
               <a class="nav-link" data-toggle="dropdown" href="#">
-                  <i class="far fa-user-circle text-white"></i>
+                  <i class="bi bi-person-circle text-white"></i>
               </a>
               <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
                   <p class="ml-3 mt-2 mb-2 text-bold text-muted">Hai, <span id="subNamaHEader" class="text-capitalize"></span><?= session()->get('Nama') ?>!</p>

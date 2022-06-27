@@ -212,7 +212,7 @@
                             </div> -->
                             <!-- /image -->
                             <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
-                                <i class="fas fa-user text-primary"></i> Data Personal
+                                <i class="bi bi-person text-primary"></i> Data Personal
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-12">
@@ -247,7 +247,7 @@
                                 <p class="font-weight-bold" id="alamatCust" style="margin-top: -15px;">None</p>
                             </div>
                             <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
-                                <i class="fas fa-user-cog text-orange"></i> Data Lainnya
+                                <i class="bi bi-postcard text-orange"></i> Data Lainnya
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-12">

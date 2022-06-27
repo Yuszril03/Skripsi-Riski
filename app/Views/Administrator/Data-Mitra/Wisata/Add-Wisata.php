@@ -29,6 +29,7 @@
 
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
     <style>
         #map {
@@ -126,7 +127,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-      
+
 
         <!-- Navbar -->
         <?= view('Administrator/Template-Admin/Header') ?>
@@ -162,6 +163,38 @@
 
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
+
+                            <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
+                                <i class="bi bi-person text-primary"></i> Data Personal
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Nama Pengguna Mitra</label>
+                                        <input type="text" id="NamaMitra" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Email Pengguna Mitra</label>
+                                        <input type="text" id="EmailWisata" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Telefon Pengguna Mitra</label>
+                                        <input type="text" id="telefonMitra" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Jenis Mitra</label>
+                                        <input type="text" readonly value="Mitra-Wisata" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
+                                <i class="bi bi-input-cursor-text text-primary"></i> Data Detail Wisata
+                            </div>
+
                             <form action="">
                                 <div class="row">
                                     <div class="col-lg-6 col-12">
@@ -190,7 +223,7 @@
 
                                         <div class="form-group">
                                             <label for="">Nama Wisata</label>
-                                            <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Masukan Nama Wisata">
+                                            <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Harga Tiket Dewasa</label>
@@ -198,7 +231,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1">Rp</span>
                                                 </div>
-                                                <input style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                <input id="tiketDewasa" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Ketik di sini..." aria-label="Username" aria-describedby="basic-addon1">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -207,7 +240,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1">Rp</span>
                                                 </div>
-                                                <input style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                <input id="tiketAnak" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Ketik di sini..." aria-label="Username" aria-describedby="basic-addon1">
                                             </div>
                                         </div>
 
@@ -222,16 +255,18 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="">Alamat Wisata</label>
+                                            <input type="hidden" id="longlitude" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                            <input type="hidden" id="latitude" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                             <textarea readonly class="form-control" style="border-radius: 15px;" name="alamat" id="alamat" cols="10"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Deskripsi Wisata</label>
-                                            <textarea class="form-control" style="border-radius: 15px;" name="" id="" cols="10"></textarea>
+                                            <textarea class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini..." name="deskripsi" id="deskripsi" cols="10"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="float-right">
-                                    <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
+                                    <button type="button" id="submitData" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
                                     <button type="button" onclick="KeluarForm()" class="btn btn-secondary m-1" style="border-radius: 15px;">Close</button>
                                 </div>
                             </form>
@@ -290,6 +325,128 @@
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            set,
+            update
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+        import {
+            getStorage,
+            ref as refImage,
+            uploadBytesResumable,
+            getDownloadURL
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-storage.js";
+
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+            authDomain: "traveland-429a6.firebaseapp.com",
+            databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "traveland-429a6",
+            storageBucket: "traveland-429a6.appspot.com",
+            messagingSenderId: "569185605053",
+            appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const storage = getStorage();
+
+        var parseJsonAdmin = [];
+
+        const starCountRef = ref(db, 'Master-Data-Wisata/');
+        onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            const keys = Object.keys(data);
+            for (const isi in keys) {
+                const ValueItem = ref(db, 'Master-Data-Wisata/' + keys[isi]);
+                onValue(ValueItem, (kontenn) => {
+
+                    parseJsonAdmin.push(Number(keys[isi]))
+                })
+            }
+
+        });
+
+        document.getElementById('submitData').addEventListener('click', function() {
+
+
+
+            Swal.fire({
+                title: 'Apa anda yakin?',
+                text: "Menyimpan data ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let idData = ['NamaMitra', 'EmailWisata', 'telefonMitra', 'namaWisata', 'tiketDewasa', 'tiketAnak', 'alamat', 'deskripsi'];
+                    let jumlah = 0;
+                    const fileupload = $('#uploadFilee').prop('files')[0];
+
+                    for (let i = 0; i < idData.length; i++) {
+                        if (document.getElementById(idData[i]).value == "") {
+                            $('#' + idData[i]).addClass('is-invalid')
+                            jumlah++;
+                        } else {
+                            $('#' + idData[i]).removeClass('is-invalid')
+                        }
+                    }
+                    if (jumlah == 0) {
+
+                        // var CodeID = "";
+
+                        // if (parseJsonAdmin.length == 0) {
+                        //     CodeID = "Wisata-1"
+
+                        // } else {
+
+                        //     let lastID = parseJsonAdmin[parseJsonAdmin.length - 1]
+                        //     let spliData = lastID.split('-');
+                        //     CodeID = "Wisata-" + (Number(spliData[1]) + 1)
+
+                        // }
+
+                        // if (Boolean(fileupload) == false) {
+
+                        //     set(ref(db, 'Master-Data-Customer/' + CodeID), {
+                        //         NamaWisata: document.getElementById('namaWisata').value,
+                        //         HargaDewasa: document.getElementById('tiketDewasa').value,
+                        //         StatusWisata: 1,
+                        //         HargaAnak: document.getElementById('tiketAnak').value,
+                        //         AlamatCustomer: document.getElementById('alamat').value,
+                        //         TanggalBuat: new Date().toString("ID"),
+                        //         TanggalUpdate: new Date().toString("ID"),
+                        //         fotoWisata: "",
+                        //         DeskripsiWisata: document.getElementById('deskripsi').value,
+                        //     });
+
+                        // } else {
+
+                        // }
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Kolom pengisian Tidak Boleh Kosong!'
+                        })
+                    }
+
+                }
+            })
+        })
+    </script>
 
     <script>
         $('#btnCancelImage').hide()
@@ -378,6 +535,8 @@
             const lngLat = marker.getLngLat();
             coordinates.style.display = 'block';
             coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+            document.getElementById('latitude').value = lngLat.lat
+            document.getElementById('longlitude').value = lngLat.lng
 
             $.ajax({
                 url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw`,

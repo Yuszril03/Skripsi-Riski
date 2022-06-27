@@ -67,7 +67,7 @@
             <section class="content">
                 <div class="container-fluid">
                     <div class="float-right">
-                        <button onclick=" location.href=' <?= base_url() ?>/Tambah-Data-Customer'" style="border-radius: 15px;" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah Customer</button>
+                        <button onclick=" location.href=' <?= base_url() ?>/Tambah-Data-Customer'" style="border-radius: 15px;" class="btn btn-success"><i class="bi bi-plus-circle"></i> Tambah Customer</button>
                     </div>
                 </div>
                 <br>
@@ -234,14 +234,14 @@
                     if (parseJsonCustomer[i].Status == 1) {
                         StatusData = `<span class="badge badge-success">Aktif</span>`;
                         ActionData = `
-                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
-                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-warning btn-sm m-1"><i class="fa fa-pen-alt"></i></button>
-                                            <button data-id="${parseJsonCustomer[i].IDkey}" id="PowerCustomer"  type="button" class="tidakatif btn btn-danger btn-sm m-1"><i class="fas fa-power-off"></i></button>`;
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
+                                            <button data-id="${parseJsonCustomer[i].IDkey}" id="PowerCustomer"  type="button" class="tidakatif btn btn-danger btn-sm m-1"><i class="bi bi-power"></i></button>`;
                     } else {
                         StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
                         ActionData = `
-                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
-                                            <button data-id="${parseJsonCustomer[i].IDkey}" id="PowerCustomer"  type="button" class="aktif btn btn-success btn-sm"><i class="fas fa-power-off"></i></button>`;
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                            <button data-id="${parseJsonCustomer[i].IDkey}" id="PowerCustomer"  type="button" class="aktif btn btn-success btn-sm"><i class="bi bi-power"></i></button>`;
                     }
 
                     if (parseJsonCustomer[i].Gender == 1) {
