@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/summernote/summernote-bs4.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
@@ -34,6 +36,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 
     <style>
         .file-upload {
@@ -144,8 +147,8 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Berita & Event</li>
-                                <li class="breadcrumb-item active">Tambah Berita & Event</li>
+                                <li class="breadcrumb-item active">Kegiatan</li>
+                                <li class="breadcrumb-item active">Tambah Kegiatan</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -157,59 +160,99 @@
                 <div class="container-fluid">
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
-                            <form id="myform" action="">
-                                <div class="row">
-                                    <div class="col-lg-6 col-12">
-                                        <div class="form-group">
-                                            <label for="">Gambar Berita</label>
-                                            <div class="file-upload">
-                                                <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
-                                                <div class="Imagees">
-                                                    <img src="<?= base_url() ?>/Image/Icon/UploadProfile.svg" id="NoneImage" alt="">
-                                                    <img src="" id="AddImage" alt="">
-                                                </div>
-                                                <center>
-                                                    <div class="image-upload-wrap" style="margin-top: -150px ;">
-                                                        <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
+                            <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
+                                <i class="bi bi-input-cursor-text text-primary"></i> Data Kegiatan
+                            </div>
 
-                                                        <div class="drag-text mt-4">
-                                                            <h6 style="margin-top:-20px;">Drag and drop files or select add Image</h6>
-                                                        </div>
-                                                    </div>
-                                                    <p class="image-title">Uploaded Image</p>
-                                                </center>
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="judul" class="col-form-label">Judul:</label>
-                                            <input type="text" class="form-control" style="border-radius: 15px;" placeholder="Isi Judul" id="judul">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
-                                            <input type="date" class="form-control" data-date="" onchange="(hanyaAngka)" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggalBeritaEvent">
-                                        </div>
-
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Judul Kegiatan</label>
+                                        <input type="text" id="judul" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
-                                    <div class="col-lg-6 col-12">
+                                    <div class="form-group" id="groupMulai">
+                                        <label for="tanggal-BeritaEvent" id="tanggalKEgiatanLabel">Tanggal</label>
+                                        <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggalMulai">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Jenis Kegiatan</label>
+                                        <select name="JenisKegiatan" id="JenisKegiatan" onchange="GetKegiatan(this.value)" style="border-radius: 15px;" class="form-control">
+                                            <option value="" selected>Pilih Kegiatan...</option>
+                                            <option value="Berita">Berita</option>
+                                            <option value="Event">Event</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group" id="groupAkhir">
+                                        <label for="tanggal-BeritaEvent">Tanggal Berakhir</label>
+                                        <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggalAkhir">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
+                                <i class="bi bi-card-list text-primary"></i> Data Detail Kegiatas
+                            </div>
+                            <form id="myform" action="">
+                                <div class="form-group">
+                                    <label for="isi-BeritaEvent" class="col-form-label">Isi Kegiatan</label>
+                                    <textarea class="form-control" style="border-radius: 15px;" id="isiBeritaEvent" cols="30" rows="5"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="alamat-BeritaEvent" class="col-form-label">Alamat Kegiatan</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
                                         <div id="map"></div>
                                         <pre style="opacity: 0;" id="coordinates" class="coordinates"></pre>
                                         <div class="overlay">
                                             <!-- <button id="replay">Replay</button> -->
                                             <p id="ok"></p>
                                         </div>
+                                    </div>
+                                    <div class="col">
                                         <div class="form-group">
-                                            <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
                                             <input type="hidden" id="latitute">
                                             <input type="hidden" id="longlitude">
-                                            <textarea readonly class="form-control" style="border-radius: 15px; height: 130px;" id="alamatBeritaEvent" cols="30" rows="2"></textarea>
+                                            <textarea readonly class="form-control" style="border-radius: 15px; height: 298px;" id="alamatBeritaEvent" cols="30" rows="2"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
-                                    <textarea class="form-control" style="border-radius: 15px;" id="isiBeritaEvent" cols="30" rows="5"></textarea>
+                                    <label for="">Gambar Kegiatan</label>
+                                    <div class="file-upload">
+                                        <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
+                                        <div class="Imagees">
+                                            <img src="<?= base_url() ?>/Image/Icon/UploadProfile.svg" id="NoneImage" alt="">
+                                            <img src="" id="AddImage" alt="">
+                                        </div>
+                                        <center>
+                                            <div class="image-upload-wrap" style="margin-top: -150px ;">
+                                                <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
+
+                                                <div class="drag-text mt-4">
+                                                    <h6 style="margin-top:-20px;">Drag and drop files or select add Image</h6>
+                                                </div>
+                                            </div>
+                                            <p class="image-title">Uploaded Image</p>
+                                        </center>
+
+                                    </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="judul" class="col-form-label">Kegiatan Yang Berkaitan</label>
+                                    <!-- <input type="text" class="form-control" style="border-radius: 15px;" placeholder="Isi Judul" id="tag"> -->
+                                    <select name="" class="form-control js-states" style="border-radius: 15px;" id="tag" multiple>
+                                        <option selected='selected'>Wisata</option>
+                                        <option>white</option>
+                                        <option selected="selected">purple</option>
+                                    </select>
+                                </div>
+
+
                                 <div class="float-right">
                                     <button type="button" id="submitData" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
                                     <button type="button" onclick="KeluarFoam()" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
@@ -267,6 +310,8 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
     <script type="module">
         // Import the functions you need from the SDKs you need
         import {
@@ -500,6 +545,29 @@
     </script>
 
     <script>
+        $('#tag').select2();
+        // $('select').select2({
+        //     theme: 'bootstrap'
+        // })
+
+        $("#groupMulai").hide()
+        $("#groupAkhir").hide()
+
+        function GetKegiatan(id) {
+            if (id == "") {
+                $("#groupMulai").hide()
+                $("#groupAkhir").hide()
+            } else if (id == "Berita") {
+                document.getElementById('tanggalKEgiatanLabel').innerHTML = "Tanggal Berita"
+                $("#groupMulai").show()
+                $("#groupAkhir").hide()
+            } else if (id == "Event") {
+                document.getElementById('tanggalKEgiatanLabel').innerHTML = "Tanggal Mulai"
+                $("#groupMulai").show()
+                $("#groupAkhir").show()
+            }
+        }
+
         $('#btnCancelImage').hide()
         $('#AddImage').hide()
         $('.image-title').hide()
