@@ -92,6 +92,7 @@
                                             <th>Nama Mitra</th>
                                             <th>Nama Wisata</th>
                                             <th>Alamat Wisata</th>
+                                            <th>Status Mitra</th>
                                             <th>Status Wisata</th>
                                             <th>Aksi </th>
                                         </tr>
@@ -249,24 +250,55 @@
                                 };
                                 // parseJsonMitra.push(PostD)
                                 let StatusData = '';
+                                let StatusDataMitra = '';
                                 let ActionData = '';
+
+
+
                                 if (DataWisata.val().StatusWisata == 1) {
                                     StatusData = `<span class="badge badge-success">Aktif</span>`;
-                                    ActionData = `
+                                    if (kontenn.val().StatusMitra == 1) {
+                                        StatusDataMitra = `<span class="badge badge-success">Aktif</span>`;
+                                        ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                                             <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Customer/${keys[isi]}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
-                                            <button data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="tidakatif btn btn-danger btn-sm m-1"><i class="bi bi-power"></i></button>`;
+                                            <button Title="Blokir Wisata" data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="tidakatifWisata btn btn-danger btn-sm m-1"><i class="bi bi-dash-circle"></i></button>
+                                            <button  Title="Blokir Mitra" data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="tidakatifMitra btn btn-danger btn-sm m-1"><i class="bi bi-person-x"></i></button>
+                                            `;
+                                    } else {
+                                        StatusDataMitra = `<span class="badge badge-secondary">Tidak Aktif</span>`;
+                                        ActionData = `
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                            
+                                            <button  Title="Aktif Mitra" data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="aktifMitra btn btn-success btn-sm m-1"><i class="bi bi-person-x"></i></button>
+                                            `;
+                                    }
+
                                 } else {
                                     StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
-                                    ActionData = `
+                                    if (kontenn.val().StatusMitra == 1) {
+                                        StatusDataMitra = `<span class="badge badge-success">Aktif</span>`;
+                                        ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
-                                            <button data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="aktif btn btn-success btn-sm"><i class="bi bi-power"></i></button>`;
+                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Customer/${keys[isi]}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
+                                            <button Title="Aktif Wisata" data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="aktifWisata btn btn-success btn-sm m-1"><i class="bi bi-dash-circle"></i></button>
+                                            <button  Title="Blokir Mitra" data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="tidakatifMitra btn btn-danger btn-sm m-1"><i class="bi bi-person-x"></i></button>
+                                            `;
+                                    } else {
+                                        StatusDataMitra = `<span class="badge badge-secondary">Tidak Aktif</span>`;
+                                        ActionData = `
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                           
+                                            <button  Title="Aktif Mitra" data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="aktifMitra btn btn-success btn-sm m-1"><i class="bi bi-person-x"></i></button>
+                                            `;
+                                    }
                                 }
 
                                 table.row.add([
                                     kontenn.val().NamaMitra,
                                     DataWisata.val().NamaWisata,
                                     DataWisata.val().AlamatWisata,
+                                    StatusDataMitra,
                                     StatusData,
                                     ActionData
                                 ]).draw(false)
@@ -281,69 +313,132 @@
 
 
 
-        // $(document).on('click', '.tidakatif', function() {
-        //     var idData = $(this).data('id');
+        $(document).on('click', '.tidakatifMitra', function() {
+            var idData = $(this).data('id');
 
-        //     Swal.fire({
-        //         title: 'Apakah Anda Yakin?',
-        //         text: "Untuk Non Aktifkan Customer Ini ?",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'Iya!',
-        //         cancelButtonText: 'Batal'
-        //     }).then((result) => {
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Untuk Non Aktifkan Mitra Ini ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
 
-        //         if (result.isConfirmed) {
+                if (result.isConfirmed) {
 
-        //             const ValueItem = ref(db, 'Master-Data-Customer/' + idData);
-        //             onValue(ValueItem, (kontenn) => {
-        //                 let PostD = {
-        //                     NamaCustomer: kontenn.val().NamaCustomer,
-        //                     Gender: kontenn.val().Gender,
-        //                     TelefonCustomer: kontenn.val().TelefonCustomer,
-        //                     StatusCustomer: 0,
-        //                     EmailCustomer: kontenn.val().EmailCustomer,
-        //                     fotoCustomer: kontenn.val().fotoCustomer,
-        //                     TanggalLahirCustomer: kontenn.val().TanggalLahirCustomer,
-        //                     AlamatCustomer: kontenn.val().AlamatCustomer,
-        //                     TanggalBuat: kontenn.val().TanggalBuat,
-        //                     TanggalUpdate: new Date().toLocaleString("id-ID"),
-        //                 };
-        //                 const updates = {};
-        //                 updates['/Master-Data-Customer/' + idData] = PostD;
-        //                 update(ref(db), updates);
-        //                 // table.row.reload();
+                    const ValueItem = ref(db, 'Master-Data-Customer/' + idData);
+                    onValue(ValueItem, (kontenn) => {
+                        let PostD = {
+                            NamaCustomer: kontenn.val().NamaCustomer,
+                            Gender: kontenn.val().Gender,
+                            TelefonCustomer: kontenn.val().TelefonCustomer,
+                            StatusCustomer: 0,
+                            EmailCustomer: kontenn.val().EmailCustomer,
+                            fotoCustomer: kontenn.val().fotoCustomer,
+                            TanggalLahirCustomer: kontenn.val().TanggalLahirCustomer,
+                            AlamatCustomer: kontenn.val().AlamatCustomer,
+                            TanggalBuat: kontenn.val().TanggalBuat,
+                            TanggalUpdate: new Date().toLocaleString("id-ID"),
+                        };
+                        const updates = {};
+                        updates['/Master-Data-Customer/' + idData] = PostD;
+                        update(ref(db), updates);
+                        // table.row.reload();
 
-        //                 Swal.fire(
-        //                     'Berhasil!',
-        //                     'Data berhasil di non aktifkan.',
-        //                     'success'
-        //                 )
-        //                 Swal.fire({
-        //                     title: 'Berhasil',
-        //                     text: 'Data berhasil di non aktifkan.',
-        //                     icon: 'success',
-        //                     showCancelButton: false,
-        //                     confirmButtonColor: '#3085d6',
-        //                     cancelButtonColor: '#d33',
-        //                     confirmButtonText: 'Okey'
-        //                 }).then((result) => {
-        //                     if (result.isConfirmed) {
-        //                         location.reload();
-        //                     }
-        //                 })
+                        Swal.fire(
+                            'Berhasil!',
+                            'Data berhasil di non aktifkan.',
+                            'success'
+                        )
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Data berhasil di non aktifkan.',
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Okey'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
 
-        //                 // LoadData()
-        //             })
-
-
+                        // LoadData()
+                    })
 
 
-        //         }
-        //     })
-        // })
+
+
+                }
+            })
+        })
+        $(document).on('click', '.tidakatifWisata', function() {
+            var idData = $(this).data('id');
+
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Untuk Non Aktifkan Wisata Ini ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    const ValueItem = ref(db, 'Master-Data-Customer/' + idData);
+                    onValue(ValueItem, (kontenn) => {
+                        let PostD = {
+                            NamaCustomer: kontenn.val().NamaCustomer,
+                            Gender: kontenn.val().Gender,
+                            TelefonCustomer: kontenn.val().TelefonCustomer,
+                            StatusCustomer: 0,
+                            EmailCustomer: kontenn.val().EmailCustomer,
+                            fotoCustomer: kontenn.val().fotoCustomer,
+                            TanggalLahirCustomer: kontenn.val().TanggalLahirCustomer,
+                            AlamatCustomer: kontenn.val().AlamatCustomer,
+                            TanggalBuat: kontenn.val().TanggalBuat,
+                            TanggalUpdate: new Date().toLocaleString("id-ID"),
+                        };
+                        const updates = {};
+                        updates['/Master-Data-Customer/' + idData] = PostD;
+                        update(ref(db), updates);
+                        // table.row.reload();
+
+                        Swal.fire(
+                            'Berhasil!',
+                            'Data berhasil di non aktifkan.',
+                            'success'
+                        )
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Data berhasil di non aktifkan.',
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Okey'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+
+                        // LoadData()
+                    })
+
+
+
+
+                }
+            })
+        })
 
         // $(document).on('click', '.aktif', function() {
         //     var idData = $(this).data('id');
