@@ -26,14 +26,17 @@
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/summernote/summernote-bs4.min.css">
+
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js" charset="utf-8"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 
     <style>
         .file-upload {
@@ -117,6 +120,10 @@
         .overlay button:hover {
             background-color: #4ea0da;
         }
+
+        .select2 .selection .select2-selection ul li {
+            color: black;
+        }
     </style>
 </head>
 
@@ -157,63 +164,103 @@
                 <div class="container-fluid">
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
-                            <form action="">
-                                <div class="row">
-                                    <div class="col-lg-6 col-12">
-                                        <div class="form-group">
-                                            <label for="">Gambar Berita</label>
+                            <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
+                                <i class="bi bi-input-cursor-text text-primary"></i> Data Kegiatan
+                            </div>
 
-                                            <div class="file-upload">
-                                                <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
-                                                <div class="Imagees">
-                                                    <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" id="NoneImage" alt="">
-                                                    <img src="" id="AddImage" alt="">
-                                                </div>
-                                                <center>
-                                                    <div class="image-upload-wrap" style="margin-top: -110px ;">
-                                                        <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
-
-                                                        <div class="drag-text mt-4">
-                                                            <h6 style="margin-top:-20px;">Drag and drop files or select add Image</h6>
-                                                        </div>
-                                                    </div>
-                                                    <p class="image-title">Uploaded Image</p>
-                                                </center>
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="judul-BeritaEvent" class="col-form-label">Judul:</label>
-                                            <input type="text" class="form-control" style="border-radius: 15px;" placeholder="Isi Judul" id="judul-BeritaEvent">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="tanggal-BeritaEvent" class="col-form-label">Tanggal</label>
-                                            <input type="date" class="form-control" data-date="" onchange="(hanyaAngka)" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggal-BeritaEvent">
-                                        </div>
-
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Judul Kegiatan</label>
+                                        <input type="text" id="judul" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
-                                    <div class="col-lg-6 col-12">
+                                    <div class="form-group" id="groupMulai">
+                                        <label for="tanggal-BeritaEvent" id="tanggalKEgiatanLabel">Tanggal</label>
+                                        <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggalMulai">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Jenis Kegiatan</label>
+                                        <select name="JenisKegiatan" id="JenisKegiatan" onchange="GetKegiatan(this.value)" style="border-radius: 15px;" class="form-control">
+                                            <option value="" selected>Pilih Kegiatan...</option>
+                                            <option value="Berita">Berita</option>
+                                            <option value="Event">Event</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group" id="groupAkhir">
+                                        <label for="tanggal-BeritaEvent">Tanggal Berakhir</label>
+                                        <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggalAkhir">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
+                                <i class="bi bi-card-list text-primary"></i> Data Detail Kegiatas
+                            </div>
+                            <form id="myform" action="">
+                                <div class="form-group">
+                                    <label for="isi-BeritaEvent" class="col-form-label">Isi Kegiatan</label>
+                                    <textarea class="form-control" style="border-radius: 15px;" id="isiBeritaEvent" cols="30" rows="5"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="alamatBeritaEvent" class="col-form-label">Alamat Kegiatan</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
                                         <div id="map"></div>
                                         <pre style="opacity: 0;" id="coordinates" class="coordinates"></pre>
                                         <div class="overlay">
                                             <!-- <button id="replay">Replay</button> -->
                                             <p id="ok"></p>
                                         </div>
+                                    </div>
+                                    <div class="col">
                                         <div class="form-group">
-                                            <label for="alamat-BeritaEvent" class="col-form-label">Alamat</label>
                                             <input type="hidden" id="latitute">
                                             <input type="hidden" id="longlitude">
-                                            <textarea readonly class="form-control" style="border-radius: 15px; height: 130px;" id="alamat-BeritaEvent" cols="30" rows="2"></textarea>
+                                            <textarea readonly class="form-control" style="border-radius: 15px; height: 298px;" id="alamatBeritaEvent" cols="30" rows="2"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="isi-BeritaEvent" class="col-form-label">Isi Berita</label>
-                                    <textarea class="form-control" style="border-radius: 15px;" id="isi-BeritaEvent" cols="30" rows="5"></textarea>
+                                    <label for="">Gambar Kegiatan</label>
+                                    <div class="file-upload">
+                                        <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
+                                        <div class="Imagees">
+                                            <img src="<?= base_url() ?>/Image/Icon/UploadProfile.svg" id="NoneImage" alt="">
+                                            <img src="" id="AddImage" alt="">
+                                        </div>
+                                        <center>
+                                            <div class="image-upload-wrap" style="margin-top: -150px ;">
+                                                <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
+
+                                                <div class="drag-text mt-4">
+                                                    <h6 style="margin-top:-20px;">Drag and drop files or select add Image</h6>
+                                                </div>
+                                            </div>
+                                            <p class="image-title">Uploaded Image</p>
+                                        </center>
+
+                                    </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="judul" class="col-form-label">Kegiatan Yang Berkaitan</label>
+                                    <!-- <input type="text" class="form-control" style="border-radius: 15px;" placeholder="Isi Judul" id="tag"> -->
+                                    <select class="form-control js-states" style="border-radius: 15px; " id="tag" name="tag" multiple>
+                                        <option>Wisata</option>
+                                        <option>Hotel</option>
+                                        <option>Rental Mobil</option>
+                                    </select>
+                                    <span id="errorTag" class="text-danger">Mohon untuk mengisi kolom ini</span>
+                                </div>
+
+
                                 <div class="float-right">
                                     <button type="button" id="submitData" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
-                                    <button type="button" onclick="KeluarForm()" class="btn btn-secondary m-1" style="border-radius: 15px;">Close</button>
+                                    <button type="button" onclick="KeluarForm()" class=" btn btn-secondary m-1" style="border-radius: 15px;">close</button>
                                 </div>
                             </form>
                         </div>
@@ -268,372 +315,444 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</body>
-<script type="module">
-    // Import the functions you need from the SDKs you need
-    import {
-        initializeApp
-    } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
-    import {
-        getDatabase,
-        ref,
-        onValue,
-        set,
-        update
-    } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
-    import {
-        getStorage,
-        ref as refImage,
-        uploadBytesResumable,
-        getDownloadURL
-    } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-storage.js";
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
-        authDomain: "traveland-429a6.firebaseapp.com",
-        databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "traveland-429a6",
-        storageBucket: "traveland-429a6.appspot.com",
-        messagingSenderId: "569185605053",
-        appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
-    };
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase();
-    const storage = getStorage();
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            set,
+            update
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+        import {
+            getStorage,
+            ref as refImage,
+            uploadBytesResumable,
+            getDownloadURL
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-storage.js";
 
-    $('#btnCancelImage').hide()
-    $('#AddImage').hide()
-    $('.image-title').hide()
-    $('#NoneImage').show()
-
-    var parseJsonAdmin = {};
-
-    const ValueItem = ref(db, 'Data-Berita-Event/<?= $DataID ?>');
-    onValue(ValueItem, (kontenn) => {
-        let PostD = {
-
-            Judul: kontenn.val().Judul,
-            IsiBerita: kontenn.val().IsiBerita,
-            Alamat: kontenn.val().Alamat,
-            TanggalEvent: kontenn.val().TanggalEvent,
-            Status: kontenn.val().StatusBerita,
-            LinkImage: kontenn.val().LinkImage,
-            Latitute: kontenn.val().Latitute,
-            Longlitute: kontenn.val().Longlitute,
-            TanggalBuat: kontenn.val().TanggalBuat,
-            TanggalUpdate: kontenn.val().TanggalUpdate
-
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+            authDomain: "traveland-429a6.firebaseapp.com",
+            databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "traveland-429a6",
+            storageBucket: "traveland-429a6.appspot.com",
+            messagingSenderId: "569185605053",
+            appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
         };
-        parseJsonAdmin = (PostD)
-        if (Boolean(parseJsonAdmin) == false) {
-            Swal.fire({
-                title: 'Error',
-                text: 'Gagal Memuat Data.',
-                icon: 'error',
-                showCancelButton: false,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Okey'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    location.reload();
-                }
-            })
-        } else {
-            if (kontenn.val().LinkImage == "") {
-                $('#btnCancelImage').hide()
-                $('#AddImage').hide()
-                $('.image-title').hide()
-                $('#NoneImage').show()
-                $('.image-upload-wrap').show();
-            } else {
-                document.getElementById('AddImage').src = kontenn.val().LinkImage
-                $('#btnCancelImage').show()
-                $('#AddImage').show()
-                $('.image-title').hide()
-                $('#NoneImage').hide()
-                $('.image-upload-wrap').hide();
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const storage = getStorage();
 
-            }
+        // $('#tag').select2();
+        $('#tag').select2();
+
+
+        // $('select').select2({
+        //     theme: 'bootstrap'
+        // })
+
+        $("#errorTag").hide()
+        $("#groupMulai").show()
+        $("#groupAkhir").hide()
 
 
 
-            // document.getElementById('namaCust').value = kontenn.val().NamaCustomer
-            // document.getElementById('EmailCust').value = kontenn.val().EmailCustomer
-            // document.getElementById('nomorCust').value = kontenn.val().TelefonCustomer
-            // document.getElementById('tanggalCust').value = kontenn.val().TanggalLahirCustomer
-            // document.getElementById('alamatCust').value = kontenn.val().AlamatCustomer
-            document.getElementById('judul-BeritaEvent').value = kontenn.val().Judul
-            document.getElementById('tanggal-BeritaEvent').value = kontenn.val().TanggalEvent
-            document.getElementById('alamat-BeritaEvent').value = kontenn.val().Alamat
-            document.getElementById('latitute').value = kontenn.val().Latitute
-            document.getElementById('longlitude').value = kontenn.val().Longlitute
-            document.getElementById('isi-BeritaEvent').value = kontenn.val().IsiBerita
-        }
-
-    })
-
-    document.getElementById('submitData').addEventListener('click', function() {
-        Swal.fire({
-            title: 'Apa anda yakin?',
-            text: "Menyimpan data ini!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Iya',
-            cancelButtonText: 'Batal'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                let idData = ['judul-BeritaEvent', 'tanggal-BeritaEvent', 'alamat-BeritaEvent', 'isi-BeritaEvent'];
-                let jumlah = 0;
-                const fileupload = $('#uploadFilee').prop('files')[0];
-
-                if (jumlah == 0) {
-                    if (Boolean(fileupload) == false) {
-                        let PostD = {
-                            // NamaCustomer: document.getElementById('namaCust').value,
-                            // TelefonCustomer: document.getElementById('nomorCust').value,
-                            // StatusBerita: parseJsonAdmin.Status,
-                            // EmailCustomer: document.getElementById('EmailCust').value,
-                            // fotoCustomer: parseJsonAdmin.fotoCustomer,
-                            // TanggalLahirCustomer: document.getElementById('tanggalCust').value,
-                            // AlamatCustomer: document.getElementById('alamatCust').value,
-                            // TanggalBuat: parseJsonAdmin.TanggalBuat,
-                            // TanggalUpdate: new Date().toLocaleString("id-ID"),
-
-                            Judul: document.getElementById('judul-BeritaEvent').value,
-                            TanggalEvent: document.getElementById('tanggal-BeritaEvent').value,
-                            StatusBerita: parseJsonAdmin.Status,
-                            Alamat: document.getElementById('alamat-BeritaEvent').value,
-                            IsiBerita: document.getElementById('isi-BeritaEvent').value,
-                            LinkImage: parseJsonAdmin.LinkImage,
-                            Latitute: document.getElementById('latitute').value,
-                            Longlitute: document.getElementById('longlitude').value,
-                            TanggalBuat: parseJsonAdmin.TanggalBuat,
-                            TanggalUpdate: new Date().toLocaleString("id-ID"),
-
-                        };
-                        const updates = {};
-                        updates['/Data-Berita-Event/<?= $DataID ?>'] = PostD;
-                        update(ref(db), updates);
-
-                        Swal.fire({
-                            title: 'Berhasil',
-                            text: 'Data berhasil tersimpan.',
-                            icon: 'success',
-                            showCancelButton: false,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Okey'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.href = "<?= base_url() ?>/Berita-Event"
-                            }
-                        })
-
-                    } else {
-
-                        const storageRef = refImage(storage, 'images-berita-event/' + new Date().getTime() + '-' + fileupload.name);
-
-                        // Upload the file and metadata
-                        const uploadTask = uploadBytesResumable(storageRef, fileupload);
-
-                        // Register three observers:
-                        // 1. 'state_changed' observer, called any time the state changes
-                        // 2. Error observer, called on failure
-                        // 3. Completion observer, called on successful completion
-                        uploadTask.on('state_changed',
-                            (snapshot) => {
-                                // Observe state change events such as progress, pause, and resume
-                                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                console.log('Upload is ' + progress + '% done');
-                                switch (snapshot.state) {
-                                    case 'paused':
-                                        console.log('Upload is paused');
-                                        break;
-                                    case 'running':
-                                        console.log('Upload is running');
-                                        break;
-                                }
-                            },
-                            (error) => {
-                                // Handle unsuccessful uploads
-                            },
-                            () => {
-                                // Handle successful uploads on complete
-                                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                                    console.log('File available at', downloadURL);
-                                    let PostD = {
-                                        Judul: document.getElementById('judul-BeritaEvent').value,
-                                        TanggalEvent: document.getElementById('tanggal-BeritaEvent').value,
-                                        StatusBerita: parseJsonAdmin.Status,
-                                        Alamat: document.getElementById('alamat-BeritaEvent').value,
-                                        IsiBerita: document.getElementById('isi-BeritaEvent').value,
-                                        LinkImage: downloadURL,
-                                        Latitute: document.getElementById('latitute').value,
-                                        Longlitute: document.getElementById('longlitude').value,
-                                        TanggalBuat: parseJsonAdmin.TanggalBuat,
-                                        TanggalUpdate: new Date().toLocaleString("id-ID"),
-                                    };
-                                    const updates = {};
-                                    updates['/Data-Berita-Event/<?= $DataID ?>'] = PostD;
-                                    update(ref(db), updates);
-
-
-                                });
-                            }
-                        );
-
-
-                        Swal.fire({
-                            title: 'Berhasil',
-                            text: 'Data berhasil tersimpan.',
-                            icon: 'success',
-                            showCancelButton: false,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Okey'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.href = "<?= base_url() ?>/Berita-Event"
-                            }
-                        })
-
-                    }
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Kolom pengisian Tidak Boleh Kosong!'
-                    })
-                }
-            }
-        })
-    })
-</script>
-
-<script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                $('.image-upload-wrap').hide();
-
-                $('.file-upload-image').attr('src', e.target.result);
-                $('.file-upload-content').show();
-
-                $('.image-title').html(input.files[0].name);
-
-                $('#AddImage').show()
-                $('#NoneImage').hide()
-
-                document.getElementById('AddImage').src = e.target.result;
-            };
-            $('#btnCancelImage').show()
-            $('.image-title').show()
-            reader.readAsDataURL(input.files[0]);
-
-
-        } else {
-            removeUpload();
-        }
-    }
-
-    function removeUpload() {
-        document.getElementById("uploadFilee").value = "";
         $('#btnCancelImage').hide()
         $('#AddImage').hide()
-        $('#NoneImage').show()
         $('.image-title').hide()
-        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-        $('.file-upload-content').hide();
-        $('.image-upload-wrap').show();
-    }
-    $('.image-upload-wrap').bind('dragover', function() {
-        $('.image-upload-wrap').addClass('image-dropping');
-    });
-    $('.image-upload-wrap').bind('dragleave', function() {
-        $('.image-upload-wrap').removeClass('image-dropping');
-    });
+        $('#NoneImage').show()
 
-    mapboxgl.accessToken = 'pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw';
-    const coordinates = document.getElementById('coordinates');
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [117.1485239363954, -0.569178092470267],
-        zoom: 10
-    });
+        var parseJsonAdmin = {};
 
-    const marker = new mapboxgl.Marker({
-            draggable: true
-        })
-        .setLngLat([117.1485239363954, -0.569178092470267])
-        .addTo(map);
+        const ValueItem = ref(db, 'Data-Kegiatan/<?= $DataID ?>');
+        onValue(ValueItem, (kontenn) => {
+            let PostD = {
 
-    function onDragEnd() {
-        const lngLat = marker.getLngLat();
-        coordinates.style.display = 'block';
-        coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
-        document.getElementById('latitute').value = lngLat.lat;
-        document.getElementById('longlitude').value = lngLat.lng;
+                Judul: kontenn.val().Judul,
+                IsiKegiatan: kontenn.val().IsiKegiatan,
+                Alamat: kontenn.val().Alamat,
+                JenisKegiatan: kontenn.val().JenisKegiatan,
+                KegiatanYangBerkaitan: kontenn.val().KegiatanYangBerkaitan,
+                TanggalMulai: kontenn.val().TanggalMulai,
+                TanggalAkhir: kontenn.val().TanggalAkhir,
+                Status: kontenn.val().StatusBerita,
+                LinkImage: kontenn.val().LinkImage,
+                Latitute: kontenn.val().Latitute,
+                Longlitute: kontenn.val().Longlitute,
+                TanggalBuat: kontenn.val().TanggalBuat,
+                TanggalUpdate: kontenn.val().TanggalUpdate
 
-        $.ajax({
-            url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw`,
-            dataType: "JSON"
-        }).done(result => {
-            $("#alamat-BeritaEvent").val(result.features[0].place_name)
-        })
+            };
+            parseJsonAdmin = (PostD)
+            if (Boolean(parseJsonAdmin) == false) {
 
-    }
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Gagal Memuat Data.',
+                    icon: 'error',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Okey'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                })
+            } else {
+                if (kontenn.val().LinkImage == "") {
+                    $('#btnCancelImage').hide()
+                    $('#AddImage').hide()
+                    $('.image-title').hide()
+                    $('#NoneImage').show()
+                    $('.image-upload-wrap').show();
+                } else {
+                    document.getElementById('AddImage').src = kontenn.val().LinkImage
+                    $('#btnCancelImage').show()
+                    $('#AddImage').show()
+                    $('.image-title').hide()
+                    $('#NoneImage').hide()
+                    $('.image-upload-wrap').hide();
 
-    marker.on('dragend', onDragEnd);
+                }
 
-    $("input").on("change", function() {
-        this.setAttribute(
-            "data-date",
-            moment(this.value, "YYYY-MM-DD")
-            .format(this.getAttribute("data-date-format"))
-        )
-    }).trigger("change")
+                if (kontenn.val().TanggalAkhir == "") {
+                    document.getElementById('tanggalMulai').value = kontenn.val().TanggalMulai
+                    $("#groupMulai").show()
+                    $("#groupAkhir").hide()
+                } else {
+                    document.getElementById('tanggalMulai').value = kontenn.val().TanggalMulai
+                    document.getElementById('tanggalAkhir').value = kontenn.val().TanggalAkhir
+                    $("#groupMulai").show()
+                    $("#groupAkhir").show()
+                }
 
-    $("input").on("change", function() {
-        this.setAttribute(
-            "data-date",
-            moment(this.value, "YYYY-MM-DD")
-            .format(this.getAttribute("data-date-format"))
-        )
-    }).trigger("change")
 
-    function hanyaAngka(event) {
-        var angka = (event.which) ? event.which : event.keyCode
-        if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
-            return false;
-        return true;
-    }
 
-    function KeluarForm() {
-        Swal.fire({
-            title: 'Apa kamu yakin?',
-            text: "Meninggalkan halaman ini",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Iya',
-            cancelButtonText: 'Tidak',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                location.href = "<?= base_url() ?>/Berita-Event"
+
+                // document.getElementById('namaCust').value = kontenn.val().NamaCustomer
+                // document.getElementById('EmailCust').value = kontenn.val().EmailCustomer
+                // document.getElementById('nomorCust').value = kontenn.val().TelefonCustomer
+                // document.getElementById('tanggalCust').value = kontenn.val().TanggalLahirCustomer
+                // document.getElementById('alamatCust').value = kontenn.val().AlamatCustomer
+                // console.log(kontenn.val().Alamat)
+                document.getElementById('alamatBeritaEvent').value = kontenn.val().Alamat
+                document.getElementById('judul').value = kontenn.val().Judul
+                document.getElementById('JenisKegiatan').value = kontenn.val().JenisKegiatan
+                document.getElementById('isiBeritaEvent').value = kontenn.val().IsiKegiatan
+                document.getElementById('latitute').value = kontenn.val().Latitute
+                document.getElementById('longlitude').value = kontenn.val().Longlitute
+                // document.getElementById('tag').value = kontenn.val().KegiatanYangBerkaitan
+                var arrayTag = kontenn.val().KegiatanYangBerkaitan;
+                var arrayTag2 = arrayTag.split(",");
+                $('#tag').val(arrayTag2).trigger('change')
+
+
             }
+
         })
-    }
-</script>
+
+        document.getElementById('submitData').addEventListener('click', function() {
+
+
+            Swal.fire({
+                title: 'Apa anda yakin?',
+                text: "Menyimpan data ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let idData = ['judul', 'JenisKegiatan', 'isiBeritaEvent', 'alamatBeritaEvent', 'tanggalMulai', 'tanggalAkhir', 'tag'];
+                    let jumlah = 0;
+                    const fileupload = $('#uploadFilee').prop('files')[0];
+
+                    const tempsTag = document.getElementsByClassName('select2-selection__choice');
+                    let arrayTag = [];
+                    for (let i = 0; i < tempsTag.length; i++) {
+                        let temps = tempsTag[i].innerText
+                        let resultSplit = temps.split("×\n");
+                        arrayTag.push(resultSplit[1]);
+                    }
+                    
+                    
+
+                    if (jumlah == 0) {
+                        if (Boolean(fileupload) == false) {
+                            let PostD = {
+                                // NamaCustomer: document.getElementById('namaCust').value,
+                                // TelefonCustomer: document.getElementById('nomorCust').value,
+                                // StatusBerita: parseJsonAdmin.Status,
+                                // EmailCustomer: document.getElementById('EmailCust').value,
+                                // fotoCustomer: parseJsonAdmin.fotoCustomer,
+                                // TanggalLahirCustomer: document.getElementById('tanggalCust').value,
+                                // AlamatCustomer: document.getElementById('alamatCust').value,
+                                // TanggalBuat: parseJsonAdmin.TanggalBuat,
+                                // TanggalUpdate: new Date().toLocaleString("id-ID"),
+
+                                Judul: document.getElementById('judul').value,
+                                JenisKegiatan: document.getElementById('JenisKegiatan').value,
+                                KegiatanYangBerkaitan: arrayTag.toString(),
+                                TanggalMulai: document.getElementById('tanggalMulai').value,
+                                TanggalAkhir: document.getElementById('tanggalAkhir').value,
+                                StatusBerita: parseJsonAdmin.Status,
+                                Alamat: document.getElementById('alamatBeritaEvent').value,
+                                IsiKegiatan: document.getElementById('isiBeritaEvent').value,
+                                LinkImage: parseJsonAdmin.LinkImage,
+                                Latitute: document.getElementById('latitute').value,
+                                Longlitute: document.getElementById('longlitude').value,
+                                TanggalBuat: parseJsonAdmin.TanggalBuat,
+                                TanggalUpdate: new Date().toLocaleString("id-ID"),
+
+                            };
+                            const updates = {};
+                            updates['/Data-Kegiatan/<?= $DataID ?>'] = PostD;
+                            update(ref(db), updates);
+
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Data berhasil tersimpan.',
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Okey'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "<?= base_url() ?>/Berita-Event"
+                                }
+                            })
+
+                        } else {
+
+                            const storageRef = refImage(storage, 'images-kegiatan/' + new Date().getTime() + ' - ' + fileupload.name);
+
+                            // Upload the file and metadata
+                            const uploadTask = uploadBytesResumable(storageRef, fileupload);
+
+                            // Register three observers:
+                            // 1. 'state_changed' observer, called any time the state changes
+                            // 2. Error observer, called on failure
+                            // 3. Completion observer, called on successful completion
+                            uploadTask.on('state_changed',
+                                (snapshot) => {
+                                    // Observe state change events such as progress, pause, and resume
+                                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                    console.log('Upload is ' + progress + '% done');
+                                    switch (snapshot.state) {
+                                        case 'paused':
+                                            console.log('Upload is paused');
+                                            break;
+                                        case 'running':
+                                            console.log('Upload is running');
+                                            break;
+                                    }
+                                },
+                                (error) => {
+                                    // Handle unsuccessful uploads
+                                },
+                                () => {
+                                    // Handle successful uploads on complete
+                                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                        console.log('File available at', downloadURL);
+                                        let PostD = {
+                                            Judul: document.getElementById('judul').value,
+                                            JenisKegiatan: document.getElementById('JenisKegiatan').value,
+                                            KegiatanYangBerkaitan: arrayTag.toString(),
+                                            TanggalMulai: document.getElementById('tanggalMulai').value,
+                                            TanggalAkhir: document.getElementById('tanggalAkhir').value,
+                                            StatusBerita: parseJsonAdmin.Status,
+                                            Alamat: document.getElementById('alamatBeritaEvent').value,
+                                            IsiKegiatan: document.getElementById('isiBeritaEvent').value,
+                                            LinkImage: downloadURL,
+                                            Latitute: document.getElementById('latitute').value,
+                                            Longlitute: document.getElementById('longlitude').value,
+                                            TanggalBuat: parseJsonAdmin.TanggalBuat,
+                                            TanggalUpdate: new Date().toLocaleString("id-ID"),
+                                        };
+                                        const updates = {};
+                                        updates['/Data-Kegiatan/<?= $DataID ?>'] = PostD;
+                                        update(ref(db), updates);
+
+
+                                    });
+                                }
+                            );
+
+
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Data berhasil tersimpan.',
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Okey'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "<?= base_url() ?>/Berita-Event"
+                                }
+                            })
+
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Kolom pengisian Tidak Boleh Kosong!'
+                        })
+                    }
+                }
+            })
+        })
+    </script>
+
+    <script>
+        function GetKegiatan(id) {
+            if (id == "") {
+                $("#groupMulai").hide()
+                $("#groupAkhir").hide()
+            } else if (id == "Berita") {
+                document.getElementById('tanggalKEgiatanLabel').innerHTML = "Tanggal Berita"
+                $("#groupMulai").show()
+                $("#groupAkhir").hide()
+            } else if (id == "Event") {
+                document.getElementById('tanggalKEgiatanLabel').innerHTML = "Tanggal Mulai"
+                $("#groupMulai").show()
+                $("#groupAkhir").show()
+            }
+        }
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('.image-upload-wrap').hide();
+
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
+
+                    $('.image-title').html(input.files[0].name);
+
+                    $('#AddImage').show()
+                    $('#NoneImage').hide()
+
+                    document.getElementById('AddImage').src = e.target.result;
+                };
+                $('#btnCancelImage').show()
+                $('.image-title').show()
+                reader.readAsDataURL(input.files[0]);
+
+
+            } else {
+                removeUpload();
+            }
+        }
+
+        function removeUpload() {
+            document.getElementById("uploadFilee").value = "";
+            $('#btnCancelImage').hide()
+            $('#AddImage').hide()
+            $('#NoneImage').show()
+            $('.image-title').hide()
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+        }
+        $('.image-upload-wrap').bind('dragover', function() {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function() {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
+
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw';
+        const coordinates = document.getElementById('coordinates');
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [117.1485239363954, -0.569178092470267],
+            zoom: 10
+        });
+
+        const marker = new mapboxgl.Marker({
+                draggable: true
+            })
+            .setLngLat([117.1485239363954, -0.569178092470267])
+            .addTo(map);
+
+        function onDragEnd() {
+            const lngLat = marker.getLngLat();
+            coordinates.style.display = 'block';
+            coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+            document.getElementById('latitute').value = lngLat.lat;
+            document.getElementById('longlitude').value = lngLat.lng;
+
+            $.ajax({
+                url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw`,
+                dataType: "JSON"
+            }).done(result => {
+                $("#alamatBeritaEvent").val(result.features[0].place_name)
+            })
+
+        }
+
+        marker.on('dragend', onDragEnd);
+
+        $("input").on("change", function() {
+            this.setAttribute(
+                "data-date",
+                moment(this.value, "YYYY-MM-DD")
+                .format(this.getAttribute("data-date-format"))
+            )
+        }).trigger("change")
+
+        $("input").on("change", function() {
+            this.setAttribute(
+                "data-date",
+                moment(this.value, "YYYY-MM-DD")
+                .format(this.getAttribute("data-date-format"))
+            )
+        }).trigger("change")
+
+        function hanyaAngka(event) {
+            var angka = (event.which) ? event.which : event.keyCode
+            if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))
+                return false;
+            return true;
+        }
+
+        function KeluarForm() {
+            Swal.fire({
+                title: 'Apa kamu yakin?',
+                text: "Meninggalkan halaman ini",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.href = "<?= base_url() ?>/Berita-Event"
+                }
+            })
+        }
+    </script>
+</body>
 
 </html>

@@ -175,28 +175,61 @@
                                 <img id="imgBerita" src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="300" id="NoneImage" alt="">
                             </div>
                             <!-- /image -->
-                            <h4 id="judulBeritaEvent" class="mt-2 font-weight-bold">None</h4>
+
+                            <h4 id="judul" style="font-size: 35px;" class="mt-2 font-weight-bold">None</h4>
                             <div class="d-flex flex-row">
                                 <div class="pr-1">
-                                    <p id="tanggalBuatBeritaEvent" style="font-size: 14px; margin-top: -12px;" class="text-muted">
-                                        None
-                                    </p>
+                                    <p style="font-size: 13px; margin-top: -12px;" class="text-muted"><b><span id="jeniskegiatan"></span></b> - <span id="tanggalBuat"></span> </p>
                                 </div>
                             </div>
 
-                            <p class="mt-2 font-weight-bold">
-                                Berita
+                            <p class="mt-2 font-weight-bold">Lokasi</p>
+                            <p>
+                                <i class="bi bi-pin-map-fill"></i>&nbsp;&nbsp;<span id="alamatKegiatan"></span>
                             </p>
 
-                            <p id="isiBeritaEvent">None</p>
-
-                            <p class="mt-2 font-weight-bold">Lokasi Event</p>
-                            <p id="alamatBeritaEvent">None
-                            </p>
                             <p class="mt-2 font-weight-bold">
-                                Tanggal Event
+                                Berita Kegiatan
                             </p>
-                            <p id="tanggalBeritaEvent">None</p>
+
+                            <p id="isiKegiatan">None</p>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <p class="mt-2 font-weight-bold">
+                                        Tanggal
+                                    </p>
+                                    <div class="group">
+                                        <i class="bi bi-calendar3"></i>&nbsp;&nbsp;<span id="tanggalKegiatan"></span>&nbsp;&nbsp;
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-4">
+
+                                    <p class="mt-2 font-weight-bold">
+                                        Tanggal
+                                    </p>
+                                    <div class="group">
+                                        <i class="bi bi-calendar3"></i>&nbsp;&nbsp;<span id="tanggalAkhir"></span>
+                                    </div>
+
+                                </div>
+                                <div class="col-4">
+
+                                </div>
+                                <!-- <div class="col-3">
+
+                                </div> -->
+
+                            </div>
+                            <!-- <div>
+                                <p>
+                                    <i class="bi bi-calendar3"></i>&nbsp;&nbsp;<span id="tanggalAkhir"></span>
+                                </p>
+                            </div> -->
+
                         </div>
                     </div>
             </section>
@@ -287,9 +320,12 @@
     onValue(ValueItem, (kontenn) => {
         let PostD = {
             Judul: kontenn.val().Judul,
-            IsiBerita: kontenn.val().IsiBerita,
+            IsiKegiatan: kontenn.val().IsiKegiatan,
             Alamat: kontenn.val().Alamat,
-            TanggalEvent: kontenn.val().TanggalEvent,
+            JenisKegiatan: kontenn.val().JenisKegiatan,
+            KegiatanYangBerkaitan: kontenn.val().KegiatanYangBerkaitan,
+            TanggalMulai: kontenn.val().TanggalMulai,
+            TanggalAkhir: kontenn.val().TanggalAkhir,
             Status: kontenn.val().StatusBerita,
             LinkImage: kontenn.val().LinkImage,
             Latitute: kontenn.val().Latitute,
@@ -326,11 +362,13 @@
                 day: 'numeric'
             };
 
-            document.getElementById('judulBeritaEvent').innerHTML = kontenn.val().Judul
-            document.getElementById('isiBeritaEvent').innerHTML = kontenn.val().IsiBerita
-            document.getElementById('alamatBeritaEvent').innerHTML = kontenn.val().Alamat
-            document.getElementById('tanggalBeritaEvent').innerHTML = new Date(kontenn.val().TanggalEvent).toLocaleDateString("id-ID", options)
-            document.getElementById('tanggalBuatBeritaEvent').innerHTML = kontenn.val().TanggalBuat
+            document.getElementById('judul').innerHTML = kontenn.val().Judul
+            document.getElementById('isiKegiatan').innerHTML = kontenn.val().IsiKegiatan
+            document.getElementById('alamatKegiatan').innerHTML = kontenn.val().Alamat
+            document.getElementById('jeniskegiatan').innerHTML = kontenn.val().JenisKegiatan
+            document.getElementById('tanggalKegiatan').innerHTML = new Date(kontenn.val().TanggalMulai).toLocaleDateString("id-ID", options)
+            document.getElementById('tanggalAkhir').innerHTML = new Date(kontenn.val().TanggalAkhir).toLocaleDateString("id-ID", options)
+            document.getElementById('tanggalBuat').innerHTML = kontenn.val().TanggalBuat
             document.getElementById('modified').innerHTML = kontenn.val().TanggalUpdate
             document.getElementById('created').innerHTML = kontenn.val().TanggalBuat
         }

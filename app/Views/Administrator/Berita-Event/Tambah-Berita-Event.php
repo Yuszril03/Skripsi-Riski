@@ -206,7 +206,7 @@
                                     <textarea class="form-control" style="border-radius: 15px;" id="isiBeritaEvent" cols="30" rows="5"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="alamat-BeritaEvent" class="col-form-label">Alamat Kegiatan</label>
+                                    <label for="alamatBeritaEvent" class="col-form-label">Alamat Kegiatan</label>
                                 </div>
                                 <div class="row">
                                     <div class="col">
@@ -375,7 +375,7 @@
 
         // let judulBE = document.getElementById('judul').value;
         document.getElementById('submitData').addEventListener('click', function() {
-            let form = ['judul', 'tanggalMulai', 'isiBeritaEvent', 'JenisKegiatan', 'tag'];
+            let form = ['judul', 'tanggalMulai', 'isiBeritaEvent', 'JenisKegiatan', 'alamatBeritaEvent', 'tag'];
             var angka = 0;
             const fileupload = $('#uploadFilee').prop('files')[0];
 
@@ -390,7 +390,7 @@
 
 
             for (let i = 0; i < form.length; i++) {
-                if (i == 6) {
+                if (i == 5) {
                     if (arrayTag.length == 0) {
                         angka++;
                         $("#errorTag").show()
