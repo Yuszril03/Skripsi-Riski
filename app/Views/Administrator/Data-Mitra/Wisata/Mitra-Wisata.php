@@ -27,7 +27,9 @@
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/summernote/summernote-bs4.min.css">
 
     <!-- Select2 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" /> -->
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 </head>
@@ -76,25 +78,27 @@
                     <br><br>
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
-
+                            <!-- 
                             <select class="form-control js-states" multiple name="coba" id="coba">
                                 <option value="">1</option>
                                 <option value="">2</option>
                                 <option value="">3 </option>
-                            </select>
+                            </select> -->
 
                             <div class="table-responsive">
-                                <table class="table table-striped">
+                                <table id="Table" class="table table-striped">
                                     <thead>
                                         <tr>
+                                            <th>Nama Mitra</th>
                                             <th>Nama Wisata</th>
                                             <th>Alamat Wisata</th>
                                             <th>Status Wisata</th>
                                             <th>Aksi </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <!-- <tbody>
                                         <tr>
+                                            <td>Text</td>
                                             <td>Text</td>
                                             <td>Text</td>
                                             <td>Text</td>
@@ -104,7 +108,7 @@
                                                 <button class="btn btn-danger btn-sm" title="Hapus Data"><i class="fas fa-power-off"></i></button>
                                             </td>
                                         </tr>
-                                    </tbody>
+                                    </tbody> -->
                                 </table>
                             </div>
                         </div>
@@ -161,10 +165,242 @@
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
 
     <!-- Select2 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> -->
 
-    <script>
-        $("#coba").select2();
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            set,
+            update
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+            authDomain: "traveland-429a6.firebaseapp.com",
+            databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "traveland-429a6",
+            storageBucket: "traveland-429a6.appspot.com",
+            messagingSenderId: "569185605053",
+            appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+
+
+        var table = $('#Table').DataTable({
+            "lengthChange": false,
+            "language": {
+                search: '',
+                searchPlaceholder: "Pencarian...",
+                "paginate": {
+                    "next": "Selanjutnya",
+                    "previous": "Sebelumnya"
+                },
+                "info": "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri",
+                "lengthMenu": "Tampilkan _MENU_ entri",
+                "infoEmpty": "Menampilkan 0 hingga 0 of 0 entri",
+                "infoFiltered": "(disaring dari _MAX_ total entri)",
+                "zeroRecords": "Tidak ada data yang cocok ditemukan",
+                "emptyTable": "Tidak ada data di dalam tabel",
+            }
+        });
+        LoadData()
+
+        function LoadData() {
+            // table
+            //     .clear()
+            //     .draw(false);
+            var parseJsonMitra = [];
+            const starCountRef = ref(db, 'Master-Data-Mitra/');
+            onValue(starCountRef, (snapshot) => {
+                const data = snapshot.val();
+                const keys = Object.keys(data);
+                for (const isi in keys) {
+                    const ValueItem = ref(db, 'Master-Data-Mitra/' + keys[isi]);
+                    onValue(ValueItem, (kontenn) => {
+
+                        // console.log(kontenn.val().NamaMitra)
+
+                        const ValueAcccount = ref(db, 'Master-Data-Account-Mitra/' + keys[isi]);
+                        onValue(ValueAcccount, (DataAccount) => {
+
+                            // console.log(DataAccount.val().IDKelolaMitra)
+
+                            const ValueWisata = ref(db, 'Master-Data-Wisata/' + DataAccount.val().IDKelolaMitra);
+                            onValue(ValueWisata, (DataWisata) => {
+
+                                // console.log(DataWisata.val().NamaWisata)
+                                let PostD = {
+                                    IDMitra: keys[isi],
+                                    NamaMitra: kontenn.val().NamaMitra,
+                                    Wisata: DataWisata.val().NamaWisata,
+                                    Alamat: DataWisata.val().AlamatWisata,
+                                    Status: DataWisata.val().StatusWisata,
+                                };
+                                // parseJsonMitra.push(PostD)
+                                let StatusData = '';
+                                let ActionData = '';
+                                if (DataWisata.val().StatusWisata == 1) {
+                                    StatusData = `<span class="badge badge-success">Aktif</span>`;
+                                    ActionData = `
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Customer/${keys[isi]}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
+                                            <button data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="tidakatif btn btn-danger btn-sm m-1"><i class="bi bi-power"></i></button>`;
+                                } else {
+                                    StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
+                                    ActionData = `
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                            <button data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="aktif btn btn-success btn-sm"><i class="bi bi-power"></i></button>`;
+                                }
+
+                                table.row.add([
+                                    kontenn.val().NamaMitra,
+                                    DataWisata.val().NamaWisata,
+                                    DataWisata.val().AlamatWisata,
+                                    StatusData,
+                                    ActionData
+                                ]).draw(false)
+
+                            })
+                        })
+                    })
+                }
+
+            });
+        }
+
+
+
+        // $(document).on('click', '.tidakatif', function() {
+        //     var idData = $(this).data('id');
+
+        //     Swal.fire({
+        //         title: 'Apakah Anda Yakin?',
+        //         text: "Untuk Non Aktifkan Customer Ini ?",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Iya!',
+        //         cancelButtonText: 'Batal'
+        //     }).then((result) => {
+
+        //         if (result.isConfirmed) {
+
+        //             const ValueItem = ref(db, 'Master-Data-Customer/' + idData);
+        //             onValue(ValueItem, (kontenn) => {
+        //                 let PostD = {
+        //                     NamaCustomer: kontenn.val().NamaCustomer,
+        //                     Gender: kontenn.val().Gender,
+        //                     TelefonCustomer: kontenn.val().TelefonCustomer,
+        //                     StatusCustomer: 0,
+        //                     EmailCustomer: kontenn.val().EmailCustomer,
+        //                     fotoCustomer: kontenn.val().fotoCustomer,
+        //                     TanggalLahirCustomer: kontenn.val().TanggalLahirCustomer,
+        //                     AlamatCustomer: kontenn.val().AlamatCustomer,
+        //                     TanggalBuat: kontenn.val().TanggalBuat,
+        //                     TanggalUpdate: new Date().toLocaleString("id-ID"),
+        //                 };
+        //                 const updates = {};
+        //                 updates['/Master-Data-Customer/' + idData] = PostD;
+        //                 update(ref(db), updates);
+        //                 // table.row.reload();
+
+        //                 Swal.fire(
+        //                     'Berhasil!',
+        //                     'Data berhasil di non aktifkan.',
+        //                     'success'
+        //                 )
+        //                 Swal.fire({
+        //                     title: 'Berhasil',
+        //                     text: 'Data berhasil di non aktifkan.',
+        //                     icon: 'success',
+        //                     showCancelButton: false,
+        //                     confirmButtonColor: '#3085d6',
+        //                     cancelButtonColor: '#d33',
+        //                     confirmButtonText: 'Okey'
+        //                 }).then((result) => {
+        //                     if (result.isConfirmed) {
+        //                         location.reload();
+        //                     }
+        //                 })
+
+        //                 // LoadData()
+        //             })
+
+
+
+
+        //         }
+        //     })
+        // })
+
+        // $(document).on('click', '.aktif', function() {
+        //     var idData = $(this).data('id');
+
+        //     Swal.fire({
+        //         title: 'Apakah Anda Yakin?',
+        //         text: "Untuk Aktifkan Customer Ini ?",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Iya!',
+        //         cancelButtonText: 'Batal'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             const ValueItem = ref(db, 'Master-Data-Customer/' + idData);
+        //             onValue(ValueItem, (kontenn) => {
+        //                 let PostD = {
+        //                     NamaCustomer: kontenn.val().NamaCustomer,
+        //                     Gender: kontenn.val().Gender,
+        //                     TelefonCustomer: kontenn.val().TelefonCustomer,
+        //                     StatusCustomer: 1,
+        //                     EmailCustomer: kontenn.val().EmailCustomer,
+        //                     fotoCustomer: kontenn.val().fotoCustomer,
+        //                     TanggalLahirCustomer: kontenn.val().TanggalLahirCustomer,
+        //                     AlamatCustomer: kontenn.val().AlamatCustomer,
+        //                     TanggalBuat: kontenn.val().TanggalBuat,
+        //                     TanggalUpdate: new Date().toLocaleString("id-ID"),
+        //                 };
+        //                 const updates = {};
+        //                 updates['/Master-Data-Customer/' + idData] = PostD;
+        //                 update(ref(db), updates);
+        //                 // table.row.reload();
+        //                 Swal.fire(
+        //                     'Berhasil!',
+        //                     'Data berhasil di aktifkan.',
+        //                     'success'
+        //                 )
+        //                 Swal.fire({
+        //                     title: 'Berhasil',
+        //                     text: 'Data berhasil di aktifkan.',
+        //                     icon: 'success',
+        //                     showCancelButton: false,
+        //                     confirmButtonColor: '#3085d6',
+        //                     cancelButtonColor: '#d33',
+        //                     confirmButtonText: 'Okey'
+        //                 }).then((result) => {
+        //                     if (result.isConfirmed) {
+        //                         location.reload();
+        //                     }
+        //                 })
+
+        //                 // LoadData()
+        //             })
+        //         }
+        //     })
+        // })
     </script>
 
 </body>
