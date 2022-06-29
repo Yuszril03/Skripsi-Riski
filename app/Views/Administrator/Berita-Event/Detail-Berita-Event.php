@@ -206,7 +206,7 @@
 
                                 </div>
 
-                                <div id="tanggalAkhir" class="col-4">
+                                <div id="groupTanggal" class="col-4">
 
                                     <p class="mt-2 font-weight-bold">
                                         Tanggal Akhir
@@ -334,6 +334,8 @@
             TanggalUpdate: kontenn.val().TanggalUpdate
         };
         parseJsonAdmin = (PostD)
+
+
         if (Boolean(parseJsonAdmin) == false) {
             Swal.fire({
                 title: 'Error',
@@ -368,23 +370,22 @@
             document.getElementById('isiKegiatan').innerHTML = kontenn.val().IsiKegiatan
             document.getElementById('alamatKegiatan').innerHTML = kontenn.val().Alamat
             document.getElementById('jeniskegiatan').innerHTML = kontenn.val().JenisKegiatan
-            // document.getElementById('tanggalKegiatan').innerHTML = new Date(kontenn.val().TanggalMulai).toLocaleDateString("id-ID", options)
-            // document.getElementById('tanggalAkhir').innerHTML = new Date(kontenn.val().TanggalAkhir).toLocaleDateString("id-ID", options)
+            document.getElementById('tanggalKegiatan').innerHTML = new Date(kontenn.val().TanggalMulai).toLocaleDateString("id-ID", options)
+            document.getElementById('tanggalAkhir').innerHTML = new Date(kontenn.val().TanggalAkhir).toLocaleDateString("id-ID", options)
             document.getElementById('tanggalBuat').innerHTML = kontenn.val().TanggalBuat
-            document.getElementById('modified').innerHTML = kontenn.val().TanggalUpdate
-            document.getElementById('created').innerHTML = kontenn.val().TanggalBuat
 
-            if (kontenn.val().TanggalAkhir == "") {
-                document.getElementById('tanggalKegiatan').innerHTML = new Date(kontenn.val().TanggalMulai).toLocaleDateString("id-ID", options)
+
+
+            if (kontenn.val().JenisKegiatan == "Berita") {
+                // document.getElementById('tanggalKegiatan').innerHTML = new Date(kontenn.val().TanggalMulai).toLocaleDateString("id-ID", options)
                 document.getElementById('labelTanggal').innerHTML = "Tanggal Berita"
 
-                $("#tanggalAkhir").hide()
-            } else {
-                document.getElementById('tanggalKegiatan').innerHTML = new Date(kontenn.val().TanggalMulai).toLocaleDateString("id-ID", options)
-                document.getElementById('labelTanggal').innerHTML = "Tanggal Awal"
-                document.getElementById('tanggalAkhir').innerHTML = new Date(kontenn.val().TanggalAkhir).toLocaleDateString("id-ID", options)
 
-                $("#tanggalAkhir").show()
+                $("#groupTanggal").hide()
+            } else {
+                document.getElementById('labelTanggal').innerHTML = "Tanggal Awal"
+
+                $("#groupTanggal").show()
             }
         }
     })
