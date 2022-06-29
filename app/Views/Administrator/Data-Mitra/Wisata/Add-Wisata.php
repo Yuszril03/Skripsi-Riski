@@ -173,17 +173,17 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="">Nama Pengguna Mitra</label>
+                                        <label for="">Nama Mitra<sup><span class="text-danger">*</span></sup></label>
                                         <input type="text" id="NamaMitra" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Email Pengguna Mitra</label>
+                                        <label for="">Email Mitra<sup><span class="text-danger">*</span></sup></label>
                                         <input type="text" id="EmailWisata" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="">Telefon Pengguna Mitra</label>
+                                        <label for="">Telefon Mitra<sup><span class="text-danger">*</span></sup></label>
                                         <input type="text" id="telefonMitra" onkeypress="return hanyaAngka(this)" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
                                     <div class="form-group">
@@ -224,11 +224,11 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="">Nama Wisata</label>
+                                            <label for="">Nama Wisata<sup><span class="text-danger">*</span></sup></label>
                                             <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                         </div>
                                         <div class="form-group">
-                                            <label for="">Harga Tiket Dewasa</label>
+                                            <label for="">Harga Tiket Dewasa<sup><span class="text-danger">*</span></sup></label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1">Rp</span>
@@ -237,7 +237,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="">Harga Tiket Anak-Anak</label>
+                                            <label for="">Harga Tiket Anak-Anak<sup><span class="text-danger">*</span></sup></label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1">Rp</span>
@@ -256,13 +256,13 @@
                                             <p id="ok"></p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="">Alamat Wisata</label>
+                                            <label for="">Alamat Wisata<sup><span class="text-danger">*</span></sup></label>
                                             <input type="hidden" id="longlitude" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                             <input type="hidden" id="latitude" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                             <textarea readonly class="form-control" style="border-radius: 15px;" name="alamat" id="alamat" cols="10"></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label for="">Deskripsi Wisata</label>
+                                            <label for="">Deskripsi Wisata<sup><span class="text-danger">*</span></sup></label>
                                             <textarea class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini..." name="deskripsi" id="deskripsi" cols="10"></textarea>
                                         </div>
                                     </div>

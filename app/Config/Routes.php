@@ -37,7 +37,7 @@ $routes->get('/Beranda-Admin', 'Administrator::index');
 //Wisata
 $routes->get('/Mitra-Wisata', 'Administrator::MitraWisata');
 $routes->get('/Tambah-Mitra-Wisata', 'Administrator::TambahMitraWisata');
-$routes->get('/Edit-Mitra-Wisata', 'Administrator::EditMitraWisata');
+$routes->get('/Edit-Mitra-Wisata' .'/(:any)' . '/(:any)', 'Administrator::EditMitraWisata/$1/$2');
 $routes->get('/Detail-Mitra-Wisata', 'Administrator::DetailMitraWisata');
 
 //Hotel

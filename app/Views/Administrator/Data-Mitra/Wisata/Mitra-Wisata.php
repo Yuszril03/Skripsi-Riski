@@ -261,16 +261,16 @@
                                         StatusDataMitra = `<span class="badge badge-success">Aktif</span>`;
                                         ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
-                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Customer/${keys[isi]}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
-                                            <button Title="Blokir Wisata" data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="tidakatifWisata btn btn-danger btn-sm m-1"><i class="bi bi-dash-circle"></i></button>
-                                            <button  Title="Blokir Mitra" data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="tidakatifMitra btn btn-danger btn-sm m-1"><i class="bi bi-person-x"></i></button>
+                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
+                                            <button Title="Blokir Wisata" data-id="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="tidakatifWisata btn btn-danger btn-sm m-1"><i class="bi bi-dash-circle"></i></button>
+                                            <button  Title="Blokir Mitra" data-mitra="${keys[isi]}" data-wisata="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="tidakatifMitra btn btn-danger btn-sm m-1"><i class="bi bi-person-x"></i></button>
                                             `;
                                     } else {
                                         StatusDataMitra = `<span class="badge badge-secondary">Tidak Aktif</span>`;
                                         ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                                             
-                                            <button  Title="Aktif Mitra" data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="aktifMitra btn btn-success btn-sm m-1"><i class="bi bi-person-x"></i></button>
+                                            <button  Title="Aktif Mitra" data-mitra="${keys[isi]}" data-wisata="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="aktifMitra btn btn-success btn-sm m-1"><i class="bi bi-person-x"></i></button>
                                             `;
                                     }
 
@@ -280,16 +280,16 @@
                                         StatusDataMitra = `<span class="badge badge-success">Aktif</span>`;
                                         ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
-                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Customer/${keys[isi]}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
-                                            <button Title="Aktif Wisata" data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="aktifWisata btn btn-success btn-sm m-1"><i class="bi bi-dash-circle"></i></button>
-                                            <button  Title="Blokir Mitra" data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="tidakatifMitra btn btn-danger btn-sm m-1"><i class="bi bi-person-x"></i></button>
+                                           <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
+                                            <button Title="Aktif Wisata" data-id="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="aktifWisata btn btn-success btn-sm m-1"><i class="bi bi-dash-circle"></i></button>
+                                            <button  Title="Blokir Mitra" data-mitra="${keys[isi]}" data-wisata="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="tidakatifMitra btn btn-danger btn-sm m-1"><i class="bi bi-person-x"></i></button>
                                             `;
                                     } else {
                                         StatusDataMitra = `<span class="badge badge-secondary">Tidak Aktif</span>`;
                                         ActionData = `
                     <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                                            
-                                            <button  Title="Aktif Mitra" data-id="${keys[isi]}" id="PowerCustomer"  type="button" class="aktifMitra btn btn-success btn-sm m-1"><i class="bi bi-person-x"></i></button>
+                                            <button  Title="Aktif Mitra" data-mitra="${keys[isi]}" data-wisata="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="aktifMitra btn btn-success btn-sm m-1"><i class="bi bi-person-x"></i></button>
                                             `;
                                     }
                                 }
@@ -314,7 +314,11 @@
 
 
         $(document).on('click', '.tidakatifMitra', function() {
-            var idData = $(this).data('id');
+            var idDataWisata = $(this).data('wisata');
+            var idDataMitra = $(this).data('mitra');
+
+            console.log(idDataWisata)
+            console.log(idDataMitra)
 
             Swal.fire({
                 title: 'Apakah Anda Yakin?',
@@ -329,30 +333,204 @@
 
                 if (result.isConfirmed) {
 
-                    const ValueItem = ref(db, 'Master-Data-Customer/' + idData);
+                    const ValueItem = ref(db, 'Master-Data-Mitra/' + idDataMitra);
                     onValue(ValueItem, (kontenn) => {
-                        let PostD = {
-                            NamaCustomer: kontenn.val().NamaCustomer,
-                            Gender: kontenn.val().Gender,
-                            TelefonCustomer: kontenn.val().TelefonCustomer,
-                            StatusCustomer: 0,
-                            EmailCustomer: kontenn.val().EmailCustomer,
-                            fotoCustomer: kontenn.val().fotoCustomer,
-                            TanggalLahirCustomer: kontenn.val().TanggalLahirCustomer,
-                            AlamatCustomer: kontenn.val().AlamatCustomer,
+                        let PostMitra = {
+                            NamaMitra: kontenn.val().NamaMitra,
+                            EmailMitra: kontenn.val().EmailMitra,
+                            StatusMitra: 0,
+                            TelefonMitra: kontenn.val().TelefonMitra,
                             TanggalBuat: kontenn.val().TanggalBuat,
-                            TanggalUpdate: new Date().toLocaleString("id-ID"),
+                            TanggalUpdate: new Date().toString("ID")
                         };
                         const updates = {};
-                        updates['/Master-Data-Customer/' + idData] = PostD;
+                        updates['/Master-Data-Mitra/' + idDataMitra] = PostMitra;
                         update(ref(db), updates);
                         // table.row.reload();
 
-                        Swal.fire(
-                            'Berhasil!',
-                            'Data berhasil di non aktifkan.',
-                            'success'
-                        )
+                        const ValueItemWista = ref(db, 'Master-Data-Wisata/' + idDataWisata);
+                        onValue(ValueItemWista, (kontennWisata) => {
+
+                            let PostD = {
+                                NamaWisata: kontennWisata.val().NamaWisata,
+                                HargaDewasa: kontennWisata.val().HargaDewasa,
+                                StatusWisata: 0,
+                                HargaAnak: kontennWisata.val().HargaAnak,
+                                AlamatWisata: kontennWisata.val().AlamatWisata,
+                                TanggalBuat: kontennWisata.val().TanggalBuat,
+                                TanggalUpdate: new Date().toString("ID"),
+                                fotoWisata: kontennWisata.val().fotoWisata,
+                                DeskripsiWisata: kontennWisata.val().DeskripsiWisata,
+                                Longlitude: kontennWisata.val().Longlitude,
+                                Latitude: kontennWisata.val().Latitude
+                            };
+                            const updatesWisata = {};
+                            updatesWisata['/Master-Data-Wisata/' + idDataWisata] = PostD;
+                            update(ref(db), updatesWisata);
+                            // table.row.reload();
+
+                            // Swal.fire(
+                            //     'Berhasil!',
+                            //     'Data berhasil di non aktifkan.',
+                            //     'success'
+                            // )
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Data berhasil di non aktifkan.',
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Okey'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+
+                            // LoadData()
+                        })
+
+                        // LoadData()
+                    })
+
+
+
+
+                }
+            })
+        })
+
+
+        $(document).on('click', '.aktifMitra', function() {
+            var idDataWisata = $(this).data('wisata');
+            var idDataMitra = $(this).data('mitra');
+
+            console.log(idDataWisata)
+            console.log(idDataMitra)
+
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Untuk Aktifkan Mitra Ini ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    const ValueItem = ref(db, 'Master-Data-Mitra/' + idDataMitra);
+                    onValue(ValueItem, (kontenn) => {
+
+                        let PostMitra = {
+                            NamaMitra: kontenn.val().NamaMitra,
+                            EmailMitra: kontenn.val().EmailMitra,
+                            StatusMitra: 1,
+                            TelefonMitra: kontenn.val().TelefonMitra,
+                            TanggalBuat: kontenn.val().TanggalBuat,
+                            TanggalUpdate: new Date().toString("ID")
+                        };
+                        const updates = {};
+                        updates['/Master-Data-Mitra/' + idDataMitra] = PostMitra;
+                        update(ref(db), updates);
+
+                        const ValueItemWista = ref(db, 'Master-Data-Wisata/' + idDataWisata);
+                        onValue(ValueItemWista, (kontennWisata) => {
+
+                            let PostD = {
+                                NamaWisata: kontennWisata.val().NamaWisata,
+                                HargaDewasa: kontennWisata.val().HargaDewasa,
+                                StatusWisata: 1,
+                                HargaAnak: kontennWisata.val().HargaAnak,
+                                AlamatWisata: kontennWisata.val().AlamatWisata,
+                                TanggalBuat: kontennWisata.val().TanggalBuat,
+                                TanggalUpdate: new Date().toString("ID"),
+                                fotoWisata: kontennWisata.val().fotoWisata,
+                                DeskripsiWisata: kontennWisata.val().DeskripsiWisata,
+                                Longlitude: kontennWisata.val().Longlitude,
+                                Latitude: kontennWisata.val().Latitude
+                            };
+                            const updatesWisata = {};
+                            updatesWisata['/Master-Data-Wisata/' + idDataWisata] = PostD;
+                            update(ref(db), updatesWisata);
+                            // table.row.reload();
+
+                            // Swal.fire(
+                            //     'Berhasil!',
+                            //     'Data berhasil di non aktifkan.',
+                            //     'success'
+                            // )
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Data berhasil di aktifkan.',
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Okey'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+
+                            // LoadData()
+                        })
+
+                        // LoadData()
+                    })
+
+
+
+
+                }
+            })
+        })
+
+        $(document).on('click', '.tidakatifWisata', function() {
+            var idData = $(this).data('id');
+
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Untuk Non Aktifkan Wisata Ini ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    const ValueItem = ref(db, 'Master-Data-Wisata/' + idData);
+                    onValue(ValueItem, (kontenn) => {
+                        let PostD = {
+                            NamaWisata: kontenn.val().NamaWisata,
+                            HargaDewasa: kontenn.val().HargaDewasa,
+                            StatusWisata: 0,
+                            HargaAnak: kontenn.val().HargaAnak,
+                            AlamatWisata: kontenn.val().AlamatWisata,
+                            TanggalBuat: kontenn.val().TanggalBuat,
+                            TanggalUpdate: new Date().toString("ID"),
+                            fotoWisata: kontenn.val().fotoWisata,
+                            DeskripsiWisata: kontenn.val().DeskripsiWisata,
+                            Longlitude: kontenn.val().Longlitude,
+                            Latitude: kontenn.val().Latitude
+                        };
+                        const updates = {};
+                        updates['/Master-Data-Wisata/' + idData] = PostD;
+                        update(ref(db), updates);
+                        // table.row.reload();
+
+                        // Swal.fire(
+                        //     'Berhasil!',
+                        //     'Data berhasil di non aktifkan.',
+                        //     'success'
+                        // )
                         Swal.fire({
                             title: 'Berhasil',
                             text: 'Data berhasil di non aktifkan.',
@@ -376,12 +554,13 @@
                 }
             })
         })
-        $(document).on('click', '.tidakatifWisata', function() {
+
+        $(document).on('click', '.aktifWisata', function() {
             var idData = $(this).data('id');
 
             Swal.fire({
                 title: 'Apakah Anda Yakin?',
-                text: "Untuk Non Aktifkan Wisata Ini ?",
+                text: "Untuk Aktifkan Wisata Ini ?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -392,33 +571,34 @@
 
                 if (result.isConfirmed) {
 
-                    const ValueItem = ref(db, 'Master-Data-Customer/' + idData);
+                    const ValueItem = ref(db, 'Master-Data-Wisata/' + idData);
                     onValue(ValueItem, (kontenn) => {
                         let PostD = {
-                            NamaCustomer: kontenn.val().NamaCustomer,
-                            Gender: kontenn.val().Gender,
-                            TelefonCustomer: kontenn.val().TelefonCustomer,
-                            StatusCustomer: 0,
-                            EmailCustomer: kontenn.val().EmailCustomer,
-                            fotoCustomer: kontenn.val().fotoCustomer,
-                            TanggalLahirCustomer: kontenn.val().TanggalLahirCustomer,
-                            AlamatCustomer: kontenn.val().AlamatCustomer,
+                            NamaWisata: kontenn.val().NamaWisata,
+                            HargaDewasa: kontenn.val().HargaDewasa,
+                            StatusWisata: 1,
+                            HargaAnak: kontenn.val().HargaAnak,
+                            AlamatWisata: kontenn.val().AlamatWisata,
                             TanggalBuat: kontenn.val().TanggalBuat,
-                            TanggalUpdate: new Date().toLocaleString("id-ID"),
+                            TanggalUpdate: new Date().toString("ID"),
+                            fotoWisata: kontenn.val().fotoWisata,
+                            DeskripsiWisata: kontenn.val().DeskripsiWisata,
+                            Longlitude: kontenn.val().Longlitude,
+                            Latitude: kontenn.val().Latitude
                         };
                         const updates = {};
-                        updates['/Master-Data-Customer/' + idData] = PostD;
+                        updates['/Master-Data-Wisata/' + idData] = PostD;
                         update(ref(db), updates);
                         // table.row.reload();
 
-                        Swal.fire(
-                            'Berhasil!',
-                            'Data berhasil di non aktifkan.',
-                            'success'
-                        )
+                        // Swal.fire(
+                        //     'Berhasil!',
+                        //     'Data berhasil di aktifkan.',
+                        //     'success'
+                        // )
                         Swal.fire({
                             title: 'Berhasil',
-                            text: 'Data berhasil di non aktifkan.',
+                            text: 'Data berhasil di aktifkan.',
                             icon: 'success',
                             showCancelButton: false,
                             confirmButtonColor: '#3085d6',
