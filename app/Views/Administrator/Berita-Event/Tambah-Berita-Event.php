@@ -61,7 +61,8 @@
 
         .file-upload-input {
             opacity: 0;
-            height: 120px;
+            height: 150px;
+            
         }
 
         #map {
@@ -234,7 +235,7 @@
                                             <img src="" id="AddImage" alt="">
                                         </div>
                                         <center>
-                                            <div class="image-upload-wrap" style="margin-top: -150px ;">
+                                            <div class="image-upload-wrap" style="margin-top: -160px ;">
                                                 <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
 
                                                 <div class="drag-text mt-4">
@@ -570,7 +571,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Judul, Berita dan Alamat Tidak Boleh Kosong!'
+                    text: 'Form Tidak Boleh Kosong!'
                 })
             }
 
