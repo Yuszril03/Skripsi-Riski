@@ -183,7 +183,7 @@
                                 </div>
                             </div>
 
-                            <p class="mt-2 font-weight-bold">Lokasi</p>
+
                             <p>
                                 <i class="bi bi-pin-map-fill"></i>&nbsp;&nbsp;<span id="alamatKegiatan"></span>
                             </p>
@@ -196,7 +196,7 @@
 
                             <div class="row">
                                 <div class="col-4">
-                                    <p class="mt-2 font-weight-bold">
+                                    <p id="labelTanggal" class="mt-2 font-weight-bold">
                                         Tanggal
                                     </p>
                                     <div class="group">
@@ -206,10 +206,10 @@
 
                                 </div>
 
-                                <div class="col-4">
+                                <div id="tanggalAkhir" class="col-4">
 
                                     <p class="mt-2 font-weight-bold">
-                                        Tanggal
+                                        Tanggal Akhir
                                     </p>
                                     <div class="group">
                                         <i class="bi bi-calendar3"></i>&nbsp;&nbsp;<span id="tanggalAkhir"></span>
@@ -355,6 +355,8 @@
                 document.getElementById('imgBerita').src = kontenn.val().LinkImage
             }
 
+
+
             const options = {
                 weekday: 'long',
                 year: 'numeric',
@@ -366,11 +368,24 @@
             document.getElementById('isiKegiatan').innerHTML = kontenn.val().IsiKegiatan
             document.getElementById('alamatKegiatan').innerHTML = kontenn.val().Alamat
             document.getElementById('jeniskegiatan').innerHTML = kontenn.val().JenisKegiatan
-            document.getElementById('tanggalKegiatan').innerHTML = new Date(kontenn.val().TanggalMulai).toLocaleDateString("id-ID", options)
-            document.getElementById('tanggalAkhir').innerHTML = new Date(kontenn.val().TanggalAkhir).toLocaleDateString("id-ID", options)
+            // document.getElementById('tanggalKegiatan').innerHTML = new Date(kontenn.val().TanggalMulai).toLocaleDateString("id-ID", options)
+            // document.getElementById('tanggalAkhir').innerHTML = new Date(kontenn.val().TanggalAkhir).toLocaleDateString("id-ID", options)
             document.getElementById('tanggalBuat').innerHTML = kontenn.val().TanggalBuat
             document.getElementById('modified').innerHTML = kontenn.val().TanggalUpdate
             document.getElementById('created').innerHTML = kontenn.val().TanggalBuat
+
+            if (kontenn.val().TanggalAkhir == "") {
+                document.getElementById('tanggalKegiatan').innerHTML = new Date(kontenn.val().TanggalMulai).toLocaleDateString("id-ID", options)
+                document.getElementById('labelTanggal').innerHTML = "Tanggal Berita"
+
+                $("#tanggalAkhir").hide()
+            } else {
+                document.getElementById('tanggalKegiatan').innerHTML = new Date(kontenn.val().TanggalMulai).toLocaleDateString("id-ID", options)
+                document.getElementById('labelTanggal').innerHTML = "Tanggal Awal"
+                document.getElementById('tanggalAkhir').innerHTML = new Date(kontenn.val().TanggalAkhir).toLocaleDateString("id-ID", options)
+
+                $("#tanggalAkhir").show()
+            }
         }
     })
 </script>
