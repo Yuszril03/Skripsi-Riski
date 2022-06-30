@@ -31,6 +31,8 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
 
     <style>
         #map {
@@ -221,7 +223,7 @@
 
                                     <div class="form-group">
                                         <label for="">Nama Hotel</label>
-                                        <input type="text" id="namaHotel" class="form-control" style="border-radius: 15px;" placeholder="Masukan Nama Wisata">
+                                        <input type="text" id="namaHotel" class="form-control" style="border-radius: 15px;" placeholder="Masukan Nama Hotel">
                                     </div>
 
                                 </div>
@@ -234,7 +236,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="">Alamat Hotel</label>
-                                        <input type="hidden" id="latitute">
+                                        <input type="hidden" id="latitude">
                                         <input type="hidden" id="longlitude">
                                         <textarea readonly class="form-control" style="border-radius: 15px;  height: 41px;" name="alamatHotel" id="alamatHotel" cols="5"></textarea>
                                     </div>
@@ -250,7 +252,7 @@
                                 <label for="">Jenis Kamar Hotel</label>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-striped table-sm">
+                                <table id="tables" class="table table-striped table-sm">
                                     <thead>
                                         <tr>
                                             <th>Jenis Kamar</th>
@@ -261,7 +263,7 @@
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <!-- <tbody>
                                         <tr>
                                             <td>Text</td>
                                             <td>Text</td>
@@ -273,11 +275,11 @@
                                                 <button class="btn btn-danger btn-sm" onclick="hapusKamar()" title="Non Aktif Kamar"><i class="fas fa-power-off"></i></button>
                                             </td>
                                         </tr>
-                                    </tbody>
+                                    </tbody> -->
                                 </table>
                             </div>
                             <div class="float-right">
-                                <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
+                                <button type="button" id="submitData" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
                                 <button type="button" onclick="KeluarForm()" class="btn btn-secondary m-1" style="border-radius: 15px;">Close</button>
                             </div>
                         </div>
@@ -296,11 +298,11 @@
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="">Jenis Kamar</label>
-                                        <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Masukan Jenis Kamar">
+                                        <input type="text" id="jenisKamarAdd" class="form-control" style="border-radius: 15px;" placeholder="Masukan Jenis Kamar">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Fasilitas Kamar</label>
-                                        <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Masukan Fasilitas Kamar">
+                                        <input type="text" id="fasilitasKamarAdd" class="form-control" style="border-radius: 15px;" placeholder="Masukan Fasilitas Kamar">
                                     </div>
                                     <div class="row">
                                         <div class="col">
@@ -310,7 +312,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1">Rp</span>
                                                     </div>
-                                                    <input style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Harga Kamar" aria-label="Username" aria-describedby="basic-addon1">
+                                                    <input id="hargaKamarAdd" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Harga Kamar" aria-label="Username" aria-describedby="basic-addon1">
                                                 </div>
                                             </div>
                                         </div>
@@ -321,7 +323,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1"><i class="fa fa-door-open"></i></span>
                                                     </div>
-                                                    <input style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Jumlah Kamar" aria-label="Username" aria-describedby="basic-addon1">
+                                                    <input id="jumlahKamarAdd" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Jumlah Kamar" aria-label="Username" aria-describedby="basic-addon1">
                                                 </div>
                                             </div>
                                         </div>
@@ -329,7 +331,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" id="submitData" class="btn btn-primary">Simpan</button>
+                                    <button type="button" id="addDattaTable" class="btn btn-primary">Simpan</button>
                                 </div>
                             </div>
                         </div>
@@ -346,13 +348,14 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
+                                    <input type="hidden" id="idDetailHotel" name="">
                                     <div class="form-group">
                                         <label for="">Jenis Kamar</label>
-                                        <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Masukan Jenis Kamar">
+                                        <input type="text" id="editJenisKamar" class="form-control" style="border-radius: 15px;" placeholder="Masukan Jenis Kamar">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Fasilitas Kamar</label>
-                                        <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Masukan Fasilitas Kamar">
+                                        <input type="text" id="editFasilitasKamar" class="form-control" style="border-radius: 15px;" placeholder="Masukan Fasilitas Kamar">
                                     </div>
                                     <div class="row">
                                         <div class="col">
@@ -362,7 +365,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1">Rp</span>
                                                     </div>
-                                                    <input style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Harga Kamar" aria-label="Username" aria-describedby="basic-addon1">
+                                                    <input id="hargaKamar" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Harga Kamar" aria-label="Username" aria-describedby="basic-addon1">
                                                 </div>
                                             </div>
                                         </div>
@@ -373,7 +376,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1"><i class="fa fa-door-open"></i></span>
                                                     </div>
-                                                    <input style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Jumlah Kamar" aria-label="Username" aria-describedby="basic-addon1">
+                                                    <input id="jumlahKamar" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Jumlah Kamar" aria-label="Username" aria-describedby="basic-addon1">
                                                 </div>
                                             </div>
                                         </div>
@@ -382,7 +385,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" id="submitData" class="btn btn-primary">Simpan</button>
+                                    <button type="button" class="btn btn-primary">Simpan</button>
                                 </div>
                             </div>
                         </div>
@@ -440,6 +443,9 @@
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<?= base_url() ?>/MD5/md5.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
 
     <script type="module">
         // Import the functions you need from the SDKs you need
@@ -473,9 +479,29 @@
         const db = getDatabase();
         const storage = getStorage();
 
+        var table = $('#tables').DataTable({
+            "lengthChange": false,
+            'searching': false,
+            "language": {
+                search: '',
+                searchPlaceholder: "Pencarian...",
+                "paginate": {
+                    "next": "Selanjutnya",
+                    "previous": "Sebelumnya"
+                },
+                "info": "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri",
+                "lengthMenu": "Tampilkan _MENU_ entri",
+                "infoEmpty": "Menampilkan 0 hingga 0 of 0 entri",
+                "infoFiltered": "(disaring dari _MAX_ total entri)",
+                "zeroRecords": "Tidak ada data yang cocok ditemukan",
+                "emptyTable": "Tidak ada data di dalam tabel",
+            }
+        });
+
         var parseJsonAdmin = [];
         var parseJsonPartner = [];
         var parseJsonEmailPartner = [];
+        var DataTables = [];
 
         const starCountRef = ref(db, 'Master-Data-Hotel/');
         onValue(starCountRef, (snapshot) => {
@@ -507,6 +533,70 @@
             }
 
         });
+        $('#tables tbody').on('click', 'tr', function() {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                // indexz = null;
+                // var z = $('#tableKhusus tbody tr');
+                // $(z[this._DT_RowIndex]).removeClass('selected');
+            } else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                // indexz = t.row(this).index()
+
+                // k.$('tr.selected').removeClass('selected');
+                // var z = $('#tableKhusus tbody tr');
+                // $(z[this._DT_RowIndex]).addClass('selected');
+
+            }
+        });
+
+        $(document).on('click', '.editData', function() {
+            var idData = $(this).data('id');
+            var rows = table.rows('.selected').indexes();
+
+            console.log(rows)
+            for (let i = 0; i < DataTables.length; i++) {
+                if (idData == DataTables[i].id) {
+                    document.getElementById('editJenisKamar').value = DataTables[i].jenistable
+                    document.getElementById('editFasilitasKamar').value = DataTables[i].fasilitas
+                    document.getElementById('hargaKamar').value = DataTables[i].harga
+                    document.getElementById('jumlahKamar').value = DataTables[i].JumlahKamar
+                    document.getElementById('idDetailHotel').value = DataTables[i].id
+                }
+            }
+        })
+
+        document.getElementById('addDattaTable').addEventListener('click', function() {
+            let idTempAdd = 0
+            if (DataTables.length == 0) {
+                idTempAdd = 1;
+            } else {
+                idTempAdd = DataTables[DataTables.length - 1].id + 1
+            }
+
+            let Datatable = {
+                id: idTempAdd,
+                jenistable: document.getElementById('jenisKamarAdd').value,
+                fasilitas: document.getElementById('fasilitasKamarAdd').value,
+                harga: document.getElementById('hargaKamarAdd').value,
+                JumlahKamar: document.getElementById('jumlahKamarAdd').value,
+                Status: 1
+            }
+            table.row.add([
+                document.getElementById('jenisKamarAdd').value,
+                document.getElementById('fasilitasKamarAdd').value,
+                document.getElementById('hargaKamarAdd').value,
+                document.getElementById('jumlahKamarAdd').value,
+                1,
+                `<button data-id="${idTempAdd}" class="editData btn btn-warning btn-sm" data-toggle="modal" data-target="#editKamar" title="Edit Data"><i class="fa fa-pen-alt"></i></button>`
+            ]).draw(false)
+            console.log(DataTables);
+            DataTables.push(Datatable)
+
+
+
+        })
 
         document.getElementById('submitData').addEventListener('click', function() {
             console.log(parseJsonEmailPartner)
@@ -523,67 +613,64 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    let form = ['namaHotel', 'alamatHotel', 'deskripsiHotel', 'namaMitra', 'emailHotel', 'telefonMitra'];
-                    var angka = 0;
+                    let idData = ['namaHotel', 'alamatHotel', 'deskripsiHotel', 'namaMitra', 'emailHotel', 'telefonMitra'];
+                    let jumlah = 0;
                     const fileupload = $('#uploadFilee').prop('files')[0];
 
-                    for (let i = 0; i < form.length; i++) {
-                        if (document.getElementById(form[i]).value == "") {
-                            angka++;
-                            $('#' + form[i]).addClass('is-invalid')
+                    for (let i = 0; i < idData.length; i++) {
+                        if (document.getElementById(idData[i]).value == "") {
+                            $('#' + idData[i]).addClass('is-invalid')
+                            jumlah++;
                         } else {
-                            $('#' + form[i]).removeClass('is-invalid')
+                            $('#' + idData[i]).removeClass('is-invalid')
                         }
                     }
-
                     if (jumlah == 0) {
 
                         if (parseJsonEmailPartner.includes((document.getElementById('emailHotel').value)) == false) {
                             $('#emailHotel').removeClass('is-invalid')
-                            var CodeIDWisata = "";
+                            var CodeIDHotel = "";
                             var CodeIDMitra = "";
 
                             if (parseJsonAdmin.length == 0) {
-                                CodeIDWisata = "Wisata-1"
+                                CodeIDHotel = "Hotel-1"
 
                             } else {
 
                                 let lastID = parseJsonAdmin[parseJsonAdmin.length - 1]
                                 let spliData = lastID.split('-');
-                                CodeIDWisata = "Wisata-" + (Number(spliData[1]) + 1)
+                                CodeIDHotel = "Hotel-" + (Number(spliData[1]) + 1)
 
                             }
                             if (parseJsonPartner.length == 0) {
-                                CodeIDMitra = "Mitra-1"
+                                CodeIDMitra = "Hotel-1"
 
                             } else {
 
                                 let lastID = parseJsonPartner[parseJsonPartner.length - 1]
                                 let spliData = lastID.split('-');
-                                CodeIDMitra = "Mitra-" + (Number(spliData[1]) + 1)
+                                CodeIDMitra = "Hotel-" + (Number(spliData[1]) + 1)
 
                             }
 
                             if (Boolean(fileupload) == false) {
 
                                 //Data Master Wisata
-                                set(ref(db, 'Master-Data-Wisata/' + CodeIDWisata), {
-                                    NamaWisata: document.getElementById('namaWisata').value,
-                                    HargaDewasa: document.getElementById('tiketDewasa').value,
+                                set(ref(db, 'Master-Data-Hotel/' + CodeIDHotel), {
+                                    NamaHotel: document.getElementById('namaHotel').value,
                                     StatusWisata: 1,
-                                    HargaAnak: document.getElementById('tiketAnak').value,
-                                    AlamatWisata: document.getElementById('alamat').value,
+                                    AlamatHotel: document.getElementById('alamatHotel').value,
                                     TanggalBuat: new Date().toString("ID"),
                                     TanggalUpdate: new Date().toString("ID"),
-                                    fotoWisata: "",
-                                    DeskripsiWisata: document.getElementById('deskripsi').value,
+                                    FotoHotel: "",
+                                    DeskripsiHotel: document.getElementById('deskripsiHotel').value,
                                     Longlitude: document.getElementById('longlitude').value,
                                     Latitude: document.getElementById('latitude').value
                                 });
                                 //Data Master Wisata
                                 set(ref(db, 'Master-Data-Mitra/' + CodeIDMitra), {
-                                    NamaMitra: document.getElementById('NamaMitra').value,
-                                    EmailMitra: document.getElementById('EmailWisata').value,
+                                    NamaMitra: document.getElementById('namaMitra').value,
+                                    EmailMitra: document.getElementById('emailWisata').value,
                                     StatusMitra: 1,
                                     TelefonMitra: document.getElementById('telefonMitra').value + "",
                                     TanggalBuat: new Date().toString("ID"),
@@ -593,8 +680,8 @@
                                 //Data Master Account Wisata
                                 set(ref(db, 'Master-Data-Account-Mitra/' + CodeIDMitra), {
                                     KataSandiWisata: md5('12345678'),
-                                    JenisMitra: "Mitra-Wisata",
-                                    IDKelolaMitra: CodeIDWisata
+                                    JenisMitra: "Mitra-Hotel",
+                                    IDKelolaMitra: CodeIDHotel
                                 });
 
                                 Swal.fire({
@@ -607,7 +694,7 @@
                                     confirmButtonText: 'Okey'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        location.href = "<?= base_url() ?>/Mitra-Wisata"
+                                        location.href = "<?= base_url() ?>/Mitra-Hotel"
                                     }
                                 })
 
@@ -615,7 +702,7 @@
 
 
                             } else {
-                                const storageRef = refImage(storage, 'images-wisata/' + new Date().getTime() + '-' + fileupload.name);
+                                const storageRef = refImage(storage, 'images-hotel/' + new Date().getTime() + '-' + fileupload.name);
 
                                 // Upload the file and metadata
                                 const uploadTask = uploadBytesResumable(storageRef, fileupload);
@@ -648,23 +735,28 @@
                                         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                                             console.log('File available at', downloadURL);
                                             //Data Master Wisata
-                                            set(ref(db, 'Master-Data-Wisata/' + CodeIDWisata), {
-                                                NamaWisata: document.getElementById('namaWisata').value,
-                                                HargaDewasa: document.getElementById('tiketDewasa').value,
+                                            set(ref(db, 'Master-Data-Hotel/' + CodeIDWisata), {
+                                                NamaHotel: document.getElementById('namaHotel').value,
                                                 StatusWisata: 1,
-                                                HargaAnak: document.getElementById('tiketAnak').value,
-                                                AlamatWisata: document.getElementById('alamat').value,
+                                                AlamatHotel: document.getElementById('alamatHotel').value,
                                                 TanggalBuat: new Date().toString("ID"),
                                                 TanggalUpdate: new Date().toString("ID"),
-                                                fotoWisata: downloadURL,
-                                                DeskripsiWisata: document.getElementById('deskripsi').value,
+                                                FotoHotel: downloadURL,
+                                                DeskripsiHotel: document.getElementById('deskripsiHotel').value,
                                                 Longlitude: document.getElementById('longlitude').value,
                                                 Latitude: document.getElementById('latitude').value
                                             });
                                             //Data Master Wisata
                                             set(ref(db, 'Master-Data-Mitra/' + CodeIDMitra), {
-                                                NamaMitra: document.getElementById('NamaMitra').value,
-                                                EmailMitra: document.getElementById('EmailWisata').value,
+                                                // NamaMitra: document.getElementById('NamaMitra').value,
+                                                // EmailMitra: document.getElementById('EmailWisata').value,
+                                                // StatusMitra: 1,
+                                                // TelefonMitra: document.getElementById('telefonMitra').value + "",
+                                                // TanggalBuat: new Date().toString("ID"),
+                                                // TanggalUpdate: new Date().toString("ID")
+
+                                                NamaMitra: document.getElementById('namaMitra').value,
+                                                EmailMitra: document.getElementById('emailWisata').value,
                                                 StatusMitra: 1,
                                                 TelefonMitra: document.getElementById('telefonMitra').value + "",
                                                 TanggalBuat: new Date().toString("ID"),
@@ -673,9 +765,13 @@
 
                                             //Data Master Account Wisata
                                             set(ref(db, 'Master-Data-Account-Mitra/' + CodeIDMitra), {
+                                                // KataSandiWisata: md5('12345678'),
+                                                // JenisMitra: "Mitra-Wisata",
+                                                // IDKelolaMitra: CodeIDWisata
+
                                                 KataSandiWisata: md5('12345678'),
-                                                JenisMitra: "Mitra-Wisata",
-                                                IDKelolaMitra: CodeIDWisata
+                                                JenisMitra: "Mitra-Hotel",
+                                                IDKelolaMitra: CodeIDHotel
                                             });
                                         });
                                     }
@@ -691,13 +787,13 @@
                                     confirmButtonText: 'Okey'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        location.href = "<?= base_url() ?>/Mitra-Wisata"
+                                        location.href = "<?= base_url() ?>/Mitra-Hotel"
                                     }
                                 })
 
                             }
                         } else {
-                            $('#EmailWisata').addClass('is-invalid')
+                            $('#emailHotel').addClass('is-invalid')
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
@@ -832,7 +928,7 @@
                 url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw`,
                 dataType: "JSON"
             }).done(result => {
-                $("#alamat").val(result.features[0].place_name)
+                $("#alamatHotel").val(result.features[0].place_name)
             })
 
         }
