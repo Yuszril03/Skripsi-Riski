@@ -235,75 +235,78 @@
                         const ValueAcccount = ref(db, 'Master-Data-Account-Mitra/' + keys[isi]);
                         onValue(ValueAcccount, (DataAccount) => {
 
-                            // console.log(DataAccount.val().IDKelolaMitra)
+                            if (DataAccount.val().JenisMitra == "Mitra-Wisata") {
 
-                            const ValueWisata = ref(db, 'Master-Data-Wisata/' + DataAccount.val().IDKelolaMitra);
-                            onValue(ValueWisata, (DataWisata) => {
+                                const ValueWisata = ref(db, 'Master-Data-Wisata/' + DataAccount.val().IDKelolaMitra);
+                                onValue(ValueWisata, (DataWisata) => {
 
-                                // console.log(DataWisata.val().NamaWisata)
-                                let PostD = {
-                                    IDMitra: keys[isi],
-                                    NamaMitra: kontenn.val().NamaMitra,
-                                    Wisata: DataWisata.val().NamaWisata,
-                                    Alamat: DataWisata.val().AlamatWisata,
-                                    Status: DataWisata.val().StatusWisata,
-                                };
-                                // parseJsonMitra.push(PostD)
-                                let StatusData = '';
-                                let StatusDataMitra = '';
-                                let ActionData = '';
+                                    // console.log(DataWisata.val().NamaWisata)
+                                    let PostD = {
+                                        IDMitra: keys[isi],
+                                        NamaMitra: kontenn.val().NamaMitra,
+                                        Wisata: DataWisata.val().NamaWisata,
+                                        Alamat: DataWisata.val().AlamatWisata,
+                                        Status: DataWisata.val().StatusWisata,
+                                    };
+                                    // parseJsonMitra.push(PostD)
+                                    let StatusData = '';
+                                    let StatusDataMitra = '';
+                                    let ActionData = '';
 
 
 
-                                if (DataWisata.val().StatusWisata == 1) {
-                                    StatusData = `<span class="badge badge-success">Aktif</span>`;
-                                    if (kontenn.val().StatusMitra == 1) {
-                                        StatusDataMitra = `<span class="badge badge-success">Aktif</span>`;
-                                        ActionData = `
-                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                    if (DataWisata.val().StatusWisata == 1) {
+                                        StatusData = `<span class="badge badge-success">Aktif</span>`;
+                                        if (kontenn.val().StatusMitra == 1) {
+                                            StatusDataMitra = `<span class="badge badge-success">Aktif</span>`;
+                                            ActionData = `
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                                             <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
                                             <button Title="Blokir Wisata" data-id="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="tidakatifWisata btn btn-danger btn-sm m-1"><i class="bi bi-dash-circle"></i></button>
                                             <button  Title="Blokir Mitra" data-mitra="${keys[isi]}" data-wisata="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="tidakatifMitra btn btn-danger btn-sm m-1"><i class="bi bi-person-x"></i></button>
                                             `;
-                                    } else {
-                                        StatusDataMitra = `<span class="badge badge-secondary">Tidak Aktif</span>`;
-                                        ActionData = `
-                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                        } else {
+                                            StatusDataMitra = `<span class="badge badge-secondary">Tidak Aktif</span>`;
+                                            ActionData = `
+                                        <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                                             
                                             <button  Title="Aktif Mitra" data-mitra="${keys[isi]}" data-wisata="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="aktifMitra btn btn-success btn-sm m-1"><i class="bi bi-person-x"></i></button>
                                             `;
-                                    }
+                                        }
 
-                                } else {
-                                    StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
-                                    if (kontenn.val().StatusMitra == 1) {
-                                        StatusDataMitra = `<span class="badge badge-success">Aktif</span>`;
-                                        ActionData = `
-                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                    } else {
+                                        StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
+                                        if (kontenn.val().StatusMitra == 1) {
+                                            StatusDataMitra = `<span class="badge badge-success">Aktif</span>`;
+                                            ActionData = `
+                                          <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
                                             <button Title="Aktif Wisata" data-id="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="aktifWisata btn btn-success btn-sm m-1"><i class="bi bi-dash-circle"></i></button>
                                             <button  Title="Blokir Mitra" data-mitra="${keys[isi]}" data-wisata="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="tidakatifMitra btn btn-danger btn-sm m-1"><i class="bi bi-person-x"></i></button>
                                             `;
-                                    } else {
-                                        StatusDataMitra = `<span class="badge badge-secondary">Tidak Aktif</span>`;
-                                        ActionData = `
-                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${keys[isi]}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                        } else {
+                                            StatusDataMitra = `<span class="badge badge-secondary">Tidak Aktif</span>`;
+                                            ActionData = `
+                                         <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                                            
                                             <button  Title="Aktif Mitra" data-mitra="${keys[isi]}" data-wisata="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="aktifMitra btn btn-success btn-sm m-1"><i class="bi bi-person-x"></i></button>
                                             `;
+                                        }
                                     }
-                                }
 
-                                table.row.add([
-                                    kontenn.val().NamaMitra,
-                                    DataWisata.val().NamaWisata,
-                                    DataWisata.val().AlamatWisata,
-                                    StatusDataMitra,
-                                    StatusData,
-                                    ActionData
-                                ]).draw(false)
+                                    table.row.add([
+                                        kontenn.val().NamaMitra,
+                                        DataWisata.val().NamaWisata,
+                                        DataWisata.val().AlamatWisata,
+                                        StatusDataMitra,
+                                        StatusData,
+                                        ActionData
+                                    ]).draw(false)
 
-                            })
+                                })
+                            }
+                            // console.log(DataAccount.val().IDKelolaMitra)
+
                         })
                     })
                 }

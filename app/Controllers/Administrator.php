@@ -43,12 +43,16 @@ class Administrator extends BaseController
             return view('Administrator/Data-Mitra/Wisata/Edit-Wisata', $data);
         }
     }
-    public function DetailMitraWisata($id = false)
+    public function DetailMitraWisata($idMitra = false, $idWisata = false)
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
         } else {
-            return view('Administrator/Data-Mitra/Wisata/Detail-Wisata');
+            $data = [
+                'DataIDMitra' => $idMitra,
+                'DataIDWisata' => $idWisata
+            ];
+            return view('Administrator/Data-Mitra/Wisata/Detail-Wisata', $data);
         }
     }
 
