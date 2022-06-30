@@ -27,7 +27,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/summernote/summernote-bs4.min.css">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js" charset="utf-8"></script>
@@ -509,118 +509,136 @@
         });
 
         document.getElementById('submitData').addEventListener('click', function() {
-            let form = ['namaHotel', 'alamatHotel', 'deskripsiHotel'];
-            var angka = 0;
-            const fileupload = $('#uploadFilee').prop('files')[0];
+            console.log(parseJsonEmailPartner)
+            console.log(parseJsonPartner)
 
-            for (let i = 0; i < form.length; i++) {
-                if (document.getElementById(form[i]).value == "") {
-                    angka++;
-                    $('#' + form[i]).addClass('is-invalid')
-                } else {
-                    $('#' + form[i]).removeClass('is-invalid')
-                }
-            }
+            Swal.fire({
+                title: 'Apa anda yakin?',
+                text: "Menyimpan data ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let form = ['namaHotel', 'alamatHotel', 'deskripsiHotel'];
+                    var angka = 0;
+                    const fileupload = $('#uploadFilee').prop('files')[0];
 
-            if (angka == 0) {
-                const storageRef = refImage(storage, 'images-data-hotel/' + fileupload.name);
-
-                // Upload the file and metadata
-                const uploadTask = uploadBytesResumable(storageRef, fileupload);
-
-                // Register three observers:
-                // 1. 'state_changed' observer, called any time the state changes
-                // 2. Error observer, called on failure
-                // 3. Completion observer, called on successful completion
-                uploadTask.on('state_changed',
-                    (snapshot) => {
-                        // Observe state change events such as progress, pause, and resume
-                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                        // console.log('Upload is ' + progress + '% done');
-                        switch (snapshot.state) {
-                            case 'paused':
-                                // console.log('Upload is paused');
-                                break;
-                            case 'running':
-                                // console.log('Upload is running');
-                                break;
+                    for (let i = 0; i < form.length; i++) {
+                        if (document.getElementById(form[i]).value == "") {
+                            angka++;
+                            $('#' + form[i]).addClass('is-invalid')
+                        } else {
+                            $('#' + form[i]).removeClass('is-invalid')
                         }
-                    },
-                    (error) => {
-                        // Handle unsuccessful uploads
-                    },
-                    () => {
-                        // Handle successful uploads on complete
-                        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    }
 
-                            if (parseJsonAdmin.length == 0) {
-                                set(ref(db, 'Master-Data-Hotel/' + "Hotel-1"), {
+                    if (angka == 0) {
+                        const storageRef = refImage(storage, 'images-data-hotel/' + fileupload.name);
+
+                        // Upload the file and metadata
+                        const uploadTask = uploadBytesResumable(storageRef, fileupload);
+
+                        // Register three observers:
+                        // 1. 'state_changed' observer, called any time the state changes
+                        // 2. Error observer, called on failure
+                        // 3. Completion observer, called on successful completion
+                        uploadTask.on('state_changed',
+                            (snapshot) => {
+                                // Observe state change events such as progress, pause, and resume
+                                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                // console.log('Upload is ' + progress + '% done');
+                                switch (snapshot.state) {
+                                    case 'paused':
+                                        // console.log('Upload is paused');
+                                        break;
+                                    case 'running':
+                                        // console.log('Upload is running');
+                                        break;
+                                }
+                            },
+                            (error) => {
+                                // Handle unsuccessful uploads
+                            },
+                            () => {
+                                // Handle successful uploads on complete
+                                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+
+                                    if (parseJsonAdmin.length == 0) {
+                                        set(ref(db, 'Master-Data-Hotel/' + "Hotel-1"), {
 
 
-                                    NamaHotel: document.getElementById('namaHotel').value,
-                                    AlamatHotel: document.getElementById('alamatHotel').value,
-                                    IsiKegiatan: document.getElementById('isiBeritaEvent').value,
-                                    IsiDeskripsi: document.getElementById('deskripsiHotel').value,
-                                    LinkImageHotel: downloadURL,
-                                    StatusBerita: 1,
-                                    Longlitute: document.getElementById('longlitude').value,
-                                    Latitute: document.getElementById('latitute').value,
-                                    TanggalBuat: new Date().toLocaleString("id-ID"),
-                                    TanggalUpdate: new Date().toLocaleString("id-ID")
+                                            NamaHotel: document.getElementById('namaHotel').value,
+                                            AlamatHotel: document.getElementById('alamatHotel').value,
+                                            IsiKegiatan: document.getElementById('isiBeritaEvent').value,
+                                            IsiDeskripsi: document.getElementById('deskripsiHotel').value,
+                                            LinkImageHotel: downloadURL,
+                                            StatusBerita: 1,
+                                            Longlitute: document.getElementById('longlitude').value,
+                                            Latitute: document.getElementById('latitute').value,
+                                            TanggalBuat: new Date().toLocaleString("id-ID"),
+                                            TanggalUpdate: new Date().toLocaleString("id-ID")
 
 
+                                        });
+
+                                    } else {
+                                        var idLst = parseJsonAdmin[parseJsonAdmin.length - 1].IDkey
+                                        let SplitData = idLst.split("-");
+                                        let nextID = "BE-" + (Number(SplitData[1]) + 1);
+                                        set(ref(db, 'Master-Data-Hotel/' + nextID), {
+                                            Judul: document.getElementById('judul').value,
+                                            TanggalMulai: document.getElementById('tanggalMulai').value,
+                                            TanggalAkhir: document.getElementById('tanggalAkhir').value,
+                                            Alamat: document.getElementById('alamatBeritaEvent').value,
+                                            IsiKegiatan: document.getElementById('isiBeritaEvent').value,
+                                            JenisKegiatan: document.getElementById('JenisKegiatan').value,
+                                            KegiatanYangBerkaitan: arrayTag.toString(),
+                                            LinkImage: downloadURL,
+                                            StatusBerita: 1,
+                                            Longlitute: document.getElementById('longlitude').value,
+                                            Latitute: document.getElementById('latitute').value,
+                                            TanggalBuat: new Date().toLocaleString("id-ID"),
+                                            TanggalUpdate: new Date().toLocaleString("id-ID")
+                                        });
+
+                                    }
+
+                                    // console.log('File available at', downloadURL);
                                 });
-
-                            } else {
-                                var idLst = parseJsonAdmin[parseJsonAdmin.length - 1].IDkey
-                                let SplitData = idLst.split("-");
-                                let nextID = "BE-" + (Number(SplitData[1]) + 1);
-                                set(ref(db, 'Master-Data-Hotel/' + nextID), {
-                                    Judul: document.getElementById('judul').value,
-                                    TanggalMulai: document.getElementById('tanggalMulai').value,
-                                    TanggalAkhir: document.getElementById('tanggalAkhir').value,
-                                    Alamat: document.getElementById('alamatBeritaEvent').value,
-                                    IsiKegiatan: document.getElementById('isiBeritaEvent').value,
-                                    JenisKegiatan: document.getElementById('JenisKegiatan').value,
-                                    KegiatanYangBerkaitan: arrayTag.toString(),
-                                    LinkImage: downloadURL,
-                                    StatusBerita: 1,
-                                    Longlitute: document.getElementById('longlitude').value,
-                                    Latitute: document.getElementById('latitute').value,
-                                    TanggalBuat: new Date().toLocaleString("id-ID"),
-                                    TanggalUpdate: new Date().toLocaleString("id-ID")
-                                });
-
                             }
+                        );
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: "Data Berhasil Tersimpan",
+                            icon: 'success',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.href = "<?= base_url() ?>/Mitra-Hotel"
+                            }
+                        })
+                        // document.getElementById('myform').reset()
 
-                            // console.log('File available at', downloadURL);
-                        });
+
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Form Tidak Boleh Kosong!'
+                        })
                     }
-                );
-                Swal.fire({
-                    title: 'Berhasil',
-                    text: "Data Berhasil Tersimpan",
-                    icon: 'success',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        location.href = "<?= base_url() ?>/Mitra-Hotel"
-                    }
-                })
-                // document.getElementById('myform').reset()
+                }
+            })
 
 
-
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Form Tidak Boleh Kosong!'
-                })
-            }
 
         })
     </script>
