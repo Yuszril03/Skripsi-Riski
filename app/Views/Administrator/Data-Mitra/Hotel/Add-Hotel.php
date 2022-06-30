@@ -27,8 +27,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/summernote/summernote-bs4.min.css">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"> 
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js" charset="utf-8"></script>
@@ -440,6 +439,8 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?= base_url() ?>/MD5/md5.min.js"></script>
+
     <script type="module">
         // Import the functions you need from the SDKs you need
         import {
@@ -472,7 +473,9 @@
         const db = getDatabase();
         const storage = getStorage();
 
-        var parseJsonMitraHotel = [];
+        var parseJsonAdmin = [];
+        var parseJsonPartner = [];
+        var parseJsonEmailPartner = [];
 
         const starCountRef = ref(db, 'Master-Data-Hotel/');
         onValue(starCountRef, (snapshot) => {
@@ -481,18 +484,32 @@
             for (const isi in keys) {
                 const ValueItem = ref(db, 'Master-Data-Hotel/' + keys[isi]);
                 onValue(ValueItem, (kontenn) => {
-                    let LastID = keys[isi]
-                    let PostD = {
-                        IDkey: keys[isi],
-                    };
-                    parseJsonMitraHotel.push(PostD)
+
+                    parseJsonAdmin.push((keys[isi]))
+                })
+            }
+
+        });
+
+        const starCountRef2 = ref(db, 'Master-Data-Mitra/');
+        onValue(starCountRef2, (snapshot) => {
+            const data = snapshot.val();
+            const keys = Object.keys(data);
+            console.log(keys)
+
+            for (const isi in keys) {
+                const ValueItem = ref(db, 'Master-Data-Mitra/' + keys[isi]);
+                onValue(ValueItem, (kontenn) => {
+
+                    parseJsonPartner.push((keys[isi]));
+                    parseJsonEmailPartner.push(kontenn.val().EmailMitra)
                 })
             }
 
         });
 
         document.getElementById('submitData').addEventListener('click', function() {
-            let form = ['AddImage', 'namaHotel', 'alamatHotel', 'deskripsiHotel'];
+            let form = ['namaHotel', 'alamatHotel', 'deskripsiHotel'];
             var angka = 0;
             const fileupload = $('#uploadFilee').prop('files')[0];
 
