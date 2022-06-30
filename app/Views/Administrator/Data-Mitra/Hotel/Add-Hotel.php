@@ -192,7 +192,7 @@
 
                                     <div class="form-group">
                                         <label for="">Nama Hotel</label>
-                                        <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Masukan Nama Wisata">
+                                        <input type="text" id="namaHotel" class="form-control" style="border-radius: 15px;" placeholder="Masukan Nama Wisata">
                                     </div>
 
                                 </div>
@@ -205,14 +205,16 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="">Alamat Hotel</label>
-                                        <textarea readonly class="form-control" style="border-radius: 15px;  height: 41px;" name="alamat" id="alamat" cols="5"></textarea>
+                                        <input type="hidden" id="latitute">
+                                        <input type="hidden" id="longlitude">
+                                        <textarea readonly class="form-control" style="border-radius: 15px;  height: 41px;" name="alamatHotel" id="alamatHotel" cols="5"></textarea>
                                     </div>
 
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="">Deskripsi Hotel</label>
-                                <textarea class="form-control" style="border-radius: 15px; " name="" id="" cols="5"></textarea>
+                                <textarea class="form-control" style="border-radius: 15px; " name="" id="deskripsiHotel" cols="5"></textarea>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-success float-right btn-sm" data-toggle="modal" data-target="#tambahKamar" style="border-radius: 15px;"> <i class="fa fa-plus-circle"></i> Tambah Kamar</button>
@@ -298,7 +300,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" class="btn btn-primary">Simpan</button>
+                                    <button type="button" id="submitData" class="btn btn-primary">Simpan</button>
                                 </div>
                             </div>
                         </div>
@@ -442,25 +444,137 @@
 
         var parseJsonMitraHotel = [];
 
-        const starCountRef = ref(db, 'Data-Mitra-Hotel/');
+        const starCountRef = ref(db, 'Master-Data-Hotel/');
         onValue(starCountRef, (snapshot) => {
             const data = snapshot.val();
             const keys = Object.keys(data);
             for (const isi in keys) {
-                const ValueItem = ref(db, 'Data-Mitra-Hotel/' + keys[isi]);
+                const ValueItem = ref(db, 'Master-Data-Hotel/' + keys[isi]);
                 onValue(ValueItem, (kontenn) => {
                     let LastID = keys[isi]
                     let PostD = {
                         IDkey: keys[isi],
                     };
-                    parseJsonAdmin.push(PostD)
+                    parseJsonMitraHotel.push(PostD)
                 })
             }
 
         });
 
         document.getElementById('submitData').addEventListener('click', function() {
-            let form = ['']
+            let form = ['AddImage', 'namaHotel', 'alamatHotel', 'deskripsiHotel'];
+            var angka = 0;
+            const fileupload = $('#uploadFilee').prop('files')[0];
+
+            for (let i = 0; i < form.length; i++) {
+                if (document.getElementById(form[i]).value == "") {
+                    angka++;
+                    $('#' + form[i]).addClass('is-invalid')
+                } else {
+                    $('#' + form[i]).removeClass('is-invalid')
+                }
+            }
+
+            if (angka == 0) {
+                const storageRef = refImage(storage, 'images-data-hotel/' + fileupload.name);
+
+                // Upload the file and metadata
+                const uploadTask = uploadBytesResumable(storageRef, fileupload);
+
+                // Register three observers:
+                // 1. 'state_changed' observer, called any time the state changes
+                // 2. Error observer, called on failure
+                // 3. Completion observer, called on successful completion
+                uploadTask.on('state_changed',
+                    (snapshot) => {
+                        // Observe state change events such as progress, pause, and resume
+                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        // console.log('Upload is ' + progress + '% done');
+                        switch (snapshot.state) {
+                            case 'paused':
+                                // console.log('Upload is paused');
+                                break;
+                            case 'running':
+                                // console.log('Upload is running');
+                                break;
+                        }
+                    },
+                    (error) => {
+                        // Handle unsuccessful uploads
+                    },
+                    () => {
+                        // Handle successful uploads on complete
+                        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+
+                            if (parseJsonAdmin.length == 0) {
+                                set(ref(db, 'Master-Data-Hotel/' + "Hotel-1"), {
+
+
+                                    NamaHotel: document.getElementById('namaHotel').value,
+                                    AlamatHotel: document.getElementById('alamatHotel').value,
+                                    IsiKegiatan: document.getElementById('isiBeritaEvent').value,
+                                    IsiDeskripsi: document.getElementById('deskripsiHotel').value,
+                                    LinkImageHotel: downloadURL,
+                                    StatusBerita: 1,
+                                    Longlitute: document.getElementById('longlitude').value,
+                                    Latitute: document.getElementById('latitute').value,
+                                    TanggalBuat: new Date().toLocaleString("id-ID"),
+                                    TanggalUpdate: new Date().toLocaleString("id-ID")
+
+
+                                });
+
+                            } else {
+                                var idLst = parseJsonAdmin[parseJsonAdmin.length - 1].IDkey
+                                let SplitData = idLst.split("-");
+                                let nextID = "BE-" + (Number(SplitData[1]) + 1);
+                                set(ref(db, 'Master-Data-Hotel/' + nextID), {
+                                    Judul: document.getElementById('judul').value,
+                                    TanggalMulai: document.getElementById('tanggalMulai').value,
+                                    TanggalAkhir: document.getElementById('tanggalAkhir').value,
+                                    Alamat: document.getElementById('alamatBeritaEvent').value,
+                                    IsiKegiatan: document.getElementById('isiBeritaEvent').value,
+                                    JenisKegiatan: document.getElementById('JenisKegiatan').value,
+                                    KegiatanYangBerkaitan: arrayTag.toString(),
+                                    LinkImage: downloadURL,
+                                    StatusBerita: 1,
+                                    Longlitute: document.getElementById('longlitude').value,
+                                    Latitute: document.getElementById('latitute').value,
+                                    TanggalBuat: new Date().toLocaleString("id-ID"),
+                                    TanggalUpdate: new Date().toLocaleString("id-ID")
+                                });
+
+                            }
+
+                            // console.log('File available at', downloadURL);
+                        });
+                    }
+                );
+                Swal.fire({
+                    title: 'Berhasil',
+                    text: "Data Berhasil Tersimpan",
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href = "<?= base_url() ?>/Mitra-Hotel"
+                    }
+                })
+                // document.getElementById('myform').reset()
+
+
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Form Tidak Boleh Kosong!'
+                })
+            }
+
         })
     </script>
 
