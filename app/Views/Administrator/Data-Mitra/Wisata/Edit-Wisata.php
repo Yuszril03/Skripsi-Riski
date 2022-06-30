@@ -257,14 +257,14 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="">Kata Sandi Baru</label>
-                                        <input type="text" id="NamaMitra" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                        <input type="password" id="pass" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
 
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="">Konfirmasi Kata Sandi</label>
-                                        <input type="text" id="telefonMitra" onkeypress="return hanyaAngka(this)" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                        <input type="password" id="konfirmPass" onkeypress="return hanyaAngka(this)" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
 
                                 </div>
@@ -509,6 +509,40 @@
                 $('.image-upload-wrap').show();
             }
             DataTempWisata = kontenn.val()
+
+            mapboxgl.accessToken = 'pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw';
+            const coordinates = document.getElementById('coordinates');
+            const map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [Number(kontenn.val().Longlitude), Number(kontenn.val().Latitude)],
+                zoom: 10
+            });
+
+            const marker = new mapboxgl.Marker({
+                    draggable: true
+                })
+                .setLngLat([Number(kontenn.val().Longlitude), Number(kontenn.val().Latitude)])
+                .addTo(map);
+
+            function onDragEnd() {
+                const lngLat = marker.getLngLat();
+                coordinates.style.display = 'block';
+                coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+                document.getElementById('latitude').value = lngLat.lat
+                document.getElementById('longlitude').value = lngLat.lng
+
+                $.ajax({
+                    url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw`,
+                    dataType: "JSON"
+                }).done(result => {
+                    $("#alamat").val(result.features[0].place_name)
+                })
+
+            }
+
+            marker.on('dragend', onDragEnd);
+
             // console.log(DataTempWisata)
             // parseJsonAdmin.push((keys[isi]))
         })
@@ -523,6 +557,8 @@
         })
 
         document.getElementById('submitData').addEventListener('click', function() {
+
+            // console.log(DataTempMitra.StatusMitra)
 
             Swal.fire({
                 title: 'Apa anda yakin?',
@@ -552,163 +588,352 @@
                     if (jumlah == 0) {
 
                         if (parseJsonEmailPartner.includes((document.getElementById('EmailWisata').value)) == false) {
-                            $('#EmailWisata').removeClass('is-invalid')
-                            var CodeIDWisata = "";
-                            var CodeIDMitra = "";
+                            $('#EmailWisata').removeClass('is-invalid');
 
-                            if (parseJsonAdmin.length == 0) {
-                                CodeIDWisata = "Wisata-1"
+                            if (document.getElementById('pass').value == "") {
+                                $('#konfirmPass').removeClass('is-invalid');
+                                $('#pass').removeClass('is-invalid');
 
-                            } else {
+                                var CodeIDWisata = "<?= $DataIDWisata ?>";
+                                var CodeIDMitra = "<?= $DataIDMitra ?>";
 
-                                let lastID = parseJsonAdmin[parseJsonAdmin.length - 1]
-                                let spliData = lastID.split('-');
-                                CodeIDWisata = "Wisata-" + (Number(spliData[1]) + 1)
 
-                            }
-                            if (parseJsonPartner.length == 0) {
-                                CodeIDMitra = "Mitra-1"
 
-                            } else {
+                                if (Boolean(fileupload) == false) {
 
-                                let lastID = parseJsonPartner[parseJsonPartner.length - 1]
-                                let spliData = lastID.split('-');
-                                CodeIDMitra = "Mitra-" + (Number(spliData[1]) + 1)
-
-                            }
-
-                            if (Boolean(fileupload) == false) {
-
-                                //Data Master Wisata
-                                set(ref(db, 'Master-Data-Wisata/' + CodeIDWisata), {
-                                    NamaWisata: document.getElementById('namaWisata').value,
-                                    HargaDewasa: document.getElementById('tiketDewasa').value,
-                                    StatusWisata: 1,
-                                    HargaAnak: document.getElementById('tiketAnak').value,
-                                    AlamatWisata: document.getElementById('alamat').value,
-                                    TanggalBuat: new Date().toString("ID"),
-                                    TanggalUpdate: new Date().toString("ID"),
-                                    fotoWisata: "",
-                                    DeskripsiWisata: document.getElementById('deskripsi').value,
-                                    Longlitude: document.getElementById('longlitude').value,
-                                    Latitude: document.getElementById('latitude').value
-                                });
-                                //Data Master Wisata
-                                set(ref(db, 'Master-Data-Mitra/' + CodeIDMitra), {
-                                    NamaMitra: document.getElementById('NamaMitra').value,
-                                    EmailMitra: document.getElementById('EmailWisata').value,
-                                    StatusMitra: 1,
-                                    TelefonMitra: document.getElementById('telefonMitra').value + "",
-                                    TanggalBuat: new Date().toString("ID"),
-                                    TanggalUpdate: new Date().toString("ID")
-                                });
-
-                                //Data Master Account Wisata
-                                set(ref(db, 'Master-Data-Account-Mitra/' + CodeIDMitra), {
-                                    KataSandiWisata: md5('12345678'),
-                                    JenisMitra: "Mitra-Wisata",
-                                    IDKelolaMitra: CodeIDWisata
-                                });
-
-                                Swal.fire({
-                                    title: 'Berhasil',
-                                    text: 'Data berhasil tersimpan.',
-                                    icon: 'success',
-                                    showCancelButton: false,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Okey'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        location.href = "<?= base_url() ?>/Mitra-Wisata"
+                                    //Update Wisata
+                                    let DataWIsata = {
+                                        NamaWisata: document.getElementById('namaWisata').value,
+                                        HargaDewasa: document.getElementById('tiketDewasa').value,
+                                        StatusWisata: DataTempWisata.StatusWisata,
+                                        HargaAnak: document.getElementById('tiketAnak').value,
+                                        AlamatWisata: document.getElementById('alamat').value,
+                                        TanggalBuat: DataTempWisata.TanggalBuat,
+                                        TanggalUpdate: new Date().toString("ID"),
+                                        fotoWisata: DataTempWisata.fotoWisata,
+                                        DeskripsiWisata: document.getElementById('deskripsi').value,
+                                        Longlitude: document.getElementById('longlitude').value,
+                                        Latitude: document.getElementById('latitude').value
                                     }
-                                })
+                                    if (DataTempWisata.StatusWisata == 1) {
+                                        const updateWisata = {};
+                                        updateWisata['/Master-Data-Wisata/' + CodeIDWisata] = DataWIsata;
+                                        update(ref(db), updateWisata);
+                                    }
 
 
+                                    //Update Mitra
+                                    let DataMitraa = {
+                                        NamaMitra: document.getElementById('NamaMitra').value,
+                                        EmailMitra: document.getElementById('EmailWisata').value,
+                                        StatusMitra: DataTempMitra.StatusMitra,
+                                        TelefonMitra: document.getElementById('telefonMitra').value + "",
+                                        TanggalBuat: DataTempMitra.TanggalBuat,
+                                        TanggalUpdate: new Date().toString("ID")
+                                    }
+                                    const updateMitra = {};
+                                    updateMitra['/Master-Data-Mitra/' + CodeIDMitra] = DataMitraa;
+                                    update(ref(db), updateMitra);
 
 
-                            } else {
-                                const storageRef = refImage(storage, 'images-wisata/' + new Date().getTime() + '-' + fileupload.name);
-
-                                // Upload the file and metadata
-                                const uploadTask = uploadBytesResumable(storageRef, fileupload);
-
-                                // Register three observers:
-                                // 1. 'state_changed' observer, called any time the state changes
-                                // 2. Error observer, called on failure
-                                // 3. Completion observer, called on successful completion
-                                uploadTask.on('state_changed',
-                                    (snapshot) => {
-                                        // Observe state change events such as progress, pause, and resume
-                                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                        console.log('Upload is ' + progress + '% done');
-                                        switch (snapshot.state) {
-                                            case 'paused':
-                                                console.log('Upload is paused');
-                                                break;
-                                            case 'running':
-                                                console.log('Upload is running');
-                                                break;
+                                    Swal.fire({
+                                        title: 'Berhasil',
+                                        text: 'Data berhasil tersimpan.',
+                                        icon: 'success',
+                                        showCancelButton: false,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Okey'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.href = "<?= base_url() ?>/Mitra-Wisata"
                                         }
-                                    },
-                                    (error) => {
-                                        // Handle unsuccessful uploads
-                                    },
-                                    () => {
-                                        // Handle successful uploads on complete
-                                        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                                            console.log('File available at', downloadURL);
-                                            //Data Master Wisata
-                                            set(ref(db, 'Master-Data-Wisata/' + CodeIDWisata), {
-                                                NamaWisata: document.getElementById('namaWisata').value,
-                                                HargaDewasa: document.getElementById('tiketDewasa').value,
-                                                StatusWisata: 1,
-                                                HargaAnak: document.getElementById('tiketAnak').value,
-                                                AlamatWisata: document.getElementById('alamat').value,
-                                                TanggalBuat: new Date().toString("ID"),
-                                                TanggalUpdate: new Date().toString("ID"),
-                                                fotoWisata: downloadURL,
-                                                DeskripsiWisata: document.getElementById('deskripsi').value,
-                                                Longlitude: document.getElementById('longlitude').value,
-                                                Latitude: document.getElementById('latitude').value
-                                            });
-                                            //Data Master Wisata
-                                            set(ref(db, 'Master-Data-Mitra/' + CodeIDMitra), {
-                                                NamaMitra: document.getElementById('NamaMitra').value,
-                                                EmailMitra: document.getElementById('EmailWisata').value,
-                                                StatusMitra: 1,
-                                                TelefonMitra: document.getElementById('telefonMitra').value + "",
-                                                TanggalBuat: new Date().toString("ID"),
-                                                TanggalUpdate: new Date().toString("ID")
-                                            });
+                                    })
 
-                                            //Data Master Account Wisata
-                                            set(ref(db, 'Master-Data-Account-Mitra/' + CodeIDMitra), {
-                                                KataSandiWisata: md5('12345678'),
-                                                JenisMitra: "Mitra-Wisata",
-                                                IDKelolaMitra: CodeIDWisata
-                                            });
-                                        });
-                                    }
-                                );
 
-                                Swal.fire({
-                                    title: 'Berhasil',
-                                    text: 'Data berhasil tersimpan.',
-                                    icon: 'success',
-                                    showCancelButton: false,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Okey'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        location.href = "<?= base_url() ?>/Mitra-Wisata"
+
+
+                                } else {
+                                    const storageRef = refImage(storage, 'images-wisata/' + new Date().getTime() + '-' + fileupload.name);
+
+                                    // Upload the file and metadata
+                                    const uploadTask = uploadBytesResumable(storageRef, fileupload);
+
+                                    // Register three observers:
+                                    // 1. 'state_changed' observer, called any time the state changes
+                                    // 2. Error observer, called on failure
+                                    // 3. Completion observer, called on successful completion
+                                    uploadTask.on('state_changed',
+                                        (snapshot) => {
+                                            // Observe state change events such as progress, pause, and resume
+                                            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                            console.log('Upload is ' + progress + '% done');
+                                            switch (snapshot.state) {
+                                                case 'paused':
+                                                    console.log('Upload is paused');
+                                                    break;
+                                                case 'running':
+                                                    console.log('Upload is running');
+                                                    break;
+                                            }
+                                        },
+                                        (error) => {
+                                            // Handle unsuccessful uploads
+                                        },
+                                        () => {
+                                            // Handle successful uploads on complete
+                                            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                                            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                                console.log('File available at', downloadURL);
+                                                //Data Master Wisata
+                                                //Update Wisata
+                                                let DataWIsata = {
+                                                    NamaWisata: document.getElementById('namaWisata').value,
+                                                    HargaDewasa: document.getElementById('tiketDewasa').value,
+                                                    StatusWisata: DataTempWisata.StatusWisata,
+                                                    HargaAnak: document.getElementById('tiketAnak').value,
+                                                    AlamatWisata: document.getElementById('alamat').value,
+                                                    TanggalBuat: DataTempWisata.TanggalBuat,
+                                                    TanggalUpdate: new Date().toString("ID"),
+                                                    fotoWisata: downloadURL,
+                                                    DeskripsiWisata: document.getElementById('deskripsi').value,
+                                                    Longlitude: document.getElementById('longlitude').value,
+                                                    Latitude: document.getElementById('latitude').value
+                                                }
+                                                if (DataTempWisata.StatusWisata == 1) {
+                                                    const updateWisata = {};
+                                                    updateWisata['/Master-Data-Wisata/' + CodeIDWisata] = DataWIsata;
+                                                    update(ref(db), updateWisata);
+                                                }
+
+
+                                                //Update Mitra
+                                                let DataMitraa = {
+                                                    NamaMitra: document.getElementById('NamaMitra').value,
+                                                    EmailMitra: document.getElementById('EmailWisata').value,
+                                                    StatusMitra: DataTempMitra.StatusMitra,
+                                                    TelefonMitra: document.getElementById('telefonMitra').value + "",
+                                                    TanggalBuat: DataTempMitra.TanggalBuat,
+                                                    TanggalUpdate: new Date().toString("ID")
+                                                }
+                                                const updateMitra = {};
+                                                updateMitra['/Master-Data-Mitra/' + CodeIDMitra] = DataMitraa;
+                                                update(ref(db), updateMitra);
+                                            });
+                                        }
+                                    );
+
+                                    Swal.fire({
+                                        title: 'Berhasil',
+                                        text: 'Data berhasil tersimpan.',
+                                        icon: 'success',
+                                        showCancelButton: false,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Okey'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.href = "<?= base_url() ?>/Mitra-Wisata"
+                                        }
+                                    })
+
+
+                                }
+                            } else {
+                                if (document.getElementById('konfirmPass').value == "") {
+                                    $('#konfirmPass').addClass('is-invalid');
+                                    $('#pass').removeClass('is-invalid');
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Konfirmasi kata sandi kosong!'
+                                    })
+                                } else if (document.getElementById('konfirmPass').value != document.getElementById('pass').value) {
+                                    $('#konfirmPass').addClass('is-invalid');
+                                    $('#pass').addClass('is-invalid');
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Kata Sandi Tidak Sama!'
+                                    })
+                                } else {
+                                    $('#konfirmPass').removeClass('is-invalid');
+                                    $('#pass').removeClass('is-invalid');
+
+
+                                    var CodeIDWisata = "<?= $DataIDWisata ?>";
+                                    var CodeIDMitra = "<?= $DataIDMitra ?>";
+
+
+
+                                    if (Boolean(fileupload) == false) {
+
+                                        //Update Wisata
+                                        let DataWIsata = {
+                                            NamaWisata: document.getElementById('namaWisata').value,
+                                            HargaDewasa: document.getElementById('tiketDewasa').value,
+                                            StatusWisata: DataTempWisata.StatusWisata,
+                                            HargaAnak: document.getElementById('tiketAnak').value,
+                                            AlamatWisata: document.getElementById('alamat').value,
+                                            TanggalBuat: DataTempWisata.TanggalBuat,
+                                            TanggalUpdate: new Date().toString("ID"),
+                                            fotoWisata: DataTempWisata.fotoWisata,
+                                            DeskripsiWisata: document.getElementById('deskripsi').value,
+                                            Longlitude: document.getElementById('longlitude').value,
+                                            Latitude: document.getElementById('latitude').value
+                                        }
+                                        if (DataTempWisata.StatusWisata == 1) {
+                                            const updateWisata = {};
+                                            updateWisata['/Master-Data-Wisata/' + CodeIDWisata] = DataWIsata;
+                                            update(ref(db), updateWisata);
+                                        }
+
+
+                                        //Update Mitra
+                                        let DataMitraa = {
+                                            NamaMitra: document.getElementById('NamaMitra').value,
+                                            EmailMitra: document.getElementById('EmailWisata').value,
+                                            StatusMitra: DataTempMitra.StatusMitra,
+                                            TelefonMitra: document.getElementById('telefonMitra').value + "",
+                                            TanggalBuat: DataTempMitra.TanggalBuat,
+                                            TanggalUpdate: new Date().toString("ID")
+                                        }
+                                        const updateMitra = {};
+                                        updateMitra['/Master-Data-Mitra/' + CodeIDMitra] = DataMitraa;
+                                        update(ref(db), updateMitra);
+
+                                        //Update Master Account Wisata
+                                        let DataAccount = {
+                                            KataSandiWisata: md5(document.getElementById('pass').value),
+                                            JenisMitra: "Mitra-Wisata",
+                                            IDKelolaMitra: CodeIDWisata
+                                        }
+                                        const updateAccountMitra = {};
+                                        updateAccountMitra['/Master-Data-Account-Mitra/' + CodeIDMitra] = DataAccount;
+                                        update(ref(db), updateAccountMitra);
+
+
+                                        Swal.fire({
+                                            title: 'Berhasil',
+                                            text: 'Data berhasil tersimpan.',
+                                            icon: 'success',
+                                            showCancelButton: false,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Okey'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                location.href = "<?= base_url() ?>/Mitra-Wisata"
+                                            }
+                                        })
+
+
+
+
+                                    } else {
+                                        const storageRef = refImage(storage, 'images-wisata/' + new Date().getTime() + '-' + fileupload.name);
+
+                                        // Upload the file and metadata
+                                        const uploadTask = uploadBytesResumable(storageRef, fileupload);
+
+                                        // Register three observers:
+                                        // 1. 'state_changed' observer, called any time the state changes
+                                        // 2. Error observer, called on failure
+                                        // 3. Completion observer, called on successful completion
+                                        uploadTask.on('state_changed',
+                                            (snapshot) => {
+                                                // Observe state change events such as progress, pause, and resume
+                                                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                                console.log('Upload is ' + progress + '% done');
+                                                switch (snapshot.state) {
+                                                    case 'paused':
+                                                        console.log('Upload is paused');
+                                                        break;
+                                                    case 'running':
+                                                        console.log('Upload is running');
+                                                        break;
+                                                }
+                                            },
+                                            (error) => {
+                                                // Handle unsuccessful uploads
+                                            },
+                                            () => {
+                                                // Handle successful uploads on complete
+                                                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                                                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                                    console.log('File available at', downloadURL);
+                                                    //Data Master Wisata
+                                                    //Update Wisata
+                                                    let DataWIsata = {
+                                                        NamaWisata: document.getElementById('namaWisata').value,
+                                                        HargaDewasa: document.getElementById('tiketDewasa').value,
+                                                        StatusWisata: DataTempWisata.StatusWisata,
+                                                        HargaAnak: document.getElementById('tiketAnak').value,
+                                                        AlamatWisata: document.getElementById('alamat').value,
+                                                        TanggalBuat: DataTempWisata.TanggalBuat,
+                                                        TanggalUpdate: new Date().toString("ID"),
+                                                        fotoWisata: downloadURL,
+                                                        DeskripsiWisata: document.getElementById('deskripsi').value,
+                                                        Longlitude: document.getElementById('longlitude').value,
+                                                        Latitude: document.getElementById('latitude').value
+                                                    }
+                                                    if (DataTempWisata.StatusWisata == 1) {
+                                                        const updateWisata = {};
+                                                        updateWisata['/Master-Data-Wisata/' + CodeIDWisata] = DataWIsata;
+                                                        update(ref(db), updateWisata);
+                                                    }
+
+
+                                                    //Update Mitra
+                                                    let DataMitraa = {
+                                                        NamaMitra: document.getElementById('NamaMitra').value,
+                                                        EmailMitra: document.getElementById('EmailWisata').value,
+                                                        StatusMitra: DataTempMitra.StatusMitra,
+                                                        TelefonMitra: document.getElementById('telefonMitra').value + "",
+                                                        TanggalBuat: DataTempMitra.TanggalBuat,
+                                                        TanggalUpdate: new Date().toString("ID")
+                                                    }
+                                                    const updateMitra = {};
+                                                    updateMitra['/Master-Data-Mitra/' + CodeIDMitra] = DataMitraa;
+                                                    update(ref(db), updateMitra);
+
+                                                    //Update Master Account Wisata
+                                                    let DataAccount = {
+                                                        KataSandiWisata: md5(document.getElementById('pass').value),
+                                                        JenisMitra: "Mitra-Wisata",
+                                                        IDKelolaMitra: CodeIDWisata
+                                                    }
+                                                    const updateAccountMitra = {};
+                                                    updateAccountMitra['/Master-Data-Account-Mitra/' + CodeIDMitra] = DataAccount;
+                                                    update(ref(db), updateAccountMitra);
+                                                });
+                                            }
+                                        );
+
+                                        Swal.fire({
+                                            title: 'Berhasil',
+                                            text: 'Data berhasil tersimpan.',
+                                            icon: 'success',
+                                            showCancelButton: false,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Okey'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                location.href = "<?= base_url() ?>/Mitra-Wisata"
+                                            }
+                                        })
+
+
                                     }
-                                })
+                                }
+
+
 
                             }
+
                         } else {
                             $('#EmailWisata').addClass('is-invalid')
                             Swal.fire({
@@ -730,6 +955,7 @@
                     }
 
                 }
+
             })
         })
     </script>
@@ -802,38 +1028,9 @@
             $('.image-upload-wrap').removeClass('image-dropping');
         });
 
-        mapboxgl.accessToken = 'pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw';
-        const coordinates = document.getElementById('coordinates');
-        const map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [117.1485239363954, -0.569178092470267],
-            zoom: 10
-        });
 
-        const marker = new mapboxgl.Marker({
-                draggable: true
-            })
-            .setLngLat([117.1485239363954, -0.569178092470267])
-            .addTo(map);
 
-        function onDragEnd() {
-            const lngLat = marker.getLngLat();
-            coordinates.style.display = 'block';
-            coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
-            document.getElementById('latitude').value = lngLat.lat
-            document.getElementById('longlitude').value = lngLat.lng
 
-            $.ajax({
-                url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw`,
-                dataType: "JSON"
-            }).done(result => {
-                $("#alamat").val(result.features[0].place_name)
-            })
-
-        }
-
-        marker.on('dragend', onDragEnd);
 
 
         function hanyaAngka(evt) {
