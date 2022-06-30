@@ -164,6 +164,36 @@
 
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
+                            <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
+                                <i class="bi bi-person text-primary"></i> Data Personal
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Nama Mitra<sup><span class="text-danger">*</span></sup></label>
+                                        <input type="text" id="namaMitra" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Email Mitra<sup><span class="text-danger">*</span></sup></label>
+                                        <input type="text" id="emailHotel" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Telefon Mitra<sup><span class="text-danger">*</span></sup></label>
+                                        <input type="text" id="telefonMitra" onkeypress="return hanyaAngka(this)" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Jenis Mitra</label>
+                                        <input type="text" readonly value="Mitra-Hotel" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
+                                <i class="bi bi-input-cursor-text text-primary"></i> Data Detail Wisata
+                            </div>
 
                             <div class="row">
                                 <div class="col-lg-6 col-12">
