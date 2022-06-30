@@ -149,15 +149,15 @@
 
                             <h1 class="m-0">
                                 <button class="btn" onclick="location.href=`<?= base_url() ?>/Berita-Event`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
-                                Detail Berita & Event
+                                Detail Kegiatan
                             </h1>
 
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Berita & Event</li>
-                                <li class="breadcrumb-item active">Detail Berita & Event</li>
+                                <li class="breadcrumb-item active">Data Kegiatan</li>
+                                <li class="breadcrumb-item active">Detail Kegiatan</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->

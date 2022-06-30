@@ -146,13 +146,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Edit Berita & Event</h1>
+                            <h1 class="m-0">Edit Kegiatan</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Berita & Event</li>
-                                <li class="breadcrumb-item active">Edit Berita & Event</li>
+                                <li class="breadcrumb-item active">Data Kegiatan</li>
+                                <li class="breadcrumb-item active">Edit Kegiatan</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -182,7 +182,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="">Jenis Kegiatan</label>
-                                        <select name="JenisKegiatan" id="JenisKegiatan" onchange="GetKegiatan(this.value)" style="border-radius: 15px;" class="form-control">
+                                        <select name="JenisKegiatan" id="JenisKegiatan" disabled onchange="GetKegiatan(this.value)" style="border-radius: 15px;" class="form-control">
                                             <option value="" selected>Pilih Kegiatan...</option>
                                             <option value="Berita">Berita</option>
                                             <option value="Event">Event</option>
@@ -484,8 +484,8 @@
                         let resultSplit = temps.split("×\n");
                         arrayTag.push(resultSplit[1]);
                     }
-                    
-                    
+
+
 
                     if (jumlah == 0) {
                         if (Boolean(fileupload) == false) {
