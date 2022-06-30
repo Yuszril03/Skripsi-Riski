@@ -523,7 +523,7 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    let form = ['namaHotel', 'alamatHotel', 'deskripsiHotel'];
+                    let form = ['namaHotel', 'alamatHotel', 'deskripsiHotel', 'namaMitra', 'emailHotel', 'telefonMitra'];
                     var angka = 0;
                     const fileupload = $('#uploadFilee').prop('files')[0];
 
@@ -536,95 +536,175 @@
                         }
                     }
 
-                    if (angka == 0) {
-                        const storageRef = refImage(storage, 'images-data-hotel/' + fileupload.name);
+                    if (jumlah == 0) {
 
-                        // Upload the file and metadata
-                        const uploadTask = uploadBytesResumable(storageRef, fileupload);
+                        if (parseJsonEmailPartner.includes((document.getElementById('emailHotel').value)) == false) {
+                            $('#emailHotel').removeClass('is-invalid')
+                            var CodeIDWisata = "";
+                            var CodeIDMitra = "";
 
-                        // Register three observers:
-                        // 1. 'state_changed' observer, called any time the state changes
-                        // 2. Error observer, called on failure
-                        // 3. Completion observer, called on successful completion
-                        uploadTask.on('state_changed',
-                            (snapshot) => {
-                                // Observe state change events such as progress, pause, and resume
-                                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                // console.log('Upload is ' + progress + '% done');
-                                switch (snapshot.state) {
-                                    case 'paused':
-                                        // console.log('Upload is paused');
-                                        break;
-                                    case 'running':
-                                        // console.log('Upload is running');
-                                        break;
-                                }
-                            },
-                            (error) => {
-                                // Handle unsuccessful uploads
-                            },
-                            () => {
-                                // Handle successful uploads on complete
-                                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                            if (parseJsonAdmin.length == 0) {
+                                CodeIDWisata = "Wisata-1"
 
-                                    if (parseJsonAdmin.length == 0) {
-                                        set(ref(db, 'Master-Data-Hotel/' + "Hotel-1"), {
+                            } else {
 
+                                let lastID = parseJsonAdmin[parseJsonAdmin.length - 1]
+                                let spliData = lastID.split('-');
+                                CodeIDWisata = "Wisata-" + (Number(spliData[1]) + 1)
 
-                                            NamaHotel: document.getElementById('namaHotel').value,
-                                            AlamatHotel: document.getElementById('alamatHotel').value,
-                                            IsiKegiatan: document.getElementById('isiBeritaEvent').value,
-                                            IsiDeskripsi: document.getElementById('deskripsiHotel').value,
-                                            LinkImageHotel: downloadURL,
-                                            StatusBerita: 1,
-                                            Longlitute: document.getElementById('longlitude').value,
-                                            Latitute: document.getElementById('latitute').value,
-                                            TanggalBuat: new Date().toLocaleString("id-ID"),
-                                            TanggalUpdate: new Date().toLocaleString("id-ID")
+                            }
+                            if (parseJsonPartner.length == 0) {
+                                CodeIDMitra = "Mitra-1"
 
+                            } else {
 
-                                        });
+                                let lastID = parseJsonPartner[parseJsonPartner.length - 1]
+                                let spliData = lastID.split('-');
+                                CodeIDMitra = "Mitra-" + (Number(spliData[1]) + 1)
 
-                                    } else {
-                                        var idLst = parseJsonAdmin[parseJsonAdmin.length - 1].IDkey
-                                        let SplitData = idLst.split("-");
-                                        let nextID = "BE-" + (Number(SplitData[1]) + 1);
-                                        set(ref(db, 'Master-Data-Hotel/' + nextID), {
-                                            Judul: document.getElementById('judul').value,
-                                            TanggalMulai: document.getElementById('tanggalMulai').value,
-                                            TanggalAkhir: document.getElementById('tanggalAkhir').value,
-                                            Alamat: document.getElementById('alamatBeritaEvent').value,
-                                            IsiKegiatan: document.getElementById('isiBeritaEvent').value,
-                                            JenisKegiatan: document.getElementById('JenisKegiatan').value,
-                                            KegiatanYangBerkaitan: arrayTag.toString(),
-                                            LinkImage: downloadURL,
-                                            StatusBerita: 1,
-                                            Longlitute: document.getElementById('longlitude').value,
-                                            Latitute: document.getElementById('latitute').value,
-                                            TanggalBuat: new Date().toLocaleString("id-ID"),
-                                            TanggalUpdate: new Date().toLocaleString("id-ID")
-                                        });
+                            }
 
-                                    }
+                            if (Boolean(fileupload) == false) {
 
-                                    // console.log('File available at', downloadURL);
+                                //Data Master Wisata
+                                set(ref(db, 'Master-Data-Wisata/' + CodeIDWisata), {
+                                    NamaWisata: document.getElementById('namaWisata').value,
+                                    HargaDewasa: document.getElementById('tiketDewasa').value,
+                                    StatusWisata: 1,
+                                    HargaAnak: document.getElementById('tiketAnak').value,
+                                    AlamatWisata: document.getElementById('alamat').value,
+                                    TanggalBuat: new Date().toString("ID"),
+                                    TanggalUpdate: new Date().toString("ID"),
+                                    fotoWisata: "",
+                                    DeskripsiWisata: document.getElementById('deskripsi').value,
+                                    Longlitude: document.getElementById('longlitude').value,
+                                    Latitude: document.getElementById('latitude').value
                                 });
+                                //Data Master Wisata
+                                set(ref(db, 'Master-Data-Mitra/' + CodeIDMitra), {
+                                    NamaMitra: document.getElementById('NamaMitra').value,
+                                    EmailMitra: document.getElementById('EmailWisata').value,
+                                    StatusMitra: 1,
+                                    TelefonMitra: document.getElementById('telefonMitra').value + "",
+                                    TanggalBuat: new Date().toString("ID"),
+                                    TanggalUpdate: new Date().toString("ID")
+                                });
+
+                                //Data Master Account Wisata
+                                set(ref(db, 'Master-Data-Account-Mitra/' + CodeIDMitra), {
+                                    KataSandiWisata: md5('12345678'),
+                                    JenisMitra: "Mitra-Wisata",
+                                    IDKelolaMitra: CodeIDWisata
+                                });
+
+                                Swal.fire({
+                                    title: 'Berhasil',
+                                    text: 'Data berhasil tersimpan.',
+                                    icon: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Okey'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.href = "<?= base_url() ?>/Mitra-Wisata"
+                                    }
+                                })
+
+
+
+
+                            } else {
+                                const storageRef = refImage(storage, 'images-wisata/' + new Date().getTime() + '-' + fileupload.name);
+
+                                // Upload the file and metadata
+                                const uploadTask = uploadBytesResumable(storageRef, fileupload);
+
+                                // Register three observers:
+                                // 1. 'state_changed' observer, called any time the state changes
+                                // 2. Error observer, called on failure
+                                // 3. Completion observer, called on successful completion
+                                uploadTask.on('state_changed',
+                                    (snapshot) => {
+                                        // Observe state change events such as progress, pause, and resume
+                                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                        console.log('Upload is ' + progress + '% done');
+                                        switch (snapshot.state) {
+                                            case 'paused':
+                                                console.log('Upload is paused');
+                                                break;
+                                            case 'running':
+                                                console.log('Upload is running');
+                                                break;
+                                        }
+                                    },
+                                    (error) => {
+                                        // Handle unsuccessful uploads
+                                    },
+                                    () => {
+                                        // Handle successful uploads on complete
+                                        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                            console.log('File available at', downloadURL);
+                                            //Data Master Wisata
+                                            set(ref(db, 'Master-Data-Wisata/' + CodeIDWisata), {
+                                                NamaWisata: document.getElementById('namaWisata').value,
+                                                HargaDewasa: document.getElementById('tiketDewasa').value,
+                                                StatusWisata: 1,
+                                                HargaAnak: document.getElementById('tiketAnak').value,
+                                                AlamatWisata: document.getElementById('alamat').value,
+                                                TanggalBuat: new Date().toString("ID"),
+                                                TanggalUpdate: new Date().toString("ID"),
+                                                fotoWisata: downloadURL,
+                                                DeskripsiWisata: document.getElementById('deskripsi').value,
+                                                Longlitude: document.getElementById('longlitude').value,
+                                                Latitude: document.getElementById('latitude').value
+                                            });
+                                            //Data Master Wisata
+                                            set(ref(db, 'Master-Data-Mitra/' + CodeIDMitra), {
+                                                NamaMitra: document.getElementById('NamaMitra').value,
+                                                EmailMitra: document.getElementById('EmailWisata').value,
+                                                StatusMitra: 1,
+                                                TelefonMitra: document.getElementById('telefonMitra').value + "",
+                                                TanggalBuat: new Date().toString("ID"),
+                                                TanggalUpdate: new Date().toString("ID")
+                                            });
+
+                                            //Data Master Account Wisata
+                                            set(ref(db, 'Master-Data-Account-Mitra/' + CodeIDMitra), {
+                                                KataSandiWisata: md5('12345678'),
+                                                JenisMitra: "Mitra-Wisata",
+                                                IDKelolaMitra: CodeIDWisata
+                                            });
+                                        });
+                                    }
+                                );
+
+                                Swal.fire({
+                                    title: 'Berhasil',
+                                    text: 'Data berhasil tersimpan.',
+                                    icon: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Okey'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.href = "<?= base_url() ?>/Mitra-Wisata"
+                                    }
+                                })
+
                             }
-                        );
-                        Swal.fire({
-                            title: 'Berhasil',
-                            text: "Data Berhasil Tersimpan",
-                            icon: 'success',
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.href = "<?= base_url() ?>/Mitra-Hotel"
-                            }
-                        })
-                        // document.getElementById('myform').reset()
+                        } else {
+                            $('#EmailWisata').addClass('is-invalid')
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Email sudah digunakan!'
+                            })
+
+                        }
 
 
 
@@ -632,7 +712,7 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Form Tidak Boleh Kosong!'
+                            text: 'Kolom pengisian Tidak Boleh Kosong!'
                         })
                     }
                 }
