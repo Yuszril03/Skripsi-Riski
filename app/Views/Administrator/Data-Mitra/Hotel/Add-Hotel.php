@@ -249,6 +249,8 @@
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-success float-right btn-sm" data-toggle="modal" data-target="#tambahKamar" style="border-radius: 15px;"> <i class="fa fa-plus-circle"></i> Tambah Kamar</button>
+                                <button id="EditDataDetail" class="btn btn-success float-right btn-sm" data-toggle="modal" data-target="#editKamar" style="border-radius: 15px;"> <i class="fa fa-plus-circle"></i> Edit Kamar</button>
+                                <button class="btn btn-success float-right btn-sm" data-toggle="modal" data-target="#tambahKamar" style="border-radius: 15px;"> <i class="fa fa-plus-circle"></i> Hapus Kamar</button>
                                 <label for="">Jenis Kamar Hotel</label>
                             </div>
                             <div class="table-responsive">
@@ -260,7 +262,6 @@
                                             <th>Harga Kamar</th>
                                             <th>Jumlah Kamar</th>
                                             <th>Status Kamar</th>
-                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <!-- <tbody>
@@ -385,7 +386,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" class="btn btn-primary">Simpan</button>
+                                    <button type="button" id="simpaneditDetail" class="btn btn-primary">Simpan</button>
                                 </div>
                             </div>
                         </div>
@@ -502,6 +503,8 @@
         var parseJsonPartner = [];
         var parseJsonEmailPartner = [];
         var DataTables = [];
+        var indexz = null;
+        var indexREal = null;
 
         const starCountRef = ref(db, 'Master-Data-Hotel/');
         onValue(starCountRef, (snapshot) => {
@@ -536,13 +539,21 @@
         $('#tables tbody').on('click', 'tr', function() {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
-                // indexz = null;
+                indexz = null;
                 // var z = $('#tableKhusus tbody tr');
                 // $(z[this._DT_RowIndex]).removeClass('selected');
             } else {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
-                // indexz = t.row(this).index()
+                indexz = table.row(this).index();
+
+                if (table.data().count() == 0) {
+                    $(this).removeClass('selected');
+                    indexz = null;
+                }
+
+                // console.log(table.data().count())
+
 
                 // k.$('tr.selected').removeClass('selected');
                 // var z = $('#tableKhusus tbody tr');
@@ -551,21 +562,56 @@
             }
         });
 
-        $(document).on('click', '.editData', function() {
-            var idData = $(this).data('id');
-            var rows = table.rows('.selected').indexes();
+        document.getElementById('simpaneditDetail').addEventListener('click', function() {
+            var s = table.row('.selected')[0][0]
+            // let tempEdittt = `<input type="hidden" name="jenisKMR[]" value="${ document.getElementById('editJenisKamar').value}">` +
+            //     `<input type="hidden" name="idKMR[]" value="${ document.getElementById('idDetailHotel').value}">` +
+            //     document.getElementById('editJenisKamar').value,
+            //     `<input type="hidden" name="fasilitasKMR[]" value="${ document.getElementById('editFasilitasKamar').value}">` +
+            //     document.getElementById('editFasilitasKamar').value,
+            //     `<input type="hidden" name="hargaKMR[]" value="${ document.getElementById('hargaKamar').value}">` +
+            //     document.getElementById('hargaKamar').value,
+            //     `<input type="hidden" name="jmlKMR[]" value="${ document.getElementById('jumlahKamar').value}">` +
+            //     document.getElementById('jumlahKamar').value,
+            //     `<span class="badge badge-info">Baru DiTambahkan</span>`;
+            table.row('.selected').cell(':eq(' + indexz + ')').data(`<input type="hidden" name="jenisKMR[]" value="${ document.getElementById('editJenisKamar').value}">` +
+                `<input type="hidden" name="idKMR[]" value="${ document.getElementById('idDetailHotel').value}">` +
+                document.getElementById('editJenisKamar').value);
 
-            console.log(rows)
-            for (let i = 0; i < DataTables.length; i++) {
-                if (idData == DataTables[i].id) {
-                    document.getElementById('editJenisKamar').value = DataTables[i].jenistable
-                    document.getElementById('editFasilitasKamar').value = DataTables[i].fasilitas
-                    document.getElementById('hargaKamar').value = DataTables[i].harga
-                    document.getElementById('jumlahKamar').value = DataTables[i].JumlahKamar
-                    document.getElementById('idDetailHotel').value = DataTables[i].id
-                }
-            }
         })
+
+        document.getElementById('EditDataDetail').addEventListener('click', function() {
+            if (table.row('.selected')[0].length == 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Anda Harus Memilih Kolom Tabel Dahulu!',
+                })
+            } else {
+                var ta = table.cells();
+                var s = 0;
+                console.log(table.page.info()['start'])
+                console.log(indexz)
+                var z = $('#tables tbody tr');
+                if (table.page.info()['start'] == 0) {
+                    s = indexz;
+                } else {
+                    s = indexz - table.page.info()['start'];
+
+                }
+                indexREal = s;
+                document.getElementById('editJenisKamar').value = document.getElementsByName('jenisKMR[]')[s].value
+                document.getElementById('editFasilitasKamar').value = document.getElementsByName('fasilitasKMR[]')[s].value
+                document.getElementById('hargaKamar').value = document.getElementsByName('hargaKMR[]')[s].value
+                document.getElementById('jumlahKamar').value = document.getElementsByName('jmlKMR[]')[s].value
+                document.getElementById('idDetailHotel').value = document.getElementsByName('idKMR[]')[s].value
+
+            }
+
+
+        })
+
+
 
         document.getElementById('addDattaTable').addEventListener('click', function() {
             let idTempAdd = 0
@@ -584,12 +630,16 @@
                 Status: 1
             }
             table.row.add([
+                `<input type="hidden" name="jenisKMR[]" value="${ document.getElementById('jenisKamarAdd').value}">` +
+                `<input type="hidden" name="idKMR[]" value="${ idTempAdd}">` +
                 document.getElementById('jenisKamarAdd').value,
+                `<input type="hidden" name="fasilitasKMR[]" value="${ document.getElementById('fasilitasKamarAdd').value}">` +
                 document.getElementById('fasilitasKamarAdd').value,
+                `<input type="hidden" name="hargaKMR[]" value="${ document.getElementById('hargaKamarAdd').value}">` +
                 document.getElementById('hargaKamarAdd').value,
+                `<input type="hidden" name="jmlKMR[]" value="${ document.getElementById('jumlahKamarAdd').value}">` +
                 document.getElementById('jumlahKamarAdd').value,
-                1,
-                `<button data-id="${idTempAdd}" class="editData btn btn-warning btn-sm" data-toggle="modal" data-target="#editKamar" title="Edit Data"><i class="fa fa-pen-alt"></i></button>`
+                `<span class="badge badge-info">Baru DiTambahkan</span>`,
             ]).draw(false)
             console.log(DataTables);
             DataTables.push(Datatable)
