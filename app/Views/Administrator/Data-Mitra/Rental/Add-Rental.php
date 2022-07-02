@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Administrator - Home</title>
+    <title>TraveLand - Tambah Mitra Rental</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>/Image/Icon/LogoAJA.png" />
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -29,6 +31,10 @@
 
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
 
     <style>
         #map {
@@ -92,7 +98,8 @@
             background-color: #4ea0da;
         }
 
-        .file-upload {
+        .file-upload,
+        .file-upload-Detail {
             height: max-content;
             border: 2px dotted gray;
             border-radius: 15px;
@@ -100,7 +107,8 @@
 
         }
 
-        .Imagees {
+        .Imagees,
+        .Imagees-Detail {
             min-height: 200px;
             width: 50%;
             margin: auto;
@@ -109,11 +117,13 @@
             margin-top: 20px;
         }
 
-        .Imagees img {
+        .Imagees img,
+        .Imagees-Detail img {
             width: 100%;
         }
 
-        .file-upload-input {
+        .file-upload-input,
+        .file-upload-input-Detail {
             opacity: 0;
             height: 100px;
         }
@@ -126,7 +136,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-       
+
 
         <!-- Navbar -->
         <?= view('Administrator/Template-Admin/Header') ?>
@@ -162,6 +172,36 @@
 
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
+                            <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
+                                <i class="bi bi-person text-primary"></i> Data Personal
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Nama Mitra<sup><span class="text-danger">*</span></sup></label>
+                                        <input type="text" id="NamaMitra" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Email Mitra<sup><span class="text-danger">*</span></sup></label>
+                                        <input type="text" id="EmailWisata" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Telefon Mitra<sup><span class="text-danger">*</span></sup></label>
+                                        <input type="text" id="telefonMitra" onkeypress="return hanyaAngka(this)" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Jenis Mitra</label>
+                                        <input type="text" readonly value="Mitra-Rental" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
+                                <i class="bi bi-input-cursor-text text-primary"></i> Data Detail Wisata
+                            </div>
 
                             <div class="row">
                                 <div class="col-lg-6 col-12">
@@ -189,11 +229,11 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="">Nama Rental</label>
+                                        <label for="">Nama Rental<sup><span class="text-danger">*</span></sup></label>
                                         <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Masukan Nama Rental">
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Telefon Rental</label>
+                                        <label for="">Telefon Rental<sup><span class="text-danger">*</span></sup></label>
                                         <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Masukan Nomor Rental">
                                     </div>
 
@@ -206,12 +246,12 @@
                                         <p id="ok"></p>
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Alamat Hotel</label>
+                                        <label for="">Alamat Hotel<sup><span class="text-danger">*</span></sup></label>
                                         <textarea readonly class="form-control" style="border-radius: 15px;  height: 41px;" name="alamat" id="alamat" cols="5"></textarea>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="">Deskripsi Rental</label>
+                                        <label for="">Deskripsi Rental<sup><span class="text-danger">*</span></sup></label>
                                         <textarea class="form-control" style="border-radius: 15px; " name="" id="" cols="5"></textarea>
                                     </div>
 
@@ -219,11 +259,15 @@
                             </div>
 
                             <div class="form-group">
-                                <button class="btn btn-success float-right btn-sm" data-toggle="modal" data-target="#tambahKamar" style="border-radius: 15px;"> <i class="fa fa-plus-circle"></i> Tambah Kendaraan</button>
-                                <label for="">Jenis Kendaraan</label>
+                                <div class="float-right ">
+                                    <button class="btn btn-success btn-sm m-1" onclick="modalDetails('Tambah')" title="Tambah Data" data-toggle="modal" data-target="#modalKamar" style="border-radius: 15px;"> <i class="fa fa-plus-circle"></i></button>
+                                    <button id="EditDetails" class="btn btn-warning btn-sm m-1" onclick="modalDetails('Edit')" title="Edit Data" data-toggle="modal" data-target="#modalKamar" style="border-radius: 15px;"> <i class="bi bi-pencil-square"></i></button>
+                                    <button id="hapusDetails" class="btn btn-danger btn-sm m-1" title="Hapus Data" style="border-radius: 15px;"> <i class="bi bi-trash3"></i></button>
+                                </div>
+                                <label for="">Jenis Kendaraan<sup><span class="text-danger">*</span></sup></label>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-striped table-sm">
+                                <table id="TableDetail" class="table table-striped table-sm">
                                     <thead>
                                         <tr>
                                             <th>Nama Kendaraan</th>
@@ -232,10 +276,9 @@
                                             <th>Harga Sewa</th>
                                             <th>Deskripsi</th>
                                             <th>Status Kendaraan</th>
-                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <!-- <tbody>
                                         <tr>
                                             <td>Text</td>
                                             <td>Text</td>
@@ -244,11 +287,10 @@
                                             <td>Text</td>
                                             <td>Text</td>
                                             <td>
-                                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editKamar" title="Edit Data"><i class="fa fa-pen-alt"></i></button>
-                                                <button class="btn btn-danger btn-sm" onclick="hapusKamar()" title="Non Aktif Kendaraan"><i class="fas fa-power-off"></i></button>
+                                                <span class="badge badge-danger">Belum Tersimpan</span>
                                             </td>
                                         </tr>
-                                    </tbody>
+                                    </tbody> -->
                                 </table>
                             </div>
                             <div class="float-right">
@@ -259,23 +301,46 @@
                     </div>
 
                     <!-- Modal Add Kamar -->
-                    <div class="modal fade" id="tambahKamar" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal fade" id="modalKamar" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable">
                             <div class="modal-content" style="border-radius: 15px;">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">Tambah Kendaraan</h5>
+                                    <h5 class="modal-title" id="staticBackdropLabel"><span id="titleModalDetail"></span> Kendaraan</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
+                                    <input type="hidden" id="idDataDetilss">
+                                    <input type="hidden" id="tempUploadData">
                                     <div class="form-group">
-                                        <label for="">Nama Kendaraan</label>
-                                        <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Masukan Jenis Kamar">
+                                        <label for="">Foto Profil Rental<sup><span class="text-danger">*</span></sup></label>
+                                    </div>
+                                    <div class="file-upload-Detail" id="fileDetail">
+                                        <button type="button" id="btnCancelImageDetail" onclick="removeUploadDetail()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
+                                        <div class="Imagees-Detail">
+                                            <img src="<?= base_url() ?>/Image/Icon/uploadData.svg" id="NoneImageDetail" alt="">
+                                            <img src="" id="AddImageDetail" alt="">
+                                        </div>
+                                        <center>
+                                            <div class="image-upload-wrap-Detail" style="margin-top: -110px ;">
+                                                <input id="uploadFileeDetail" accept="image/*" class="file-upload-input-Detail" type='file' onchange="readURLDetail(this);" />
+
+                                                <div class="drag-text mt-4">
+                                                    <h6 style="margin-top:-20px;">Seret dan jatuhkan file atau pilih tambahkan Gambar</h6>
+                                                </div>
+                                            </div>
+                                            <p class="image-title-Detail">Uploaded Image</p>
+                                        </center>
+
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Ukuran Kendaraan</label>
-                                        <select name="" style="border-radius: 15px;" class="form-control" id="">
+                                        <label for="">Nama Kendaraan<sup><span class="text-danger">*</span></sup></label>
+                                        <input type="text" id="namaKendaraan" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Ukuran Kendaraan<sup><span class="text-danger">*</span></sup></label>
+                                        <select name="" style="border-radius: 15px;" class="form-control" id="ukuranKendaraan">
                                             <option value="">Pilih...</option>
                                             <option value="Kecil">Kecil</option>
                                             <option value="Sedang">Sedang</option>
@@ -285,104 +350,43 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="">Harga Sewa</label>
+                                                <label for="">Harga Sewa<sup><span class="text-danger">*</span></sup></label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1">Rp</span>
                                                     </div>
-                                                    <input style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Harga Kamar" aria-label="Username" aria-describedby="basic-addon1">
+                                                    <input onkeypress="return hanyaAngka(this)" id="hargaSewa" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Ketik di sini..." aria-label="Username" aria-describedby="basic-addon1">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="">Jumlah Kursi</label>
+                                                <label for="">Jumlah Kursi<sup><span class="text-danger">*</span></sup></label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1"><i class="fas fa-chair"></i></span>
                                                     </div>
-                                                    <input style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Jumlah Kamar" aria-label="Username" aria-describedby="basic-addon1">
+                                                    <input onkeypress="return hanyaAngka(this)" id="jumlahKursi" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Ketik di sini..." aria-label="Username" aria-describedby="basic-addon1">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Deskripsi Kendaraan</label>
-                                        <textarea name="" id="" class="form-control" style="border-radius: 15px;" rows="5"></textarea>
+                                        <label for="">Deskripsi Kendaraan<sup><span class="text-danger">*</span></sup></label>
+                                        <textarea placeholder="Ketik di sini..." class="form-control" id="deskripsiKendaraan" style="border-radius: 15px;" rows="5"></textarea>
                                     </div>
 
 
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" class="btn btn-primary">Simpan</button>
+                                    <button id="submitDetails" type="button" class="btn btn-primary">Simpan</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Modal Edit Kamar -->
-                    <div class="modal fade" id="editKamar" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable">
-                            <div class="modal-content" style="border-radius: 15px;">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">Tambah Kendaraan</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="">Nama Kendaraan</label>
-                                        <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Masukan Jenis Kamar">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Ukuran Kendaraan</label>
-                                        <select name="" style="border-radius: 15px;" class="form-control" id="">
-                                            <option value="">Pilih...</option>
-                                            <option value="Kecil">Kecil</option>
-                                            <option value="Sedang">Sedang</option>
-                                            <option value="Besar">Besar</option>
-                                        </select>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="">Harga Sewa</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1">Rp</span>
-                                                    </div>
-                                                    <input style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Harga Kamar" aria-label="Username" aria-describedby="basic-addon1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="">Jumlah Kursi</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1"><i class="fas fa-chair"></i></span>
-                                                    </div>
-                                                    <input style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Jumlah Kamar" aria-label="Username" aria-describedby="basic-addon1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Deskripsi Kendaraan</label>
-                                        <textarea name="" id="" class="form-control" style="border-radius: 15px;" rows="5"></textarea>
-                                    </div>
 
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" class="btn btn-primary">Simpan</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
 
                 </div><!-- /.container-fluid -->
@@ -434,14 +438,433 @@
     <script src="<?= base_url() ?>/AdminLTE/dists/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
 
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            set,
+            update
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+        import {
+            getStorage,
+            ref as refImage,
+            uploadBytesResumable,
+            getDownloadURL
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-storage.js";
+
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+            authDomain: "traveland-429a6.firebaseapp.com",
+            databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "traveland-429a6",
+            storageBucket: "traveland-429a6.appspot.com",
+            messagingSenderId: "569185605053",
+            appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const storage = getStorage();
+
+        var localDataDetail = [];
+        var indexz;
+        var fileEditTemps;
+
+
+        var table = $('#TableDetail').DataTable({
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "pageLength": 5,
+            "language": {
+                search: '',
+                searchPlaceholder: "Pencarian...",
+                "paginate": {
+                    "next": `<i class="bi bi-chevron-right"></i>`,
+                    "previous": `<i class="bi bi-chevron-left"></i>`
+                },
+                "info": "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri",
+                "lengthMenu": "Tampilkan _MENU_ entri",
+                "infoEmpty": "Menampilkan 0 hingga 0 of 0 entri",
+                "infoFiltered": "(disaring dari _MAX_ total entri)",
+                "zeroRecords": "Tidak ada data yang cocok ditemukan",
+                "emptyTable": "Tidak ada data di dalam tabel",
+            }
+
+        });
+
+        $('#TableDetail tbody').on('click', 'tr', function() {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                indexz = null;
+                document.getElementById('hapusDetails').disabled = true
+                document.getElementById('EditDetails').disabled = true
+                // var z = $('#tableKhusus tbody tr');
+                // $(z[this._DT_RowIndex]).removeClass('selected');
+            } else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                indexz = table.row(this).index()
+
+                if (localDataDetail.length == 0) {
+                    $(this).removeClass('selected');
+                    indexz = null;
+                } else {
+                    document.getElementById('hapusDetails').disabled = false
+                    document.getElementById('EditDetails').disabled = false
+                }
+
+                // k.$('tr.selected').removeClass('selected');
+                // var z = $('#tableKhusus tbody tr');
+                // $(z[this._DT_RowIndex]).addClass('selected');
+
+            }
+        });
+        // $('#namaKendaraan').addClass('is-invalid')
+
+        document.getElementById('hapusDetails').addEventListener('click', function() {
+
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Menghapus data ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya!',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var ta = table.cells();
+                    var s = 0;
+                    // console.log(table.page.info()['start'])
+                    // console.log(indexz)
+                    var z = $('#TableDetail tbody tr');
+                    if (table.page.info()['start'] == 0) {
+                        s = indexz;
+                    } else {
+                        s = indexz - table.page.info()['start'];
+
+                    }
+                    let tempData = [];
+                    for (let i = 0; i < localDataDetail.length; i++) {
+                        if (localDataDetail[i].idDetail != Number(document.getElementsByName('idDetailT[]')[s].value)) {
+                            tempData.push(localDataDetail[i])
+                        }
+                    }
+
+                    localDataDetail = tempData
+
+                    table
+                        .clear()
+                        .draw(false);
+                    for (let j = 0; j < tempData.length; j++) {
+                        table.row.add([
+                            `<input type="hidden" name="idDetailT[]" value="${tempData[j].idDetail}">
+                        <input type="hidden" name="namaKendaraanT[]" value="${tempData[j].namaKendaraan}">` +
+                            tempData[j].namaKendaraan,
+                            `<input type="hidden" name="ukuranKendaraanT[]" value="${tempData[j].ukuranKendaraan}">` +
+                            tempData[j].ukuranKendaraan,
+                            `<input type="hidden" name="hargaSewaT[]" value="${tempData[j].harga}">` +
+                            tempData[j].harga,
+                            `<input type="hidden" name="jumlahKursiT[]" value="${tempData[j].kursi}">` +
+                            tempData[j].kursi,
+                            `<input type="hidden" name="deskripsiKendaraanT[]" value="${tempData[j].deskripsi}">` +
+                            tempData[j].deskripsi,
+                            ` <span class="badge badge-danger">Belum Tersimpan</span>`
+                        ]).draw(false)
+
+                    }
+                    document.getElementById('hapusDetails').disabled = true
+                    document.getElementById('EditDetails').disabled = true
+                    Swal.fire(
+                        'Berhasil!',
+                        'Data berhasil terhapus.',
+                        'success'
+                    )
+                }
+            })
+
+        })
+
+        document.getElementById('EditDetails').addEventListener('click', function() {
+            var ta = table.cells();
+            var s = 0;
+            resetModal()
+            // console.log(table.page.info()['start'])
+            // console.log(indexz)
+            var z = $('#TableDetail tbody tr');
+            if (table.page.info()['start'] == 0) {
+                s = indexz;
+            } else {
+                s = indexz - table.page.info()['start'];
+
+            }
+            let uploadFIless;
+            for (let i = 0; i < localDataDetail.length; i++) {
+                if (localDataDetail[i].idDetail == Number(document.getElementsByName('idDetailT[]')[s].value)) {
+                    uploadFIless = localDataDetail[i].foto
+                }
+            }
+            fileEditTemps = uploadFIless
+            document.getElementById('idDataDetilss').value = document.getElementsByName('idDetailT[]')[s].value
+            document.getElementById('namaKendaraan').value = document.getElementsByName('namaKendaraanT[]')[s].value
+            document.getElementById('ukuranKendaraan').value = document.getElementsByName('ukuranKendaraanT[]')[s].value
+            document.getElementById('hargaSewa').value = document.getElementsByName('hargaSewaT[]')[s].value
+            document.getElementById('jumlahKursi').value = document.getElementsByName('jumlahKursiT[]')[s].value
+            document.getElementById('deskripsiKendaraan').value = document.getElementsByName('deskripsiKendaraanT[]')[s].value
+            document.getElementById('tempUploadData').value = uploadFIless.name
+            // $('#uploadFileeDetail').prop('files')[0] = uploadFIless
+            readURLDetailEditt(uploadFIless)
+        })
+
+        document.getElementById('submitDetails').addEventListener('click', function() {
+            let jenisSubmit = document.getElementById('titleModalDetail').innerHTML;
+            let idDetails = ['uploadFileeDetail', 'namaKendaraan', 'ukuranKendaraan', 'hargaSewa', 'jumlahKursi', 'deskripsiKendaraan'];
+            let jumlahDetails = 0;
+
+            for (let i = 0; i < idDetails.length; i++) {
+                if (i == 0) {
+                    if (jenisSubmit == "Tambah") {
+                        if (document.getElementById(idDetails[i]).value == "") {
+                            jumlahDetails++;
+                            document.getElementById("fileDetail").style.border = "2px dotted red";
+                        } else {
+                            document.getElementById("fileDetail").style.border = "2px dotted gray";
+                        }
+                    } else {
+                        if (document.getElementById(idDetails[i]).value == "" && document.getElementById('tempUploadData').value == "") {
+                            jumlahDetails++;
+                            document.getElementById("fileDetail").style.border = "2px dotted red";
+                        } else {
+                            document.getElementById("fileDetail").style.border = "2px dotted gray";
+                        }
+                    }
+
+                } else if (document.getElementById(idDetails[i]).value == "") {
+                    jumlahDetails++;
+                    $('#' + idDetails[i]).addClass('is-invalid')
+                } else {
+                    $('#' + idDetails[i]).removeClass('is-invalid')
+                }
+            }
+
+            if (jumlahDetails == 0) {
+                if (jenisSubmit == "Tambah") {
+                    let NoUrut = 0;
+                    if (localDataDetail.length == 0) {
+                        NoUrut = 1;
+                    } else {
+                        NoUrut = localDataDetail[localDataDetail.length - 1].idDetail + 1
+                    }
+                    let dataDetailsTemp = {
+                        foto: $('#uploadFileeDetail').prop('files')[0],
+                        namaKendaraan: document.getElementById("namaKendaraan").value,
+                        ukuranKendaraan: document.getElementById("ukuranKendaraan").value,
+                        harga: document.getElementById("hargaSewa").value,
+                        kursi: document.getElementById("jumlahKursi").value,
+                        deskripsi: document.getElementById("deskripsiKendaraan").value,
+                        idDetail: NoUrut
+                    }
+
+                    localDataDetail.push(dataDetailsTemp)
+
+
+                    table.row.add([
+                        `<input type="hidden" name="idDetailT[]" value="${NoUrut}">
+                        <input type="hidden" name="namaKendaraanT[]" value="${document.getElementById("namaKendaraan").value}">` +
+                        document.getElementById("namaKendaraan").value,
+                        `<input type="hidden" name="ukuranKendaraanT[]" value="${document.getElementById("ukuranKendaraan").value}">` +
+                        document.getElementById("ukuranKendaraan").value,
+                        `<input type="hidden" name="hargaSewaT[]" value="${document.getElementById("hargaSewa").value}">` +
+                        document.getElementById("hargaSewa").value,
+                        `<input type="hidden" name="jumlahKursiT[]" value="${document.getElementById("jumlahKursi").value}">` +
+                        document.getElementById("jumlahKursi").value,
+                        `<input type="hidden" name="deskripsiKendaraanT[]" value="${document.getElementById("deskripsiKendaraan").value}">` +
+                        document.getElementById("deskripsiKendaraan").value,
+                        ` <span class="badge badge-danger">Belum Tersimpan</span>`
+                    ]).draw(false)
+                    resetModal()
+                    $('#modalKamar').modal('hide')
+
+
+                } else {
+                    var tempTable = [`<input type="hidden" name="idDetailT[]" value="${document.getElementById('idDataDetilss').value}">
+                        <input type="hidden" name="namaKendaraanT[]" value="${document.getElementById("namaKendaraan").value}">` +
+                        document.getElementById("namaKendaraan").value,
+                        `<input type="hidden" name="ukuranKendaraanT[]" value="${document.getElementById("ukuranKendaraan").value}">` +
+                        document.getElementById("ukuranKendaraan").value,
+                        `<input type="hidden" name="hargaSewaT[]" value="${document.getElementById("hargaSewa").value}">` +
+                        document.getElementById("hargaSewa").value,
+                        `<input type="hidden" name="jumlahKursiT[]" value="${document.getElementById("jumlahKursi").value}">` +
+                        document.getElementById("jumlahKursi").value,
+                        `<input type="hidden" name="deskripsiKendaraanT[]" value="${document.getElementById("deskripsiKendaraan").value}">` +
+                        document.getElementById("deskripsiKendaraan").value,
+                        `<span class="badge badge-danger">Belum Tersimpan</span>`
+                    ]
+                    for (let i = 0; i < localDataDetail.length; i++) {
+                        if (localDataDetail[i].idDetail == Number(document.getElementById('idDataDetilss').value)) {
+                            if (document.getElementById('uploadFileeDetail').value != "") {
+                                localDataDetail[i].foto = $('#uploadFileeDetail').prop('files')[0]
+                            } else {
+                                localDataDetail[i].foto = fileEditTemps
+                            }
+
+                            localDataDetail[i].namaKendaraan = document.getElementById("namaKendaraan").value
+                            localDataDetail[i].ukuranKendaraan = document.getElementById("ukuranKendaraan").value
+                            localDataDetail[i].harga = document.getElementById("hargaSewa").value
+                            localDataDetail[i].kursi = document.getElementById("jumlahKursi").value
+                            localDataDetail[i].deskripsi = document.getElementById("deskripsiKendaraan").value
+                        }
+                    }
+                    table
+                        .clear()
+                        .draw(false);
+                    for (let j = 0; j < localDataDetail.length; j++) {
+                        table.row.add([
+                            `<input type="hidden" name="idDetailT[]" value="${localDataDetail[j].idDetail}">
+                        <input type="hidden" name="namaKendaraanT[]" value="${localDataDetail[j].namaKendaraan}">` +
+                            localDataDetail[j].namaKendaraan,
+                            `<input type="hidden" name="ukuranKendaraanT[]" value="${localDataDetail[j].ukuranKendaraan}">` +
+                            localDataDetail[j].ukuranKendaraan,
+                            `<input type="hidden" name="hargaSewaT[]" value="${localDataDetail[j].harga}">` +
+                            localDataDetail[j].harga,
+                            `<input type="hidden" name="jumlahKursiT[]" value="${localDataDetail[j].kursi}">` +
+                            localDataDetail[j].kursi,
+                            `<input type="hidden" name="deskripsiKendaraanT[]" value="${localDataDetail[j].deskripsi}">` +
+                            localDataDetail[j].deskripsi,
+                            ` <span class="badge badge-danger">Belum Tersimpan</span>`
+                        ]).draw(false)
+
+                    }
+
+                    // resetModal()
+                    document.getElementById('hapusDetails').disabled = true
+                    document.getElementById('EditDetails').disabled = true
+                    $('#modalKamar').modal('hide')
+                    // console.log()
+                }
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Kolom pengisian Tidak Boleh Kosong!'
+                })
+            }
+
+
+
+        })
+
+        function resetModal() {
+            let idDetails = ['uploadFileeDetail', 'namaKendaraan', 'ukuranKendaraan', 'hargaSewa', 'jumlahKursi', 'deskripsiKendaraan'];
+
+            for (let i = 0; i < idDetails.length; i++) {
+                if (i == 0) {
+                    document.getElementById("fileDetail").style.border = "2px dotted gray";
+                    document.getElementById("uploadFileeDetail").value = ""
+                    document.getElementById('tempUploadData').value = ""
+                    fileEditTemps = null
+                    //Detail
+
+                    document.getElementById("uploadFileeDetail").value = "";
+                    document.getElementById('tempUploadData').value = "";
+                    $('#btnCancelImageDetail').hide()
+                    $('#AddImageDetail').hide()
+                    $('#NoneImageDetail').show()
+                    $('.image-title-Detail').hide()
+                    $('.file-upload-input-Detail').replaceWith($('.file-upload-input-Detail').clone());
+                    $('.file-upload-content-Detail').hide();
+                    $('.image-upload-wrap-Detail').show();
+
+                } else {
+                    $('#' + idDetails[i]).removeClass('is-invalid')
+                    document.getElementById(idDetails[i]).value = ""
+                }
+
+            }
+        }
+
+        //Detaill Rental
+        function readURLDetailEditt(input) {
+
+
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('.image-upload-wrap-Detail').hide();
+
+                $('.file-upload-image-Detail').attr('src', e.target.result);
+                $('.file-upload-content-Detail').show();
+
+                $('.image-title-Detail').html(input.name);
+
+                $('#AddImageDetail').show()
+                $('#NoneImageDetail').hide()
+
+                document.getElementById('AddImageDetail').src = e.target.result;
+            };
+            $('#btnCancelImageDetail').show()
+            $('.image-title-Detail').show()
+            reader.readAsDataURL(input);
+
+
+        }
+    </script>
 
     <script>
+        function modalDetails(textx) {
+            document.getElementById('titleModalDetail').innerHTML = textx;
+            let idDetails = ['uploadFileeDetail', 'namaKendaraan', 'ukuranKendaraan', 'hargaSewa', 'jumlahKursi', 'deskripsiKendaraan'];
+
+            if (textx == "Tambah") {
+                document.getElementById("uploadFileeDetail").value = "";
+                document.getElementById('tempUploadData').value = "";
+                readURLDetail(document.getElementById("uploadFileeDetail"))
+                for (let i = 0; i < idDetails.length; i++) {
+                    if (i == 0) {
+                        document.getElementById("fileDetail").style.border = "2px dotted gray";
+                        document.getElementById("uploadFileeDetail").value = ""
+                        //Detail
+                        $('#btnCancelImageDetail').hide()
+                        $('#AddImageDetail').hide()
+                        $('.image-title-Detail').hide()
+                        $('#NoneImageDetail').show()
+                    } else {
+                        $('#' + idDetails[i]).removeClass('is-invalid')
+                        document.getElementById(idDetails[i]).value = ""
+                    }
+                }
+            }
+
+        }
+
+
         $('#btnCancelImage').hide()
         $('#AddImage').hide()
         $('.image-title').hide()
         $('#NoneImage').show()
+
+        document.getElementById('hapusDetails').disabled = true
+        document.getElementById('EditDetails').disabled = true
+
+        //Detail
+        $('#btnCancelImageDetail').hide()
+        $('#AddImageDetail').hide()
+        $('.image-title-Detail').hide()
+        $('#NoneImageDetail').show()
 
         function KeluarForm() {
             Swal.fire({
@@ -522,6 +945,53 @@
             $('.image-upload-wrap').removeClass('image-dropping');
         });
 
+        //Detaill Rental
+        function readURLDetail(input) {
+            if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('.image-upload-wrap-Detail').hide();
+
+                    $('.file-upload-image-Detail').attr('src', e.target.result);
+                    $('.file-upload-content-Detail').show();
+
+                    $('.image-title-Detail').html(input.files[0].name);
+
+                    $('#AddImageDetail').show()
+                    $('#NoneImageDetail').hide()
+
+                    document.getElementById('AddImageDetail').src = e.target.result;
+                };
+                $('#btnCancelImageDetail').show()
+                $('.image-title-Detail').show()
+                reader.readAsDataURL(input.files[0]);
+
+
+            } else {
+                removeUploadDetail();
+            }
+        }
+
+        function removeUploadDetail() {
+            document.getElementById("uploadFileeDetail").value = "";
+            document.getElementById('tempUploadData').value = "";
+            $('#btnCancelImageDetail').hide()
+            $('#AddImageDetail').hide()
+            $('#NoneImageDetail').show()
+            $('.image-title-Detail').hide()
+            $('.file-upload-input-Detail').replaceWith($('.file-upload-input-Detail').clone());
+            $('.file-upload-content-Detail').hide();
+            $('.image-upload-wrap-Detail').show();
+        }
+        $('.image-upload-wrap-Detail').bind('dragover', function() {
+            $('.image-upload-wrap-Detail').addClass('image-dropping');
+        });
+        $('.image-upload-wrap-Detail').bind('dragleave', function() {
+            $('.image-upload-wrap-Detail').removeClass('image-dropping');
+        });
+
         mapboxgl.accessToken = 'pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw';
         const coordinates = document.getElementById('coordinates');
         const map = new mapboxgl.Map({
@@ -552,6 +1022,14 @@
         }
 
         marker.on('dragend', onDragEnd);
+
+        function hanyaAngka(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+                return false;
+            return true;
+        }
     </script>
 </body>
 

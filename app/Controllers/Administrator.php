@@ -78,20 +78,37 @@ class Administrator extends BaseController
     //Mitra Rental
     public function MitraRental()
     {
-        return view('Administrator/Data-Mitra/Rental/Mitra-Rental');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Rental/Add-Rental');
+        }
+        
     }
     public function TambahMitraRental()
     {
-        return view('Administrator/Data-Mitra/Rental/Add-Rental');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Rental/Add-Rental');
+        }
     }
     public function EditMitraRental($id = false)
     {
-        return view('Administrator/Data-Mitra/Rental/Edit-Rental');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Rental/Edit-Rental');
+        }
     }
 
     public function DetailMitraRental($id = false)
     {
-        return view('Administrator/Data-Mitra/Rental/Detail-Rental');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Rental/Detail-Rental');
+        }
     }
 
     //Pemesanan
