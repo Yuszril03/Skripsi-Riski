@@ -387,7 +387,7 @@
                                                     <div class="col-lg-4 col-12">
                                                         <p>
                                                             <span><b>${kontenn22.val().NamaKendaraan}</b></span><br>
-                                                            <span style="font-size: 14px;" class="text-muted">Ukuran <span class="badge badge-info">${kontenn22.val().NamaKendaraan}</span> | Kursi <span class="badge badge-info">${kontenn22.val().NamaKendaraan}</span></span>
+                                                            <span style="font-size: 14px;" class="text-muted">Ukuran <span class="badge badge-info">${kontenn22.val().UkuranKendaraan}</span> | Kursi <span class="badge badge-info">${kontenn22.val().JumlahKursi}</span></span>
                                                         </p>
                                                     </div>
                                                     <div class="col-lg-4 col-12">
