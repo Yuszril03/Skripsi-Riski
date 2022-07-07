@@ -785,9 +785,9 @@
                             kontenn2.val().NamaKendaraan,
                             `<input type="hidden" name="ukuranKendaraanT[]" value="${kontenn2.val().UkuranKendaraan}">` +
                             kontenn2.val().UkuranKendaraan,
-                            `<input type="hidden" name="hargaSewaT[]" value="${kontenn2.val().JumlahKursi}">` +
+                            `<input type="hidden" name="jumlahKursiT[]" value="${kontenn2.val().JumlahKursi}">` +
                             kontenn2.val().JumlahKursi,
-                            `<input type="hidden" name="jumlahKursiT[]" value="${kontenn2.val().HargaSewa}">` +
+                            `<input type="hidden" name="hargaSewaT[]" value="${kontenn2.val().HargaSewa}">` +
                             `Rp. ` + kontenn2.val().HargaSewa,
                             `<input type="hidden" name="deskripsiKendaraanT[]" value="${kontenn2.val().deskripsiKendaraan}">` +
                             kontenn2.val().deskripsiKendaraan,
@@ -1083,10 +1083,12 @@
                                     const updateMItra = {};
                                     updateMItra['/Master-Data-Mitra/<?= $DataIDMitra ?>'] = dataMitraas;
                                     update(ref(db), updateMItra);
-
+                                    const updateDetailss = {};
                                     for (let h = 0; h < localDataDetail.length; h++) {
 
                                         if (Boolean(localDataDetail[h].fotoDB) == true) {
+
+
 
                                             for (let d = 0; d < datatEmpsDetails.length; d++) {
                                                 if (Number(datatEmpsDetails[d]) == localDataDetail[h].idDB) {
@@ -1107,9 +1109,9 @@
 
 
                                                         }
-                                                        const updateDetailss = {};
+
                                                         updateDetailss['/Master-Data-Rental-Detail/' + datatEmpsDetails[d]] = dataDetails;
-                                                        update(ref(db), updateDetailss);
+
                                                     })
 
                                                 }
@@ -1177,7 +1179,6 @@
                                                             });
 
                                                         } else {
-
                                                             for (let d = 0; d < datatEmpsDetails.length; d++) {
                                                                 if (Number(datatEmpsDetails[d]) == localDataDetail[h].idDB) {
 
@@ -1196,9 +1197,9 @@
                                                                             IdRental: `<?= $DataIDRental ?>`
 
                                                                         }
-                                                                        const updateDetailss = {};
+
                                                                         updateDetailss['/Master-Data-Rental-Detail/' + datatEmpsDetails[d]] = dataDetails;
-                                                                        update(ref(db), updateDetailss);
+
                                                                     })
 
                                                                 }
@@ -1212,6 +1213,8 @@
                                         }
 
                                     }
+                                    update(ref(db), updateDetailss);
+
                                     Swal.fire({
                                         title: 'Berhasil',
                                         text: 'Data berhasil tersimpan.',
@@ -1292,6 +1295,7 @@
                                                 updateMItra['/Master-Data-Mitra/<?= $DataIDMitra ?>'] = dataMitraas;
                                                 update(ref(db), updateMItra);
 
+                                                const updateDetailss = {};
                                                 for (let h = 0; h < localDataDetail.length; h++) {
                                                     const fileuploadDetail = localDataDetail[h].foto;
                                                     const storageRefDetail = refImage(storage, 'images-rental-detail/' + new Date().getTime() + '-' + fileuploadDetail.name);
@@ -1373,13 +1377,14 @@
                                                                                     IdRental: `<?= $DataIDRental ?>`
 
                                                                                 }
-                                                                                const updateDetailss = {};
+
                                                                                 updateDetailss['/Master-Data-Rental-Detail/' + datatEmpsDetails[d]] = dataDetails;
-                                                                                update(ref(db), updateDetailss);
+
                                                                             })
 
                                                                         }
                                                                     }
+
                                                                 }
 
 
@@ -1389,6 +1394,7 @@
 
 
                                                 }
+                                                update(ref(db), updateDetailss);
                                             });
                                         }
                                     );
@@ -1470,7 +1476,7 @@
                                         updateAccountMitra['/Master-Data-Account-Mitra/<?= $DataIDMitra ?>'] = DataAccount;
                                         update(ref(db), updateAccountMitra);
 
-
+                                        const updateDetailss = {};
                                         for (let h = 0; h < localDataDetail.length; h++) {
 
                                             if (Boolean(localDataDetail[h].fotoDB) == true) {
@@ -1494,12 +1500,13 @@
 
 
                                                             }
-                                                            const updateDetailss = {};
+
                                                             updateDetailss['/Master-Data-Rental-Detail/' + datatEmpsDetails[d]] = dataDetails;
-                                                            update(ref(db), updateDetailss);
+
                                                         })
 
                                                     }
+
                                                 }
 
                                             } else {
@@ -1564,7 +1571,6 @@
                                                                 });
 
                                                             } else {
-
                                                                 for (let d = 0; d < datatEmpsDetails.length; d++) {
                                                                     if (Number(datatEmpsDetails[d]) == localDataDetail[h].idDB) {
 
@@ -1583,13 +1589,13 @@
                                                                                 IdRental: `<?= $DataIDRental ?>`
 
                                                                             }
-                                                                            const updateDetailss = {};
+
                                                                             updateDetailss['/Master-Data-Rental-Detail/' + datatEmpsDetails[d]] = dataDetails;
-                                                                            update(ref(db), updateDetailss);
                                                                         })
 
                                                                     }
                                                                 }
+
                                                             }
                                                         });
                                                     }
@@ -1599,6 +1605,7 @@
                                             }
 
                                         }
+                                        update(ref(db), updateDetailss);
                                         Swal.fire({
                                             title: 'Berhasil',
                                             text: 'Data berhasil tersimpan.',
@@ -1688,11 +1695,11 @@
                                                     const updateAccountMitra = {};
                                                     updateAccountMitra['/Master-Data-Account-Mitra/<?= $DataIDMitra ?>'] = DataAccount;
                                                     update(ref(db), updateAccountMitra);
+                                                    const updateDetailss = {};
 
                                                     for (let h = 0; h < localDataDetail.length; h++) {
 
                                                         if (Boolean(localDataDetail[h].fotoDB) == true) {
-
                                                             for (let d = 0; d < datatEmpsDetails.length; d++) {
                                                                 if (Number(datatEmpsDetails[d]) == localDataDetail[h].idDB) {
 
@@ -1712,10 +1719,11 @@
 
 
                                                                         }
-                                                                        const updateDetailss = {};
+
                                                                         updateDetailss['/Master-Data-Rental-Detail/' + datatEmpsDetails[d]] = dataDetails;
-                                                                        update(ref(db), updateDetailss);
+
                                                                     })
+
 
                                                                 }
                                                             }
@@ -1782,7 +1790,6 @@
                                                                             });
 
                                                                         } else {
-
                                                                             for (let d = 0; d < datatEmpsDetails.length; d++) {
                                                                                 if (Number(datatEmpsDetails[d]) == localDataDetail[h].idDB) {
 
@@ -1801,13 +1808,13 @@
                                                                                             IdRental: `<?= $DataIDRental ?>`
 
                                                                                         }
-                                                                                        const updateDetailss = {};
+
                                                                                         updateDetailss['/Master-Data-Rental-Detail/' + datatEmpsDetails[d]] = dataDetails;
-                                                                                        update(ref(db), updateDetailss);
                                                                                     })
 
                                                                                 }
                                                                             }
+
                                                                         }
                                                                     });
                                                                 }
@@ -1817,6 +1824,8 @@
                                                         }
 
                                                     }
+                                                    update(ref(db), updateDetailss);
+
                                                 });
                                             }
                                         );

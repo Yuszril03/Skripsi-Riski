@@ -961,10 +961,10 @@
                             tempData[j].namaKendaraan,
                             `<input type="hidden" name="ukuranKendaraanT[]" value="${tempData[j].ukuranKendaraan}">` +
                             tempData[j].ukuranKendaraan,
-                            `<input type="hidden" name="hargaSewaT[]" value="${tempData[j].harga}">` +
-                            tempData[j].harga,
                             `<input type="hidden" name="jumlahKursiT[]" value="${tempData[j].kursi}">` +
                             tempData[j].kursi,
+                            `<input type="hidden" name="hargaSewaT[]" value="${tempData[j].harga}">` +
+                            tempData[j].harga,
                             `<input type="hidden" name="deskripsiKendaraanT[]" value="${tempData[j].deskripsi}">` +
                             tempData[j].deskripsi,
                             ` <span class="badge badge-danger">Belum Tersimpan</span>`
@@ -1072,10 +1072,10 @@
                         document.getElementById("namaKendaraan").value,
                         `<input type="hidden" name="ukuranKendaraanT[]" value="${document.getElementById("ukuranKendaraan").value}">` +
                         document.getElementById("ukuranKendaraan").value,
-                        `<input type="hidden" name="hargaSewaT[]" value="${document.getElementById("hargaSewa").value}">` +
-                        document.getElementById("hargaSewa").value,
                         `<input type="hidden" name="jumlahKursiT[]" value="${document.getElementById("jumlahKursi").value}">` +
                         document.getElementById("jumlahKursi").value,
+                        `<input type="hidden" name="hargaSewaT[]" value="${document.getElementById("hargaSewa").value}">` +
+                        document.getElementById("hargaSewa").value,
                         `<input type="hidden" name="deskripsiKendaraanT[]" value="${document.getElementById("deskripsiKendaraan").value}">` +
                         document.getElementById("deskripsiKendaraan").value,
                         ` <span class="badge badge-danger">Belum Tersimpan</span>`
@@ -1090,10 +1090,10 @@
                         document.getElementById("namaKendaraan").value,
                         `<input type="hidden" name="ukuranKendaraanT[]" value="${document.getElementById("ukuranKendaraan").value}">` +
                         document.getElementById("ukuranKendaraan").value,
-                        `<input type="hidden" name="hargaSewaT[]" value="${document.getElementById("hargaSewa").value}">` +
-                        document.getElementById("hargaSewa").value,
                         `<input type="hidden" name="jumlahKursiT[]" value="${document.getElementById("jumlahKursi").value}">` +
                         document.getElementById("jumlahKursi").value,
+                        `<input type="hidden" name="hargaSewaT[]" value="${document.getElementById("hargaSewa").value}">` +
+                        document.getElementById("hargaSewa").value,
                         `<input type="hidden" name="deskripsiKendaraanT[]" value="${document.getElementById("deskripsiKendaraan").value}">` +
                         document.getElementById("deskripsiKendaraan").value,
                         `<span class="badge badge-danger">Belum Tersimpan</span>`
@@ -1123,10 +1123,10 @@
                             localDataDetail[j].namaKendaraan,
                             `<input type="hidden" name="ukuranKendaraanT[]" value="${localDataDetail[j].ukuranKendaraan}">` +
                             localDataDetail[j].ukuranKendaraan,
-                            `<input type="hidden" name="hargaSewaT[]" value="${localDataDetail[j].harga}">` +
-                            localDataDetail[j].harga,
                             `<input type="hidden" name="jumlahKursiT[]" value="${localDataDetail[j].kursi}">` +
                             localDataDetail[j].kursi,
+                            `<input type="hidden" name="hargaSewaT[]" value="${localDataDetail[j].harga}">` +
+                            localDataDetail[j].harga,
                             `<input type="hidden" name="deskripsiKendaraanT[]" value="${localDataDetail[j].deskripsi}">` +
                             localDataDetail[j].deskripsi,
                             ` <span class="badge badge-danger">Belum Tersimpan</span>`
