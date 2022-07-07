@@ -483,7 +483,7 @@
 
                                 //Data Master Account Wisata
                                 set(ref(db, 'Master-Data-Account-Mitra/' + CodeIDMitra), {
-                                    KataSandiWisata: md5('12345678'),
+                                    KataSandiMitra: md5('12345678'),
                                     JenisMitra: "Mitra-Wisata",
                                     IDKelolaMitra: CodeIDWisata
                                 });
@@ -564,7 +564,7 @@
 
                                             //Data Master Account Wisata
                                             set(ref(db, 'Master-Data-Account-Mitra/' + CodeIDMitra), {
-                                                KataSandiWisata: md5('12345678'),
+                                                KataSandiMitra: md5('12345678'),
                                                 JenisMitra: "Mitra-Wisata",
                                                 IDKelolaMitra: CodeIDWisata
                                             });

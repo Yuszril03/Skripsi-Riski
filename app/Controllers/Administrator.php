@@ -81,9 +81,8 @@ class Administrator extends BaseController
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
         } else {
-            return view('Administrator/Data-Mitra/Rental/Add-Rental');
+            return view('Administrator/Data-Mitra/Rental/Mitra-Rental');
         }
-        
     }
     public function TambahMitraRental()
     {
@@ -93,21 +92,29 @@ class Administrator extends BaseController
             return view('Administrator/Data-Mitra/Rental/Add-Rental');
         }
     }
-    public function EditMitraRental($id = false)
+    public function EditMitraRental($idMitra = false, $idRental = false)
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
         } else {
-            return view('Administrator/Data-Mitra/Rental/Edit-Rental');
+            $data = [
+                'DataIDMitra' => $idMitra,
+                'DataIDRental' => $idRental
+            ];
+            return view('Administrator/Data-Mitra/Rental/Edit-Rental', $data);
         }
     }
 
-    public function DetailMitraRental($id = false)
+    public function DetailMitraRental($idMitra = false, $idRental = false)
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
         } else {
-            return view('Administrator/Data-Mitra/Rental/Detail-Rental');
+            $data = [
+                'DataIDMitra' => $idMitra,
+                'DataIDRental' => $idRental
+            ];
+            return view('Administrator/Data-Mitra/Rental/Detail-Rental', $data);
         }
     }
 

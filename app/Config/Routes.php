@@ -43,15 +43,15 @@ $routes->get('/Detail-Mitra-Wisata' . '/(:any)' . '/(:any)', 'Administrator::Det
 //Hotel
 $routes->get('/Mitra-Hotel', 'Administrator::MitraHotel');
 $routes->get('/Tambah-Mitra-Hotel', 'Administrator::TambahMitraHotel');
-$routes->get('/Edit-Mitra-Hotel', 'Administrator::EditMitraHotel');
-$routes->get('/Detail-Mitra-Hotel', 'Administrator::DetailMitraHotel');
+$routes->get('/Edit-Mitra-Hotel', 'Administrator::EditMitraHotel/$1/$2');
+$routes->get('/Detail-Mitra-Hotel', 'Administrator::DetailMitraHotel/$1/$2');
 
 
 //Rental
 $routes->get('/Mitra-Rental', 'Administrator::MitraRental');
 $routes->get('/Tambah-Mitra-Rental', 'Administrator::TambahMitraRental');
-$routes->get('/Edit-Mitra-Rental', 'Administrator::EditMitraRental');
-$routes->get('/Detail-Mitra-Rental', 'Administrator::DetailMitraRental');
+$routes->get('/Edit-Mitra-Rental' . '/(:any)' . '/(:any)', 'Administrator::EditMitraRental/$1/$2');
+$routes->get('/Detail-Mitra-Rental' . '/(:any)' . '/(:any)', 'Administrator::DetailMitraRental/$1/$2');
 
 //Pemesanan
 $routes->get('/Pemesanan-Wisata', 'Administrator::PemesananWisata');

@@ -235,18 +235,18 @@
                         const ValueAcccount = ref(db, 'Master-Data-Account-Mitra/' + keys[isi]);
                         onValue(ValueAcccount, (DataAccount) => {
 
-                            if (DataAccount.val().JenisMitra == "Mitra-Wisata") {
+                            if (DataAccount.val().JenisMitra == "Mitra-Rental") {
 
-                                const ValueWisata = ref(db, 'Master-Data-Wisata/' + DataAccount.val().IDKelolaMitra);
+                                const ValueWisata = ref(db, 'Master-Data-Rental/' + DataAccount.val().IDKelolaMitra);
                                 onValue(ValueWisata, (DataWisata) => {
 
                                     // console.log(DataWisata.val().NamaWisata)
                                     let PostD = {
                                         IDMitra: keys[isi],
                                         NamaMitra: kontenn.val().NamaMitra,
-                                        Wisata: DataWisata.val().NamaWisata,
-                                        Alamat: DataWisata.val().AlamatWisata,
-                                        Status: DataWisata.val().StatusWisata,
+                                        Wisata: DataWisata.val().NamaRental,
+                                        Alamat: DataWisata.val().AlamatRental,
+                                        Status: DataWisata.val().StatusRental,
                                     };
                                     // parseJsonMitra.push(PostD)
                                     let StatusData = '';
@@ -255,22 +255,22 @@
 
 
 
-                                    if (DataWisata.val().StatusWisata == 1) {
+                                    if (DataWisata.val().StatusRental == 1) {
                                         StatusData = `<span class="badge badge-success">Aktif</span>`;
                                         if (kontenn.val().StatusMitra == 1) {
                                             StatusDataMitra = `<span class="badge badge-success">Aktif</span>`;
                                             ActionData = `
-                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
-                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
-                                            <button Title="Blokir Wisata" data-id="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="tidakatifWisata btn btn-danger btn-sm m-1"><i class="bi bi-dash-circle"></i></button>
-                                            <button  Title="Blokir Mitra" data-mitra="${keys[isi]}" data-wisata="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="tidakatifMitra btn btn-danger btn-sm m-1"><i class="bi bi-person-x"></i></button>
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Mitra-Rental/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Mitra-Rental/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
+                                            <button Title="Blokir Rental" data-id="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="tidakatifRental btn btn-danger btn-sm m-1"><i class="bi bi-dash-circle"></i></button>
+                                            <button  Title="Blokir Mitra" data-mitra="${keys[isi]}" data-rental="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="tidakatifMitra btn btn-danger btn-sm m-1"><i class="bi bi-person-x"></i></button>
                                             `;
                                         } else {
                                             StatusDataMitra = `<span class="badge badge-secondary">Tidak Aktif</span>`;
                                             ActionData = `
-                                        <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                        <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Mitra-Rental/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                                             
-                                            <button  Title="Aktif Mitra" data-mitra="${keys[isi]}" data-wisata="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="aktifMitra btn btn-success btn-sm m-1"><i class="bi bi-person-x"></i></button>
+                                            <button  Title="Aktif Mitra" data-mitra="${keys[isi]}" data-rental="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="aktifMitra btn btn-success btn-sm m-1"><i class="bi bi-person-x"></i></button>
                                             `;
                                         }
 
@@ -279,25 +279,25 @@
                                         if (kontenn.val().StatusMitra == 1) {
                                             StatusDataMitra = `<span class="badge badge-success">Aktif</span>`;
                                             ActionData = `
-                                          <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
-                                           <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
-                                            <button Title="Aktif Wisata" data-id="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="aktifWisata btn btn-success btn-sm m-1"><i class="bi bi-dash-circle"></i></button>
-                                            <button  Title="Blokir Mitra" data-mitra="${keys[isi]}" data-wisata="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="tidakatifMitra btn btn-danger btn-sm m-1"><i class="bi bi-person-x"></i></button>
+                                          <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Mitra-Rental/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                           <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Mitra-Rental/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
+                                            <button Title="Aktif Rental" data-id="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="aktifRental btn btn-success btn-sm m-1"><i class="bi bi-dash-circle"></i></button>
+                                            <button  Title="Blokir Mitra" data-mitra="${keys[isi]}" data-rental="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="tidakatifMitra btn btn-danger btn-sm m-1"><i class="bi bi-person-x"></i></button>
                                             `;
                                         } else {
                                             StatusDataMitra = `<span class="badge badge-secondary">Tidak Aktif</span>`;
                                             ActionData = `
-                                         <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Mitra-Wisata/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                         <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Mitra-Rental/${keys[isi]}/${DataAccount.val().IDKelolaMitra}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                                            
-                                            <button  Title="Aktif Mitra" data-mitra="${keys[isi]}" data-wisata="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="aktifMitra btn btn-success btn-sm m-1"><i class="bi bi-person-x"></i></button>
+                                            <button  Title="Aktif Mitra" data-mitra="${keys[isi]}" data-rental="${DataAccount.val().IDKelolaMitra}" id="PowerCustomer"  type="button" class="aktifMitra btn btn-success btn-sm m-1"><i class="bi bi-person-x"></i></button>
                                             `;
                                         }
                                     }
 
                                     table.row.add([
                                         kontenn.val().NamaMitra,
-                                        DataWisata.val().NamaWisata,
-                                        DataWisata.val().AlamatWisata,
+                                        DataWisata.val().NamaRental,
+                                        DataWisata.val().AlamatRental,
                                         StatusDataMitra,
                                         StatusData,
                                         ActionData
@@ -317,11 +317,10 @@
 
 
         $(document).on('click', '.tidakatifMitra', function() {
-            var idDataWisata = $(this).data('wisata');
+            var idDataRental = $(this).data('rental');
             var idDataMitra = $(this).data('mitra');
 
-            console.log(idDataWisata)
-            console.log(idDataMitra)
+
 
             Swal.fire({
                 title: 'Apakah Anda Yakin?',
@@ -351,25 +350,24 @@
                         update(ref(db), updates);
                         // table.row.reload();
 
-                        const ValueItemWista = ref(db, 'Master-Data-Wisata/' + idDataWisata);
+                        const ValueItemWista = ref(db, 'Master-Data-Rental/' + idDataRental);
                         onValue(ValueItemWista, (kontennWisata) => {
 
+
                             let PostD = {
-                                NamaWisata: kontennWisata.val().NamaWisata,
-                                HargaDewasa: kontennWisata.val().HargaDewasa,
-                                StatusWisata: 0,
-                                HargaAnak: kontennWisata.val().HargaAnak,
-                                AlamatWisata: kontennWisata.val().AlamatWisata,
+                                NamaRental: kontennWisata.val().NamaRental,
+                                AlamatRental: kontennWisata.val().AlamatRental,
+                                StatusRental: 0,
+                                DeskripsiRental: kontennWisata.val().DeskripsiRental,
                                 TanggalBuat: kontennWisata.val().TanggalBuat,
                                 TanggalUpdate: new Date().toString("ID"),
-                                fotoWisata: kontennWisata.val().fotoWisata,
-                                DeskripsiWisata: kontennWisata.val().DeskripsiWisata,
+                                fotoRental: kontennWisata.val().fotoRental,
                                 Longlitude: kontennWisata.val().Longlitude,
                                 Latitude: kontennWisata.val().Latitude
                             };
-                            const updatesWisata = {};
-                            updatesWisata['/Master-Data-Wisata/' + idDataWisata] = PostD;
-                            update(ref(db), updatesWisata);
+                            const updatesRental = {};
+                            updatesRental['/Master-Data-Rental/' + idDataRental] = PostD;
+                            update(ref(db), updatesRental);
                             // table.row.reload();
 
                             // Swal.fire(
@@ -406,11 +404,10 @@
 
 
         $(document).on('click', '.aktifMitra', function() {
-            var idDataWisata = $(this).data('wisata');
+            var idDataRental = $(this).data('rental');
             var idDataMitra = $(this).data('mitra');
 
-            console.log(idDataWisata)
-            console.log(idDataMitra)
+    
 
             Swal.fire({
                 title: 'Apakah Anda Yakin?',
@@ -440,25 +437,23 @@
                         updates['/Master-Data-Mitra/' + idDataMitra] = PostMitra;
                         update(ref(db), updates);
 
-                        const ValueItemWista = ref(db, 'Master-Data-Wisata/' + idDataWisata);
+                        const ValueItemWista = ref(db, 'Master-Data-Rental/' + idDataRental);
                         onValue(ValueItemWista, (kontennWisata) => {
 
                             let PostD = {
-                                NamaWisata: kontennWisata.val().NamaWisata,
-                                HargaDewasa: kontennWisata.val().HargaDewasa,
-                                StatusWisata: 1,
-                                HargaAnak: kontennWisata.val().HargaAnak,
-                                AlamatWisata: kontennWisata.val().AlamatWisata,
+                                NamaRental: kontennWisata.val().NamaRental,
+                                AlamatRental: kontennWisata.val().AlamatRental,
+                                StatusRental: 1,
+                                DeskripsiRental: kontennWisata.val().DeskripsiRental,
                                 TanggalBuat: kontennWisata.val().TanggalBuat,
                                 TanggalUpdate: new Date().toString("ID"),
-                                fotoWisata: kontennWisata.val().fotoWisata,
-                                DeskripsiWisata: kontennWisata.val().DeskripsiWisata,
+                                fotoRental: kontennWisata.val().fotoRental,
                                 Longlitude: kontennWisata.val().Longlitude,
                                 Latitude: kontennWisata.val().Latitude
                             };
-                            const updatesWisata = {};
-                            updatesWisata['/Master-Data-Wisata/' + idDataWisata] = PostD;
-                            update(ref(db), updatesWisata);
+                            const updatesRental = {};
+                            updatesRental['/Master-Data-Rental/' + idDataRental] = PostD;
+                            update(ref(db), updatesRental);
                             // table.row.reload();
 
                             // Swal.fire(
@@ -493,12 +488,12 @@
             })
         })
 
-        $(document).on('click', '.tidakatifWisata', function() {
+        $(document).on('click', '.tidakatifRental', function() {
             var idData = $(this).data('id');
 
             Swal.fire({
                 title: 'Apakah Anda Yakin?',
-                text: "Untuk Non Aktifkan Wisata Ini ?",
+                text: "Untuk Non Aktifkan Rental Ini ?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -509,23 +504,21 @@
 
                 if (result.isConfirmed) {
 
-                    const ValueItem = ref(db, 'Master-Data-Wisata/' + idData);
+                    const ValueItem = ref(db, 'Master-Data-Rental/' + idData);
                     onValue(ValueItem, (kontenn) => {
                         let PostD = {
-                            NamaWisata: kontenn.val().NamaWisata,
-                            HargaDewasa: kontenn.val().HargaDewasa,
-                            StatusWisata: 0,
-                            HargaAnak: kontenn.val().HargaAnak,
-                            AlamatWisata: kontenn.val().AlamatWisata,
+                            NamaRental: kontenn.val().NamaRental,
+                            AlamatRental: kontenn.val().AlamatRental,
+                            StatusRental: 0,
+                            DeskripsiRental: kontenn.val().DeskripsiRental,
                             TanggalBuat: kontenn.val().TanggalBuat,
                             TanggalUpdate: new Date().toString("ID"),
-                            fotoWisata: kontenn.val().fotoWisata,
-                            DeskripsiWisata: kontenn.val().DeskripsiWisata,
+                            fotoRental: kontenn.val().fotoRental,
                             Longlitude: kontenn.val().Longlitude,
                             Latitude: kontenn.val().Latitude
                         };
                         const updates = {};
-                        updates['/Master-Data-Wisata/' + idData] = PostD;
+                        updates['/Master-Data-Rental/' + idData] = PostD;
                         update(ref(db), updates);
                         // table.row.reload();
 
@@ -558,12 +551,12 @@
             })
         })
 
-        $(document).on('click', '.aktifWisata', function() {
+        $(document).on('click', '.aktifRental', function() {
             var idData = $(this).data('id');
 
             Swal.fire({
                 title: 'Apakah Anda Yakin?',
-                text: "Untuk Aktifkan Wisata Ini ?",
+                text: "Untuk Aktifkan Rental Ini ?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -574,23 +567,21 @@
 
                 if (result.isConfirmed) {
 
-                    const ValueItem = ref(db, 'Master-Data-Wisata/' + idData);
+                    const ValueItem = ref(db, 'Master-Data-Rental/' + idData);
                     onValue(ValueItem, (kontenn) => {
                         let PostD = {
-                            NamaWisata: kontenn.val().NamaWisata,
-                            HargaDewasa: kontenn.val().HargaDewasa,
-                            StatusWisata: 1,
-                            HargaAnak: kontenn.val().HargaAnak,
-                            AlamatWisata: kontenn.val().AlamatWisata,
+                            NamaRental: kontenn.val().NamaRental,
+                            AlamatRental: kontenn.val().AlamatRental,
+                            StatusRental: 1,
+                            DeskripsiRental: kontenn.val().DeskripsiRental,
                             TanggalBuat: kontenn.val().TanggalBuat,
                             TanggalUpdate: new Date().toString("ID"),
-                            fotoWisata: kontenn.val().fotoWisata,
-                            DeskripsiWisata: kontenn.val().DeskripsiWisata,
+                            fotoRental: kontenn.val().fotoRental,
                             Longlitude: kontenn.val().Longlitude,
                             Latitude: kontenn.val().Latitude
                         };
                         const updates = {};
-                        updates['/Master-Data-Wisata/' + idData] = PostD;
+                        updates['/Master-Data-Rental/' + idData] = PostD;
                         update(ref(db), updates);
                         // table.row.reload();
 

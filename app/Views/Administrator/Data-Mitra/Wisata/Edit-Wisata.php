@@ -805,7 +805,7 @@
 
                                         //Update Master Account Wisata
                                         let DataAccount = {
-                                            KataSandiWisata: md5(document.getElementById('pass').value),
+                                            KataSandiMitra: md5(document.getElementById('pass').value),
                                             JenisMitra: "Mitra-Wisata",
                                             IDKelolaMitra: CodeIDWisata
                                         }
@@ -901,7 +901,7 @@
 
                                                     //Update Master Account Wisata
                                                     let DataAccount = {
-                                                        KataSandiWisata: md5(document.getElementById('pass').value),
+                                                        KataSandiMitra: md5(document.getElementById('pass').value),
                                                         JenisMitra: "Mitra-Wisata",
                                                         IDKelolaMitra: CodeIDWisata
                                                     }

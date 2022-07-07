@@ -184,7 +184,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="">Email Mitra<sup><span class="text-danger">*</span></sup></label>
-                                        <input type="text" id="EmailWisata" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                        <input type="text" id="EmailMitra" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
                                 </div>
                                 <div class="col">
@@ -200,7 +200,7 @@
                             </div>
 
                             <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
-                                <i class="bi bi-input-cursor-text text-primary"></i> Data Detail Wisata
+                                <i class="bi bi-input-cursor-text text-primary"></i> Data Detail Rental
                             </div>
 
                             <div class="row">
@@ -217,7 +217,7 @@
                                         </div>
                                         <center>
                                             <div class="image-upload-wrap" style="margin-top: -110px ;">
-                                                <input id="uploadFilee" class="file-upload-input" type='file' onchange="readURL(this);" />
+                                                <input id="uploadFilee" accept="image/*" class="file-upload-input" type='file' onchange="readURL(this);" />
 
                                                 <div class="drag-text mt-4">
                                                     <h6 style="margin-top:-20px;">Drag and drop files or select add Image</h6>
@@ -230,11 +230,7 @@
 
                                     <div class="form-group">
                                         <label for="">Nama Rental<sup><span class="text-danger">*</span></sup></label>
-                                        <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Masukan Nama Rental">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Telefon Rental<sup><span class="text-danger">*</span></sup></label>
-                                        <input type="text" id="namaWisata" class="form-control" style="border-radius: 15px;" placeholder="Masukan Nomor Rental">
+                                        <input type="text" id="namaRental" class="form-control" style="border-radius: 15px;" placeholder="Masukan Nama Rental">
                                     </div>
 
                                 </div>
@@ -246,16 +242,16 @@
                                         <p id="ok"></p>
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Alamat Hotel<sup><span class="text-danger">*</span></sup></label>
+                                        <label for="">Alamat Rental<sup><span class="text-danger">*</span></sup></label>
                                         <textarea readonly class="form-control" style="border-radius: 15px;  height: 41px;" name="alamat" id="alamat" cols="5"></textarea>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="">Deskripsi Rental<sup><span class="text-danger">*</span></sup></label>
-                                        <textarea class="form-control" style="border-radius: 15px; " name="" id="" cols="5"></textarea>
-                                    </div>
-
+                                    <input type="hidden" id="longlitude" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
+                                    <input type="hidden" id="latitude" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Deskripsi Rental<sup><span class="text-danger">*</span></sup></label>
+                                <textarea class="form-control" style="border-radius: 15px; " name="" id="deskripsi" cols="5"></textarea>
                             </div>
 
                             <div class="form-group">
@@ -265,6 +261,7 @@
                                     <button id="hapusDetails" class="btn btn-danger btn-sm m-1" title="Hapus Data" style="border-radius: 15px;"> <i class="bi bi-trash3"></i></button>
                                 </div>
                                 <label for="">Jenis Kendaraan<sup><span class="text-danger">*</span></sup></label>
+                                <p id="alertJenisKendaraan" class="text-danger" style="font-size: 14px; margin-top: -8px;">Jenis kendaraan masih kosong</p>
                             </div>
                             <div class="table-responsive">
                                 <table id="TableDetail" class="table table-striped table-sm">
@@ -294,7 +291,7 @@
                                 </table>
                             </div>
                             <div class="float-right">
-                                <button type="button" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
+                                <button type="button" id="submitDataa" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
                                 <button type="button" onclick="KeluarForm()" class="btn btn-secondary m-1" style="border-radius: 15px;">Close</button>
                             </div>
                         </div>
@@ -443,6 +440,8 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
 
+    <script src="<?= base_url() ?>/MD5/md5.min.js"></script>
+
     <script type="module">
         // Import the functions you need from the SDKs you need
         import {
@@ -481,6 +480,47 @@
         var indexz;
         var fileEditTemps;
 
+        var parseJsonRental = [];
+        var parseJsonPartner = [];
+        var parseJsonEmailPartner = [];
+
+        const starCountRef = ref(db, 'Master-Data-Rental/');
+        onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            const keys = Object.keys(data);
+            for (const isi in keys) {
+                const ValueItem = ref(db, 'Master-Data-Rental/' + keys[isi]);
+                onValue(ValueItem, (kontenn) => {
+
+                    parseJsonRental.push((keys[isi]))
+                })
+            }
+
+        });
+
+        const starCountRef2 = ref(db, 'Master-Data-Mitra/');
+        onValue(starCountRef2, (snapshot) => {
+            const data = snapshot.val();
+            const keys = Object.keys(data);
+            console.log(keys)
+
+            for (const isi in keys) {
+                const ValueItem = ref(db, 'Master-Data-Mitra/' + keys[isi]);
+                onValue(ValueItem, (kontenn) => {
+
+                    parseJsonPartner.push((keys[isi]));
+                    parseJsonEmailPartner.push(kontenn.val().EmailMitra)
+                })
+            }
+
+        });
+        let datg = [];
+        const starCountRefTes = ref(db, 'Master-Data-Rental-Detail/');
+        onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            datg = Object.keys(data);
+        });
+        console.log(datg)
 
         var table = $('#TableDetail').DataTable({
             "lengthChange": false,
@@ -532,6 +572,351 @@
             }
         });
         // $('#namaKendaraan').addClass('is-invalid')
+
+        document.getElementById('submitDataa').addEventListener('click', function() {
+
+            Swal.fire({
+                title: 'Apa anda yakin?',
+                text: "Menyimpan data ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let idData = ['NamaMitra', 'EmailMitra', 'telefonMitra', 'namaRental', 'alamat', 'deskripsi', 'jenis'];
+                    let jumlah = 0;
+                    const fileupload = $('#uploadFilee').prop('files')[0];
+
+                    for (let i = 0; i < idData.length; i++) {
+                        if (i == 6) {
+                            if (localDataDetail.length == 0) {
+                                jumlah++;
+                                $('#alertJenisKendaraan').show()
+                            } else {
+                                $('#alertJenisKendaraan').hide()
+                            }
+                        } else if (document.getElementById(idData[i]).value == "") {
+                            $('#' + idData[i]).addClass('is-invalid')
+                            jumlah++;
+                        } else {
+                            $('#' + idData[i]).removeClass('is-invalid')
+                        }
+                    }
+
+                    if (jumlah == 0) {
+
+                        if (parseJsonEmailPartner.includes((document.getElementById('EmailMitra').value)) == false) {
+                            $('#EmailMitra').removeClass('is-invalid')
+                            var CodeIDRental = "";
+                            var CodeIDMitra = "";
+
+                            if (parseJsonRental.length == 0) {
+                                CodeIDRental = "Rental-1"
+
+                            } else {
+
+                                let lastID = parseJsonRental[parseJsonRental.length - 1]
+                                let spliData = lastID.split('-');
+                                CodeIDRental = "Rental-" + (Number(spliData[1]) + 1)
+
+                            }
+                            if (parseJsonPartner.length == 0) {
+                                CodeIDMitra = "Mitra-1"
+
+                            } else {
+
+                                let lastID = parseJsonPartner[parseJsonPartner.length - 1]
+                                let spliData = lastID.split('-');
+                                CodeIDMitra = "Mitra-" + (Number(spliData[1]) + 1)
+
+                            }
+
+                            if (Boolean(fileupload) == false) {
+                                //Data Master Rental
+                                set(ref(db, 'Master-Data-Rental/' + CodeIDRental), {
+                                    NamaRental: document.getElementById('namaRental').value,
+                                    AlamatRental: document.getElementById('alamat').value,
+                                    DeskripsiRental: document.getElementById('deskripsi').value,
+                                    StatusRental: 1,
+                                    TanggalBuat: new Date().toString("ID"),
+                                    TanggalUpdate: new Date().toString("ID"),
+                                    fotoRental: "",
+                                    Longlitude: document.getElementById('longlitude').value,
+                                    Latitude: document.getElementById('latitude').value
+                                });
+                                //Data Master Wisata
+                                set(ref(db, 'Master-Data-Mitra/' + CodeIDMitra), {
+                                    NamaMitra: document.getElementById('NamaMitra').value,
+                                    EmailMitra: document.getElementById('EmailMitra').value,
+                                    StatusMitra: 1,
+                                    TelefonMitra: document.getElementById('telefonMitra').value + "",
+                                    TanggalBuat: new Date().toString("ID"),
+                                    TanggalUpdate: new Date().toString("ID")
+                                });
+
+                                //Data Master Account Wisata
+                                set(ref(db, 'Master-Data-Account-Mitra/' + CodeIDMitra), {
+                                    KataSandiMitra: md5('12345678'),
+                                    JenisMitra: "Mitra-Rental",
+                                    IDKelolaMitra: CodeIDRental
+                                });
+
+                                for (let h = 0; h < localDataDetail.length; h++) {
+                                    const fileuploadDetail = localDataDetail[h].foto;
+                                    const storageRefDetail = refImage(storage, 'images-rental-detail/' + new Date().getTime() + '-' + fileuploadDetail.name);
+
+                                    const uploadTaskDetail = uploadBytesResumable(storageRefDetail, fileuploadDetail);
+
+                                    uploadTaskDetail.on('state_changed',
+                                        (snapshot) => {
+                                            // Observe state change events such as progress, pause, and resume
+                                            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                            console.log('Upload is ' + progress + '% done');
+                                            switch (snapshot.state) {
+                                                case 'paused':
+                                                    console.log('Upload is paused');
+                                                    break;
+                                                case 'running':
+                                                    console.log('Upload is running');
+                                                    break;
+                                            }
+                                        },
+                                        (error) => {
+                                            // Handle unsuccessful uploads
+                                        },
+                                        () => {
+                                            // Handle successful uploads on complete
+                                            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                                            getDownloadURL(uploadTaskDetail.snapshot.ref).then((downloadURL) => {
+                                                console.log('File available at', downloadURL);
+
+                                                let dataIDDetails = [];
+
+                                                const starCountRef = ref(db, 'Master-Data-Rental-Detail/');
+                                                onValue(starCountRef, (snapshot) => {
+                                                    const data = snapshot.val();
+                                                    dataIDDetails = Object.keys(data);
+                                                });
+                                                let idDetails = 0;
+                                                if (dataIDDetails.length == 0) {
+                                                    idDetails = 1
+                                                } else {
+                                                    idDetails = dataIDDetails[dataIDDetails.length] + 1
+                                                }
+
+                                                console.log(idDetails)
+
+                                                //Data Master Details
+                                                set(ref(db, 'Master-Data-Rental-Detail/' + idDetails), {
+                                                    NamaKendaraan: localDataDetail[h].namaKendaraan,
+                                                    UkuranKendaraan: localDataDetail[h].ukuranKendaraan,
+                                                    StatusKendaraan: 1,
+                                                    HargaSewa: localDataDetail[h].harga,
+                                                    JumlahKursi: localDataDetail[h].kursi,
+                                                    TanggalBuat: new Date().toString("ID"),
+                                                    TanggalUpdate: new Date().toString("ID"),
+                                                    fotoKendaraan: downloadURL,
+                                                    deskripsiKendaraan: localDataDetail[h].deskripsi,
+                                                    IdRental: CodeIDRental
+                                                });
+
+
+                                            });
+                                        }
+                                    );
+
+
+                                }
+                                Swal.fire({
+                                    title: 'Berhasil',
+                                    text: 'Data berhasil tersimpan.',
+                                    icon: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Okey'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.href = "<?= base_url() ?>/Mitra-Rental"
+                                    }
+                                })
+
+
+                            } else {
+                                const storageRef = refImage(storage, 'images-rental/' + new Date().getTime() + '-' + fileupload.name);
+
+                                // Upload the file and metadata
+                                const uploadTask = uploadBytesResumable(storageRef, fileupload);
+
+                                // Register three observers:
+                                // 1. 'state_changed' observer, called any time the state changes
+                                // 2. Error observer, called on failure
+                                // 3. Completion observer, called on successful completion
+                                uploadTask.on('state_changed',
+                                    (snapshot) => {
+                                        // Observe state change events such as progress, pause, and resume
+                                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                        console.log('Upload is ' + progress + '% done');
+                                        switch (snapshot.state) {
+                                            case 'paused':
+                                                console.log('Upload is paused');
+                                                break;
+                                            case 'running':
+                                                console.log('Upload is running');
+                                                break;
+                                        }
+                                    },
+                                    (error) => {
+                                        // Handle unsuccessful uploads
+                                    },
+                                    () => {
+                                        // Handle successful uploads on complete
+                                        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                            console.log('File available at', downloadURL);
+                                            //Data Master Rental
+                                            set(ref(db, 'Master-Data-Rental/' + CodeIDRental), {
+                                                NamaRental: document.getElementById('namaRental').value,
+                                                AlamatRental: document.getElementById('alamat').value,
+                                                DeskripsiRental: document.getElementById('deskripsi').value,
+                                                StatusRental: 1,
+                                                TanggalBuat: new Date().toString("ID"),
+                                                TanggalUpdate: new Date().toString("ID"),
+                                                fotoRental: downloadURL,
+                                                Longlitude: document.getElementById('longlitude').value,
+                                                Latitude: document.getElementById('latitude').value
+                                            });
+                                            //Data Master Wisata
+                                            set(ref(db, 'Master-Data-Mitra/' + CodeIDMitra), {
+                                                NamaMitra: document.getElementById('NamaMitra').value,
+                                                EmailMitra: document.getElementById('EmailMitra').value,
+                                                StatusMitra: 1,
+                                                TelefonMitra: document.getElementById('telefonMitra').value + "",
+                                                TanggalBuat: new Date().toString("ID"),
+                                                TanggalUpdate: new Date().toString("ID")
+                                            });
+
+                                            //Data Master Account Wisata
+                                            set(ref(db, 'Master-Data-Account-Mitra/' + CodeIDMitra), {
+                                                KataSandiMitra: md5('12345678'),
+                                                JenisMitra: "Mitra-Rental",
+                                                IDKelolaMitra: CodeIDRental
+                                            });
+
+                                            for (let h = 0; h < localDataDetail.length; h++) {
+                                                const fileuploadDetail = localDataDetail[h].foto;
+                                                const storageRefDetail = refImage(storage, 'images-rental-detail/' + new Date().getTime() + '-' + fileuploadDetail.name);
+
+                                                const uploadTaskDetail = uploadBytesResumable(storageRefDetail, fileuploadDetail);
+
+                                                uploadTaskDetail.on('state_changed',
+                                                    (snapshot) => {
+                                                        // Observe state change events such as progress, pause, and resume
+                                                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                                        console.log('Upload is ' + progress + '% done');
+                                                        switch (snapshot.state) {
+                                                            case 'paused':
+                                                                console.log('Upload is paused');
+                                                                break;
+                                                            case 'running':
+                                                                console.log('Upload is running');
+                                                                break;
+                                                        }
+                                                    },
+                                                    (error) => {
+                                                        // Handle unsuccessful uploads
+                                                    },
+                                                    () => {
+                                                        // Handle successful uploads on complete
+                                                        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                                                        getDownloadURL(uploadTaskDetail.snapshot.ref).then((downloadURL2) => {
+                                                            console.log('File available at', downloadURL2);
+
+                                                            let dataIDDetails = [];
+
+                                                            const starCountRef = ref(db, 'Master-Data-Rental-Detail/');
+                                                            onValue(starCountRef, (snapshot) => {
+                                                                const data = snapshot.val();
+                                                                dataIDDetails = Object.keys(data);
+                                                            });
+                                                            let idDetails = 0;
+                                                            if (dataIDDetails.length == 0) {
+                                                                idDetails = 1
+                                                            } else {
+                                                                idDetails = dataIDDetails[dataIDDetails.length] + 1
+                                                            }
+
+                                                            console.log(idDetails)
+
+                                                            //Data Master Details
+                                                            set(ref(db, 'Master-Data-Rental-Detail/' + idDetails), {
+                                                                NamaKendaraan: localDataDetail[h].namaKendaraan,
+                                                                UkuranKendaraan: localDataDetail[h].ukuranKendaraan,
+                                                                StatusKendaraan: 1,
+                                                                HargaSewa: localDataDetail[h].harga,
+                                                                JumlahKursi: localDataDetail[h].kursi,
+                                                                TanggalBuat: new Date().toString("ID"),
+                                                                TanggalUpdate: new Date().toString("ID"),
+                                                                fotoKendaraan: downloadURL2,
+                                                                deskripsiKendaraan: localDataDetail[h].deskripsi,
+                                                                IdRental: CodeIDRental
+                                                            });
+
+
+                                                        });
+                                                    }
+                                                );
+
+
+                                            }
+                                        });
+                                    }
+                                );
+
+                                Swal.fire({
+                                    title: 'Berhasil',
+                                    text: 'Data berhasil tersimpan.',
+                                    icon: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Okey'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.href = "<?= base_url() ?>/Mitra-Rental"
+                                    }
+                                })
+                            }
+
+
+                        } else {
+                            $('#EmailMitra').addClass('is-invalid')
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Email sudah digunakan!'
+                            })
+                        }
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Kolom pengisian Tidak Boleh Kosong!'
+                        })
+                    }
+
+
+                }
+            })
+
+        })
 
         document.getElementById('hapusDetails').addEventListener('click', function() {
 
@@ -857,6 +1242,7 @@
         $('.image-title').hide()
         $('#NoneImage').show()
 
+        $('#alertJenisKendaraan').hide()
         document.getElementById('hapusDetails').disabled = true
         document.getElementById('EditDetails').disabled = true
 
@@ -1011,6 +1397,8 @@
             const lngLat = marker.getLngLat();
             coordinates.style.display = 'block';
             coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+            document.getElementById('latitude').value = lngLat.lat
+            document.getElementById('longlitude').value = lngLat.lng
 
             $.ajax({
                 url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw`,
