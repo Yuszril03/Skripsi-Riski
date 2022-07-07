@@ -864,6 +864,8 @@
         // $('#namaKendaraan').addClass('is-invalid')
 
         document.getElementById('nonaktifdata').addEventListener('click', function() {
+
+
             Swal.fire({
                 title: 'Apa anda yakin',
                 text: "Menonaktifkan data ini!",
@@ -899,8 +901,10 @@
                         let StatusDataDetails = "";
                         if (localDataDetail[j].StatussKendaraan == 1) {
                             StatusDataDetails = `<span class="badge badge-success">Aktif</span>`;
-                        } else {
+                        } else if (localDataDetail[j].StatussKendaraan == 0) {
                             StatusDataDetails = `<span class="badge badge-secondary">Non-Aktif</span>`;
+                        } else {
+                            StatusDataDetails = `<span class="badge badge-danger">Belum Tersimpan</span>`;
                         }
                         table.row.add([
                             `<input type="hidden" name="idDetailT[]" value="${localDataDetail[j].idDetail}">
@@ -972,8 +976,10 @@
                         let StatusDataDetails = "";
                         if (localDataDetail[j].StatussKendaraan == 1) {
                             StatusDataDetails = `<span class="badge badge-success">Aktif</span>`;
-                        } else {
+                        } else if (localDataDetail[j].StatussKendaraan == 0) {
                             StatusDataDetails = `<span class="badge badge-secondary">Non-Aktif</span>`;
+                        } else {
+                            StatusDataDetails = `<span class="badge badge-danger">Belum Tersimpan</span>`;
                         }
                         table.row.add([
                             `<input type="hidden" name="idDetailT[]" value="${localDataDetail[j].idDetail}">
