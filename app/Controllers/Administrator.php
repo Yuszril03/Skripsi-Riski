@@ -59,19 +59,39 @@ class Administrator extends BaseController
     //Mitra Hotel
     public function MitraHotel()
     {
-        return view('Administrator/Data-Mitra/Hotel/Mitra-Hotel');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Hotel/Mitra-Hotel');
+        }
+        
     }
     public function TambahMitraHotel()
     {
-        return view('Administrator/Data-Mitra/Hotel/Add-Hotel');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Hotel/Add-Hotel');
+        }
+        
     }
     public function EditMitraHotel($id = false)
     {
-        return view('Administrator/Data-Mitra/Hotel/Edit-Hotel');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Hotel/Edit-Hotel');
+        }
+       
     }
     public function DetailMitraHotel($id = false)
     {
-        return view('Administrator/Data-Mitra/Hotel/Detail-Hotel');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Hotel/Detail-Hotel');
+        }
+        
     }
 
 
