@@ -29,6 +29,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url() ?>/AdminLTE/plugins/summernote/summernote-bs4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -66,7 +67,7 @@
             <section class="content">
                 <div class="container-fluid">
                     <div class="float-right">
-                        <button onclick=" location.href=' <?= base_url() ?>/Tambah-Data-Customer'" style="border-radius: 15px;" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah Customer</button>
+                        <button onclick=" location.href=' <?= base_url() ?>/Tambah-Data-Customer'" style="border-radius: 15px;" class="btn btn-success"><i class="bi bi-plus-circle"></i> Tambah Customer</button>
                     </div>
                 </div>
                 <br>
@@ -181,7 +182,6 @@
         const db = getDatabase();
 
 
-        var parseJsonCustomer = [];
         var table = $('#Table').DataTable({
             "lengthChange": false,
             "language": {
@@ -202,6 +202,10 @@
         LoadData()
 
         function LoadData() {
+            table
+                .clear()
+                .draw(false);
+            var parseJsonCustomer = [];
             const starCountRef = ref(db, 'Master-Data-Customer/');
             onValue(starCountRef, (snapshot) => {
                 const data = snapshot.val();
@@ -215,11 +219,14 @@
                             Gender: kontenn.val().Gender,
                             Telefon: kontenn.val().TelefonCustomer,
                             Status: kontenn.val().StatusCustomer,
-                            Email: kontenn.val().EmailCustomer
+                            Email: kontenn.val().EmailCustomer,
+                            fotoCustomer: kontenn.val().fotoCustomer
                         };
                         parseJsonCustomer.push(PostD)
                     })
                 }
+
+
 
                 for (let i = 0; i < parseJsonCustomer.length; i++) {
                     let StatusData = '';
@@ -227,14 +234,14 @@
                     if (parseJsonCustomer[i].Status == 1) {
                         StatusData = `<span class="badge badge-success">Aktif</span>`;
                         ActionData = `
-                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
-                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-warning btn-sm m-1"><i class="fa fa-pen-alt"></i></button>
-                                            <button id="PowerCustomer" onclick="TidakAktif(${parseJsonCustomer[i].IDkey})"  type="button" class="btn btn-danger btn-sm m-1"><i class="fas fa-power-off"></i></button>`;
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
+                                            <button data-id="${parseJsonCustomer[i].IDkey}" id="PowerCustomer"  type="button" class="tidakatif btn btn-danger btn-sm m-1"><i class="bi bi-power"></i></button>`;
                     } else {
                         StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
                         ActionData = `
-                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
-                                            <button id="PowerCustomer" onclick="Aktif(${parseJsonCustomer[i].IDkey})"  type="button" class="btn btn-success btn-sm"><i class="fas fa-power-off"></i></button>`;
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Customer/${parseJsonCustomer[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                            <button data-id="${parseJsonCustomer[i].IDkey}" id="PowerCustomer"  type="button" class="aktif btn btn-success btn-sm"><i class="bi bi-power"></i></button>`;
                     }
 
                     if (parseJsonCustomer[i].Gender == 1) {
@@ -260,35 +267,31 @@
                 }
 
 
+
+                if ((document.getElementById('Table').rows.length - 1) == 0) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Gagal Memuat Data.',
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Okey'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                }
+
+
             });
         }
 
-        function Aktif() {
-
-            Swal.fire({
-                title: 'Apakah Anda Yakin?',
-                text: "Untuk Aktifkan Customer Ini ?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Iya!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                }
-            })
-
-        }
-
-        function TidakAktif(idData) {
 
 
+        $(document).on('click', '.tidakatif', function() {
+            var idData = $(this).data('id');
 
             Swal.fire({
                 title: 'Apakah Anda Yakin?',
@@ -302,25 +305,111 @@
             }).then((result) => {
 
                 if (result.isConfirmed) {
-                    const upddd = {
-                        StatusCustomer: 0
-                    }
 
-                    const updates = {};
-                    updates['/Master-Data-Customer/' + idData] = upddd;
-                    update(ref(db), updates);
+                    const ValueItem = ref(db, 'Master-Data-Customer/' + idData);
+                    onValue(ValueItem, (kontenn) => {
+                        let PostD = {
+                            NamaCustomer: kontenn.val().NamaCustomer,
+                            Gender: kontenn.val().Gender,
+                            TelefonCustomer: kontenn.val().TelefonCustomer,
+                            StatusCustomer: 0,
+                            EmailCustomer: kontenn.val().EmailCustomer,
+                            fotoCustomer: kontenn.val().fotoCustomer,
+                            TanggalLahirCustomer: kontenn.val().TanggalLahirCustomer,
+                            AlamatCustomer: kontenn.val().AlamatCustomer,
+                            TanggalBuat: kontenn.val().TanggalBuat,
+                            TanggalUpdate: new Date().toLocaleString("id-ID"),
+                        };
+                        const updates = {};
+                        updates['/Master-Data-Customer/' + idData] = PostD;
+                        update(ref(db), updates);
+                        // table.row.reload();
 
-                    LoadData()
-                    localtion.href = 
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
+                        Swal.fire(
+                            'Berhasil!',
+                            'Data berhasil di non aktifkan.',
+                            'success'
+                        )
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Data berhasil di non aktifkan.',
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Okey'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+
+                        // LoadData()
+                    })
+
+
+
+
                 }
             })
+        })
 
-        }
+        $(document).on('click', '.aktif', function() {
+            var idData = $(this).data('id');
+
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Untuk Aktifkan Customer Ini ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const ValueItem = ref(db, 'Master-Data-Customer/' + idData);
+                    onValue(ValueItem, (kontenn) => {
+                        let PostD = {
+                            NamaCustomer: kontenn.val().NamaCustomer,
+                            Gender: kontenn.val().Gender,
+                            TelefonCustomer: kontenn.val().TelefonCustomer,
+                            StatusCustomer: 1,
+                            EmailCustomer: kontenn.val().EmailCustomer,
+                            fotoCustomer: kontenn.val().fotoCustomer,
+                            TanggalLahirCustomer: kontenn.val().TanggalLahirCustomer,
+                            AlamatCustomer: kontenn.val().AlamatCustomer,
+                            TanggalBuat: kontenn.val().TanggalBuat,
+                            TanggalUpdate: new Date().toLocaleString("id-ID"),
+                        };
+                        const updates = {};
+                        updates['/Master-Data-Customer/' + idData] = PostD;
+                        update(ref(db), updates);
+                        // table.row.reload();
+                        Swal.fire(
+                            'Berhasil!',
+                            'Data berhasil di aktifkan.',
+                            'success'
+                        )
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Data berhasil di aktifkan.',
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Okey'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+
+                        // LoadData()
+                    })
+                }
+            })
+        })
     </script>
 
 </body>

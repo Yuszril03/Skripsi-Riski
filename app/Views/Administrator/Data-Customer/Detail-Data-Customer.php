@@ -4,7 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Administrator - Home</title>
+    <title>TraveLand - Detail Customer</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>/Image/Icon/LogoAJA.png" />
+
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -30,6 +33,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
     <style>
         .file-upload {
@@ -122,13 +126,36 @@
             padding: 20px;
             border-radius: 15px;
         }
+
+        .coverImage {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to left, yellow, orange);
+            border-radius: 20px;
+            padding-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .borderImage {
+            background-color: white;
+            width: 150px;
+            height: 150px;
+            border-radius: 100px;
+        }
+
+        .imageData {
+            width: 140px;
+            height: 140px;
+            border-radius: 90px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-       
+
 
         <!-- Navbar -->
         <?= view('Administrator/Template-Admin/Header') ?>
@@ -147,16 +174,16 @@
                             <!-- <h1 class="m-0">Detail Berita & Event</h1> -->
 
                             <h1 class="m-0">
-                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Data-User`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
-                                Detail User
+                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Data-Customer`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
+                                Detail Customer
                             </h1>
 
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Data User</li>
-                                <li class="breadcrumb-item active">Detail User</li>
+                                <li class="breadcrumb-item"><a href="<?= base_url() ?>/Beranda-Admin">Home</a></li>
+                                <li class="breadcrumb-item active">Data Customer</li>
+                                <li class="breadcrumb-item active">Detail Customer</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -168,48 +195,82 @@
                 <div class="container-fluid">
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
-                            <!-- image -->
+
+                            <div class="coverImage">
+                                <center>
+                                    <!-- <img src="<?= base_url() ?>/Image/Icon/UploadProfile.svg" width="300" id="NoneImage" alt=""> -->
+                                    <div class="borderImage">
+                                        <img id="imgCust" src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="150" class="imageData" alt="">
+                                    </div>
+                                    <h5 id="namaCust" class="mt-1 font-weight-bold">Nama Pengguna</h5>
+                                </center>
+                            </div>
+
+                            <!-- image
                             <div class="coverBerita">
                                 <img src="<?= base_url() ?>/Image/Icon/UploadProfile.svg" width="300" id="NoneImage" alt="">
-                            </div>
+                            </div> -->
                             <!-- /image -->
-                            <form action="">
-                                <div class="row">
-                                    <div class="col-lg-5 col-12">
-                                        <div class="form-group">
-                                            <p style="color: gray;">Nama Pengguna</p>
-                                            <p class="font-weight-bold" style="margin-top: -15px;">Anto Chibi</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <p style="color: gray;">Email</p>
-                                            <p class="font-weight-bold" style="margin-top: -15px;">harahara@gmail.com</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <p style="color: gray;">Alamat</p>
-                                            <p class="font-weight-bold" style="margin-top: -15px;">Jl.fgsdfyugsgfsgfsgfsgfbysaudtrysgfyusdfgsdyuhfbsadhufusdafhsaudifhasudgfyegfsudahfsjadkhfsjadkfgyaegdshf</p>
-                                        </div>
+                            <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
+                                <i class="bi bi-person text-primary"></i> Data Personal
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-12">
+
+                                    <div class="form-group">
+                                        <p style="color: gray;">Email</p>
+                                        <p class="font-weight-bold" id="emailCUst" style="margin-top: -15px;">None</p>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="form-group">
+                                        <p style="color: gray;">Jenis Kelamin</p>
+                                        <p class="font-weight-bold" id="genderCust" style="margin-top: -15px;">None</p>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-6 col-12">
+
+                                    <div class="form-group">
+                                        <p style="color: gray;">No Telp</p>
+                                        <p class="font-weight-bold" id="nomorCust" style="margin-top: -15px;">None</p>
 
                                     </div>
-                                    <div class="col-lg-5 col-12">
 
-                                        <div class="form-group">
-                                            <p style="color: gray;">No Telp</p>
-                                            <p class="font-weight-bold" style="margin-top: -15px;">084556785858</p>
-
-                                        </div>
-                                        <div class="form-group">
-                                            <p style="color: gray;">Jenis Kelamin</p>
-                                            <p class="font-weight-bold" style="margin-top: -15px;">L</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <p style="color: gray;">Tanggal Lahir</p>
-                                            <p class="font-weight-bold" style="margin-top: -15px;">12/04/1995</p>
-                                        </div>
+                                    <div class="form-group">
+                                        <p style="color: gray;">Tanggal Lahir</p>
+                                        <p class="font-weight-bold" id="tglCust" style="margin-top: -15px;">None</p>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                            <div class="form-group">
+                                <p style="color: gray;">Alamat</p>
+                                <p class="font-weight-bold" id="alamatCust" style="margin-top: -15px;">None</p>
+                            </div>
+                            <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
+                                <i class="bi bi-postcard text-orange"></i> Data Lainnya
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-12">
+
+                                    <div class="form-group">
+                                        <p style="color: gray;">Tanggal Buat</p>
+                                        <p class="font-weight-bold" id="created" style="margin-top: -15px;">None</p>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-lg-6 col-12">
+
+                                    <div class="form-group">
+                                        <p style="color: gray;">Tanggal Pembaruan</p>
+                                        <p class="font-weight-bold" id="modified" style="margin-top: -15px;">None</p>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
             </section>
@@ -260,89 +321,104 @@
     <script src="<?= base_url() ?>/AdminLTE/dists/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
-</body>
 
-<script>
-    $('#btnCancelImage').hide()
-    $('#AddImage').hide()
-    $('.image-title').hide()
-    $('#NoneImage').show()
+    <script type="module">
+        console.log(<?= $DataID ?>)
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            set,
+            update
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+        import {
+            getStorage,
+            ref as refImage,
+            uploadBytesResumable,
+            getDownloadURL
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-storage.js";
 
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                $('.image-upload-wrap').hide();
-
-                $('.file-upload-image').attr('src', e.target.result);
-                $('.file-upload-content').show();
-
-                $('.image-title').html(input.files[0].name);
-
-                $('#AddImage').show()
-                $('#NoneImage').hide()
-
-                document.getElementById('AddImage').src = e.target.result;
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+            authDomain: "traveland-429a6.firebaseapp.com",
+            databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "traveland-429a6",
+            storageBucket: "traveland-429a6.appspot.com",
+            messagingSenderId: "569185605053",
+            appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const storage = getStorage();
+        var parseJsonAdmin = {};
+        const ValueItem = ref(db, 'Master-Data-Customer/<?= $DataID ?>');
+        onValue(ValueItem, (kontenn) => {
+            let PostD = {
+                Nama: kontenn.val().NamaCustomer,
+                Gender: kontenn.val().Gender,
+                Telefon: kontenn.val().TelefonCustomer,
+                Status: kontenn.val().StatusCustomer,
+                Email: kontenn.val().EmailCustomer,
+                Alamat: kontenn.val().AlamatCustomer,
+                tanggalLahir: kontenn.val().TanggalLahirCustomer,
+                TanggalBuat: kontenn.val().TanggalBuat,
+                TanggalUpdate: kontenn.val().TanggalUpdate,
+                fotoCustomer: kontenn.val().fotoCustomer
             };
-            $('#btnCancelImage').show()
-            $('.image-title').show()
-            reader.readAsDataURL(input.files[0]);
+            parseJsonAdmin = (PostD)
+            if (Boolean(parseJsonAdmin) == false) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Gagal Memuat Data.',
+                    icon: 'error',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Okey'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                })
+            } else {
+                if (kontenn.val().fotoCustomer == "") {
+
+                } else {
+                    document.getElementById('imgCust').src = kontenn.val().fotoCustomer
+                }
+
+                if (kontenn.val().Gender == 1) {
+                    document.getElementById('genderCust').innerHTML = "Laki-Laki"
+                } else {
+                    document.getElementById('genderCust').innerHTML = "Perempuan"
+
+                }
+
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+
+                document.getElementById('namaCust').innerHTML = kontenn.val().NamaCustomer
+                document.getElementById('emailCUst').innerHTML = kontenn.val().EmailCustomer
+                document.getElementById('nomorCust').innerHTML = kontenn.val().TelefonCustomer
+                document.getElementById('tglCust').innerHTML = new Date(kontenn.val().TanggalLahirCustomer).toLocaleDateString("id-ID", options)
+                document.getElementById('alamatCust').innerHTML = kontenn.val().AlamatCustomer
+                document.getElementById('modified').innerHTML = kontenn.val().TanggalUpdate
+                document.getElementById('created').innerHTML = kontenn.val().TanggalBuat
+            }
 
 
-        } else {
-            removeUpload();
-        }
-    }
 
-    function removeUpload() {
-        document.getElementById("uploadFilee").value = "";
-        $('#btnCancelImage').hide()
-        $('#AddImage').hide()
-        $('#NoneImage').show()
-        $('.image-title').hide()
-        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-        $('.file-upload-content').hide();
-        $('.image-upload-wrap').show();
-    }
-    $('.image-upload-wrap').bind('dragover', function() {
-        $('.image-upload-wrap').addClass('image-dropping');
-    });
-    $('.image-upload-wrap').bind('dragleave', function() {
-        $('.image-upload-wrap').removeClass('image-dropping');
-    });
-
-    mapboxgl.accessToken = 'pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw';
-    const coordinates = document.getElementById('coordinates');
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [117.1485239363954, -0.569178092470267],
-        zoom: 10
-    });
-
-    const marker = new mapboxgl.Marker({
-            draggable: true
         })
-        .setLngLat([117.1485239363954, -0.569178092470267])
-        .addTo(map);
-
-    function onDragEnd() {
-        const lngLat = marker.getLngLat();
-        coordinates.style.display = 'block';
-        coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
-
-        $.ajax({
-            url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?worldview=cn&access_token=pk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNrZ3RmZHl3ejE5bTcyemxxc3BqeG5rdzcifQ.vOHwk-VTL573m2d6BfpLPw`,
-            dataType: "JSON"
-        }).done(result => {
-            $("#alamat-BeritaEvent").val(result.features[0].place_name)
-        })
-
-    }
-
-    marker.on('dragend', onDragEnd);
-</script>
+    </script>
+</body>
 
 </html>

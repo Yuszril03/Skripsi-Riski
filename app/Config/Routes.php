@@ -37,21 +37,21 @@ $routes->get('/Beranda-Admin', 'Administrator::index');
 //Wisata
 $routes->get('/Mitra-Wisata', 'Administrator::MitraWisata');
 $routes->get('/Tambah-Mitra-Wisata', 'Administrator::TambahMitraWisata');
-$routes->get('/Edit-Mitra-Wisata', 'Administrator::EditMitraWisata');
-$routes->get('/Detail-Mitra-Wisata', 'Administrator::DetailMitraWisata');
+$routes->get('/Edit-Mitra-Wisata' . '/(:any)' . '/(:any)', 'Administrator::EditMitraWisata/$1/$2');
+$routes->get('/Detail-Mitra-Wisata' . '/(:any)' . '/(:any)', 'Administrator::DetailMitraWisata/$1/$2');
 
 //Hotel
 $routes->get('/Mitra-Hotel', 'Administrator::MitraHotel');
 $routes->get('/Tambah-Mitra-Hotel', 'Administrator::TambahMitraHotel');
-$routes->get('/Edit-Mitra-Hotel', 'Administrator::EditMitraHotel');
-$routes->get('/Detail-Mitra-Hotel', 'Administrator::DetailMitraHotel');
+$routes->get('/Edit-Mitra-Hotel' . '/(:any)' . '/(:any)', 'Administrator::EditMitraHotel/$1/$2');
+$routes->get('/Detail-Mitra-Hotel' . '/(:any)' . '/(:any)', 'Administrator::DetailMitraHotel/$1/$2');
 
 
 //Rental
 $routes->get('/Mitra-Rental', 'Administrator::MitraRental');
 $routes->get('/Tambah-Mitra-Rental', 'Administrator::TambahMitraRental');
-$routes->get('/Edit-Mitra-Rental', 'Administrator::EditMitraRental');
-$routes->get('/Detail-Mitra-Rental', 'Administrator::DetailMitraRental');
+$routes->get('/Edit-Mitra-Rental' . '/(:any)' . '/(:any)', 'Administrator::EditMitraRental/$1/$2');
+$routes->get('/Detail-Mitra-Rental' . '/(:any)' . '/(:any)', 'Administrator::DetailMitraRental/$1/$2');
 
 //Pemesanan
 $routes->get('/Pemesanan-Wisata', 'Administrator::PemesananWisata');
@@ -72,8 +72,8 @@ $routes->get('/Edit-Data-Kegiatan' . '/(:any)', 'Administrator::editBeritaEvent/
 //Data User
 $routes->get('/Data-Customer', 'Administrator::DataCustomer');
 $routes->get('/Tambah-Data-Customer', 'Administrator::tambahDataCustomer');
-$routes->get('/Edit-Data-Customer', 'Administrator::editDataCustomer');
-$routes->get('/Detail-Data-Customer', 'Administrator::detailDataCustomer');
+$routes->get('/Edit-Data-Customer' . '/(:any)', 'Administrator::editDataCustomer/$1');
+$routes->get('/Detail-Data-Customer' . '/(:any)', 'Administrator::detailDataCustomer/$1');
 
 //Review
 $routes->get('/Reting-Komentar', 'Administrator::RetingKomentar');

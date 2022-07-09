@@ -17,57 +17,129 @@ class Administrator extends BaseController
     //Mitra Wisata
     public function MitraWisata()
     {
-        return view('Administrator/Data-Mitra/Wisata/Mitra-Wisata');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Wisata/Mitra-Wisata');
+        }
     }
     public function TambahMitraWisata()
     {
-        return view('Administrator/Data-Mitra/Wisata/Add-Wisata');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Wisata/Add-Wisata');
+        }
     }
-    public function EditMitraWisata($id = false)
+    public function EditMitraWisata($idMitra = false, $idWisata = false)
     {
-        return view('Administrator/Data-Mitra/Wisata/Edit-Wisata');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            $data = [
+                'DataIDMitra' => $idMitra,
+                'DataIDWisata' => $idWisata
+            ];
+            return view('Administrator/Data-Mitra/Wisata/Edit-Wisata', $data);
+        }
     }
-    public function DetailMitraWisata($id = false)
+    public function DetailMitraWisata($idMitra = false, $idWisata = false)
     {
-        return view('Administrator/Data-Mitra/Wisata/Detail-Wisata');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            $data = [
+                'DataIDMitra' => $idMitra,
+                'DataIDWisata' => $idWisata
+            ];
+            return view('Administrator/Data-Mitra/Wisata/Detail-Wisata', $data);
+        }
     }
 
     //Mitra Hotel
     public function MitraHotel()
     {
-        return view('Administrator/Data-Mitra/Hotel/Mitra-Hotel');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Hotel/Mitra-Hotel');
+        }
     }
     public function TambahMitraHotel()
     {
-        return view('Administrator/Data-Mitra/Hotel/Add-Hotel');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Hotel/Add-Hotel');
+        }
     }
-    public function EditMitraHotel($id = false)
+    public function EditMitraHotel($idMitra = false, $idHotel = false)
     {
-        return view('Administrator/Data-Mitra/Hotel/Edit-Hotel');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            $data = [
+                'DataIDMitra' => $idMitra,
+                'DataIDHotel' => $idHotel
+            ];
+            return view('Administrator/Data-Mitra/Hotel/Edit-Hotel', $data);
+        }
     }
-    public function DetailMitraHotel($id = false)
+    public function DetailMitraHotel($idMitra = false, $idHotel = false)
     {
-        return view('Administrator/Data-Mitra/Hotel/Detail-Hotel');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            $data = [
+                'DataIDMitra' => $idMitra,
+                'DataIDHotel' => $idHotel
+            ];
+            return view('Administrator/Data-Mitra/Hotel/Detail-Hotel', $data);
+        }
     }
 
 
     //Mitra Rental
     public function MitraRental()
     {
-        return view('Administrator/Data-Mitra/Rental/Mitra-Rental');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Rental/Mitra-Rental');
+        }
     }
     public function TambahMitraRental()
     {
-        return view('Administrator/Data-Mitra/Rental/Add-Rental');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Mitra/Rental/Add-Rental');
+        }
     }
-    public function EditMitraRental($id = false)
+    public function EditMitraRental($idMitra = false, $idRental = false)
     {
-        return view('Administrator/Data-Mitra/Rental/Edit-Rental');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            $data = [
+                'DataIDMitra' => $idMitra,
+                'DataIDRental' => $idRental
+            ];
+            return view('Administrator/Data-Mitra/Rental/Edit-Rental', $data);
+        }
     }
 
-    public function DetailMitraRental($id = false)
+    public function DetailMitraRental($idMitra = false, $idRental = false)
     {
-        return view('Administrator/Data-Mitra/Rental/Detail-Rental');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            $data = [
+                'DataIDMitra' => $idMitra,
+                'DataIDRental' => $idRental
+            ];
+            return view('Administrator/Data-Mitra/Rental/Detail-Rental', $data);
+        }
     }
 
     //Pemesanan
@@ -108,22 +180,44 @@ class Administrator extends BaseController
         return view('Administrator/Kegiatan/Edit-Data-Kegiatan',$data);
     }
 
-    //Data User
+    //Data Customer
     public function DataCustomer()
     {
-        return view('Administrator/Data-Customer/Data-Customer');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Customer/Data-Customer');
+        }
     }
     public function tambahDataCustomer()
     {
-        return view('Administrator/Data-Customer/Tambah-Data-Customer');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            return view('Administrator/Data-Customer/Tambah-Data-Customer');
+        }
     }
-    public function editDataCustomer()
+    public function editDataCustomer($id = false)
     {
-        return view('Administrator/Data-Customer/Edit-Data-Customer');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            $data = [
+                'DataID' => $id
+            ];
+            return view('Administrator/Data-Customer/Edit-Data-Customer', $data);
+        }
     }
-    public function detailDataCustomer()
+    public function detailDataCustomer($id = false)
     {
-        return view('Administrator/Data-Customer/Detail-Data-Customer');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else {
+            $data = [
+                'DataID' => $id
+            ];
+            return view('Administrator/Data-Customer/Detail-Data-Customer', $data);
+        }
     }
     public function RetingKomentar()
     {

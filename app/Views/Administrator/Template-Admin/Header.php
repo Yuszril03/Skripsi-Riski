@@ -1,6 +1,6 @@
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__shake" src="<?= base_url() ?>/Image/Icon/penuhLogo.png" alt="AdminLTELogo"  width="160">
+      <img class="animation__shake" src="<?= base_url() ?>/Image/Icon/penuhLogo.png" alt="AdminLTELogo" width="160">
   </div>
 
   <nav class="main-header navbar navbar-expand navbar-light navbar-warning">
@@ -45,27 +45,18 @@
           </li>
           <li class="nav-item dropdown">
               <a class="nav-link" data-toggle="dropdown" href="#">
-                  <i class="far fa-user-circle text-white"></i>
+                  <i class="bi bi-person-circle text-white"></i>
               </a>
-              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                  <span class="dropdown-item dropdown-header">15 Notifications</span>
-                  <div class="dropdown-divider"></div>
+              <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                  <p class="ml-3 mt-2 mb-2 text-bold text-muted">Hai, <span id="subNamaHEader" class="text-capitalize"></span><?= session()->get('Nama') ?>!</p>
                   <a href="#" class="dropdown-item">
-                      <i class="fas fa-envelope mr-2"></i> 4 new messages
-                      <span class="float-right text-muted text-sm">3 mins</span>
+                      <i class="bi bi-key"></i> Kata Sandi
                   </a>
                   <div class="dropdown-divider"></div>
                   <a href="#" class="dropdown-item">
-                      <i class="fas fa-users mr-2"></i> 8 friend requests
-                      <span class="float-right text-muted text-sm">12 hours</span>
+                      <i class="bi bi-box-arrow-left"></i> Keluar
                   </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item">
-                      <i class="fas fa-file mr-2"></i> 3 new reports
-                      <span class="float-right text-muted text-sm">2 days</span>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+
               </div>
           </li>
 
