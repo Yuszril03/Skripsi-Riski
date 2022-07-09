@@ -34,10 +34,10 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a href="<?= base_url() ?>/Berita-Event" class="nav-link">
+                     <a href="<?= base_url() ?>/Data-Kegiatan" class="nav-link">
                          <i class="nav-icon fas fa-newspaper"></i>
                          <p>
-                             Berita & Event
+                             Data Kegiatan
                              <!-- <span class="right badge badge-danger">New</span> -->
                          </p>
                      </a>

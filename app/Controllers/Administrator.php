@@ -87,25 +87,25 @@ class Administrator extends BaseController
     //Berita Event
     public function BeritaEvent()
     {
-        return view('Administrator/Berita-Event/Berita-Event');
+        return view('Administrator/Kegiatan/Data-Kegiatan');
     }
     public function tambahBeritaEvent()
     {
-        return view('Administrator/Berita-Event/Tambah-Berita-Event');
+        return view('Administrator/Kegiatan/Tambah-Data-Kegiatan');
     }
     public function detailBeritaEvent($id = false)
     {
         $data = [
             'DataID' => $id
         ];
-        return view('Administrator/Berita-Event/Detail-Berita-Event', $data);
+        return view('Administrator/Kegiatan/Detail-Data-Kegiatan', $data);
     }
     public function editBeritaEvent($id = false)
     {
         $data = [
             'DataID' => $id
         ];
-        return view('Administrator/Berita-Event/Edit-Berita-Event',$data);
+        return view('Administrator/Kegiatan/Edit-Data-Kegiatan',$data);
     }
 
     //Data User

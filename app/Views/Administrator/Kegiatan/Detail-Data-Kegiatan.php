@@ -148,8 +148,8 @@
                             <!-- <h1 class="m-0">Detail Berita & Event</h1> -->
 
                             <h1 class="m-0">
-                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Berita-Event`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
-                                Detail Kegiatan
+                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Data-Kegiatan`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
+                                Detail Data Kegiatan
                             </h1>
 
                         </div><!-- /.col -->
@@ -157,7 +157,7 @@
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Data Kegiatan</li>
-                                <li class="breadcrumb-item active">Detail Kegiatan</li>
+                                <li class="breadcrumb-item active">Detail Data Kegiatan</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->

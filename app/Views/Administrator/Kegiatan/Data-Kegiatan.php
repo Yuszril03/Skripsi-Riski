@@ -65,7 +65,7 @@
             <section class="content">
                 <div class="container-fluid">
                     <div class="float-right">
-                        <button onclick=" location.href=' <?= base_url() ?>/Tambah-Berita-Event'" style="border-radius: 15px;" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah</button>
+                        <button onclick=" location.href=' <?= base_url() ?>/Tambah-Data-Kegiatan'" style="border-radius: 15px;" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah</button>
                     </div>
                 </div>
                 <br>
@@ -225,13 +225,13 @@
                     if (parseJsonBerita[i].Status == 1) {
                         StatusData = `<span class="badge badge-success">Aktif</span>`;
                         ActionData = `
-                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Berita-Event/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
-                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Berita-Event/${parseJsonBerita[i].IDkey}'" class="btn btn-warning btn-sm m-1"><i class="fa fa-pen-alt"></i></button>
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Kegiatan/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
+                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Kegiatan/${parseJsonBerita[i].IDkey}'" class="btn btn-warning btn-sm m-1"><i class="fa fa-pen-alt"></i></button>
                                             <button data-id="${parseJsonBerita[i].IDkey}" id="PowerCustomer" type="button" class="tidakatif btn btn-danger btn-sm m-1"><i class="fas fa-power-off"></i></button>`;
                     } else {
                         StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
                         ActionData = `
-                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Berita-Event/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Kegiatan/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
                                             <button data-id="${parseJsonBerita[i].IDkey}" id="PowerCustomer" type="button" class="aktif btn btn-success btn-sm"><i class="fas fa-power-off"></i></button>`;
                     }
 
@@ -252,7 +252,7 @@
 
             Swal.fire({
                 title: 'Apakah Anda Yakin?',
-                text: "Untuk Non Aktifkan Customer Ini ?",
+                text: "Untuk Non Aktifkan Kegiatan Ini ?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -319,7 +319,7 @@
 
             Swal.fire({
                 title: 'Apakah Anda Yakin?',
-                text: "Untuk Aktifkan Customer Ini ?",
+                text: "Untuk Aktifkan Kegiatan Ini ?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
