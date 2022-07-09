@@ -160,7 +160,7 @@
                                 </div>
                                 <div class="col">
                                     <p>
-                                        <b>Tanggal Buat Rental</b><br>
+                                        <b>Tanggal Diperbarui Rental</b><br>
                                         <span id="tanggalupdateWisata">Tidak ada</span>
                                     </p>
                                 </div>

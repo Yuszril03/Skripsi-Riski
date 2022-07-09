@@ -64,7 +64,6 @@ class Administrator extends BaseController
         } else {
             return view('Administrator/Data-Mitra/Hotel/Mitra-Hotel');
         }
-        
     }
     public function TambahMitraHotel()
     {
@@ -73,25 +72,30 @@ class Administrator extends BaseController
         } else {
             return view('Administrator/Data-Mitra/Hotel/Add-Hotel');
         }
-        
     }
-    public function EditMitraHotel($id = false)
+    public function EditMitraHotel($idMitra = false, $idHotel = false)
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
         } else {
-            return view('Administrator/Data-Mitra/Hotel/Edit-Hotel');
+            $data = [
+                'DataIDMitra' => $idMitra,
+                'DataIDHotel' => $idHotel
+            ];
+            return view('Administrator/Data-Mitra/Hotel/Edit-Hotel', $data);
         }
-       
     }
-    public function DetailMitraHotel($id = false)
+    public function DetailMitraHotel($idMitra = false, $idHotel = false)
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
         } else {
-            return view('Administrator/Data-Mitra/Hotel/Detail-Hotel');
+            $data = [
+                'DataIDMitra' => $idMitra,
+                'DataIDHotel' => $idHotel
+            ];
+            return view('Administrator/Data-Mitra/Hotel/Detail-Hotel', $data);
         }
-        
     }
 
 

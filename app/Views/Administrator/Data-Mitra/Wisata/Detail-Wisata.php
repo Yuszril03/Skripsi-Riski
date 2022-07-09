@@ -166,7 +166,7 @@
                                 </div>
                                 <div class="col">
                                     <p>
-                                        <b>Tanggal Buat Wisata</b><br>
+                                        <b>Tanggal Diperbarui Wisata</b><br>
                                         <span id="tanggalupdateWisata">Tidak ada</span>
                                     </p>
                                 </div>

@@ -509,7 +509,7 @@
                             NamaHotel: kontenn.val().NamaHotel,
                             AlamatHotel: kontenn.val().AlamatHotel,
                             StatusHotel: 0,
-                            DeskripsiRental: kontenn.val().DeskripsiHotel,
+                            DeskripsiHotel: kontenn.val().DeskripsiHotel,
                             TanggalBuat: kontenn.val().TanggalBuat,
                             TanggalUpdate: new Date().toString("ID"),
                             fotoHotel: kontenn.val().fotoHotel,

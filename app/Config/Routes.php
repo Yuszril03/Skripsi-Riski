@@ -43,8 +43,8 @@ $routes->get('/Detail-Mitra-Wisata' . '/(:any)' . '/(:any)', 'Administrator::Det
 //Hotel
 $routes->get('/Mitra-Hotel', 'Administrator::MitraHotel');
 $routes->get('/Tambah-Mitra-Hotel', 'Administrator::TambahMitraHotel');
-$routes->get('/Edit-Mitra-Hotel', 'Administrator::EditMitraHotel/$1/$2');
-$routes->get('/Detail-Mitra-Hotel', 'Administrator::DetailMitraHotel/$1/$2');
+$routes->get('/Edit-Mitra-Hotel' . '/(:any)' . '/(:any)', 'Administrator::EditMitraHotel/$1/$2');
+$routes->get('/Detail-Mitra-Hotel' . '/(:any)' . '/(:any)', 'Administrator::DetailMitraHotel/$1/$2');
 
 
 //Rental

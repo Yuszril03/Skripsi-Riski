@@ -230,7 +230,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="">Nama Hotel</label>
+                                        <label for="">Nama Hotel<sup><span class="text-danger">*</span></sup></label>
                                         <input type="text" id="namaHotel" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
 
@@ -243,7 +243,7 @@
                                         <p id="ok"></p>
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Alamat Hotel</label>
+                                        <label for="">Alamat Hotel<sup><span class="text-danger">*</span></sup></label>
                                         <textarea readonly class="form-control" style="border-radius: 15px;  height: 41px;" name="alamat" id="alamat" cols="5"></textarea>
                                     </div>
                                     <input type="hidden" id="longlitude" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
@@ -251,7 +251,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="">Deskripsi Hotel</label>
+                                <label for="">Deskripsi Hotel<sup><span class="text-danger">*</span></sup></label>
                                 <textarea class="form-control" style="border-radius: 15px; " placeholder="Ketik di sini..." name="deskripsi" id="deskripsi" cols="5"></textarea>
                             </div>
                             <div class="form-group">
@@ -260,7 +260,7 @@
                                     <button id="EditDetails" class="btn btn-warning btn-sm m-1" onclick="modalDetails('Edit')" title="Edit Data" data-toggle="modal" data-target="#tambahKamar" style="border-radius: 15px;"> <i class="bi bi-pencil-square"></i></button>
                                     <button id="hapusDetails" class="btn btn-danger btn-sm m-1" title="Hapus Data" style="border-radius: 15px;"> <i class="bi bi-trash3"></i></button>
                                 </div>
-                                <label for="">Jenis Kamar Hotel</label>
+                                <label for="">Jenis Kamar Hotel<sup><span class="text-danger">*</span></sup></label>
                                 <p id="alertJenisKendaraan" class="text-danger" style="font-size: 14px; margin-top: -8px;">Jenis Kamar masih kosong</p>
                             </div>
                             <div class="table-responsive">
@@ -328,14 +328,14 @@
 
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Nama Kamar</label>
+                                        <label for="">Nama Kamar<sup><span class="text-danger">*</span></sup></label>
                                         <input type="text" id="namaKamar" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
 
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="">Harga Kamar</label>
+                                                <label for="">Harga Kamar<sup><span class="text-danger">*</span></sup></label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1">Rp</span>
@@ -346,7 +346,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="">Jumlah Kamar</label>
+                                                <label for="">Jumlah Kamar<sup><span class="text-danger">*</span></sup></label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1"><i class="fa fa-door-open"></i></span>
@@ -357,7 +357,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Fasilitas Kamar</label>
+                                        <label for="">Fasilitas Kamar<sup><span class="text-danger">*</span></sup></label>
                                         <textarea name="fasilitas" id="fasilitas" class="form-control" style="border-radius: 15px;" rows="5" placeholder="Ketik di sini..."></textarea>
                                     </div>
                                 </div>
@@ -696,7 +696,7 @@
                         `<input type="hidden" name="fasilitasKamarT[]" value="${document.getElementById("fasilitas").value}">` +
                         document.getElementById("fasilitas").value,
                         `<input type="hidden" name="hargaKamarT[]" value="${document.getElementById("hargaKamar").value}">` +
-                        document.getElementById("hargaKamar").value,
+                        `Rp. ` + document.getElementById("hargaKamar").value,
                         `<input type="hidden" name="jumlahKamarT[]" value="${document.getElementById("jumlahKamar").value}">` +
                         document.getElementById("jumlahKamar").value,
                         ` <span class="badge badge-danger">Belum Tersimpan</span>`
@@ -730,7 +730,7 @@
                             `<input type="hidden" name="fasilitasKamarT[]" value="${ localDataDetail[j].fasilitas}">` +
                             localDataDetail[j].fasilitas,
                             `<input type="hidden" name="hargaKamarT[]" value="${localDataDetail[j].HargaKamar}">` +
-                            localDataDetail[j].HargaKamar,
+                            `Rp. ` + localDataDetail[j].HargaKamar,
                             `<input type="hidden" name="jumlahKamarT[]" value="${localDataDetail[j].JumlahKamar}">` +
                             localDataDetail[j].JumlahKamar,
                             ` <span class="badge badge-danger">Belum Tersimpan</span>`
@@ -939,7 +939,7 @@
                                                 if (dataIDDetails.length == 0) {
                                                     idDetails = 1
                                                 } else {
-                                                    idDetails = Number(dataIDDetails[dataIDDetails.length]) + 1
+                                                    idDetails = Number(dataIDDetails[dataIDDetails.length - 1]) + 1
                                                 }
 
                                                 console.log(idDetails)
@@ -1082,7 +1082,7 @@
                                                             if (dataIDDetails.length == 0) {
                                                                 idDetails = 1
                                                             } else {
-                                                                idDetails = dataIDDetails[dataIDDetails.length] + 1
+                                                                idDetails = Number(dataIDDetails[dataIDDetails.length - 1]) + 1
                                                             }
 
                                                             console.log(idDetails)
