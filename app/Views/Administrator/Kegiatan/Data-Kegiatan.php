@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Administrator - Home</title>
+    <title>TraveLand - Data Kegiatan</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>/Image/Icon/LogoAJA.png" />
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -53,7 +55,7 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="<?= base_url() ?>/Beranda-Admin">Beranda</a></li>
                                 <li class="breadcrumb-item active">Data Kegiatan</li>
                             </ol>
                         </div><!-- /.col -->
@@ -65,7 +67,7 @@
             <section class="content">
                 <div class="container-fluid">
                     <div class="float-right">
-                        <button onclick=" location.href=' <?= base_url() ?>/Tambah-Data-Kegiatan'" style="border-radius: 15px;" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah</button>
+                        <button onclick=" location.href=' <?= base_url() ?>/Tambah-Data-Kegiatan'" style="border-radius: 15px;" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah Kegiatan</button>
                     </div>
                 </div>
                 <br>
@@ -225,14 +227,14 @@
                     if (parseJsonBerita[i].Status == 1) {
                         StatusData = `<span class="badge badge-success">Aktif</span>`;
                         ActionData = `
-                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Kegiatan/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
-                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Kegiatan/${parseJsonBerita[i].IDkey}'" class="btn btn-warning btn-sm m-1"><i class="fa fa-pen-alt"></i></button>
-                                            <button data-id="${parseJsonBerita[i].IDkey}" id="PowerCustomer" type="button" class="tidakatif btn btn-danger btn-sm m-1"><i class="fas fa-power-off"></i></button>`;
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Kegiatan/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                            <button type="button" onclick="location.href='<?= base_url() ?>/Edit-Data-Kegiatan/${parseJsonBerita[i].IDkey}'" class="btn btn-warning btn-sm m-1"><i class="bi bi-pencil-square"></i></button>
+                                            <button data-id="${parseJsonBerita[i].IDkey}" id="PowerCustomer" type="button" class="tidakatif btn btn-danger btn-sm m-1"><i class="bi bi-dash-circle"></i></button>`;
                     } else {
                         StatusData = `<span class="badge badge-secondary">Tidak Aktif</span>`;
                         ActionData = `
-                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Kegiatan/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="fa fa-info-circle"></i></button>
-                                            <button data-id="${parseJsonBerita[i].IDkey}" id="PowerCustomer" type="button" class="aktif btn btn-success btn-sm"><i class="fas fa-power-off"></i></button>`;
+                    <button type="button" onclick="location.href='<?= base_url() ?>/Detail-Data-Kegiatan/${parseJsonBerita[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                            <button data-id="${parseJsonBerita[i].IDkey}" id="PowerCustomer" type="button" class="aktif btn btn-success btn-sm"><i class="bi bi-dash-circle"></i></button>`;
                     }
 
                     table.row.add([

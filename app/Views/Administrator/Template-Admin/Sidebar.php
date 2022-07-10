@@ -17,7 +17,9 @@
              </div>
          </div>
 
-
+         <?php
+            $tempData = explode("-", service('uri')->getSegment(1));
+            ?>
 
          <!-- Sidebar Menu -->
          <nav class="mt-2">
@@ -25,7 +27,7 @@
                  <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                  <li class="nav-item ">
-                     <a href="<?= base_url() ?>/Beranda-Admin" class="nav-link active">
+                     <a href="<?= base_url() ?>/Beranda-Admin" class="nav-link <?= (in_array("Beranda", $tempData)  ? 'active' : '') ?>">
                          <i class="nav-icon bi bi-house-door"></i>
                          <p>
                              Beranda
@@ -34,7 +36,7 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a href="<?= base_url() ?>/Data-Kegiatan" class="nav-link">
+                     <a href="<?= base_url() ?>/Data-Kegiatan" class="nav-link <?= (in_array("Kegiatan", $tempData)  ? 'active' : '') ?>">
                          <i class="nav-icon fas fa-newspaper"></i>
                          <p>
                              Data Kegiatan
@@ -43,7 +45,7 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a href="<?= base_url() ?>/Data-Customer" class="nav-link">
+                     <a href="<?= base_url() ?>/Data-Customer" class="nav-link <?= (in_array("Customer", $tempData)  ? 'active' : '') ?>">
                          <i class="nav-icon bi bi-people"></i>
                          <p>
                              Data Customer
@@ -51,8 +53,8 @@
                          </p>
                      </a>
                  </li>
-                 <li class="nav-item">
-                     <a href="#" class="nav-link">
+                 <li class="nav-item <?= (in_array("Mitra", $tempData)  ? 'menu-is-opening menu-open' : '') ?>">
+                     <a href="#" class="nav-link <?= (in_array("Mitra", $tempData)  ? 'active' : '') ?>">
                          <i class="nav-icon bi bi-diagram-3"></i>
                          <p>
                              Data Mitra
@@ -60,20 +62,20 @@
                          </p>
                      </a>
                      <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                             <a href="<?= base_url() ?>/Mitra-Hotel" class="nav-link">
+                         <li class="nav-item ">
+                             <a href="<?= base_url() ?>/Mitra-Hotel" class="nav-link <?= (in_array("Hotel", $tempData)  ? 'active' : '') ?>">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Mitra Hotel</p>
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="<?= base_url() ?>/Mitra-Rental" class="nav-link">
+                             <a href="<?= base_url() ?>/Mitra-Rental" class="nav-link <?= (in_array("Rental", $tempData)  ? 'active' : '') ?>">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Mitra Rental</p>
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="<?= base_url() ?>/Mitra-Wisata" class="nav-link">
+                             <a href="<?= base_url() ?>/Mitra-Wisata" class="nav-link <?= (in_array("Wisata", $tempData)  ? 'active' : '') ?>">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Mitra Wisata</p>
                              </a>

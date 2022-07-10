@@ -55,7 +55,7 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="<?= base_url() ?>/Beranda-Admin">Home</a></li>
+                                <li class="breadcrumb-item"><a href="<?= base_url() ?>/Beranda-Admin">Beranda</a></li>
                                 <li class="breadcrumb-item active">Data Customer</li>
                             </ol>
                         </div><!-- /.col -->
