@@ -34,7 +34,7 @@ $routes->setAutoRoute(true);
 
 //Login Mitra
 $routes->get('/', 'Login::LoginMitra');
-
+$routes->get('/Beranda-Mitra', 'Mitra::index');
 
 //Login Admin
 $routes->get('/Masuk-Administrator', 'Login::LoginAdmin');
@@ -87,6 +87,8 @@ $routes->get('/Detail-Data-Customer' . '/(:any)', 'Administrator::detailDataCust
 //Review
 $routes->get('/Reting-Komentar', 'Administrator::RetingKomentar');
 $routes->get('/detailReting-Komentar', 'Administrator::detailRetingKomentar');
+
+
 
 
 

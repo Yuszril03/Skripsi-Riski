@@ -12,7 +12,7 @@ class Login extends BaseController
     }
     public function LoginAdmin()
     {
-        if (session()->get('Status') == TRUE) {
+        if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return redirect()->to(base_url('/Beranda-Admin'));
         } else {
             return view('Login-Admin');
@@ -26,6 +26,22 @@ class Login extends BaseController
             'Status' => TRUE,
             'KataSandi' => $this->request->getVar('KataSandi'),
             'Nama' => $this->request->getVar('NamaAdmin'),
+            'Jenis' => 'Admin'
+        ];
+        $this->session->set($newSession);
+
+        echo json_encode(10);
+    }
+    public function AuthMitra()
+    {
+        $newSession = [
+            'Id'  =>  $this->request->getVar('IdKey'),
+            'Email'  => $this->request->getVar('Email'),
+            'Status' => TRUE,
+            'KataSandi' => $this->request->getVar('KataSandi'),
+            'Nama' => $this->request->getVar('Nama'),
+            'Jenis' => $this->request->getVar('Jenis'),
+            'IDKelola' => $this->request->getVar('IDKelola')
         ];
         $this->session->set($newSession);
 
@@ -35,6 +51,10 @@ class Login extends BaseController
 
     public function LoginMitra()
     {
-        return view('Login-Mitra');
+        if (session()->get('Status') == TRUE && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
+        } else {
+            return view('Login-Mitra');
+        }
     }
 }

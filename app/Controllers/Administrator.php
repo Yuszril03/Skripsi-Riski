@@ -14,7 +14,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return view('Administrator/Home');
         }
     }
@@ -25,7 +27,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return view('Administrator/Data-Mitra/Wisata/Mitra-Wisata');
         }
     }
@@ -33,7 +37,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return view('Administrator/Data-Mitra/Wisata/Add-Wisata');
         }
     }
@@ -41,7 +47,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             $data = [
                 'DataIDMitra' => $idMitra,
                 'DataIDWisata' => $idWisata
@@ -53,7 +61,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             $data = [
                 'DataIDMitra' => $idMitra,
                 'DataIDWisata' => $idWisata
@@ -67,7 +77,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return view('Administrator/Data-Mitra/Hotel/Mitra-Hotel');
         }
     }
@@ -75,7 +87,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return view('Administrator/Data-Mitra/Hotel/Add-Hotel');
         }
     }
@@ -83,7 +97,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             $data = [
                 'DataIDMitra' => $idMitra,
                 'DataIDHotel' => $idHotel
@@ -95,7 +111,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             $data = [
                 'DataIDMitra' => $idMitra,
                 'DataIDHotel' => $idHotel
@@ -110,7 +128,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return view('Administrator/Data-Mitra/Rental/Mitra-Rental');
         }
     }
@@ -118,7 +138,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return view('Administrator/Data-Mitra/Rental/Add-Rental');
         }
     }
@@ -126,7 +148,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             $data = [
                 'DataIDMitra' => $idMitra,
                 'DataIDRental' => $idRental
@@ -139,7 +163,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             $data = [
                 'DataIDMitra' => $idMitra,
                 'DataIDRental' => $idRental
@@ -167,7 +193,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return view('Administrator/Kegiatan/Data-Kegiatan');
         }
     }
@@ -175,7 +203,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return view('Administrator/Kegiatan/Tambah-Data-Kegiatan');
         }
     }
@@ -183,7 +213,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             $data = [
                 'DataID' => $id
             ];
@@ -194,7 +226,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             $data = [
                 'DataID' => $id
             ];
@@ -207,7 +241,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return view('Administrator/Data-Customer/Data-Customer');
         }
     }
@@ -215,7 +251,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return view('Administrator/Data-Customer/Tambah-Data-Customer');
         }
     }
@@ -223,7 +261,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             $data = [
                 'DataID' => $id
             ];
@@ -234,7 +274,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             $data = [
                 'DataID' => $id
             ];
@@ -253,7 +295,9 @@ class Administrator extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
-        } else {
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return view('Administrator/Kata-Sandi');
         }
     }
