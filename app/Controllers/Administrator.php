@@ -4,10 +4,16 @@ namespace App\Controllers;
 
 class Administrator extends BaseController
 {
+    public function __construct()
+    {
+
+        $this->session = \Config\Services::session();
+        // $this->session->stat();
+    }
     public function index()
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             return view('Administrator/Home');
         }
@@ -18,7 +24,7 @@ class Administrator extends BaseController
     public function MitraWisata()
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             return view('Administrator/Data-Mitra/Wisata/Mitra-Wisata');
         }
@@ -26,7 +32,7 @@ class Administrator extends BaseController
     public function TambahMitraWisata()
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             return view('Administrator/Data-Mitra/Wisata/Add-Wisata');
         }
@@ -34,7 +40,7 @@ class Administrator extends BaseController
     public function EditMitraWisata($idMitra = false, $idWisata = false)
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             $data = [
                 'DataIDMitra' => $idMitra,
@@ -46,7 +52,7 @@ class Administrator extends BaseController
     public function DetailMitraWisata($idMitra = false, $idWisata = false)
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             $data = [
                 'DataIDMitra' => $idMitra,
@@ -60,7 +66,7 @@ class Administrator extends BaseController
     public function MitraHotel()
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             return view('Administrator/Data-Mitra/Hotel/Mitra-Hotel');
         }
@@ -68,7 +74,7 @@ class Administrator extends BaseController
     public function TambahMitraHotel()
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             return view('Administrator/Data-Mitra/Hotel/Add-Hotel');
         }
@@ -76,7 +82,7 @@ class Administrator extends BaseController
     public function EditMitraHotel($idMitra = false, $idHotel = false)
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             $data = [
                 'DataIDMitra' => $idMitra,
@@ -88,7 +94,7 @@ class Administrator extends BaseController
     public function DetailMitraHotel($idMitra = false, $idHotel = false)
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             $data = [
                 'DataIDMitra' => $idMitra,
@@ -103,7 +109,7 @@ class Administrator extends BaseController
     public function MitraRental()
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             return view('Administrator/Data-Mitra/Rental/Mitra-Rental');
         }
@@ -111,7 +117,7 @@ class Administrator extends BaseController
     public function TambahMitraRental()
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             return view('Administrator/Data-Mitra/Rental/Add-Rental');
         }
@@ -119,7 +125,7 @@ class Administrator extends BaseController
     public function EditMitraRental($idMitra = false, $idRental = false)
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             $data = [
                 'DataIDMitra' => $idMitra,
@@ -132,7 +138,7 @@ class Administrator extends BaseController
     public function DetailMitraRental($idMitra = false, $idRental = false)
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             $data = [
                 'DataIDMitra' => $idMitra,
@@ -159,32 +165,48 @@ class Administrator extends BaseController
     //Berita Event
     public function BeritaEvent()
     {
-        return view('Administrator/Kegiatan/Data-Kegiatan');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else {
+            return view('Administrator/Kegiatan/Data-Kegiatan');
+        }
     }
     public function tambahBeritaEvent()
     {
-        return view('Administrator/Kegiatan/Tambah-Data-Kegiatan');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else {
+            return view('Administrator/Kegiatan/Tambah-Data-Kegiatan');
+        }
     }
     public function detailBeritaEvent($id = false)
     {
-        $data = [
-            'DataID' => $id
-        ];
-        return view('Administrator/Kegiatan/Detail-Data-Kegiatan', $data);
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else {
+            $data = [
+                'DataID' => $id
+            ];
+            return view('Administrator/Kegiatan/Detail-Data-Kegiatan', $data);
+        }
     }
     public function editBeritaEvent($id = false)
     {
-        $data = [
-            'DataID' => $id
-        ];
-        return view('Administrator/Kegiatan/Edit-Data-Kegiatan',$data);
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else {
+            $data = [
+                'DataID' => $id
+            ];
+            return view('Administrator/Kegiatan/Edit-Data-Kegiatan', $data);
+        }
     }
 
     //Data Customer
     public function DataCustomer()
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             return view('Administrator/Data-Customer/Data-Customer');
         }
@@ -192,7 +214,7 @@ class Administrator extends BaseController
     public function tambahDataCustomer()
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             return view('Administrator/Data-Customer/Tambah-Data-Customer');
         }
@@ -200,7 +222,7 @@ class Administrator extends BaseController
     public function editDataCustomer($id = false)
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             $data = [
                 'DataID' => $id
@@ -211,7 +233,7 @@ class Administrator extends BaseController
     public function detailDataCustomer($id = false)
     {
         if (session()->get('Status') != TRUE) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('/Masuk-Administrator'));
         } else {
             $data = [
                 'DataID' => $id
@@ -226,5 +248,34 @@ class Administrator extends BaseController
     public function detailRetingKomentar()
     {
         return view('Administrator/Reting-Komentar/detailReting-Komentar');
+    }
+    public function KataSandi()
+    {
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else {
+            return view('Administrator/Kata-Sandi');
+        }
+    }
+    public function KataSandiDefault($sandi)
+    {
+        $newSession = [
+            'KataSandi' => $sandi
+        ];
+        $this->session->set($newSession);
+        echo json_encode(10);
+    }
+    public function KataSandiUbah($sandi)
+    {
+        $newSession = [
+            'KataSandi' => $sandi
+        ];
+        $this->session->set($newSession);
+        echo json_encode(10);
+    }
+    public function Keluar()
+    {
+        $this->session->destroy();
+        return redirect()->to(base_url('/Masuk-Administrator'));
     }
 }

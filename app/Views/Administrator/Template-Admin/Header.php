@@ -49,11 +49,11 @@
               </a>
               <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
                   <p class="ml-3 mt-2 mb-2 text-bold text-muted">Hai, <span id="subNamaHEader" class="text-capitalize"></span><?= session()->get('Nama') ?>!</p>
-                  <a href="#" class="dropdown-item">
+                  <a href="<?= base_url() ?>/Kata-Sandi" class="dropdown-item">
                       <i class="bi bi-key"></i> Kata Sandi
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item">
+                  <a href="<?= base_url() ?>/Keluar-Admin" class="dropdown-item">
                       <i class="bi bi-box-arrow-left"></i> Keluar
                   </a>
 

@@ -32,7 +32,17 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
+//Login Mitra
+$routes->get('/', 'Login::LoginMitra');
+
+
+//Login Admin
+$routes->get('/Masuk-Administrator', 'Login::LoginAdmin');
+$routes->get('/Kata-Sandi', 'Administrator::KataSandi');
+$routes->get('/Default-Kata-Sandi-Admin' . '/(:any)', 'Administrator::KataSandiDefault/$1');
+$routes->get('/Ubah-Kata-Sandi-Admin' . '/(:any)', 'Administrator::KataSandiUbah/$1');
 $routes->get('/Beranda-Admin', 'Administrator::index');
+$routes->get('/Keluar-Admin', 'Administrator::Keluar');
 
 //Wisata
 $routes->get('/Mitra-Wisata', 'Administrator::MitraWisata');
@@ -59,14 +69,13 @@ $routes->get('/Pemesanan-Rental', 'Administrator::PemesananRental');
 $routes->get('/Pemesanan-Hotel', 'Administrator::PemesananHotel');
 
 
-//Login
-$routes->get('/', 'Login::LoginAdmin');
+
 // $routes->get('/', 'Login::LoginMitra');
 
 //Berita & Event
 $routes->get('/Data-Kegiatan', 'Administrator::BeritaEvent');
 $routes->get('/Tambah-Data-Kegiatan', 'Administrator::tambahBeritaEvent');
-$routes->get('/Detail-Data-Kegiatan'.'/(:any)', 'Administrator::detailBeritaEvent/$1');
+$routes->get('/Detail-Data-Kegiatan' . '/(:any)', 'Administrator::detailBeritaEvent/$1');
 $routes->get('/Edit-Data-Kegiatan' . '/(:any)', 'Administrator::editBeritaEvent/$1');
 
 //Data User
@@ -78,6 +87,7 @@ $routes->get('/Detail-Data-Customer' . '/(:any)', 'Administrator::detailDataCust
 //Review
 $routes->get('/Reting-Komentar', 'Administrator::RetingKomentar');
 $routes->get('/detailReting-Komentar', 'Administrator::detailRetingKomentar');
+
 
 
 /*
