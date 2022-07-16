@@ -843,7 +843,7 @@
                             $('#nonaktifdata').hide()
                             $('#aktifdata').show()
                             $('#hapusDetails').hide()
-                            $('#EditDetails').show()
+                            $('#EditDetails').hide()
                         } else if (Number(document.getElementsByName('StatussKendaraanT[]')[s].value) == 2) {
                             $('#nonaktifdata').hide()
                             $('#aktifdata').hide()

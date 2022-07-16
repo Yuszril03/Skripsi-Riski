@@ -455,7 +455,6 @@
         var DataTempMitra = {};
         var DataTempWisata = {};
 
-        $('#blockData').hide()
 
         const starCountRef2 = ref(db, 'Master-Data-Mitra/');
         onValue(starCountRef2, (snapshot) => {

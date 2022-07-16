@@ -204,19 +204,15 @@
                                     <div class="group">
                                         <i class="bi bi-calendar3"></i>&nbsp;&nbsp;<span id="tanggalKegiatan"></span>&nbsp;&nbsp;
                                     </div>
-
-
                                 </div>
 
                                 <div id="groupTanggal" class="col-4">
-
                                     <p class="mt-2 font-weight-bold">
                                         Tanggal Akhir
                                     </p>
                                     <div class="group">
                                         <i class="bi bi-calendar3"></i>&nbsp;&nbsp;<span id="tanggalAkhir"></span>
                                     </div>
-
                                 </div>
                                 <div class="col-4">
 
@@ -225,6 +221,17 @@
 
                                 </div> -->
 
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="mt-2 font-weight-bold">
+                                        Yang Berkaitan
+                                    </p>
+                                    <div class="group">
+                                        <span id="yangBerkaitan" class="badge badge-primary">None</span>
+                                    </div>
+                                    
+                                </div>
                             </div>
                             <!-- <div>
                                 <p>
@@ -372,6 +379,7 @@
             document.getElementById('isiKegiatan').innerHTML = kontenn.val().IsiKegiatan
             document.getElementById('alamatKegiatan').innerHTML = kontenn.val().Alamat
             document.getElementById('jeniskegiatan').innerHTML = kontenn.val().JenisKegiatan
+            document.getElementById('yangBerkaitan').innerHTML = kontenn.val().KegiatanYangBerkaitan
             document.getElementById('tanggalKegiatan').innerHTML = new Date(kontenn.val().TanggalMulai).toLocaleDateString("id-ID", options)
             document.getElementById('tanggalAkhir').innerHTML = new Date(kontenn.val().TanggalAkhir).toLocaleDateString("id-ID", options)
             document.getElementById('tanggalBuat').innerHTML = kontenn.val().TanggalBuat

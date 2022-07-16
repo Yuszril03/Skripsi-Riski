@@ -35,25 +35,25 @@
                          </p>
                      </a>
                  </li>
-                 <li class="nav-item">
+                 <!-- <li class="nav-item">
                      <a href="<?= base_url() ?>/Data-Kegiatan" class="nav-link <?= (in_array("Kegiatan", $tempData)  ? 'active' : '') ?>">
                          <i class="nav-icon fas fa-newspaper"></i>
                          <p>
                              Data Kegiatan
-                             <!-- <span class="right badge badge-danger">New</span> -->
+                             
                          </p>
                      </a>
-                 </li>
-                 <li class="nav-item">
+                 </li> -->
+                 <!-- <li class="nav-item">
                      <a href="<?= base_url() ?>/Data-Customer" class="nav-link <?= (in_array("Customer", $tempData)  ? 'active' : '') ?>">
                          <i class="nav-icon bi bi-people"></i>
                          <p>
                              Data Customer
-                             <!-- <span class="right badge badge-danger">New</span> -->
+                             
                          </p>
                      </a>
-                 </li>
-                 <li class="nav-item <?= (in_array("Mitra", $tempData)  ? 'menu-is-opening menu-open' : '') ?>">
+                 </li> -->
+                 <!-- <li class="nav-item <?= (in_array("Mitra", $tempData)  ? 'menu-is-opening menu-open' : '') ?>">
                      <a href="#" class="nav-link <?= (in_array("Mitra", $tempData)  ? 'active' : '') ?>">
                          <i class="nav-icon bi bi-diagram-3"></i>
                          <p>
@@ -82,8 +82,48 @@
                          </li>
 
                      </ul>
-                 </li>
-                 <li class="nav-item">
+                 </li> -->
+                 <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
+                     <li class="nav-item">
+                         <a href="<?= base_url() ?>/Data-Kamar" class="nav-link <?= (in_array("Kamar", $tempData) && in_array("Data", $tempData) ? 'active' : '') ?>">
+                             <i class="nav-icon bi bi-layout-text-window-reverse"></i>
+                             <p>Data Kamar</p>
+                         </a>
+                     </li>
+                 <?php } ?>
+
+                 <?php if (session()->get('Jenis') == "Mitra-Rental") { ?>
+                     <li class="nav-item">
+                         <a href="<?= base_url() ?>/Data-Mobil-Rental" class="nav-link <?= (in_array("Rental", $tempData) && in_array("Data", $tempData) ? 'active' : '') ?>">
+                             <i class="nav-icon bi bi-layout-text-window-reverse"></i>
+                             <p>Data Mobil Rental</p>
+                         </a>
+                     </li>
+                 <?php } ?>
+                 <?php if (session()->get('Jenis') == "Mitra-Wisata") { ?>
+                     <li>
+                         <a href="<?= base_url() ?>/Data-Pemesanan-Tiket" class="nav-link">
+                             <i class="nav-icon bi bi-layout-text-window-reverse"></i>
+                             <p>Pemesanan Wisata</p>
+                         </a>
+                     </li>
+                 <?php } ?>
+                 <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
+                     <li>
+                         <a href="<?= base_url() ?>/Data-Pemesanan-Tiket" class="nav-link">
+                             <i class="nav-icon bi bi-layout-text-window-reverse"></i>
+                             <p>Pemesanan Hotel</p>
+                         </a>
+                     </li>
+                     <?php } ?><?php if (session()->get('Jenis') == "Mitra-Rental") { ?>
+                     <li>
+                         <a href="<?= base_url() ?>/Data-Pemesanan-Tiket" class="nav-link">
+                             <i class="nav-icon bi bi-layout-text-window-reverse"></i>
+                             <p>Pemesanan Rental</p>
+                         </a>
+                     </li>
+                 <?php } ?>
+                 <!-- <li class="nav-item">
                      <a href="#" class="nav-link">
                          <i class="nav-icon bi bi-layout-text-window-reverse"></i>
                          <p>
@@ -112,6 +152,36 @@
                          </li>
 
                      </ul>
+                 </li> -->
+                 <?php if (session()->get('Jenis') == "Mitra-Wisata") { ?>
+                     <li class="nav-item">
+                         <a href="<?= base_url() ?>/Scan-QrCode-Wisata" class="nav-link <?= (in_array("Scan", $tempData)  && in_array("Wisata", $tempData)  ? 'active' : '') ?>">
+                             <i class="nav-icon bi bi-qr-code"></i>
+                             <p>Scan QR Code Wisata</p>
+                         </a>
+                     </li>
+                 <?php } ?>
+                 <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
+                     <li class="nav-item">
+                         <a href="<?= base_url() ?>/Scan-QrCode-Hotel" class="nav-link <?= (in_array("Scan", $tempData)  && in_array("Hotel", $tempData)  ? 'active' : '') ?>">
+                             <i class="nav-icon bi bi-qr-code"></i>
+                             <p>Scan QR Code Hotel</p>
+                         </a>
+                     </li>
+                 <?php } ?>
+                 <?php if (session()->get('Jenis') == "Mitra-Rental") { ?>
+                     <li class="nav-item">
+                         <a href="<?= base_url() ?>/Scan-QrCode-Rental" class="nav-link <?= (in_array("Scan", $tempData)  && in_array("Rental", $tempData)  ? 'active' : '') ?>">
+                             <i class="nav-icon bi bi-qr-code"></i>
+                             <p>Scan QR Code Rental</p>
+                         </a>
+                     </li>
+                 <?php } ?>
+                 <li>
+                     <a href="" class="nav-link">
+                         <i class="nav-icon bi bi-layout-text-sidebar"></i>
+                         <p>Review</p>
+                     </a>
                  </li>
 
 

@@ -377,7 +377,7 @@
                         if (kontenn22.val().StatusKendaraan == 1) {
                             Status = `<span class="badge badge-success">Aktif</span>`
                         } else {
-                            Status = `<span class="badge badge-success">Tidak Aktif</span>`
+                            Status = `<span class="badge badge-secondary">Tidak Aktif</span>`
                         }
                         table.row.add([
                             ` <tr>

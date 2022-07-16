@@ -763,7 +763,7 @@
                             $('#nonaktifdata').hide()
                             $('#aktifdata').show()
                             $('#hapusDetails').hide()
-                            $('#EditDetails').show()
+                            $('#EditDetails').hide()
                         } else if (Number(document.getElementsByName('StatussKamarT[]')[s].value) == 2) {
                             $('#nonaktifdata').hide()
                             $('#aktifdata').hide()
