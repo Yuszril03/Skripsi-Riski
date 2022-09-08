@@ -436,15 +436,6 @@
                     $("#groupAkhir").show()
                 }
 
-
-
-
-                // document.getElementById('namaCust').value = kontenn.val().NamaCustomer
-                // document.getElementById('EmailCust').value = kontenn.val().EmailCustomer
-                // document.getElementById('nomorCust').value = kontenn.val().TelefonCustomer
-                // document.getElementById('tanggalCust').value = kontenn.val().TanggalLahirCustomer
-                // document.getElementById('alamatCust').value = kontenn.val().AlamatCustomer
-                // console.log(kontenn.val().Alamat)
                 document.getElementById('alamatBeritaEvent').value = kontenn.val().Alamat
                 document.getElementById('judul').value = kontenn.val().Judul
                 document.getElementById('JenisKegiatan').value = kontenn.val().JenisKegiatan
@@ -514,7 +505,7 @@
                                 Latitute: document.getElementById('latitute').value,
                                 Longlitute: document.getElementById('longlitude').value,
                                 TanggalBuat: parseJsonAdmin.TanggalBuat,
-                                TanggalUpdate: new Date().toLocaleString("id-ID"),
+                                TanggalUpdate: new Date().toString("ID"),
 
                             };
                             const updates = {};
@@ -582,7 +573,7 @@
                                             Latitute: document.getElementById('latitute').value,
                                             Longlitute: document.getElementById('longlitude').value,
                                             TanggalBuat: parseJsonAdmin.TanggalBuat,
-                                            TanggalUpdate: new Date().toLocaleString("id-ID"),
+                                            TanggalUpdate: new Date().toString("ID"),
                                         };
                                         const updates = {};
                                         updates['/Data-Kegiatan/<?= $DataID ?>'] = PostD;

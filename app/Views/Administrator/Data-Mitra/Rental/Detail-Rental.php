@@ -393,6 +393,7 @@
                                                     <div class="col-lg-4 col-12">
                                                         <p>
                                                             <span><b>Harga Sewa </b>: Rp. ${kontenn22.val().HargaSewa}</span><br>
+                                                            <span><b>Maksimal Rental Mobil </b>: ${kontenn22.val().MaksimalRentalMobil} Hari</span><br>
                                                             <span><b>Status Kendaraan</b> : ${Status}</span>
                                                         </p>
                                                     </div>

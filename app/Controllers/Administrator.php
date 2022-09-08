@@ -175,14 +175,33 @@ class Administrator extends BaseController
     }
 
     //Pemesanan
+    //wisata
     public function PemesananWisata()
     {
-        return view('Administrator/Data-Pemesanan/Pemesanan-Wisata');
+        return view('Administrator/Data-Pemesanan/Data-Pemesanan-Wisata/Pemesanan-Wisata');
     }
+    public function detailPemesananWisata($id = false, $idcustomer = false, $idmitra = false, $idBank = false)
+    {
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            $data = [
+                'DataID' => $id,
+                'DataIDCustomer' => $idcustomer,
+                'DataIDMitra' => $idmitra,
+                'DataIDBank' => $idBank
+            ];
+            return view('Administrator/Data-Pemesanan/Data-Pemesanan-Wisata/Detail-Pemesanan-Wisata', $data);
+        }
+    }
+    //rental
     public function PemesananRental()
     {
         return view('Administrator/Data-Pemesanan/Pemesanan-Rental');
     }
+    //hotel
     public function PemesananHotel()
     {
         return view('Administrator/Data-Pemesanan/Pemesanan-Hotel');
@@ -283,6 +302,7 @@ class Administrator extends BaseController
             return view('Administrator/Data-Customer/Detail-Data-Customer', $data);
         }
     }
+    //rating Komentar
     public function RetingKomentar()
     {
         return view('Administrator/Reting-Komentar/Reting-Komentar');
@@ -291,6 +311,8 @@ class Administrator extends BaseController
     {
         return view('Administrator/Reting-Komentar/detailReting-Komentar');
     }
+
+    // Kata Sandi
     public function KataSandi()
     {
         if (session()->get('Status') != TRUE) {
@@ -321,5 +343,92 @@ class Administrator extends BaseController
     {
         $this->session->destroy();
         return redirect()->to(base_url('/Masuk-Administrator'));
+    }
+
+    //Data Version Android
+    public function DataVersionAndroid()
+    {
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            return view('Administrator/Data-Version-Android/Data-Version-Android');
+        }
+    }
+
+    public function tambahDataVersionAndroid()
+    {
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            return view('Administrator/Data-Version-Android/Tambah-Data-Version-Android');
+        }
+    }
+    public function editVersionAndroid($id = false)
+    {
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            $data = [
+                'DataID' => $id
+            ];
+            return view('Administrator/Data-Version-Android/Edit-Data-Version-Android', $data);
+        }
+    }
+
+    //Bank
+    public function DaftarBank()
+    {
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            return view('Administrator/Bank/Daftar-Bank');
+        }
+    }
+
+    public function tambahBank()
+    {
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            return view('Administrator/Bank/Tambah-Bank');
+        }
+    }
+
+    public function editBank($id = false)
+    {
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            $data = [
+                'DataID' => $id
+            ];
+            return view('Administrator/Bank/Edit-Bank', $data);
+        }
+    }
+
+    public function detailBank($id = false)
+    {
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            $data = [
+                'DataID' => $id
+            ];
+            return view('Administrator/Bank/Detail-Bank', $data);
+        }
     }
 }

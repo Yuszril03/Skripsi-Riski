@@ -223,6 +223,7 @@
                     <div class="float-right ">
                         <button id="tambahDataDetail" class="btn btn-success btn-sm m-1" onclick="modalDetails('Tambah')" title="Tambah Data" data-toggle="modal" data-target="#modalKamar" style="border-radius: 15px;"> <i class="fa fa-plus-circle"></i></button>
                         <button id="EditDetails" class="btn btn-warning btn-sm m-1" title="Edit Data" data-toggle="modal" data-target="#modalEdit" style="border-radius: 15px;"> <i class="bi bi-pencil-square"></i></button>
+                        <button id="detailMobil" class="btn btn-primary btn-sm m-1" title="Edit Data" style="border-radius: 15px;"> <i class="bi bi-info-circle"></i></button>
                         <button id="hapusDetails" class="btn btn-danger btn-sm m-1" title="Hapus Data" style="border-radius: 15px;"> <i class="bi bi-trash3"></i></button>
                         <button id="nonaktifdata" class="btn btn-danger btn-sm m-1" title="NonAktifkan Data" style="border-radius: 15px;"> <i class="bi bi-power"></i></button>
                         <button id="aktifdata" class="btn btn-success btn-sm m-1" title="Aktifkan Data" style="border-radius: 15px;"> <i class="bi bi-power"></i></button>
@@ -241,6 +242,7 @@
                                         <th>Ukuran Kendaraan</th>
                                         <th>Jumlah Kursi</th>
                                         <th>Harga Sewa</th>
+                                        <th>Maksimal Rental</th>
                                         <th>Deskripsi</th>
                                         <th>Status Kendaraan</th>
                                     </tr>
@@ -323,6 +325,20 @@
                                             </div>
                                             <input onkeypress="return hanyaAngka(this)" id="jumlahKursi" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Ketik di sini..." aria-label="Username" aria-describedby="basic-addon1">
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Maksimal Rental Mobil<sup><span class="text-danger">*</span></sup></label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                            <input id="maksimalRentalMobilAdd" class="form-control" onkeypress="return hanyaAngka(this)" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" placeholder="Tentukan Maksimal hari Rental Mobil..." aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <span id="alertAdd" class="text-danger">Maksimal 15 Hari Rental</span>
                                     </div>
                                 </div>
                             </div>
@@ -412,6 +428,20 @@
                                         </div>
                                         <input onkeypress="return hanyaAngka(this)" id="jumlahKursiEdit" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Ketik di sini..." aria-label="Username" aria-describedby="basic-addon1">
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">Maksimal Rental Mobil<sup><span class="text-danger">*</span></sup></label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                        <input id="maksimalRentalMobilEdit" class="form-control" onkeypress="return hanyaAngka(this)" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" placeholder="Tentukan Maksimal hari Rental Mobil..." aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>
+                                    <span id="alertEdit" class="text-danger">Maksimal 15 Hari Rental</span>
                                 </div>
                             </div>
                         </div>
@@ -531,6 +561,7 @@
         $('#alertStatusNonAktif').hide()
         $('#hapusDetails').hide()
         $('#EditDetails').hide()
+        $('#detailMobil').hide()
         $('#nonaktifdata').hide()
         $('#aktifdata').hide()
 
@@ -581,6 +612,7 @@
                             JumlahKursi: kontenn2.val().JumlahKursi,
                             Deskripsi: kontenn2.val().deskripsiKendaraan,
                             ukuranKendaraan: kontenn2.val().UkuranKendaraan,
+                            maksimalRentalMobil: kontenn2.val().MaksimalRentalMobil,
                             idDetail: NoUrut,
                             StatusKendaraan: kontenn2.val().StatusKendaraan,
                             idDB: keys[isi]
@@ -602,9 +634,11 @@
                             `<input type="hidden" name="ukuranKendaraanT[]" value="${kontenn2.val().UkuranKendaraan}">` +
                             kontenn2.val().UkuranKendaraan,
                             `<input type="hidden" name="jumlahKursiT[]" value="${kontenn2.val().JumlahKursi}">` +
-                            kontenn2.val().JumlahKursi,
+                            kontenn2.val().JumlahKursi + ` Kursi`,
                             `<input type="hidden" name="hargaSewaT[]" value="${kontenn2.val().HargaSewa}">` +
                             `Rp. ` + kontenn2.val().HargaSewa,
+                            `<input type="hidden" name="maksimalRentalMobilT[]" value="${kontenn2.val().MaksimalRentalMobil}">` +
+                            kontenn2.val().MaksimalRentalMobil + ` Hari`,
                             `<input type="hidden" name="deskripsiKendaraanT[]" value="${kontenn2.val().deskripsiKendaraan}">` +
                             kontenn2.val().deskripsiKendaraan,
 
@@ -626,6 +660,7 @@
                 indexz = null;
                 $('#hapusDetails').hide()
                 $('#EditDetails').hide()
+                $('#detailMobil').hide()
                 $('#nonaktifdata').hide()
                 $('#aktifdata').hide()
 
@@ -639,6 +674,7 @@
                     indexz = null;
                     $('#hapusDetails').hide()
                     $('#EditDetails').hide()
+                    $('#detailMobil').hide()
                     $('#nonaktifdata').hide()
                     $('#aktifdata').hide()
                 } else {
@@ -659,9 +695,11 @@
                         $('#aktifdata').hide()
                         $('#hapusDetails').hide()
                         $('#EditDetails').show()
+                        $('#detailMobil').show()
                     } else if (Number(document.getElementsByName('StatusKendaraanT[]')[s].value) == 0) {
                         $('#nonaktifdata').hide()
                         $('#aktifdata').show()
+                        $('#detailMobil').show()
                         $('#hapusDetails').hide()
                         $('#EditDetails').hide()
                     } else if (Number(document.getElementsByName('StatusKendaraanT[]')[s].value) == 2) {
@@ -669,6 +707,7 @@
                         $('#aktifdata').hide()
                         $('#hapusDetails').show()
                         $('#EditDetails').show()
+                        $('#detailMobil').show()
                     }
                 }
             }
@@ -730,6 +769,8 @@
                             `Rp. ` + tempData[j].HargaKamar,
                             `<input type="hidden" name="jumlahKamarT[]" value="${tempData[j].JumlahKamar}">` +
                             tempData[j].JumlahKamar,
+                            `<input type="hidden" name="maksimalRentalMobilT[]" value="${tempData[j].MaksimalRentalMobil}">` +
+                            tempData[j].MaksimalRentalMobil,
                             `<input type="hidden" name="StatussKamarT[]" value="${tempData[j].StatussKamar}">` +
                             StatusDataDetails
                         ]).draw(false)
@@ -770,12 +811,19 @@
                 document.getElementById('jumlahKursiEdit').value = konten.val().JumlahKursi
                 document.getElementById('deskripsiKendaraanEdit').value = konten.val().deskripsiKendaraan
                 document.getElementById('ukuranKendaraanEdit').value = konten.val().UkuranKendaraan
+                document.getElementById('maksimalRentalMobilEdit').value = konten.val().MaksimalRentalMobil
                 document.getElementById('AddImageDetail').src = konten.val().fotoKendaraan
                 document.getElementById('tempUploadData').value = konten.val().fotoKendaraan
                 document.getElementById('tanggalbuat').value = konten.val().TanggalBuat
                 document.getElementById('editstatuKendaraan').value = konten.val().StatusKendaraan
             });
 
+
+        })
+
+        document.getElementById('detailMobil').addEventListener('click', function() {
+
+            window.location.href = "<?= base_url() ?>/Detail-Mobil/" + document.getElementsByName('idDetailT[]')[posisiData].value
 
         })
 
@@ -791,17 +839,32 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    let idDetailsEdit = ['uploadFileeDetailEdit', 'namaKendaraanEdit', 'hargaSewaEdit', 'jumlahKursiEdit', 'deskripsiKendaraanEdit', 'ukuranKendaraanEdit'];
+                    let idDetailsEdit = ['uploadFileeDetailEdit', 'namaKendaraanEdit', 'hargaSewaEdit', 'jumlahKursiEdit', 'deskripsiKendaraanEdit', 'ukuranKendaraanEdit', 'maksimalRentalMobilEdit'];
                     let jumlahDetailsEdit = 0;
                     const fileupload = $('#uploadFileeDetailEdit').prop('files')[0];
 
-                    for (let i; i < idDetailsEdit.length; i++) {
+                    for (let i = 0; i < idDetailsEdit.length; i++) {
                         if (i == 0) {
                             if (Boolean(fileupload) == false && document.getElementById('tempUploadData').value == "") {
                                 jumlahDetailsEdit++;
                                 document.getElementById('fileDetailEdit').style.border = "2px dotted red";
                             } else {
                                 document.getElementById("fileDetailEdit").style.border = "2px dotted gray";
+                            }
+
+                        } else if (i == 6) {
+                            if (document.getElementById(idDetailsEdit[i]).value > 15) {
+                                jumlahDetailsEdit++;
+                                $('#alertEdit').show()
+                            } else {
+                                $('#alertEdit').hide()
+                            }
+
+                            if (document.getElementById(idDetailsEdit[i]).value == "") {
+                                jumlahDetailsEdit++;
+                                $('#' + idDetailsEdit[i]).addClass('is-invalid')
+                            } else {
+                                $('#' + idDetailsEdit[i]).removeClass('is-invalid')
                             }
                         } else if (document.getElementById(idDetailsEdit[i]).value == "") {
                             jumlahDetailsEdit++;
@@ -820,6 +883,7 @@
                                 deskripsiKendaraan: document.getElementById('deskripsiKendaraanEdit').value,
                                 HargaSewa: document.getElementById('hargaSewaEdit').value,
                                 JumlahKursi: document.getElementById('jumlahKursiEdit').value,
+                                MaksimalRentalMobil: document.getElementById('maksimalRentalMobilEdit').value,
                                 UkuranKendaraan: document.getElementById('ukuranKendaraanEdit').value,
                                 IdRental: CodeIDRental,
                                 fotoKendaraan: document.getElementById('tempUploadData').value,
@@ -883,6 +947,7 @@
                                             deskripsiKendaraan: document.getElementById('deskripsiKendaraanEdit').value,
                                             HargaSewa: document.getElementById('hargaSewaEdit').value,
                                             JumlahKursi: document.getElementById('jumlahKursiEdit').value,
+                                            MaksimalRentalMobil: document.getElementById('maksimalRentalMobilEdit').value,
                                             UkuranKendaraan: document.getElementById('ukuranKendaraanEdit').value,
                                             IdRental: CodeIDRental,
                                             fotoKendaraan: downloadURL,
@@ -933,7 +998,7 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Kolom pengisian Tidak Boleh Kosong!'
+                            text: 'Isi Kolom Dengan Benar & Kolom pengisian Tidak Boleh Kosong!'
                         })
                     }
 
@@ -964,6 +1029,7 @@
                             deskripsiKendaraan: result.val().deskripsiKendaraan,
                             HargaSewa: result.val().HargaSewa,
                             JumlahKursi: result.val().JumlahKursi,
+                            MaksimalRentalMobil: result.val().MaksimalRentalMobil,
                             UkuranKendaraan: result.val().UkuranKendaraan,
                             IdRental: result.val().IdRental,
                             fotoKendaraan: result.val().fotoKendaraan,
@@ -1021,6 +1087,7 @@
                             deskripsiKendaraan: result.val().deskripsiKendaraan,
                             HargaSewa: result.val().HargaSewa,
                             UkuranKendaraan: result.val().UkuranKendaraan,
+                            MaksimalRentalMobil: result.val().MaksimalRentalMobil,
                             JumlahKursi: result.val().JumlahKursi,
                             IdRental: result.val().IdRental,
                             fotoKendaraan: result.val().fotoKendaraan,
@@ -1059,7 +1126,7 @@
         //submit details
         document.getElementById('submitDetails').addEventListener('click', function() {
             let jenisSubmit = document.getElementById('titleModalDetail').innerHTML;
-            let idDetails = ['#uploadFilee', 'ukuranKendaraan', 'hargaSewa', 'jumlahKursi', 'deskripsiKendaraan', 'namaKendaraan'];
+            let idDetails = ['#uploadFilee', 'ukuranKendaraan', 'hargaSewa', 'jumlahKursi', 'deskripsiKendaraan', 'namaKendaraan', 'maksimalRentalMobilAdd'];
             let jumlahDetails = 0;
             const fileupload = $('#uploadFilee').prop('files')[0];
             console.log(fileupload);
@@ -1073,6 +1140,20 @@
                         document.getElementById("fileDetail").style.border = "2px dotted gray";
                     }
 
+                } else if (i == 6) {
+                    if (document.getElementById(idDetails[i]).value > 15) {
+                        jumlahDetails++;
+                        $('#alertAdd').show()
+                    } else {
+                        $('#alertAdd').hide()
+                    }
+
+                    if (document.getElementById(idDetails[i]).value == "") {
+                        jumlahDetails++;
+                        $('#' + idDetails[i]).addClass('is-invalid')
+                    } else {
+                        $('#' + idDetails[i]).removeClass('is-invalid')
+                    }
                 } else if (document.getElementById(idDetails[i]).value == "") {
                     jumlahDetails++;
                     $('#' + idDetails[i]).addClass('is-invalid')
@@ -1141,6 +1222,7 @@
                                 deskripsiKendaraan: document.getElementById('deskripsiKendaraan').value,
                                 HargaSewa: document.getElementById('hargaSewa').value,
                                 JumlahKursi: document.getElementById('jumlahKursi').value,
+                                MaksimalRentalMobil: document.getElementById('maksimalRentalMobilAdd').value,
                                 IdRental: '<?= session()->get('IDKelola') ?>',
                                 fotoKendaraan: downloadURL,
                                 StatusKendaraan: 1,
@@ -1167,7 +1249,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Kolom pengisian Tidak Boleh Kosong!'
+                    text: 'Isi Kolom Dengan Benar & Kolom pengisian Tidak Boleh Kosong!'
                 })
             }
 
@@ -1175,7 +1257,7 @@
 
 
         function resetModal() {
-            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas'];
+            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas', 'maksimalRentalMobilAdd'];
 
             for (let i = 0; i < idDetails.length; i++) {
                 if (i == 0) {
@@ -1259,6 +1341,8 @@
 
 
         //Detail
+        $('#alertEdit').hide()
+        $('#alertAdd').hide()
         $('#btnCancelImageDetail').hide()
         $('#AddImageDetail').hide()
         $('.image-title-Detail').hide()

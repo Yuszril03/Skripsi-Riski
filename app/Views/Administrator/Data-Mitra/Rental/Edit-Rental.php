@@ -356,6 +356,7 @@
                                             <th>Ukuran Kendaraan</th>
                                             <th>Jumlah Kursi</th>
                                             <th>Harga Sewa</th>
+                                            <th>Maksimal Rental</th>
                                             <th>Deskripsi</th>
                                             <th>Status Kendaraan</th>
                                         </tr>
@@ -447,6 +448,20 @@
                                                     </div>
                                                     <input onkeypress="return hanyaAngka(this)" id="jumlahKursi" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Ketik di sini..." aria-label="Username" aria-describedby="basic-addon1">
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="">Maksimal Rental Mobil<sup><span class="text-danger">*</span></sup></label>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                    <input id="maksimalRentalMobil" class="form-control" onkeypress="return hanyaAngka(this)" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" placeholder="Tentukan Maksimal hari Rental Mobil..." aria-label="Username" aria-describedby="basic-addon1">
+                                                </div>
+                                                <span id="alert" class="text-danger">Maksimal 15 Hari Rental</span>
                                             </div>
                                         </div>
                                     </div>
@@ -765,6 +780,7 @@
                             harga: kontenn2.val().HargaSewa,
                             kursi: kontenn2.val().JumlahKursi,
                             deskripsi: kontenn2.val().deskripsiKendaraan,
+                            maksimalrentalmobil: kontenn2.val().MaksimalRentalMobil,
                             idDetail: NoUrut,
                             StatussKendaraan: kontenn2.val().StatusKendaraan,
                             idDB: keys[isi]
@@ -789,6 +805,8 @@
                             kontenn2.val().JumlahKursi,
                             `<input type="hidden" name="hargaSewaT[]" value="${kontenn2.val().HargaSewa}">` +
                             `Rp. ` + kontenn2.val().HargaSewa,
+                            `<input type="hidden" name="maksimalRentalMobilT[]" value="${kontenn2.val().MaksimalRentalMobil}">` +
+                            kontenn2.val().MaksimalRentalMobil,
                             `<input type="hidden" name="deskripsiKendaraanT[]" value="${kontenn2.val().deskripsiKendaraan}">` +
                             kontenn2.val().deskripsiKendaraan,
                             `<input type="hidden" name="StatussKendaraanT[]" value="${kontenn2.val().StatusKendaraan}">` +
@@ -916,6 +934,8 @@
                             localDataDetail[j].kursi,
                             `<input type="hidden" name="hargaSewaT[]" value="${localDataDetail[j].harga}">` +
                             `Rp. ` + localDataDetail[j].harga,
+                            `<input type="hidden" name="maksimalRentalMobilT[]" value="${localDataDetail[j].maksimalrentalmobil}">` +
+                            `Rp. ` + localDataDetail[j].maksimalrentalmobil,
                             `<input type="hidden" name="deskripsiKendaraanT[]" value="${localDataDetail[j].deskripsi}">` +
                             localDataDetail[j].deskripsi,
                             `<input type="hidden" name="StatussKendaraanT[]" value="${localDataDetail[j].StatussKendaraan}">` +
@@ -991,6 +1011,8 @@
                             localDataDetail[j].kursi,
                             `<input type="hidden" name="hargaSewaT[]" value="${localDataDetail[j].harga}">` +
                             `Rp. ` + localDataDetail[j].harga,
+                            `<input type="hidden" name="maksimalRentalMobilT[]" value="${localDataDetail[j].maksimalrentalmobil}">` +
+                            `Rp. ` + localDataDetail[j].maksimalrentalmobil,
                             `<input type="hidden" name="deskripsiKendaraanT[]" value="${localDataDetail[j].deskripsi}">` +
                             localDataDetail[j].deskripsi,
                             `<input type="hidden" name="StatussKendaraanT[]" value="${localDataDetail[j].StatussKendaraan}">` +
@@ -1107,6 +1129,7 @@
                                                             StatusKendaraan: localDataDetail[h].StatussKendaraan,
                                                             HargaSewa: localDataDetail[h].harga,
                                                             JumlahKursi: localDataDetail[h].kursi,
+                                                            MaksimalRentalMobil: localDataDetail[h].maksimalrentalmobil,
                                                             TanggalBuat: kontenn2.val().TanggalBuat,
                                                             TanggalUpdate: new Date().toString("ID"),
                                                             fotoKendaraan: localDataDetail[h].fotoDB,
@@ -1177,6 +1200,7 @@
                                                                 StatusKendaraan: 1,
                                                                 HargaSewa: localDataDetail[h].harga,
                                                                 JumlahKursi: localDataDetail[h].kursi,
+                                                                MaksimalRentalMobil: localDataDetail[h].maksimalrentalmobil,
                                                                 TanggalBuat: new Date().toString("ID"),
                                                                 TanggalUpdate: new Date().toString("ID"),
                                                                 fotoKendaraan: downloadURL,
@@ -1196,6 +1220,7 @@
                                                                             StatusKendaraan: localDataDetail[h].StatussKendaraan,
                                                                             HargaSewa: localDataDetail[h].harga,
                                                                             JumlahKursi: localDataDetail[h].kursi,
+                                                                            MaksimalRentalMobil: localDataDetail[h].maksimalrentalmobil,
                                                                             TanggalBuat: kontenn2.val().TanggalBuat,
                                                                             TanggalUpdate: new Date().toString("ID"),
                                                                             fotoKendaraan: downloadURL,
@@ -1356,6 +1381,7 @@
                                                                         StatusKendaraan: 1,
                                                                         HargaSewa: localDataDetail[h].harga,
                                                                         JumlahKursi: localDataDetail[h].kursi,
+                                                                        MaksimalRentalMobil: localDataDetail[h].maksimalrentalmobil,
                                                                         TanggalBuat: new Date().toString("ID"),
                                                                         TanggalUpdate: new Date().toString("ID"),
                                                                         fotoKendaraan: downloadURL2,
@@ -1376,6 +1402,7 @@
                                                                                     StatusKendaraan: localDataDetail[h].StatussKendaraan,
                                                                                     HargaSewa: localDataDetail[h].harga,
                                                                                     JumlahKursi: localDataDetail[h].kursi,
+                                                                                    MaksimalRentalMobil: localDataDetail[h].maksimalrentalmobil,
                                                                                     TanggalBuat: kontenn2.val().TanggalBuat,
                                                                                     TanggalUpdate: new Date().toString("ID"),
                                                                                     fotoKendaraan: downloadURL2,
@@ -1498,6 +1525,7 @@
                                                                 StatusKendaraan: localDataDetail[h].StatussKendaraan,
                                                                 HargaSewa: localDataDetail[h].harga,
                                                                 JumlahKursi: localDataDetail[h].kursi,
+                                                                MaksimalRentalMobil: localDataDetail[h].maksimalrentalmobil,
                                                                 TanggalBuat: kontenn2.val().TanggalBuat,
                                                                 TanggalUpdate: new Date().toString("ID"),
                                                                 fotoKendaraan: localDataDetail[h].fotoDB,
@@ -1569,6 +1597,7 @@
                                                                     StatusKendaraan: 1,
                                                                     HargaSewa: localDataDetail[h].harga,
                                                                     JumlahKursi: localDataDetail[h].kursi,
+                                                                    MaksimalRentalMobil: localDataDetail[h].maksimalrentalmobil,
                                                                     TanggalBuat: new Date().toString("ID"),
                                                                     TanggalUpdate: new Date().toString("ID"),
                                                                     fotoKendaraan: downloadURL,
@@ -1588,6 +1617,7 @@
                                                                                 StatusKendaraan: localDataDetail[h].StatussKendaraan,
                                                                                 HargaSewa: localDataDetail[h].harga,
                                                                                 JumlahKursi: localDataDetail[h].kursi,
+                                                                                MaksimalRentalMobil: localDataDetail[h].maksimalrentalmobil,
                                                                                 TanggalBuat: kontenn2.val().TanggalBuat,
                                                                                 TanggalUpdate: new Date().toString("ID"),
                                                                                 fotoKendaraan: downloadURL,
@@ -1717,6 +1747,7 @@
                                                                             StatusKendaraan: localDataDetail[h].StatussKendaraan,
                                                                             HargaSewa: localDataDetail[h].harga,
                                                                             JumlahKursi: localDataDetail[h].kursi,
+                                                                            MaksimalRentalMobil: localDataDetail[h].maksimalrentalmobil,
                                                                             TanggalBuat: kontenn2.val().TanggalBuat,
                                                                             TanggalUpdate: new Date().toString("ID"),
                                                                             fotoKendaraan: localDataDetail[h].fotoDB,
@@ -1788,6 +1819,7 @@
                                                                                 StatusKendaraan: 1,
                                                                                 HargaSewa: localDataDetail[h].harga,
                                                                                 JumlahKursi: localDataDetail[h].kursi,
+                                                                                MaksimalRentalMobil: localDataDetail[h].maksimalrentalmobil,
                                                                                 TanggalBuat: new Date().toString("ID"),
                                                                                 TanggalUpdate: new Date().toString("ID"),
                                                                                 fotoKendaraan: downloadURL2,
@@ -1807,6 +1839,7 @@
                                                                                             StatusKendaraan: localDataDetail[h].StatussKendaraan,
                                                                                             HargaSewa: localDataDetail[h].harga,
                                                                                             JumlahKursi: localDataDetail[h].kursi,
+                                                                                            MaksimalRentalMobil: localDataDetail[h].maksimalrentalmobil,
                                                                                             TanggalBuat: kontenn2.val().TanggalBuat,
                                                                                             TanggalUpdate: new Date().toString("ID"),
                                                                                             fotoKendaraan: downloadURL2,
@@ -1935,6 +1968,8 @@
                             tempData[j].kursi,
                             `<input type="hidden" name="hargaSewaT[]" value="${tempData[j].harga}">` +
                             `Rp. ` + tempData[j].harga,
+                            `<input type="hidden" name="maksimalRentalMobilT[]" value="${tempData[j].maksimalrentalmobil}">` +
+                            `Rp. ` + tempData[j].maksimalrentalmobil,
                             `<input type="hidden" name="deskripsiKendaraanT[]" value="${tempData[j].deskripsi}">` +
                             tempData[j].deskripsi,
                             `<input type="hidden" name="StatussKendaraanT[]" value="${tempData[j].StatussKendaraan}">` +
@@ -2007,6 +2042,7 @@
             document.getElementById('namaKendaraan').value = document.getElementsByName('namaKendaraanT[]')[s].value
             document.getElementById('ukuranKendaraan').value = document.getElementsByName('ukuranKendaraanT[]')[s].value
             document.getElementById('hargaSewa').value = document.getElementsByName('hargaSewaT[]')[s].value
+            document.getElementById('maksimalRentalMobil').value = document.getElementsByName('maksimalRentalMobilT[]')[s].value
             document.getElementById('jumlahKursi').value = document.getElementsByName('jumlahKursiT[]')[s].value
             document.getElementById('deskripsiKendaraan').value = document.getElementsByName('deskripsiKendaraanT[]')[s].value
 
@@ -2016,7 +2052,7 @@
 
         document.getElementById('submitDetails').addEventListener('click', function() {
             let jenisSubmit = document.getElementById('titleModalDetail').innerHTML;
-            let idDetails = ['uploadFileeDetail', 'namaKendaraan', 'ukuranKendaraan', 'hargaSewa', 'jumlahKursi', 'deskripsiKendaraan'];
+            let idDetails = ['uploadFileeDetail', 'namaKendaraan', 'ukuranKendaraan', 'hargaSewa', 'jumlahKursi', 'deskripsiKendaraan', 'maksimalRentalMobil'];
             let jumlahDetails = 0;
 
             for (let i = 0; i < idDetails.length; i++) {
@@ -2037,6 +2073,19 @@
                         }
                     }
 
+                } else if (i == 6) {
+                    if (document.getElementById(idDetails[i]).value > 15) {
+                        jumlahDetails++;
+                        $('#alert').show()
+                    } else {
+                        $('#alert').hide()
+                    }
+                    if (document.getElementById(idDetails[i]).value == "") {
+                        jumlahDetails++;
+                        $('#' + idDetails[i]).addClass('is-invalid')
+                    } else {
+                        $('#' + idDetails[i]).removeClass('is-invalid')
+                    }
                 } else if (document.getElementById(idDetails[i]).value == "") {
                     jumlahDetails++;
                     $('#' + idDetails[i]).addClass('is-invalid')
@@ -2060,6 +2109,7 @@
                         ukuranKendaraan: document.getElementById("ukuranKendaraan").value,
                         harga: document.getElementById("hargaSewa").value,
                         kursi: document.getElementById("jumlahKursi").value,
+                        maksimalrentalmobil: document.getElementById("maksimalRentalMobil").value,
                         deskripsi: document.getElementById("deskripsiKendaraan").value,
                         idDetail: NoUrut,
                         StatussKendaraan: 2,
@@ -2079,6 +2129,8 @@
                         document.getElementById("jumlahKursi").value,
                         `<input type="hidden" name="hargaSewaT[]" value="${document.getElementById("hargaSewa").value}">` +
                         `Rp. ` + document.getElementById("hargaSewa").value,
+                        `<input type="hidden" name="maksimalRentalMobilT[]" value="${document.getElementById("maksimalRentalMobil").value}">` +
+                        `Rp. ` + document.getElementById("maksimalRentalMobil").value,
                         `<input type="hidden" name="deskripsiKendaraanT[]" value="${document.getElementById("deskripsiKendaraan").value}">` +
                         document.getElementById("deskripsiKendaraan").value,
                         `<input type="hidden" name="StatussKendaraanT[]" value="2">` +
@@ -2112,6 +2164,7 @@
                             localDataDetail[i].ukuranKendaraan = document.getElementById("ukuranKendaraan").value
                             localDataDetail[i].harga = document.getElementById("hargaSewa").value
                             localDataDetail[i].kursi = document.getElementById("jumlahKursi").value
+                            localDataDetail[i].maksimalrentalmobil = document.getElementById("maksimalRentalMobil").value
                             localDataDetail[i].deskripsi = document.getElementById("deskripsiKendaraan").value
                             localDataDetail[i].StatussKendaraan = document.getElementById("statuskendaraannn").value
                             localDataDetail[i].idDB = document.getElementById("idDataDetilssDB").value
@@ -2140,6 +2193,8 @@
                             localDataDetail[j].kursi,
                             `<input type="hidden" name="hargaSewaT[]" value="${localDataDetail[j].harga}">` +
                             `Rp. ` + localDataDetail[j].harga,
+                            `<input type="hidden" name="maksimalRentalMobilT[]" value="${localDataDetail[j].maksimalrentalmobil}">` +
+                            `Rp. ` + localDataDetail[j].maksimalrentalmobil,
                             `<input type="hidden" name="deskripsiKendaraanT[]" value="${localDataDetail[j].deskripsi}">` +
                             localDataDetail[j].deskripsi,
                             `<input type="hidden" name="StatussKendaraanT[]" value="${localDataDetail[j].StatussKendaraan}">` +
@@ -2170,7 +2225,7 @@
         })
 
         function resetModal() {
-            let idDetails = ['uploadFileeDetail', 'namaKendaraan', 'ukuranKendaraan', 'hargaSewa', 'jumlahKursi', 'deskripsiKendaraan'];
+            let idDetails = ['uploadFileeDetail', 'namaKendaraan', 'ukuranKendaraan', 'hargaSewa', 'jumlahKursi', 'deskripsiKendaraan', 'maksimalRentalMobil'];
 
             for (let i = 0; i < idDetails.length; i++) {
                 if (i == 0) {
@@ -2261,6 +2316,7 @@
         $('#alertJenisKendaraan').hide()
 
         //Detail
+        $('#alert').hide()
         $('#btnCancelImageDetail').hide()
         $('#AddImageDetail').hide()
         $('.image-title-Detail').hide()
@@ -2278,7 +2334,7 @@
                 cancelButtonText: 'Tidak',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    location.href = "<?= base_url() ?>/Mitra-Wisata"
+                    location.href = "<?= base_url() ?>/Mitra-Rental"
                 }
             })
         }

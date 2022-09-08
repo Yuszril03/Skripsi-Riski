@@ -33,12 +33,15 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
+
+
+
         <!-- Navbar -->
-        <?= view('Mitra/Template-Mitra/Header') ?>
+        <?= view('Administrator/Template-Admin/Header') ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?= view('Mitra/Template-Mitra/Sidebar') ?>
+        <?= view('Administrator/Template-Admin/Sidebar') ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -106,10 +109,10 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <?= view('Mitra/Template-Mitra/Footer') ?>
+        <?= view('Administrator/Template-Admin/Footer') ?>
 
         <!-- Control Sidebar -->
-        <aside class=" control-sidebar control-sidebar-dark">
+        <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
@@ -185,8 +188,8 @@
                 search: '',
                 searchPlaceholder: "Pencarian...",
                 "paginate": {
-                    "next": `<i class="bi bi-chevron-right"></i>`,
-                    "previous": `<i class="bi bi-chevron-left"></i>`
+                    "next": "Selanjutnya",
+                    "previous": "Sebelumnya"
                 },
                 "info": "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri",
                 "lengthMenu": "Tampilkan _MENU_ entri",
@@ -197,6 +200,9 @@
             }
         });
         LoadData()
+
+
+
 
         function LoadData() {
             const database1 = ref(db, 'Transaction-Wisata');
@@ -219,108 +225,63 @@
                             //Nama Wisata
                             const database4 = ref(db, 'Master-Data-Wisata/' + dataWisata.IdMitra);
                             onValue(database4, (snapshot4) => {
-                                if (snapshot2.val().IdMitra == "<?= session()->get('IDKelola') ?>") {
-                                    let PostData = {
-                                        IDKey: keysTransaksi[isi],
-                                        fotoDB: snapshot2.val().BuktiTraksaksi,
-                                        foto: null,
-                                        NamaWisata: snapshot4.val().NamaWisata,
-                                        NamaCustomer: snapshot3.val().NamaCustomer,
-                                        TanggalBuat: snapshot2.val().TanggalBuat,
-                                        JumlahDewasa: snapshot2.val().JumlahDewasa,
-                                        JumlahAnak: snapshot2.val().JumlahAnak,
-                                        TotalSemua: snapshot2.val().TotalSemua,
-                                        StatusTransaksi: Number(snapshot2.val().StatusTransaksi)
 
-                                    }
 
-                                    let StatusData = '';
-                                    let ActionData =
-                                        // `<button type="button"  class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
-                                        `<button type="button" onclick="location.href='<?= base_url() ?>/Detail-Pemesanan-Tiket/${keysTransaksi[isi]}/${dataWisata.IdCutomer}/${dataWisata.IdMitra}/${dataWisata.JenisPembayaran}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                let PostData = {
+                                    IDKey: keysTransaksi[isi],
+                                    NamaWisata: snapshot4.val().NamaWisata,
+                                    NamaCustomer: snapshot3.val().NamaCustomer,
+                                    TanggalBuat: snapshot2.val().TanggalBuat,
+                                    JumlahDewasa: snapshot2.val().JumlahDewasa,
+                                    JumlahAnak: snapshot2.val().JumlahAnak,
+                                    TotalSemua: snapshot2.val().TotalSemua,
+                                    StatusTransaksi: Number(snapshot2.val().StatusTransaksi)
+
+                                }
+
+                                let StatusData = '';
+                                let ActionData =
+                                    // `<button type="button"  class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                    `<button type="button" onclick="location.href='<?= base_url() ?>/Detail-Pemesanan-Wisata/${keysTransaksi[isi]}/${dataWisata.IdCutomer}/${dataWisata.IdMitra}/${dataWisata.JenisPembayaran}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                     `;
 
-                                    const options = {
-                                        weekday: 'long',
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric'
-                                    };
+                                const options = {
+                                    weekday: 'long',
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                };
 
-                                    if (Number(snapshot2.val().StatusTransaksi) == 1) {
-                                        StatusData = `<span class="badge badge-warning">Belum Terbayar</span>`;
-                                    } else if (Number(snapshot2.val().StatusTransaksi) == 2) {
-                                        StatusData = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`;
-                                    } else if (Number(snapshot2.val().StatusTransaksi) == 3) {
-                                        StatusData = `<span class="badge badge-success">Sudah Terbayar</span>`;
-                                    } else {
-                                        StatusData = `<span class="badge badge-secondary">Tiket Sudah Digunakan</span>`;
-                                    }
-
-                                    table.row.add([
-                                        keysTransaksi[isi],
-                                        snapshot4.val().NamaWisata,
-                                        snapshot3.val().NamaCustomer,
-                                        snapshot2.val().TanggalBuat,
-                                        snapshot2.val().JumlahDewasa + ' orang',
-                                        snapshot2.val().JumlahAnak + ' orang',
-                                        'Rp. ' + snapshot2.val().TotalSemua,
-                                        StatusData,
-                                        ActionData
-                                    ]).draw(false)
-
-                                    parseJsonTransaksi.push(PostData)
+                                if (Number(snapshot2.val().StatusTransaksi) == 1) {
+                                    StatusData = `<span class="badge badge-warning">Belum Terbayar</span>`;
+                                } else if (Number(snapshot2.val().StatusTransaksi) == 2) {
+                                    StatusData = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`;
+                                } else if (Number(snapshot2.val().StatusTransaksi) == 3) {
+                                    StatusData = `<span class="badge badge-success">Sudah Terbayar</span>`;
+                                } else {
+                                    StatusData = `<span class="badge badge-secondary">Tiket Sudah Digunakan</span>`;
                                 }
+
+                                table.row.add([
+                                    keysTransaksi[isi],
+                                    snapshot4.val().NamaWisata,
+                                    snapshot3.val().NamaCustomer,
+                                    snapshot2.val().TanggalBuat,
+                                    snapshot2.val().JumlahDewasa + ' orang',
+                                    snapshot2.val().JumlahAnak + ' orang',
+                                    'Rp. ' + snapshot2.val().TotalSemua,
+                                    StatusData,
+                                    ActionData
+                                ]).draw(false)
+
+                                parseJsonTransaksi.push(PostData)
+
                             })
-
-
                         })
-
-
-
                     })
                 }
                 console.log(parseJsonTransaksi)
-
-                // for (let i = 0; i < parseJsonTransaksi.length; i++) {
-                //     let StatusData = '';
-                //     let ActionData =
-                //         // `<button type="button"  class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
-                //         `<button type="button" id="editVersionAndroid" onclick="location.href='<?= base_url() ?>/Edit-Data-Version/${parseJsonTransaksi[i].IDkey}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
-                //     `;
-
-                //     const options = {
-                //         weekday: 'long',
-                //         year: 'numeric',
-                //         month: 'long',
-                //         day: 'numeric'
-                //     };
-
-                //     if (parseJsonTransaksi[i].StatusTransaksi == 1) {
-                //         StatusData = `<span class="badge badge-secondary">Belum Lunas</span>`;
-                //     } else if (parseJsonTransaksi[i].StatusTransaksi == 2) {
-                //         StatusData = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`;
-                //     } else if (parseJsonTransaksi[i].StatusTransaksi == 3) {
-                //         StatusData = `<span class="badge badge-success">Pembayaran Berhasil</span>`;
-                //     } else {
-                //         StatusData = `<span class="badge badge-warning">Tiket Sudah Digunakan</span>`;
-                //     }
-
-                //     table.row.add([
-                //         parseJsonTransaksi[i].IDKey,
-                //         parseJsonTransaksi[i].NamaWisata,
-                //         parseJsonTransaksi[i].NamaCustomer,
-                //         parseJsonTransaksi[i].TanggalBuat,
-                //         parseJsonTransaksi[i].JumlahDewasa + ' orang',
-                //         parseJsonTransaksi[i].JumlahAnak + ' orang',
-                //         'Rp. ' + parseJsonTransaksi[i].TotalSemua,
-                //         StatusData,
-                //         ActionData
-                //     ]).draw(false)
-
-                // }
             })
-
         }
     </script>
 </body>

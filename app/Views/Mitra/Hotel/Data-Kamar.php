@@ -165,6 +165,7 @@
                     <div class="float-right ">
                         <button id="tambahDetails" class="btn btn-success btn-sm m-1" onclick="modalDetails('Tambah')" title="Tambah Data" data-toggle="modal" data-target="#tambahKamar" style="border-radius: 15px;"> <i class="fa fa-plus-circle"></i></button>
                         <button id="EditDetails" class="btn btn-warning btn-sm m-1" title="Edit Data" data-toggle="modal" data-target="#editKamar" style="border-radius: 15px;"> <i class="bi bi-pencil-square"></i></button>
+                        <button id="detailKamar" class="btn btn-primary btn-sm m-1" title="Detail Data" style="border-radius: 15px;"> <i class="bi bi-info-circle"></i></button>
                         <button id="hapusDetails" class="btn btn-danger btn-sm m-1" title="Hapus Data" style="border-radius: 15px;"> <i class="bi bi-trash3"></i></button>
                         <button id="nonaktifdata" class="btn btn-danger btn-sm m-1" title="NonAktifkan Data" style="border-radius: 15px;"> <i class="bi bi-power"></i></button>
                         <button id="aktifdata" class="btn btn-success btn-sm m-1" title="Aktifkan Data" style="border-radius: 15px;"> <i class="bi bi-power"></i></button>
@@ -183,6 +184,7 @@
                                         <th align="center">Fasilitas Kamar</th>
                                         <th align="center">Harga Kamar</th>
                                         <th align="center">Jumlah Kamar</th>
+                                        <th align="center">Maksimal Menginap</th>
                                         <th align="center">Status Kamar</th>
                                     </tr>
                                 </thead>
@@ -269,6 +271,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="">Maksimal Menginap<sup><span class="text-danger">*</span></sup></label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                            <input id="maksimalMenginapAdd" class="form-control" onkeypress="return hanyaAngka(this)" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" placeholder="Tentukan Maksimal hari Menginap..." aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <span id="alertadd" class="text-danger">Maksimal 30 Hari Menginap</span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="">Fasilitas Kamar<sup><span class="text-danger">*</span></sup></label>
                                 <textarea name="fasilitas" id="fasilitas" class="form-control" style="border-radius: 15px;" rows="5" placeholder="Ketik di sini..."></textarea>
@@ -350,6 +366,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">Maksimal Menginap<sup><span class="text-danger">*</span></sup></label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                        <input id="maksimalMenginapEdit" class="form-control" onkeypress="return hanyaAngka(this)" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" placeholder="Tentukan Maksimal hari Menginap..." aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>
+                                    <span id="alertedit" class="text-danger">Maksimal 30 Hari Menginap</span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="">Fasilitas Kamar<sup><span class="text-danger">*</span></sup></label>
                             <textarea name="fasilitasKamarEdit" id="fasilitasKamarEdit" class="form-control" style="border-radius: 15px;" rows="5" placeholder="Ketik di sini..."></textarea>
@@ -358,6 +388,26 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                         <button id="submitDetailsEdit" type="button" class="btn btn-primary">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Detail kamar -->
+        <div class="modal fade" id="detailkamar" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content" style="border-radius: 15px;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Detail Kamar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     </div>
                 </div>
             </div>
@@ -451,6 +501,7 @@
         var posisiData;
         var fileEditTemps;
 
+        var parseJsonDetailKamar = [];
         var parseJsonMitra = {};
         var parseJsonKamar = [];
         var parseJsonHotel = [];
@@ -461,16 +512,18 @@
 
 
 
+
         $('#alertJenisKendaraan').hide()
         $('#alertStatusNonAktif').hide()
         $('#hapusDetails').hide()
         $('#EditDetails').hide()
+        $('#detailKamar').hide()
         $('#nonaktifdata').hide()
         $('#aktifdata').hide()
 
         var table = $('#TableDetail').DataTable({
             "lengthChange": false,
-            
+
             "ordering": false,
             "pageLength": 5,
             "language": {
@@ -489,6 +542,7 @@
             }
 
         });
+
         var datatEmpsDetails = [];
         const ValueItemDetailRental = ref(db, 'Master-Data-Hotel-Detail/');
         onValue(ValueItemDetailRental, (kontenn) => {
@@ -514,6 +568,7 @@
                             HargaKamar: kontenn2.val().HargaKamar,
                             JumlahKamar: kontenn2.val().JumlahKamar,
                             fasilitas: kontenn2.val().FasilitasKamar,
+                            maksimalmenginap: kontenn2.val().MaksimalMenginap,
                             idDetail: NoUrut,
                             StatussKamar: kontenn2.val().StatusKamar,
                             idDB: keys[isi]
@@ -537,7 +592,9 @@
                             `<input type="hidden" name="hargaKamarT[]" value="${kontenn2.val().HargaKamar}">` +
                             `Rp. ` + kontenn2.val().HargaKamar,
                             `<input type="hidden" name="jumlahKamarT[]" value="${kontenn2.val().JumlahKamar}">` +
-                            kontenn2.val().JumlahKamar,
+                            kontenn2.val().JumlahKamar + ` Kamar`,
+                            `<input type="hidden" name="maksimalMenginapT[]" value="${kontenn2.val().MaksimalMenginap}Hari">` +
+                            kontenn2.val().MaksimalMenginap + ` Hari`,
                             `<input type="hidden" name="StatussKamarT[]" value="${kontenn2.val().StatusKamar}">` +
                             StatusDataDetails
                         ]).draw(false)
@@ -545,7 +602,7 @@
                     }
                 })
             }
-            console.log(datatEmpsDetails)
+            console.table(datatEmpsDetails)
         })
 
         $('#TableDetail tbody').on('click', 'tr', function() {
@@ -555,6 +612,7 @@
                 indexz = null;
                 $('#hapusDetails').hide()
                 $('#EditDetails').hide()
+                $('#detailKamar').hide()
                 $('#nonaktifdata').hide()
                 $('#aktifdata').hide()
 
@@ -568,6 +626,7 @@
                     indexz = null;
                     $('#hapusDetails').hide()
                     $('#EditDetails').hide()
+                    $('#detailKamar').hide()
                     $('#nonaktifdata').hide()
                     $('#aktifdata').hide()
                 } else {
@@ -588,16 +647,19 @@
                         $('#aktifdata').hide()
                         $('#hapusDetails').hide()
                         $('#EditDetails').show()
+                        $('#detailKamar').show()
                     } else if (Number(document.getElementsByName('StatussKamarT[]')[s].value) == 0) {
                         $('#nonaktifdata').hide()
                         $('#aktifdata').show()
                         $('#hapusDetails').hide()
                         $('#EditDetails').hide()
+                        $('#detailKamar').show()
                     } else if (Number(document.getElementsByName('StatussKamarT[]')[s].value) == 2) {
                         $('#nonaktifdata').hide()
                         $('#aktifdata').hide()
                         $('#hapusDetails').show()
                         $('#EditDetails').show()
+                        $('#detailKamar').show()
                     }
                 }
             }
@@ -659,6 +721,8 @@
                             `Rp. ` + tempData[j].HargaKamar,
                             `<input type="hidden" name="jumlahKamarT[]" value="${tempData[j].JumlahKamar}">` +
                             tempData[j].JumlahKamar,
+                            `<input type="hidden" name="maksimalMenginapT[]" value="${tempData[j].MaksimalMenginap}">` +
+                            tempData[j].MaksimalMenginap,
                             `<input type="hidden" name="StatussKamarT[]" value="${tempData[j].StatussKamar}">` +
                             StatusDataDetails
                         ]).draw(false)
@@ -698,166 +762,22 @@
                 document.getElementById('hargaKamarEdit').value = konten.val().HargaKamar
                 document.getElementById('jumlahKamarEdit').value = konten.val().JumlahKamar
                 document.getElementById('fasilitasKamarEdit').value = konten.val().FasilitasKamar
+                document.getElementById('maksimalMenginapEdit').value = konten.val().MaksimalMenginap
                 document.getElementById('AddImageDetail').src = konten.val().fotoKamar
                 document.getElementById('tempUploadData').value = konten.val().fotoKamar
                 document.getElementById('tanggalbuat').value = konten.val().TanggalBuat
                 document.getElementById('editstatuskamar').value = konten.val().StatusKamar
 
 
-                // fotoDB: kontenn2.val().fotoKamar,
-                // kontenn2.val().NamaKamar,
-                // kontenn2.val().HargaKamar,
-                // kontenn2.val().JumlahKamar,
-                // kontenn2.val().FasilitasKamar,
-                // NoUrut,
-                // kontenn2.val().StatusKamar,
-                // keys[isi]
-
             });
-
-            // if (Number(document.getElementsByName('StatussKamarT[]')[s].value) == 2) {
-            //     fileEditTemps = uploadFIless
-            //     readURLDetailEditt(uploadFIless)
-            //     document.getElementById('tempUploadData').value = uploadFIless.name
-            // } else {
-            //     document.getElementById('tempUploadData').value = uploadFIlessDB
-            //     document.getElementById('AddImageDetail').src = uploadFIlessDB
-            //     console.log(document.getElementById('tempUploadData').value)
-            //     $("#AddImageDetail").show()
-            //     $("#btnCancelImageDetail").show()
-            //     $('#NoneImageDetail').hide()
-            //     $('.image-upload-wrap-Detail').hide()
-
-            // }
-            // document.getElementById('idDataDetilss').value = document.getElementsByName('idDetailT[]')[s].value
-            // document.getElementById('idDataDetilssDB').value = IDDB
-            // document.getElementById('statuskamar').value = StatuSDATA
-            // document.getElementById('namaKamarEdit').value = document.getElementsByName('namaKamarT[]')[s].value
-            // document.getElementById('hargaKamarEdit').value = document.getElementsByName('hargaKamarT[]')[s].value
-            // document.getElementById('jumlahKamarEdit').value = document.getElementsByName('jumlahKamarT[]')[s].value
-            // document.getElementById('fasilitasKamarEdit').value = document.getElementsByName('fasilitasKamarT[]')[s].value
-            // $('#uploadFileeDetail').prop('files')[0] = uploadFIless
         })
-        // document.getElementById('submitDetailsEdit').addEventListener('click', function() {
-        //     let jenisSubmit = document.getElementById('titleModalDetail').innerHTML;
-        //     let idDetailsEdit = ['uploadFileeDetailEdit', 'namaKamarEdit', 'hargaKamarEdit', 'jumlahKamarEdit', 'fasilitasKamarEdit']
-        //     let jumlahDetailsEdit = 0;
-        //     const fileupload = $('#uploadFileeDetailEdit').prop('files')[0];
 
-        //     for (let i = 0; i < idDetailsEdit.length; i++) {
-        //         if (i == 0) {
-        //             if (Boolean(fileupload) == false && document.getElementById('tempUploadData').value == "") {
-        //                 jumlahDetailsEdit++;
-        //                 document.getElementById('fileDetailEdit').style.border = "2px dotted red";
-        //             } else {
-        //                 document.getElementById("fileDetailEdit").style.border = "2px dotted gray";
-        //             }
-        //         } else if (document.getElementById(idDetailsEdit[i]).value == "") {
-        //             jumlahDetailsEdit++;
-        //             $('#' + idDetailsEdit[i].addClass('is-invalid'))
-        //         } else {
-        //             $('#' + idDetailsEdit[i]).removeClass('is-invalid')
-        //         }
-        //         // console.log(idDetailsEdit[i]);
-        //     }
-        //     if (jumlahDetailsEdit == 0) {
-        //         if (Boolean(fileupload) == false) {
+        document.getElementById('detailKamar').addEventListener('click', function() {
 
-        //         } else {
-        //             var CodeIDHotel = "<?= session()->get('IDKelola') ?>";
-        //             const storageRef = refImage(storage, 'images-rental-hotel/' + fileupload.name);
-        //             // Upload the file and metadata
-        //             const uploadTask = uploadBytesResumable(storageRef, fileupload);
-        //             // Register three observers:
-        //             // 1. 'state_changed' observer, called any time the state changes
-        //             // 2. Error observer, called on failure
-        //             // 3. Completion observer, called on successful completion
-        //             uploadTask.on('state_changed',
-        //                 (snapshot) => {
-        //                     // Observe state change events such as progress, pause, and resume
-        //                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        //                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        //                     // console.log('Upload is ' + progress + '% done');
-        //                     switch (snapshot.state) {
-        //                         case 'paused':
-        //                             // console.log('Upload is paused');
-        //                             break;
-        //                         case 'running':
-        //                             // console.log('Upload is running');
-        //                             break;
-        //                     }
-        //                 },
-        //                 (error) => {
-        //                     // Handle unsuccessful uploads
-        //                 },
-        //                 () => {
+            window.location.href = "<?= base_url() ?>/Detail-Kamar-Mitra/" + document.getElementsByName('idDetailT[]')[posisiData].value
 
-        //                     // Handle successful uploads on complete
-        //                     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-        //                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        //                         const starCountRef = ref(db, 'Master-Data-Hotel-Detail/');
-        //                         onValue(starCountRef, (snapshot) => {
-        //                             const data = snapshot.val();
-        //                             const keys = Object.keys(data);
-        //                             for (const isi in keys) {
-        //                                 const ValueItem = ref(db, 'Master-Data-Hotel-Detail/' + keys[isi]);
-        //                                 onValue(ValueItem, (kontenn) => {
-        //                                     let LastID = keys[isi]
-        //                                     let PostD = {
-        //                                         IDkey: keys[isi],
-        //                                     };
-        //                                     parseJsonKamar.push(PostD)
-        //                                 })
-        //                             }
-        //                             // console.log(parseJsonKamar)
+        })
 
-
-        //                         });
-
-        //                         var idLst = parseJsonKamar[parseJsonKamar.length - 1].IDkey
-        //                         let nextID = (Number(idLst) + 1);
-        //                         console.log(nextID)
-        //                         set(ref(db, 'Master-Data-Hotel-Detail/'), {
-        //                             NamaKamar: document.getElementById('namaKamarEdit').value,
-        //                             FasilitasKamar: document.getElementById('fasilitasKamarEdit').value,
-        //                             HargaKamar: document.getElementById('hargaKamarEdit').value,
-        //                             JumlahKamar: document.getElementById('jumlahKamarEdit').value,
-        //                             IdHotel: CodeIDHotel,
-        //                             fotoKamar: downloadURL,
-        //                             StatusKamar: 1,
-        //                             TanggalBuat: new Date().toString("ID"),
-        //                             TanggalUpdate: new Date().toString("ID")
-        //                         });
-        //                         const updates = {};
-        //                         updates['/Master-Data-Hotel-detail/' + CodeIDHotel] = PostD;
-        //                         update(ref(db), updates);
-
-        //                     });
-        //                 }
-        //             );
-        //             Swal.fire({
-        //                 title: 'Berhasil',
-        //                 text: "Data Berhasil Tersimpan",
-        //                 icon: 'success',
-        //                 confirmButtonColor: '#3085d6',
-        //                 confirmButtonText: 'OK'
-        //             }).then((result) => {
-        //                 if (result.isConfirmed) {
-        //                     location.href = "<?= base_url() ?>/Data-Kamar"
-        //                 }
-        //             })
-        //         }
-
-
-        //     } else {
-        //         Swal.fire({
-        //             icon: 'error',
-        //             title: 'Oops...',
-        //             text: 'Kolom pengisian Tidak Boleh Kosong!'
-        //         })
-        //     }
-
-        // })
         document.getElementById('submitDetailsEdit').addEventListener('click', function() {
             Swal.fire({
                 title: 'Apa anda yakin?',
@@ -870,17 +790,24 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    let idDetailsEdit = ['uploadFileeDetailEdit', 'namaKamarEdit', 'hargaKamarEdit', 'jumlahKamarEdit', 'fasilitasKamarEdit'];
+                    let idDetailsEdit = ['uploadFileeDetailEdit', 'namaKamarEdit', 'hargaKamarEdit', 'jumlahKamarEdit', 'fasilitasKamarEdit', 'maksimalMenginapEdit'];
                     let jumlahDetailsEdit = 0;
                     const fileupload = $('#uploadFileeDetailEdit').prop('files')[0];
 
-                    for (let i; i < idDetailsEdit.length; i++) {
+                    for (let i = 0; i < idDetailsEdit.length; i++) {
                         if (i == 0) {
                             if (Boolean(fileupload) == false && document.getElementById('tempUploadData').value == "") {
                                 jumlahDetailsEdit++;
                                 document.getElementById('fileDetailEdit').style.border = "2px dotted red";
                             } else {
                                 document.getElementById("fileDetailEdit").style.border = "2px dotted gray";
+                            }
+                        } else if (i == 5) {
+                            if (document.getElementById(idDetailsEdit[i]).value > 30) {
+                                jumlahDetailsEdit++;
+                                $('#alertedit').show()
+                            } else {
+                                $('#alertedit').hide()
                             }
                         } else if (document.getElementById(idDetailsEdit[i]).value == "") {
                             jumlahDetailsEdit++;
@@ -899,6 +826,7 @@
                                 FasilitasKamar: document.getElementById('fasilitasKamarEdit').value,
                                 HargaKamar: document.getElementById('hargaKamarEdit').value,
                                 JumlahKamar: document.getElementById('jumlahKamarEdit').value,
+                                MaksimalMenginap: document.getElementById('maksimalMenginapEdit').value,
                                 IdHotel: CodeIDHotel,
                                 fotoKamar: document.getElementById('tempUploadData').value,
                                 StatusKamar: Number(document.getElementById('editstatuskamar').value),
@@ -961,6 +889,7 @@
                                             FasilitasKamar: document.getElementById('fasilitasKamarEdit').value,
                                             HargaKamar: document.getElementById('hargaKamarEdit').value,
                                             JumlahKamar: document.getElementById('jumlahKamarEdit').value,
+                                            MaksimalMenginap: document.getElementById('maksimalMenginapEdit').value,
                                             IdHotel: CodeIDHotel,
                                             fotoKamar: downloadURL,
                                             StatusKamar: Number(document.getElementById('editstatuskamar').value),
@@ -1010,7 +939,7 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Kolom pengisian Tidak Boleh Kosong!'
+                            text: 'Isi Kolom Dengan Benar & Kolom pengisian Tidak Boleh Kosong!'
                         })
                     }
 
@@ -1041,6 +970,7 @@
                             FasilitasKamar: result.val().FasilitasKamar,
                             HargaKamar: result.val().HargaKamar,
                             JumlahKamar: result.val().JumlahKamar,
+                            MaksimalMenginap: result.val().MaksimalMenginap,
                             IdHotel: result.val().IdHotel,
                             fotoKamar: result.val().fotoKamar,
                             StatusKamar: 0,
@@ -1145,6 +1075,7 @@
                             FasilitasKamar: result.val().FasilitasKamar,
                             HargaKamar: result.val().HargaKamar,
                             JumlahKamar: result.val().JumlahKamar,
+                            MaksimalMenginap: result.val().MaksimalMenginap,
                             IdHotel: result.val().IdHotel,
                             fotoKamar: result.val().fotoKamar,
                             StatusKamar: 1,
@@ -1183,7 +1114,7 @@
         //submit details
         document.getElementById('submitDetails').addEventListener('click', function() {
             let jenisSubmit = document.getElementById('titleModalDetail').innerHTML;
-            let idDetails = ['uploadFilee', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas'];
+            let idDetails = ['uploadFilee', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas', 'maksimalMenginapAdd'];
             let jumlahDetails = 0;
             const fileupload = $('#uploadFilee').prop('files')[0];
             console.log(fileupload);
@@ -1197,6 +1128,19 @@
                         document.getElementById("fileDetail").style.border = "2px dotted gray";
                     }
 
+                } else if (i == 5) {
+                    if (document.getElementById(idDetails[i]).value > 30) {
+                        jumlahDetails++;
+                        $('#alertadd').show()
+                    } else {
+                        $('#alertadd').hide()
+                    }
+                    if (document.getElementById(idDetails[i]).value == "") {
+                        jumlahDetails++;
+                        $('#' + idDetails[i]).addClass('is-invalid')
+                    } else {
+                        $('#' + idDetails[i]).removeClass('is-invalid')
+                    }
                 } else if (document.getElementById(idDetails[i]).value == "") {
                     jumlahDetails++;
                     $('#' + idDetails[i]).addClass('is-invalid')
@@ -1264,6 +1208,7 @@
                                 FasilitasKamar: document.getElementById('fasilitas').value,
                                 HargaKamar: document.getElementById('hargaKamar').value,
                                 JumlahKamar: document.getElementById('jumlahKamar').value,
+                                MaksimalMenginap: document.getElementById('maksimalMenginapAdd').value,
                                 IdHotel: '<?= session()->get('IDKelola') ?>',
                                 fotoKamar: downloadURL,
                                 StatusKamar: 1,
@@ -1290,7 +1235,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Kolom pengisian Tidak Boleh Kosong!'
+                    text: 'Isi Kolom Dengan Benar & Kolom pengisian Tidak Boleh Kosong!'
                 })
             }
 
@@ -1298,7 +1243,7 @@
 
 
         function resetModal() {
-            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas'];
+            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas', 'maksimalMenginapAdd'];
 
             for (let i = 0; i < idDetails.length; i++) {
                 if (i == 0) {
@@ -1350,6 +1295,34 @@
 
 
         }
+
+        document.getElementById('detailKamar').addEventListener('click', function() {
+
+            let uploadFIless;
+            let uploadFIlessDB;
+            let IDDB;
+            let StatuSDATA;
+
+            // console.log(posisiData)
+
+            const ValueItemDetailRental = ref(db, 'Master-Data-Hotel-Detail/' + document.getElementsByName('idDetailT[]')[posisiData].value);
+            onValue(ValueItemDetailRental, (kontenn) => {
+                console.log(kontenn.val())
+
+
+
+
+                document.getElementById('namakamar').innerHTML = kontenn.val().NamaKamar
+                document.getElementById('detailHargaSewa').innerHTML = kontenn.val().HargaKamar
+                document.getElementById('detailMaksimalMenginap').innerHTML = kontenn.val().MaksimalMenginap
+                document.getElementById('detailStatusKamar').innerHTML = kontenn.val().StatusKamar
+                document.getElementById('detailFasilitas').innerHTML = kontenn.val().FasilitasKamar
+                document.getElementById('tanggalbuatt').innerHTML = kontenn.val().TanggalBuat
+                document.getElementById('tanggaldiperbaruii').innerHTML = kontenn.val().tanggalUpdate
+
+
+            });
+        })
     </script>
     <script>
         function modalDetails(textx) {
@@ -1381,6 +1354,8 @@
 
 
         //Detail
+        $('#alertedit').hide()
+        $('#alertadd').hide()
         $('#btnCancelImageDetail').hide()
         $('#AddImageDetail').hide()
         $('.image-title-Detail').hide()

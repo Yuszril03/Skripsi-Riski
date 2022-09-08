@@ -273,6 +273,7 @@
                                 </div>
                             </form>
                         </div>
+
                     </div>
 
 
@@ -439,19 +440,33 @@
 
                             } else {
 
-                                let lastID = parseJsonAdmin[parseJsonAdmin.length - 1]
-                                let spliData = lastID.split('-');
-                                CodeIDWisata = "Wisata-" + (Number(spliData[1]) + 1)
+                                let arraykey = [];
+                                for (let i = 0; i < parseJsonAdmin.length; i++) {
+                                    let splidata = (parseJsonAdmin[i]).split("-")
+                                    arraykey[i] = Number(splidata[1])
+                                }
+                                let tep = arraykey.sort((a, b) => (a > b ? -1 : 1));
+
+                                let lastID = tep[0]
+
+                                CodeIDWisata = "Wisata-" + (lastID + 1)
 
                             }
+
                             if (parseJsonPartner.length == 0) {
                                 CodeIDMitra = "Mitra-1"
 
                             } else {
+                                let arraykey = [];
+                                for (let i = 0; i < parseJsonPartner.length; i++) {
+                                    let splidata = (parseJsonPartner[i]).split("-")
+                                    arraykey[i] = Number(splidata[1])
+                                }
+                                let tep = arraykey.sort((a, b) => (a > b ? -1 : 1));
 
-                                let lastID = parseJsonPartner[parseJsonPartner.length - 1]
-                                let spliData = lastID.split('-');
-                                CodeIDMitra = "Mitra-" + (Number(spliData[1]) + 1)
+                                let lastID = tep[0];
+
+                                CodeIDMitra = "Mitra-" + (lastID + 1)
 
                             }
 
@@ -501,9 +516,6 @@
                                         location.href = "<?= base_url() ?>/Mitra-Wisata"
                                     }
                                 })
-
-
-
 
                             } else {
                                 const storageRef = refImage(storage, 'images-wisata/' + new Date().getTime() + '-' + fileupload.name);

@@ -75,7 +75,7 @@
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="<?= base_url() ?>/Mitra-Wisata" class="nav-link <?= (in_array("Wisata", $tempData)  ? 'active' : '') ?>">
+                             <a href="<?= base_url() ?>/Mitra-Wisata" class="nav-link ">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Mitra Wisata</p>
                              </a>
@@ -100,24 +100,26 @@
                          </a>
                      </li>
                  <?php } ?>
+
                  <?php if (session()->get('Jenis') == "Mitra-Wisata") { ?>
-                     <li>
-                         <a href="<?= base_url() ?>/Data-Pemesanan-Tiket" class="nav-link">
-                             <i class="nav-icon bi bi-layout-text-window-reverse"></i>
+                     <li class="nav-item">
+                         <a href="<?= base_url() ?>/Data-Pemesanan-Tiket" class="nav-link <?= (in_array("Pemesanan", $tempData) ? 'active' : '') ?>">
+                             <i class=" nav-icon bi bi-layout-text-window-reverse"></i>
                              <p>Pemesanan Wisata</p>
                          </a>
                      </li>
                  <?php } ?>
                  <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
-                     <li>
-                         <a href="<?= base_url() ?>/Data-Pemesanan-Tiket" class="nav-link">
+                     <li class="nav-item">
+                         <a href="<?= base_url() ?>/Data-Pemesanan-Tiket" class="nav-link <?= (in_array("PemesananHotel", $tempData) && in_array("Data", $tempData) ? 'active' : '') ?>">
                              <i class="nav-icon bi bi-layout-text-window-reverse"></i>
                              <p>Pemesanan Hotel</p>
                          </a>
                      </li>
-                     <?php } ?><?php if (session()->get('Jenis') == "Mitra-Rental") { ?>
-                     <li>
-                         <a href="<?= base_url() ?>/Data-Pemesanan-Tiket" class="nav-link">
+                 <?php } ?>
+                 <?php if (session()->get('Jenis') == "Mitra-Rental") { ?>
+                     <li class="nav-item">
+                         <a href="<?= base_url() ?>/Data-Pemesanan-Tiket" class="nav-link <?= (in_array("PemesananRental", $tempData) && in_array("Data", $tempData) ? 'active' : '') ?>">
                              <i class="nav-icon bi bi-layout-text-window-reverse"></i>
                              <p>Pemesanan Rental</p>
                          </a>
@@ -177,12 +179,15 @@
                          </a>
                      </li>
                  <?php } ?>
-                 <li>
-                     <a href="" class="nav-link">
-                         <i class="nav-icon bi bi-layout-text-sidebar"></i>
-                         <p>Review</p>
-                     </a>
-                 </li>
+
+                 <?php if (session()->get('Jenis') == "Mitra-Wisata") { ?>
+                     <li class="nav-item">
+                         <a href="<?= base_URL() ?>/Review-Wisata" class="nav-link <?= (in_array("Review", $tempData) ? 'active' : '') ?>">
+                             <i class="nav-icon bi bi-layout-text-sidebar"></i>
+                             <p>Review</p>
+                         </a>
+                     </li>
+                 <?php } ?>
 
 
 

@@ -113,6 +113,24 @@
 
                      </ul>
                  </li>
+                 <li class="nav-item">
+                     <a href="<?= base_url() ?>/Daftar-Bank" class="nav-link <?= (in_array("Bank", $tempData)  ? 'active' : '') ?>">
+                         <i class="nav-icon bi bi-bank"></i>
+                         <p>
+                             Daftar Bank
+                             <!-- <span class="right badge badge-danger">New</span> -->
+                         </p>
+                     </a>
+                 </li>
+                 <li class="nav-item">
+                     <a href="<?= base_url() ?>/Data-Version-Android" class="nav-link <?= (in_array("Version", $tempData)  ? 'active' : '') ?>">
+                         <i class="nav-icon bi bi-file-earmark-code"></i>
+                         <p>
+                             Data Version Android
+                             <!-- <span class="right badge badge-danger">New</span> -->
+                         </p>
+                     </a>
+                 </li>
 
 
 

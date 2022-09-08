@@ -10,6 +10,13 @@ class Mitra extends BaseController
         $this->session = \Config\Services::session();
         // $this->session->stat();
     }
+
+    public function Keluar()
+    {
+        $this->session->destroy();
+        return redirect()->to(base_url('/'));
+    }
+
     public function index()
     {
         if (session()->get('Status') != TRUE) {
@@ -50,16 +57,82 @@ class Mitra extends BaseController
 
     public function DataPemesananWisata()
     {
-        return view('Mitra/Wisata/Data-Pemesanan-Wisata');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+            return view('Mitra/Wisata/Data-Pemesanan-Wisata');
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            return redirect()->to(base_url('/'));
+        }
     }
+
+    public function DeteilPemesananWisata($id = false, $idcustomer = false, $idmitra = false, $idBank = false)
+    {
+        
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+            $data = [
+                'DataID' => $id,
+                'DataIDCustomer' => $idcustomer,
+                'DataIDMitra' => $idmitra,
+                'DataIDBank' => $idBank
+            ];
+            return view('Mitra/Wisata/Detail-Pemesanan-wisata', $data);
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+
+            return redirect()->to(base_url('/'));
+        }
+    }
+
     public function DataKamar()
     {
-        return view('Mitra/Hotel/Data-Kamar');
+        // echo $detailkamar;
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+            return view('Mitra/Hotel/Data-Kamar');
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            return redirect()->to(base_url('/'));
+        }
     }
+   
+    public function DeteilkamarMitra($detailkamar){
+        // echo $detailkamar;
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE ) && session()->get('Jenis') != 'Admin') {
+            $data = [
+                'DataID' => $detailkamar
+            ];
+            return view('Mitra/Hotel/Detail-Kamar', $data);
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            
+            return redirect()->to(base_url('/'));
+        }
+    }
+
+    public function DetailMobil($detailmobil)
+    {
+        
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+            $data = [
+                'IDData' => $detailmobil
+            ];
+            return view('Mitra/Rental/Detail-Mobil', $data);
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+
+            return redirect()->to(base_url('/'));
+        }
+    }
+
     public function DataMobilRental()
     {
         return view('Mitra/Rental/Data-Rental-Mobil');
     }
+
     public function UpNameProfileWisata()
     {
         $newSessionWisata = [
@@ -97,5 +170,15 @@ class Mitra extends BaseController
     }
     public function QrCodeRental(){
         return view('Mitra/Rental/Scan-QrCode-Rental');
+    }
+
+    public function ReviewWisata(){
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+            return view('Mitra/Wisata/Review-Wisata');
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            return redirect()->to(base_url('/'));
+        }
     }
 }

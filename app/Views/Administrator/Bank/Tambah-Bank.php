@@ -37,6 +37,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js" charset="utf-8"></script>
+    <script src="//cdn.ckeditor.com/4.19.1/basic/ckeditor.js"></script>
 
 
 
@@ -149,13 +150,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Tambah Data Kegiatan</h1>
+                            <h1 class="m-0">Tambah Rekening Bank</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="<?= base_url() ?>/Beranda-Admin">Beranda</a></li>
-                                <li class="breadcrumb-item active">Data Kegiatan</li>
-                                <li class="breadcrumb-item active">Tambah Data Kegiatan</li>
+                                <li class="breadcrumb-item active">Daftar Bank</li>
+                                <li class="breadcrumb-item active">Tambah Rekening Bank</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -168,68 +169,39 @@
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
                             <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
-                                <i class="bi bi-input-cursor-text text-primary"></i> Data Kegiatan
+                                <i class="bi bi-card-list text-primary"></i> Data Detail Kegiatas
                             </div>
 
                             <div class="row">
-                                <div class="col">
+                                <div class="col-6">
                                     <div class="form-group">
-                                        <label for="">Judul Kegiatan</label>
-                                        <input type="text" id="judul" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
-                                    </div>
-                                    <div class="form-group" id="groupMulai">
-                                        <label for="tanggal-BeritaEvent" id="tanggalKEgiatanLabel">Tanggal</label>
-                                        <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggalMulai">
+                                        <label for="">Nama Bank</label>
+                                        <input type="text" id="namaBank" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-6">
                                     <div class="form-group">
-                                        <label for="">Jenis Kegiatan</label>
-                                        <select name="JenisKegiatan" id="JenisKegiatan" onchange="GetKegiatan(this.value)" style="border-radius: 15px;" class="form-control">
-                                            <option value="" selected>Pilih Kegiatan...</option>
-                                            <option value="Berita">Berita</option>
-                                            <option value="Event">Event</option>
-                                        </select>
+                                        <label for="">Rekening Bank</label>
+                                        <input type="text" id="rekeningBank" onkeypress="return hanyaAngka(this)" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
-
-                                    <div class="form-group" id="groupAkhir">
-                                        <label for="tanggal-BeritaEvent">Tanggal Berakhir</label>
-                                        <input type="date" class="form-control" data-date="" data-date-format="DD MMMM YYYY" style="border-radius: 15px;" id="tanggalAkhir">
-                                    </div>
-
                                 </div>
                             </div>
 
-                            <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
-                                <i class="bi bi-card-list text-primary"></i> Data Detail Kegiatas
-                            </div>
                             <form id="myform" action="">
                                 <div class="form-group">
-                                    <label for="isi-BeritaEvent" class="col-form-label">Isi Kegiatan</label>
-                                    <textarea class="form-control" style="border-radius: 15px;" id="isiBeritaEvent" cols="30" rows="5"></textarea>
+                                    <label for="isi-BeritaEvent" class="col-form-label">Cara Pembayaran</label>
+                                    <!-- <textarea class="form-control" style="border-radius: 15px;" id="caraPembayaran" cols="30" rows="5"></textarea> -->
+                                    <textarea name="editor1" id="editor1" rows="5" cols="30"></textarea>
+                                    <span id="error" class="text-danger">Mohon untuk mengisi kolom ini !!!</span>
+                                    <script>
+                                        // Replace the <textarea id="editor1"> with a CKEditor 4
+                                        // instance, using default configuration.
+                                        CKEDITOR.replace('editor1');
+                                    </script>
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="alamatBeritaEvent" class="col-form-label">Alamat Kegiatan</label>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div id="map"></div>
-                                        <pre style="opacity: 0;" id="coordinates" class="coordinates"></pre>
-                                        <div class="overlay">
-                                            <!-- <button id="replay">Replay</button> -->
-                                            <p id="ok"></p>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <input type="hidden" id="latitute">
-                                            <input type="hidden" id="longlitude">
-                                            <textarea readonly class="form-control" style="border-radius: 15px; height: 298px;" id="alamatBeritaEvent" cols="30" rows="2"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Gambar Kegiatan</label>
+                                    <label for="">Gambar Bank</label>
                                     <div class="file-upload">
                                         <button type="button" id="btnCancelImage" onclick="removeUpload()" title="Hapus Foto" class="btn float-right"> <i class="fas fa-times-circle text-danger"></i> </button>
                                         <div class="Imagees">
@@ -250,17 +222,9 @@
                                         </center>
 
                                     </div>
+
                                 </div>
-                                <div class="form-group">
-                                    <label for="judul" class="col-form-label">Kegiatan Yang Berkaitan</label>
-                                    <!-- <input type="text" class="form-control" style="border-radius: 15px;" placeholder="Isi Judul" id="tag"> -->
-                                    <select class="form-control js-states" style="border-radius: 15px; " id="tag" name="tag" multiple>
-                                        <option>Wisata</option>
-                                        <option>Hotel</option>
-                                        <option>Rental Mobil</option>
-                                    </select>
-                                    <span id="errorTag" class="text-danger">Mohon untuk mengisi kolom ini</span>
-                                </div>
+
 
 
                                 <div class="float-right">
@@ -322,6 +286,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
+
     <script type="module">
         // Import the functions you need from the SDKs you need
         import {
@@ -359,12 +324,12 @@
 
         var parseJsonAdmin = [];
 
-        const starCountRef = ref(db, 'Data-Kegiatan/');
+        const starCountRef = ref(db, 'Master-Data-Bank/');
         onValue(starCountRef, (snapshot) => {
             const data = snapshot.val();
             const keys = Object.keys(data);
             for (const isi in keys) {
-                const ValueItem = ref(db, 'Data-Kegiatan/' + keys[isi]);
+                const ValueItem = ref(db, 'Master-Data-Bank/' + keys[isi]);
                 onValue(ValueItem, (kontenn) => {
                     let LastID = keys[isi]
                     let PostD = {
@@ -379,27 +344,33 @@
 
         // let judulBE = document.getElementById('judul').value;
         document.getElementById('submitData').addEventListener('click', function() {
-            let form = ['judul', 'tanggalMulai', 'isiBeritaEvent', 'JenisKegiatan', 'alamatBeritaEvent', 'tag', 'uploadFilee'];
+            let form = ['namaBank', 'rekeningBank', 'editor1', 'uploadFilee'];
             var angka = 0;
+            var data = CKEDITOR.instances.editor1.getData();
             const fileupload = $('#uploadFilee').prop('files')[0];
 
-            const tempsTag = document.getElementsByClassName('select2-selection__choice');
-            let arrayTag = [];
-            for (let i = 0; i < tempsTag.length; i++) {
-                let temps = tempsTag[i].innerText
-                let resultSplit = temps.split("×\n");
-                arrayTag.push(resultSplit[1]);
-            }
-            // console.log(arrayTag.toString())
-
-
             for (let i = 0; i < form.length; i++) {
-                if (i == 6) {
-                    if (arrayTag.length == 0) {
+                // if (i == 4) {
+                //     if (arrayTag.length == 0) {
+                //         angka++;
+                //         $("#errorTag").show()
+                //     } else {
+                //         $("#errorTag").hide()
+                //     }
+                // } else 
+                if (i == 2) {
+                    if (data == "") {
                         angka++;
-                        $("#errorTag").show()
+                        $("#error").show()
                     } else {
-                        $("#errorTag").hide()
+                        $("#error").hide()
+                    }
+                } else if (i == 3) {
+                    if (fileupload == "") {
+                        angka++;
+                        $("#errorPhoto").show()
+                    } else {
+                        $("#errorPhoto").hide()
                     }
                 } else if (document.getElementById(form[i]).value == "") {
                     angka++;
@@ -408,10 +379,10 @@
                     $('#' + form[i]).removeClass('is-invalid')
                 }
             }
-
-
-
             if (angka == 0) {
+
+
+                document.getElementById('myform').reset()
 
                 if (Boolean(fileupload) == false) {
 
@@ -420,11 +391,10 @@
                         title: 'Oops...',
                         text: 'Gambar Tidak Boleh Kosong!'
                     })
-
-
-
+                    
                 } else {
-                    const storageRef = refImage(storage, 'images-kegiatan/' + fileupload.name);
+
+                    const storageRef = refImage(storage, 'images-bank/' + fileupload.name);
 
                     // Upload the file and metadata
                     const uploadTask = uploadBytesResumable(storageRef, fileupload);
@@ -458,24 +428,14 @@
                             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
 
                                 if (parseJsonAdmin.length == 0) {
-                                    set(ref(db, 'Data-Kegiatan/' + "BE-1"), {
-
-
-                                        Judul: document.getElementById('judul').value,
-                                        TanggalMulai: document.getElementById('tanggalMulai').value,
-                                        TanggalAkhir: document.getElementById('tanggalAkhir').value,
-                                        Alamat: document.getElementById('alamatBeritaEvent').value,
-                                        IsiKegiatan: document.getElementById('isiBeritaEvent').value,
-                                        JenisKegiatan: document.getElementById('JenisKegiatan').value,
-                                        KegiatanYangBerkaitan: arrayTag.toString(),
-                                        LinkImage: downloadURL,
-                                        StatusBerita: 1,
-                                        Longlitute: document.getElementById('longlitude').value,
-                                        Latitute: document.getElementById('latitute').value,
+                                    set(ref(db, 'Master-Data-Bank/' + "Bank-1"), {
+                                        NamaBank: document.getElementById('namaBank').value,
+                                        RekeningBank: document.getElementById('rekeningBank').value,
+                                        CaraPembayaran: data,
+                                        GambarBank: downloadURL,
+                                        StatusBank: 1,
                                         TanggalBuat: new Date().toString("ID"),
                                         TanggalUpdate: new Date().toString("ID")
-
-
                                     });
 
                                 } else {
@@ -488,19 +448,13 @@
 
                                     var idLst = tep[0]
                                     // let SplitData = idLst.split("-");
-                                    let nextID = "BE-" + (idLst + 1);
-                                    set(ref(db, 'Data-Kegiatan/' + nextID), {
-                                        Judul: document.getElementById('judul').value,
-                                        TanggalMulai: document.getElementById('tanggalMulai').value,
-                                        TanggalAkhir: document.getElementById('tanggalAkhir').value,
-                                        Alamat: document.getElementById('alamatBeritaEvent').value,
-                                        IsiKegiatan: document.getElementById('isiBeritaEvent').value,
-                                        JenisKegiatan: document.getElementById('JenisKegiatan').value,
-                                        KegiatanYangBerkaitan: arrayTag.toString(),
-                                        LinkImage: downloadURL,
-                                        StatusBerita: 1,
-                                        Longlitute: document.getElementById('longlitude').value,
-                                        Latitute: document.getElementById('latitute').value,
+                                    let nextID = "Bank-" + (idLst + 1);
+                                    set(ref(db, 'Master-Data-Bank/' + nextID), {
+                                        NamaBank: document.getElementById('namaBank').value,
+                                        RekeningBank: document.getElementById('rekeningBank').value,
+                                        CaraPembayaran: data,
+                                        GambarBank: downloadURL,
+                                        StatusBank: 1,
                                         TanggalBuat: new Date().toString("ID"),
                                         TanggalUpdate: new Date().toString("ID")
                                     });
@@ -511,6 +465,7 @@
                             });
                         }
                     );
+
                     Swal.fire({
                         title: 'Berhasil',
                         text: "Data Berhasil Tersimpan",
@@ -519,25 +474,23 @@
                         confirmButtonText: 'OK'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            location.href = "<?= base_url() ?>/Data-Kegiatan"
+                            location.href = "<?= base_url() ?>/Daftar-Bank"
                         }
                     })
-                    // document.getElementById('myform').reset()
-
                 }
 
+                // console.log(data);
 
+                // set(ref(db, 'Data-Berita-Event/' + ""), {
 
-                set(ref(db, 'Data-Berita-Event/' + ""), {
-
-                    Judul: document.getElementById('judul').value,
-                    TanggalEvent: document.getElementById('tanggal-BeritaEvent').value,
-                    Alamat: document.getElementById('alamat-BeritaEvent').value,
-                    IsiBerita: document.getElementById('isi-BeritaEvent').value,
-                    LinkImage: "",
-                    Langlitute: "",
-                    Latitute: ""
-                });
+                //     Judul: document.getElementById('judul').value,
+                //     TanggalEvent: document.getElementById('tanggal-BeritaEvent').value,
+                //     Alamat: document.getElementById('alamat-BeritaEvent').value,
+                //     IsiBerita: document.getElementById('isi-BeritaEvent').value,
+                //     LinkImage: "",
+                //     Langlitute: "",
+                //     Latitute: ""
+                // });
 
             } else {
                 Swal.fire({
@@ -558,7 +511,8 @@
         //     theme: 'bootstrap'
         // })
 
-        $("#errorTag").hide()
+        $("#errorPhoto").hide()
+        $("#error").hide()
         $("#groupMulai").hide()
         $("#groupAkhir").hide()
 
@@ -690,9 +644,17 @@
                 cancelButtonText: 'Tidak',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    location.href = "<?= base_url() ?>/Data-Kegiatan"
+                    location.href = "<?= base_url() ?>/Daftar-Bank"
                 }
             })
+        }
+
+        function hanyaAngka(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+                return false;
+            return true;
         }
     </script>
 

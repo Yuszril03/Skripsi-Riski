@@ -74,7 +74,7 @@
 
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
-                            <img src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="300" alt="">
+                            <img id="fotoHotell" src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="300" alt="">
                             <h4 class="mt-2 font-weight-bold" id="namaWisataa">Nama Hotel</h4>
                             <div class="d-flex flex-row">
                                 <div class="pr-1">
@@ -173,6 +173,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
+                                            
                                         </tr>
                                     </thead>
                                     <!-- <tbody>
@@ -351,7 +352,7 @@
             }
 
             if (kontenn.val().fotoHotel != "") {
-                document.getElementById('fotoRentall').src = kontenn.val().fotoHotel
+                document.getElementById('fotoHotell').src = kontenn.val().fotoHotel
             }
         });
 
@@ -393,6 +394,7 @@
                                                     <div class="col-lg-4 col-12">
                                                         <p>
                                                             <span><b>Harga Sewa </b>: Rp. ${kontenn22.val().HargaKamar}</span><br>
+                                                            <span><b>Maksimal Menginap </b>: ${kontenn22.val().MaksimalMenginap} Hari</span><br>
                                                             <span><b>Status Kamar</b> : ${Status}</span>
                                                         </p>
                                                     </div>

@@ -297,6 +297,7 @@
                                             <th>Fasilitas Kamar</th>
                                             <th>Harga Kamar</th>
                                             <th>Jumlah Kamar</th>
+                                            <th>Maksimal Menginap</th>
                                             <th>Status Kamar</th>
                                         </tr>
                                     </thead>
@@ -381,6 +382,20 @@
                                                     </div>
                                                     <input id="jumlahKamar" onkeypress="return hanyaAngka(this)" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Ketik di sini..." aria-label="Username" aria-describedby="basic-addon1">
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="">Maksimal Menginap<sup><span class="text-danger">*</span></sup></label>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                    <input id="maksimalMenginap" class="form-control" onkeypress="return hanyaAngka(this)" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" placeholder="Tentukan Maksimal hari Menginap..." aria-label="Username" aria-describedby="basic-addon1">
+                                                </div>
+                                                <span id="alert" class="text-danger">Maksimal 30 Hari Menginap</span>
                                             </div>
                                         </div>
                                     </div>
@@ -686,6 +701,7 @@
                             namaKamar: kontenn2.val().NamaKamar,
                             HargaKamar: kontenn2.val().HargaKamar,
                             JumlahKamar: kontenn2.val().JumlahKamar,
+                            MaksimalMenginap: kontenn2.val().MaksimalMenginap,
                             fasilitas: kontenn2.val().FasilitasKamar,
                             idDetail: NoUrut,
                             StatussKamar: kontenn2.val().StatusKamar,
@@ -711,6 +727,8 @@
                             `Rp. ` + kontenn2.val().HargaKamar,
                             `<input type="hidden" name="jumlahKamarT[]" value="${kontenn2.val().JumlahKamar}">` +
                             kontenn2.val().JumlahKamar,
+                            `<input type="hidden" name="maksimalMenginapT[]" value="${kontenn2.val().MaksimalMenginap}">` +
+                            kontenn2.val().MaksimalMenginap,
                             `<input type="hidden" name="StatussKamarT[]" value="${kontenn2.val().StatusKamar}">` +
                             StatusDataDetails
                         ]).draw(false)
@@ -831,6 +849,8 @@
                             `Rp. ` + tempData[j].HargaKamar,
                             `<input type="hidden" name="jumlahKamarT[]" value="${tempData[j].JumlahKamar}">` +
                             tempData[j].JumlahKamar,
+                            `<input type="hidden" name="maksimalMenginapT[]" value="${tempData[j].MaksimalMenginap}">` +
+                            tempData[j].MaksimalMenginap,
                             `<input type="hidden" name="StatussKamarT[]" value="${tempData[j].StatussKamar}">` +
                             StatusDataDetails
                         ]).draw(false)
@@ -898,6 +918,7 @@
             document.getElementById('namaKamar').value = document.getElementsByName('namaKamarT[]')[s].value
             document.getElementById('hargaKamar').value = document.getElementsByName('hargaKamarT[]')[s].value
             document.getElementById('jumlahKamar').value = document.getElementsByName('jumlahKamarT[]')[s].value
+            document.getElementById('maksimalMenginap').value = document.getElementsByName('maksimalMenginapT[]')[s].value
             document.getElementById('fasilitas').value = document.getElementsByName('fasilitasKamarT[]')[s].value
             // $('#uploadFileeDetail').prop('files')[0] = uploadFIless
         })
@@ -955,6 +976,8 @@
                             `Rp. ` + localDataDetail[j].HargaKamar,
                             `<input type="hidden" name="jumlahKamarT[]" value="${localDataDetail[j].JumlahKamar}">` +
                             localDataDetail[j].JumlahKamar,
+                            `<input type="hidden" name="maksimalMenginapT[]" value="${localDataDetail[j].MaksimalMenginap}">` +
+                            localDataDetail[j].MaksimalMenginap,
                             `<input type="hidden" name="StatussKamarT[]" value="${localDataDetail[j].StatussKamar}">` +
                             StatusDataDetails
                         ]).draw(false)
@@ -1028,6 +1051,8 @@
                             `Rp. ` + localDataDetail[j].HargaKamar,
                             `<input type="hidden" name="jumlahKamarT[]" value="${localDataDetail[j].JumlahKamar}">` +
                             localDataDetail[j].JumlahKamar,
+                            `<input type="hidden" name="maksimalMenginapT[]" value="${localDataDetail[j].MaksimalMenginap}">` +
+                            localDataDetail[j].MaksimalMenginap,
                             `<input type="hidden" name="StatussKamarT[]" value="${localDataDetail[j].StatussKamar}">` +
                             StatusDataDetails
                         ]).draw(false)
@@ -1053,7 +1078,7 @@
         //submit details
         document.getElementById('submitDetails').addEventListener('click', function() {
             let jenisSubmit = document.getElementById('titleModalDetail').innerHTML;
-            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas'];
+            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas', 'maksimalMenginap'];
             let jumlahDetails = 0;
 
             for (let i = 0; i < idDetails.length; i++) {
@@ -1072,6 +1097,21 @@
                         } else {
                             document.getElementById("fileDetail").style.border = "2px dotted gray";
                         }
+                    }
+
+                } else if (i == 5) {
+                    if (document.getElementById(idDetails[i]).value > 30) {
+                        jumlahDetails++;
+                        $("#alert").show()
+                    } else {
+                        $("#alert").hide()
+                    }
+
+                    if (document.getElementById(idDetails[i]).value == "") {
+                        jumlahDetails++;
+                        $('#' + idDetails[i]).addClass('is-invalid')
+                    } else {
+                        $('#' + idDetails[i]).removeClass('is-invalid')
                     }
 
                 } else if (document.getElementById(idDetails[i]).value == "") {
@@ -1095,6 +1135,7 @@
                         namaKamar: document.getElementById("namaKamar").value,
                         HargaKamar: document.getElementById("hargaKamar").value,
                         JumlahKamar: document.getElementById("jumlahKamar").value,
+                        MaksimalMenginap: document.getElementById("maksimalMenginap").value,
                         fasilitas: document.getElementById("fasilitas").value,
                         StatussKamar: 2,
                         idDetail: NoUrut,
@@ -1114,6 +1155,8 @@
                         `Rp. ` + document.getElementById("hargaKamar").value,
                         `<input type="hidden" name="jumlahKamarT[]" value="${document.getElementById("jumlahKamar").value}">` +
                         document.getElementById("jumlahKamar").value,
+                        `<input type="hidden" name="maksimalMenginapT[]" value="${document.getElementById("maksimalMenginap").value}">` +
+                        document.getElementById("maksimalMenginap").value,
                         `<input type="hidden" name="StatussKamarT[]" value="2">` +
                         ` <span class="badge badge-danger">Belum Tersimpan</span>`
                     ]).draw(false)
@@ -1143,6 +1186,7 @@
                             localDataDetail[i].HargaKamar = document.getElementById("hargaKamar").value
                             localDataDetail[i].JumlahKamar = document.getElementById("jumlahKamar").value
                             localDataDetail[i].fasilitas = document.getElementById("fasilitas").value
+                            localDataDetail[i].MaksimalMenginap = document.getElementById("maksimalMenginap").value
                             localDataDetail[i].StatussKamar = document.getElementById("statuskamar").value
                             localDataDetail[i].idDB = document.getElementById("idDataDetilssDB").value
 
@@ -1170,6 +1214,8 @@
                             `Rp. ` + localDataDetail[j].HargaKamar,
                             `<input type="hidden" name="jumlahKamarT[]" value="${localDataDetail[j].JumlahKamar}">` +
                             localDataDetail[j].JumlahKamar,
+                            `<input type="hidden" name="maksimalMenginapT[]" value="${localDataDetail[j].MaksimalMenginap}">` +
+                            localDataDetail[j].MaksimalMenginap,
                             `<input type="hidden" name="StatussKamarT[]" value="${localDataDetail[j].StatussKamar}">` +
                             StatusDataDetails
                         ]).draw(false)
@@ -1188,14 +1234,14 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Kolom pengisian Tidak Boleh Kosong!'
+                    text: 'Isi Kolom Dengan Benar & Kolom Pengisian Tidak Boleh Kosong!'
                 })
             }
 
         })
 
         function resetModal() {
-            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas'];
+            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas', 'maksimalMenginap'];
 
             for (let i = 0; i < idDetails.length; i++) {
                 if (i == 0) {
@@ -1336,6 +1382,7 @@
                                                             StatusKamar: localDataDetail[h].StatussKamar,
                                                             JumlahKamar: localDataDetail[h].JumlahKamar,
                                                             FasilitasKamar: localDataDetail[h].fasilitas,
+                                                            MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                             TanggalBuat: kontenn2.val().TanggalBuat,
                                                             TanggalUpdate: new Date().toString("ID"),
                                                             fotoKamar: localDataDetail[h].fotoDB,
@@ -1401,6 +1448,7 @@
                                                                 StatusKamar: 1,
                                                                 JumlahKamar: localDataDetail[h].JumlahKamar,
                                                                 FasilitasKamar: localDataDetail[h].fasilitas,
+                                                                MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                                 TanggalBuat: new Date().toString("ID"),
                                                                 TanggalUpdate: new Date().toString("ID"),
                                                                 fotoKamar: downloadURL,
@@ -1419,6 +1467,7 @@
                                                                             StatusKamar: localDataDetail[h].StatussKamar,
                                                                             JumlahKamar: localDataDetail[h].JumlahKamar,
                                                                             FasilitasKamar: localDataDetail[h].fasilitas,
+                                                                            MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                                             TanggalBuat: kontenn2.val().TanggalBuat,
                                                                             TanggalUpdate: new Date().toString("ID"),
                                                                             fotoKamar: downloadURL,
@@ -1534,6 +1583,7 @@
                                                                         StatusKamar: localDataDetail[h].StatussKamar,
                                                                         JumlahKamar: localDataDetail[h].JumlahKamar,
                                                                         FasilitasKamar: localDataDetail[h].fasilitas,
+                                                                        MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                                         TanggalBuat: kontenn2.val().TanggalBuat,
                                                                         TanggalUpdate: new Date().toString("ID"),
                                                                         fotoKamar: localDataDetail[h].fotoDB,
@@ -1599,6 +1649,7 @@
                                                                             StatusKamar: 1,
                                                                             JumlahKamar: localDataDetail[h].JumlahKamar,
                                                                             FasilitasKamar: localDataDetail[h].fasilitas,
+                                                                            MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                                             TanggalBuat: new Date().toString("ID"),
                                                                             TanggalUpdate: new Date().toString("ID"),
                                                                             fotoKamar: downloadURL2,
@@ -1617,6 +1668,7 @@
                                                                                         StatusKamar: localDataDetail[h].StatussKamar,
                                                                                         JumlahKamar: localDataDetail[h].JumlahKamar,
                                                                                         FasilitasKamar: localDataDetail[h].fasilitas,
+                                                                                        MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                                                         TanggalBuat: kontenn2.val().TanggalBuat,
                                                                                         TanggalUpdate: new Date().toString("ID"),
                                                                                         fotoKamar: downloadURL2,
@@ -1736,6 +1788,7 @@
                                                                 StatusKamar: localDataDetail[h].StatussKamar,
                                                                 JumlahKamar: localDataDetail[h].JumlahKamar,
                                                                 FasilitasKamar: localDataDetail[h].fasilitas,
+                                                                MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                                 TanggalBuat: kontenn2.val().TanggalBuat,
                                                                 TanggalUpdate: new Date().toString("ID"),
                                                                 fotoKamar: localDataDetail[h].fotoDB,
@@ -1801,6 +1854,7 @@
                                                                     StatusKamar: 1,
                                                                     JumlahKamar: localDataDetail[h].JumlahKamar,
                                                                     FasilitasKamar: localDataDetail[h].fasilitas,
+                                                                    MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                                     TanggalBuat: new Date().toString("ID"),
                                                                     TanggalUpdate: new Date().toString("ID"),
                                                                     fotoKamar: downloadURL,
@@ -1819,6 +1873,7 @@
                                                                                 StatusKamar: localDataDetail[h].StatussKamar,
                                                                                 JumlahKamar: localDataDetail[h].JumlahKamar,
                                                                                 FasilitasKamar: localDataDetail[h].fasilitas,
+                                                                                MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                                                 TanggalBuat: kontenn2.val().TanggalBuat,
                                                                                 TanggalUpdate: new Date().toString("ID"),
                                                                                 fotoKamar: downloadURL,
@@ -1944,6 +1999,7 @@
                                                                             StatusKamar: localDataDetail[h].StatussKamar,
                                                                             JumlahKamar: localDataDetail[h].JumlahKamar,
                                                                             FasilitasKamar: localDataDetail[h].fasilitas,
+                                                                            MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                                             TanggalBuat: kontenn2.val().TanggalBuat,
                                                                             TanggalUpdate: new Date().toString("ID"),
                                                                             fotoKamar: localDataDetail[h].fotoDB,
@@ -2009,6 +2065,7 @@
                                                                                 StatusKamar: 1,
                                                                                 JumlahKamar: localDataDetail[h].JumlahKamar,
                                                                                 FasilitasKamar: localDataDetail[h].fasilitas,
+                                                                                MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                                                 TanggalBuat: new Date().toString("ID"),
                                                                                 TanggalUpdate: new Date().toString("ID"),
                                                                                 fotoKamar: downloadURL2,
@@ -2027,6 +2084,7 @@
                                                                                             StatusKamar: localDataDetail[h].StatussKamar,
                                                                                             JumlahKamar: localDataDetail[h].JumlahKamar,
                                                                                             FasilitasKamar: localDataDetail[h].fasilitas,
+                                                                                            MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                                                             TanggalBuat: kontenn2.val().TanggalBuat,
                                                                                             TanggalUpdate: new Date().toString("ID"),
                                                                                             fotoKamar: downloadURL2,
@@ -2099,7 +2157,7 @@
     <script>
         function modalDetails(textx) {
             document.getElementById('titleModalDetail').innerHTML = textx;
-            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas'];
+            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas', 'maksimalMenginap'];
 
             if (textx == "Tambah") {
                 document.getElementById("uploadFileeDetail").value = "";
@@ -2126,6 +2184,7 @@
 
 
         //Detail
+        $("#alert").hide()
         $('#btnCancelImageDetail').hide()
         $('#AddImageDetail').hide()
         $('.image-title-Detail').hide()
@@ -2149,7 +2208,7 @@
                 cancelButtonText: 'Tidak',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    location.href = "<?= base_url() ?>/Mitra-Wisata"
+                    location.href = "<?= base_url() ?>/Mitra-Hotel"
                 }
             })
         }

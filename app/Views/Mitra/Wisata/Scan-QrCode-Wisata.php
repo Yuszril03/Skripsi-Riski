@@ -227,7 +227,6 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <div style="width: 500px" id="reader"></div>
-
                                     </div>
                                 </div>
                                 <div class="col">

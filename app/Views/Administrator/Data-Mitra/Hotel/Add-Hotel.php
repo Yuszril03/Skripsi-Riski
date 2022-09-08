@@ -234,6 +234,7 @@
                                         <input type="text" id="namaHotel" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
 
+
                                 </div>
                                 <div class="col-lg-6 col-12">
                                     <div id="map"></div>
@@ -271,6 +272,7 @@
                                             <th>Fasilitas Kamar</th>
                                             <th>Harga Kamar</th>
                                             <th>Jumlah Kamar</th>
+                                            <th>Maksimal Menginap</th>
                                             <th>Status Kamar</th>
                                         </tr>
                                     </thead>
@@ -332,6 +334,7 @@
                                         <input type="text" id="namaKamar" class="form-control" style="border-radius: 15px;" placeholder="Ketik di sini...">
                                     </div>
 
+
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
@@ -353,6 +356,20 @@
                                                     </div>
                                                     <input id="jumlahKamar" onkeypress="return hanyaAngka(this)" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Ketik di sini..." aria-label="Username" aria-describedby="basic-addon1">
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="">Maksimal Menginap<sup><span class="text-danger">*</span></sup></label>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;" id="basic-addon1"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                    <input id="maksimalMenginap" onkeypress="return hanyaAngka(this)" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;" type="text" class="form-control" placeholder="Tentukan Maksimal hari Menginap..." aria-label="Username" aria-describedby="basic-addon1">
+                                                </div>
+                                                <span id="alert" class="text-danger">Maksimal 30 Hari Menginap</span>
                                             </div>
                                         </div>
                                     </div>
@@ -478,7 +495,7 @@
                 const ValueItem = ref(db, 'Master-Data-Hotel/' + keys[isi]);
                 onValue(ValueItem, (kontenn) => {
 
-                    parseJsonHotel.push((keys[isi]))
+                    parseJsonHotel.push(keys[isi])
                 })
             }
 
@@ -488,13 +505,13 @@
         onValue(starCountRef2, (snapshot) => {
             const data = snapshot.val();
             const keys = Object.keys(data);
-            console.log(keys)
+            // console.log(keys)
 
             for (const isi in keys) {
                 const ValueItem = ref(db, 'Master-Data-Mitra/' + keys[isi]);
                 onValue(ValueItem, (kontenn) => {
 
-                    parseJsonPartner.push((keys[isi]));
+                    parseJsonPartner.push(keys[isi]);
                     parseJsonEmailPartner.push(kontenn.val().EmailMitra)
                 })
             }
@@ -592,6 +609,8 @@
                             tempData[j].HargaKamar,
                             `<input type="hidden" name="jumlahKamarT[]" value="${tempData[j].JumlahKamar}">` +
                             tempData[j].JumlahKamar,
+                            `<input type="hidden" name="maksimalMenginapT[]" value="${tempData[j].MaksimalMenginap}">` +
+                            tempData[j].MaksimalMenginap,
                             ` <span class="badge badge-danger">Belum Tersimpan</span>`
                         ]).draw(false)
 
@@ -632,6 +651,7 @@
             document.getElementById('idDataDetilss').value = document.getElementsByName('idDetailT[]')[s].value
             document.getElementById('namaKamar').value = document.getElementsByName('namaKamarT[]')[s].value
             document.getElementById('hargaKamar').value = document.getElementsByName('hargaKamarT[]')[s].value
+            document.getElementById('maksimalMenginap').value = document.getElementsByName('maksimalMenginapT[]')[s].value
             document.getElementById('jumlahKamar').value = document.getElementsByName('jumlahKamarT[]')[s].value
             document.getElementById('fasilitas').value = document.getElementsByName('fasilitasKamarT[]')[s].value
             document.getElementById('tempUploadData').value = uploadFIless.name
@@ -642,7 +662,7 @@
         //submit details
         document.getElementById('submitDetails').addEventListener('click', function() {
             let jenisSubmit = document.getElementById('titleModalDetail').innerHTML;
-            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas'];
+            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas', 'maksimalMenginap'];
             let jumlahDetails = 0;
 
             for (let i = 0; i < idDetails.length; i++) {
@@ -663,6 +683,20 @@
                         }
                     }
 
+                } else if (i == 5) {
+                    if (document.getElementById(idDetails[i]).value > 30) {
+                        jumlahDetails++;
+                        $('#alert').show()
+                    } else {
+                        $('#alert').hide()
+                    }
+                    if (document.getElementById(idDetails[i]).value == "") {
+                        jumlahDetails++;
+                        $('#' + idDetails[i]).addClass('is-invalid')
+                    } else {
+                        $('#' + idDetails[i]).removeClass('is-invalid')
+                    }
+                    
                 } else if (document.getElementById(idDetails[i]).value == "") {
                     jumlahDetails++;
                     $('#' + idDetails[i]).addClass('is-invalid')
@@ -670,6 +704,7 @@
                     $('#' + idDetails[i]).removeClass('is-invalid')
                 }
             }
+
             if (jumlahDetails == 0) {
                 if (jenisSubmit == "Tambah") {
                     let NoUrut = 0;
@@ -684,6 +719,7 @@
                         HargaKamar: document.getElementById("hargaKamar").value,
                         JumlahKamar: document.getElementById("jumlahKamar").value,
                         fasilitas: document.getElementById("fasilitas").value,
+                        MaksimalMenginap: document.getElementById("maksimalMenginap").value,
                         idDetail: NoUrut
                     }
 
@@ -699,6 +735,8 @@
                         `Rp. ` + document.getElementById("hargaKamar").value,
                         `<input type="hidden" name="jumlahKamarT[]" value="${document.getElementById("jumlahKamar").value}">` +
                         document.getElementById("jumlahKamar").value,
+                        `<input type="hidden" name="maksimalMenginapT[]" value="${document.getElementById("maksimalMenginap").value}">` +
+                        document.getElementById("maksimalMenginap").value,
                         ` <span class="badge badge-danger">Belum Tersimpan</span>`
                     ]).draw(false)
                     resetModal()
@@ -716,6 +754,7 @@
                             localDataDetail[i].HargaKamar = document.getElementById("hargaKamar").value
                             localDataDetail[i].JumlahKamar = document.getElementById("jumlahKamar").value
                             localDataDetail[i].fasilitas = document.getElementById("fasilitas").value
+                            localDataDetail[i].MaksimalMenginap = document.getElementById("maksimalMenginap").value
                         }
                     }
                     table
@@ -733,6 +772,8 @@
                             `Rp. ` + localDataDetail[j].HargaKamar,
                             `<input type="hidden" name="jumlahKamarT[]" value="${localDataDetail[j].JumlahKamar}">` +
                             localDataDetail[j].JumlahKamar,
+                            `<input type="hidden" name="maksimalMenginapT[]" value="${localDataDetail[j].MaksimalMenginap}">` +
+                            localDataDetail[j].MaksimalMenginap,
                             ` <span class="badge badge-danger">Belum Tersimpan</span>`
                         ]).draw(false)
 
@@ -748,14 +789,14 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Kolom pengisian Tidak Boleh Kosong!'
+                    text: 'Isi Kolom Dengan Benar & Kolom Pengisian Tidak Boleh Kosong!'
                 })
             }
 
         })
 
         function resetModal() {
-            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas'];
+            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas', 'maksimalMenginap'];
 
             for (let i = 0; i < idDetails.length; i++) {
                 if (i == 0) {
@@ -852,24 +893,41 @@
 
                             } else {
 
-                                let lastID = parseJsonHotel[parseJsonHotel.length - 1]
-                                let spliData = lastID.split('-');
-                                CodeIDHotel = "Hotel-" + (Number(spliData[1]) + 1)
+                                let arraykey = [];
+                                for (let i = 0; i < parseJsonHotel.length; i++) {
+                                    let splidata = (parseJsonHotel[i]).split("-")
+                                    arraykey[i] = Number(splidata[1])
+                                }
+                                // console.log(arraykey)
+                                let tep = arraykey.sort((a, b) => (a > b ? -1 : 1));
+
+                                let lastID = tep[0]
+
+                                CodeIDHotel = "Hotel-" + (lastID + 1)
 
                             }
+
+
                             if (parseJsonPartner.length == 0) {
                                 CodeIDMitra = "Mitra-1"
 
                             } else {
+                                let arraykey = [];
+                                for (let i = 0; i < parseJsonPartner.length; i++) {
+                                    let splidata = (parseJsonPartner[i]).split("-")
+                                    arraykey[i] = Number(splidata[1])
+                                }
+                                // console.log(arraykey)
+                                let tep = arraykey.sort((a, b) => (a > b ? -1 : 1));
 
-                                let lastID = parseJsonPartner[parseJsonPartner.length - 1]
-                                let spliData = lastID.split('-');
-                                CodeIDMitra = "Mitra-" + (Number(spliData[1]) + 1)
+                                let lastID = tep[0]
+
+                                CodeIDMitra = "Mitra-" + (lastID + 1)
 
                             }
 
                             if (Boolean(fileupload) == false) {
-                                //Data Master Rental
+                                //Data Master Hotel
                                 set(ref(db, 'Master-Data-Hotel/' + CodeIDHotel), {
                                     NamaHotel: document.getElementById('namaHotel').value,
                                     AlamatHotel: document.getElementById('alamat').value,
@@ -891,7 +949,7 @@
                                     TanggalUpdate: new Date().toString("ID")
                                 });
 
-                                //Data Master Account Wisata
+                                //Data Master Account Mitra
                                 set(ref(db, 'Master-Data-Account-Mitra/' + CodeIDMitra), {
                                     KataSandiMitra: md5('12345678'),
                                     JenisMitra: "Mitra-Hotel",
@@ -951,6 +1009,7 @@
                                                     StatusKamar: 1,
                                                     JumlahKamar: localDataDetail[h].JumlahKamar,
                                                     FasilitasKamar: localDataDetail[h].fasilitas,
+                                                    MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                     TanggalBuat: new Date().toString("ID"),
                                                     TanggalUpdate: new Date().toString("ID"),
                                                     fotoKamar: downloadURL,
@@ -1094,6 +1153,7 @@
                                                                 StatusKamar: 1,
                                                                 JumlahKamar: localDataDetail[h].JumlahKamar,
                                                                 FasilitasKamar: localDataDetail[h].fasilitas,
+                                                                MaksimalMenginap: localDataDetail[h].MaksimalMenginap,
                                                                 TanggalBuat: new Date().toString("ID"),
                                                                 TanggalUpdate: new Date().toString("ID"),
                                                                 fotoKamar: downloadURL2,
@@ -1107,23 +1167,26 @@
 
 
                                             }
+                                            Swal.fire({
+                                                title: 'Berhasil',
+                                                text: 'Data berhasil tersimpan.',
+                                                icon: 'success',
+                                                showCancelButton: false,
+                                                confirmButtonColor: '#3085d6',
+                                                cancelButtonColor: '#d33',
+                                                confirmButtonText: 'Okey'
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    location.href = "<?= base_url() ?>/Mitra-Hotel"
+                                                }
+                                            })
+
+
                                         });
                                     }
                                 );
 
-                                Swal.fire({
-                                    title: 'Berhasil',
-                                    text: 'Data berhasil tersimpan.',
-                                    icon: 'success',
-                                    showCancelButton: false,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Okey'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        location.href = "<?= base_url() ?>/Mitra-Hotel"
-                                    }
-                                })
+
                             }
 
 
@@ -1153,7 +1216,7 @@
     <script>
         function modalDetails(textx) {
             document.getElementById('titleModalDetail').innerHTML = textx;
-            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas'];
+            let idDetails = ['uploadFileeDetail', 'namaKamar', 'hargaKamar', 'jumlahKamar', 'fasilitas', ' maksimalMenginap'];
 
             if (textx == "Tambah") {
                 document.getElementById("uploadFileeDetail").value = "";
@@ -1177,6 +1240,7 @@
 
         }
 
+        $('#alert').hide()
         $('#alertJenisKendaraan').hide()
         $('#hapusDetails').hide()
         $('#EditDetails').hide()
@@ -1205,7 +1269,7 @@
                 cancelButtonText: 'Tidak',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    location.href = "<?= base_url() ?>/Mitra-Wisata"
+                    location.href = "<?= base_url() ?>/Mitra-Hotel"
                 }
             })
         }

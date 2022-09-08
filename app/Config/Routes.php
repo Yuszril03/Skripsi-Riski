@@ -38,6 +38,7 @@ $routes->get('/Beranda-Mitra', 'Mitra::index');
 $routes->get('/Default-Kata-Sandi-Mitra' . '/(:any)', 'Mitra::KataSandiDefaultMitra/$1');
 $routes->get('/Ubah-Kata-Sandi-Mitra' . '/(:any)', 'Mitra::KataSandiUbahMitra/$1');
 $routes->get('/Kata-Sandi-Mitra', 'Mitra::Katasandi');
+$routes->get('/Keluar-Mitra', 'Mitra::Keluar');
 
 //Login Admin
 $routes->get('/Masuk-Administrator', 'Login::LoginAdmin');
@@ -68,9 +69,20 @@ $routes->get('/Detail-Mitra-Rental' . '/(:any)' . '/(:any)', 'Administrator::Det
 
 //Pemesanan
 $routes->get('/Pemesanan-Wisata', 'Administrator::PemesananWisata');
+$routes->get('/Detail-Pemesanan-Wisata' .'/(:any)' . '/(:any)' .'/(:any)' . '/(:any)', 'Administrator::detailPemesananWisata/$1/$2/$3/$4');
 $routes->get('/Pemesanan-Rental', 'Administrator::PemesananRental');
 $routes->get('/Pemesanan-Hotel', 'Administrator::PemesananHotel');
 
+//Version Android
+$routes->get('/Data-Version-Android', 'Administrator::DataVersionAndroid');
+$routes->get('/Tambah-Data-Version-Android', 'Administrator::tambahDataVersionAndroid');
+$routes->get('/Edit-Data-Version' . '/(:any)', 'Administrator::editVersionAndroid/$1');
+
+//Daftar Bank
+$routes->get('/Daftar-Bank', 'Administrator::DaftarBank');
+$routes->get('/Tambah-Rekening-Bank', 'Administrator::tambahBank');
+$routes->get('/Edit-Data-Bank' . '/(:any)', 'Administrator::editBank/$1');
+$routes->get('/Detail-Data-Bank' . '/(:any)', 'Administrator::detailBank/$1');
 
 
 // $routes->get('/', 'Login::LoginMitra');
@@ -95,19 +107,27 @@ $routes->get('/detailReting-Komentar', 'Administrator::detailRetingKomentar');
 $routes->get('/Edit-profile', 'Mitra::Profile');
 
 
-//wisata
+//Pemesanan wisata
 $routes->get('/Data-Pemesanan-Tiket', 'Mitra::DataPemesananWisata');
+$routes->get('/Detail-Pemesanan-Tiket' . '/(:any)', 'Mitra::DeteilPemesananWisata/$1');
 
 //Kamar Hotel
 $routes->get('/Data-Kamar', 'Mitra::DataKamar');
+$routes->get('/Detail-Kamar-Mitra' . '/(:any)', 'Mitra::DeteilkamarMitra/$1');
+
 
 //Mobil Rental
 $routes->get('/Data-Mobil-Rental', 'Mitra::DataMobilRental');
+$routes->get('/Detail-Mobil' . '/(:any)', 'Mitra::DetailMobil/$1');
 
 //scan QrCode
 $routes->get('/Scan-QrCode-Wisata', 'Mitra::QrCodeWisata');
 $routes->get('/Scan-QrCode-Hotel', 'Mitra::QrCodeHotel');
 $routes->get('/Scan-QrCode-Rental', 'Mitra::QrCodeRental');
+
+//Review
+
+$routes->get('/Review-Wisata', 'Mitra::ReviewWisata');
 
 
 
