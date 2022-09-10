@@ -164,7 +164,7 @@
                                     <div>
                                         <b>Komentar Customer</b>
                                         <div style="border: 1.5px solid #7FFF00; border-radius: 10px; max-width: 450px;">
-                                            <div class="row" style="margin-top: 10px;  margin-left: 5px;">
+                                            <div class="row" style="margin-top: 10px;  margin-left: 5px; margin-right: 5px;">
                                                 <div class="col-1">
                                                     <p>
                                                         <img id="fotoUser" src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="30" height="30" style="border-radius: 360px;" alt="">
@@ -181,7 +181,7 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div style="margin-left: 12px;">
+                                            <div style="margin-left: 12px; margin-right: 15px;">
                                                 <p>
                                                     <span id="komentar">none</span>
                                                 </p>
@@ -201,7 +201,7 @@
                                         <div class=" col-11">
                                             <b>Tanggapan Mitra</b>
                                             <div style="border: 1.5px solid #7FFFD4; border-radius: 10px; max-width: 450px;">
-                                                <div style="margin-left: 12px; margin-top: 10px;">
+                                                <div style="margin-left: 12px; margin-right: 12px; margin-top: 10px;">
                                                     <p>
                                                         <span id="tanggapan">none</span>
                                                     </p>

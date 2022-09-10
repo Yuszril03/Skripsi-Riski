@@ -93,7 +93,6 @@
                                 <i class="fa fa-map-pin"></i>
                                 <span id="alamatWisata">
                                     Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock
-
                                 </span>
                             </p>
 
@@ -122,7 +121,6 @@
                                     </p>
                                 </div>
                                 <div class="col-lg col-4">
-
                                     <p>
                                         <b>Pengunjung Dewasa</b><br>
                                         <span id="pengunjungDewasa">Tidak ada</span>
@@ -195,7 +193,6 @@
                                     </div>
                                     <div id="tanggapanmitra" class="row">
                                         <div class=" col-1 "></div>
-
                                         <div class=" col-11">
                                             <b>Tanggapan Mitra</b>
                                             <div style="border: 1.5px solid #7FFFD4; border-radius: 10px; max-width: 450px; ">
@@ -213,9 +210,7 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
