@@ -199,90 +199,84 @@
                 "emptyTable": "Tidak ada data di dalam tabel",
             }
         });
-        LoadData()
+
+        const database1 = ref(db, 'Transaction-Wisata');
+        onValue(database1, (snapshot1) => {
+            const dataTransaksi = snapshot1.val();
+            const keysTransaksi = Object.keys(dataTransaksi);
+
+            for (const isi in keysTransaksi) {
+                const database2 = ref(db, 'Transaction-Wisata/' + keysTransaksi[isi]);
+                onValue(database2, (snapshot2) => {
+                    const dataWisata = snapshot2.val();
+
+                    //User
+                    const database3 = ref(db, 'Master-Data-Customer/' + dataWisata.IdCutomer);
+                    onValue(database3, (snapshot3) => {
+                        const dataCustomer = snapshot3.val();
 
 
 
-
-        function LoadData() {
-            const database1 = ref(db, 'Transaction-Wisata');
-            onValue(database1, (snapshot1) => {
-                const dataTransaksi = snapshot1.val();
-                const keysTransaksi = Object.keys(dataTransaksi);
-
-                for (const isi in keysTransaksi) {
-                    const database2 = ref(db, 'Transaction-Wisata/' + keysTransaksi[isi]);
-                    onValue(database2, (snapshot2) => {
-                        const dataWisata = snapshot2.val();
-
-                        //User
-                        const database3 = ref(db, 'Master-Data-Customer/' + dataWisata.IdCutomer);
-                        onValue(database3, (snapshot3) => {
-                            const dataCustomer = snapshot3.val();
+                        //Nama Wisata
+                        const database4 = ref(db, 'Master-Data-Wisata/' + dataWisata.IdMitra);
+                        onValue(database4, (snapshot4) => {
 
 
+                            let PostData = {
+                                IDKey: keysTransaksi[isi],
+                                NamaWisata: snapshot4.val().NamaWisata,
+                                NamaCustomer: snapshot3.val().NamaCustomer,
+                                TanggalBuat: snapshot2.val().TanggalBuat,
+                                JumlahDewasa: snapshot2.val().JumlahDewasa,
+                                JumlahAnak: snapshot2.val().JumlahAnak,
+                                TotalSemua: snapshot2.val().TotalSemua,
+                                StatusTransaksi: Number(snapshot2.val().StatusTransaksi)
 
-                            //Nama Wisata
-                            const database4 = ref(db, 'Master-Data-Wisata/' + dataWisata.IdMitra);
-                            onValue(database4, (snapshot4) => {
+                            }
 
-
-                                let PostData = {
-                                    IDKey: keysTransaksi[isi],
-                                    NamaWisata: snapshot4.val().NamaWisata,
-                                    NamaCustomer: snapshot3.val().NamaCustomer,
-                                    TanggalBuat: snapshot2.val().TanggalBuat,
-                                    JumlahDewasa: snapshot2.val().JumlahDewasa,
-                                    JumlahAnak: snapshot2.val().JumlahAnak,
-                                    TotalSemua: snapshot2.val().TotalSemua,
-                                    StatusTransaksi: Number(snapshot2.val().StatusTransaksi)
-
-                                }
-
-                                let StatusData = '';
-                                let ActionData =
-                                    // `<button type="button"  class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
-                                    `<button type="button" onclick="location.href='<?= base_url() ?>/Detail-Pemesanan-Wisata/${keysTransaksi[isi]}/${dataWisata.IdCutomer}/${dataWisata.IdMitra}/${dataWisata.JenisPembayaran}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                            let StatusData = '';
+                            let ActionData =
+                                // `<button type="button"  class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                `<button type="button" onclick="location.href='<?= base_url() ?>/Detail-Pemesanan-Wisata/${keysTransaksi[isi]}/${dataWisata.IdCutomer}/${dataWisata.IdMitra}/${dataWisata.JenisPembayaran}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                     `;
 
-                                const options = {
-                                    weekday: 'long',
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                };
+                            const options = {
+                                weekday: 'long',
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            };
 
-                                if (Number(snapshot2.val().StatusTransaksi) == 1) {
-                                    StatusData = `<span class="badge badge-warning">Belum Terbayar</span>`;
-                                } else if (Number(snapshot2.val().StatusTransaksi) == 2) {
-                                    StatusData = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`;
-                                } else if (Number(snapshot2.val().StatusTransaksi) == 3) {
-                                    StatusData = `<span class="badge badge-success">Sudah Terbayar</span>`;
-                                } else {
-                                    StatusData = `<span class="badge badge-secondary">Tiket Sudah Digunakan</span>`;
-                                }
+                            if (Number(snapshot2.val().StatusTransaksi) == 1) {
+                                StatusData = `<span class="badge badge-warning">Belum Terbayar</span>`;
+                            } else if (Number(snapshot2.val().StatusTransaksi) == 2) {
+                                StatusData = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`;
+                            } else if (Number(snapshot2.val().StatusTransaksi) == 3) {
+                                StatusData = `<span class="badge badge-success">Sudah Terbayar</span>`;
+                            } else {
+                                StatusData = `<span class="badge badge-secondary">Tiket Sudah Digunakan</span>`;
+                            }
 
-                                table.row.add([
-                                    keysTransaksi[isi],
-                                    snapshot4.val().NamaWisata,
-                                    snapshot3.val().NamaCustomer,
-                                    snapshot2.val().TanggalBuat,
-                                    snapshot2.val().JumlahDewasa + ' orang',
-                                    snapshot2.val().JumlahAnak + ' orang',
-                                    'Rp. ' + snapshot2.val().TotalSemua,
-                                    StatusData,
-                                    ActionData
-                                ]).draw(false)
+                            table.row.add([
+                                keysTransaksi[isi],
+                                snapshot4.val().NamaWisata,
+                                snapshot3.val().NamaCustomer,
+                                snapshot2.val().TanggalBuat,
+                                snapshot2.val().JumlahDewasa + ' orang',
+                                snapshot2.val().JumlahAnak + ' orang',
+                                'Rp. ' + snapshot2.val().TotalSemua,
+                                StatusData,
+                                ActionData
+                            ]).draw(false)
 
-                                parseJsonTransaksi.push(PostData)
+                            parseJsonTransaksi.push(PostData)
 
-                            })
                         })
                     })
-                }
-                console.log(parseJsonTransaksi)
-            })
-        }
+                })
+            }
+            console.log(parseJsonTransaksi)
+        })
     </script>
 </body>
 

@@ -32,7 +32,7 @@
 
     <style>
         .chacked {
-            color: yellow;
+            color: #ffc107;
         }
     </style>
 </head>
@@ -87,7 +87,7 @@
                                         </tr>
                                     </thead>
 
-                                    
+
                                 </table>
                             </div>
                         </div>

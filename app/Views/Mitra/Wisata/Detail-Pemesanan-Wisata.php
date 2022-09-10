@@ -37,7 +37,7 @@
         }
 
         .chacked {
-            color: yellow;
+            color: #ffc107;
         }
     </style>
 
@@ -157,8 +157,8 @@
                                 <!-- tidak ada Ulasan -->
                                 <div id="noneUlasan">
                                     <br>
-                                    <p>
-                                        <span>
+                                    <p style="background-color: #ffc107;  max-width: 150px;">
+                                        <span style="margin-left: 5px;">
                                             Tidak Ada Ulasan !!!
                                         </span>
                                     </p>
@@ -167,17 +167,30 @@
                                 <!-- ada Ulasan -->
                                 <div id="ulasan">
                                     <div>
-                                        <br>
-                                        <p>
-                                            <span id="rating"></span>
-                                        </p>
-                                    </div>
-                                    <div>
                                         <b>Komentar Customer</b>
-                                        <div>
-                                            <p style="border: 1.5px solid #7FFF00; border-radius: 10px; max-width: 450px;">
-                                                <span id="komentar">none</span>
-                                            </p>
+                                        <div style="border: 1.5px solid #7FFF00; border-radius: 10px; max-width: 450px;">
+                                            <div class="row" style="margin-top: 10px;  margin-left: 5px; margin-right: 5px; ">
+                                                <div class="col-1">
+                                                    <p>
+                                                        <img id="fotoUser" src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="30" height="30" style="border-radius: 360px;" alt="">
+                                                    </p>
+                                                </div>
+                                                <div class="col-8">
+                                                    <p>
+                                                        <span id="namaCustomer"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-3">
+                                                    <p>
+                                                        <span id="rating"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div style="margin-left: 14px; margin-right: 14px;">
+                                                <p>
+                                                    <span id="komentar">none</span>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div id="tanggapanmitra" class="row">
@@ -185,13 +198,15 @@
 
                                         <div class=" col-11">
                                             <b>Tanggapan Mitra</b>
-                                            <div>
-                                                <p style="border: 1.5px solid #7FFFD4; border-radius: 10px; max-width: 450px;">
-                                                    <span id="tanggapan">none</span>
-                                                </p>
-                                                <div class="float-right">
-                                                    <button type="button" id="submitData" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
+                                            <div style="border: 1.5px solid #7FFFD4; border-radius: 10px; max-width: 450px; ">
+                                                <div style="margin-left: 12px; margin-right: 12px; margin-top: 10px;">
+                                                    <p>
+                                                        <span id="tanggapan">none</span>
+                                                    </p>
                                                 </div>
+                                            </div>
+                                            <div class="float-right">
+                                                <button type="button" id="submitData" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
                                             </div>
                                         </div>
                                     </div>
@@ -313,7 +328,7 @@
         //Mengambil Data Master Wisata
         const ValueItem = ref(db, 'Master-Data-Wisata/<?= $DataIDMitra ?>');
         onValue(ValueItem, (kontenn) => {
-            
+
             document.getElementById('namaWisataa').innerHTML = kontenn.val().NamaWisata
             document.getElementById('alamatWisata').innerHTML = kontenn.val().AlamatWisata
             document.getElementById('hargaDewasa').innerHTML = kontenn.val().HargaDewasa
@@ -400,6 +415,11 @@
         onValue(ValueItem2, (kontein) => {
 
             document.getElementById('namaPemesan').innerHTML = kontein.val().NamaCustomer
+            document.getElementById('namaCustomer').innerHTML = kontein.val().NamaCustomer
+
+            if (kontein.val().fotoCustomer != "") {
+                document.getElementById('fotoUser').src = kontein.val().fotoCustomer
+            }
 
         })
 
