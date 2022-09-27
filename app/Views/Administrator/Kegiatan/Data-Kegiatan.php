@@ -219,8 +219,6 @@
                     })
                 }
 
-
-
                 for (let i = 0; i < parseJsonBerita.length; i++) {
                     let StatusData = '';
                     let ActionData = '';

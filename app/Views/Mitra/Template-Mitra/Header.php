@@ -59,10 +59,7 @@
                   <a href="<?= base_url() ?>/Keluar-Mitra" class="dropdown-item">
                       <i class="bi bi-box-arrow-left"></i> Keluar
                   </a>
-
               </div>
           </li>
-
-
       </ul>
   </nav>

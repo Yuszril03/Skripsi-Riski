@@ -214,8 +214,6 @@
                         onValue(database3, (snapshot3) => {
                             const dataCustomer = snapshot3.val();
 
-
-
                             //Nama Wisata
                             const database4 = ref(db, 'Master-Data-Wisata/' + dataWisata.IdMitra);
                             onValue(database4, (snapshot4) => {
@@ -280,7 +278,7 @@
 
                     })
                 }
-                console.log(parseJsonTransaksi)
+                // console.log(parseJsonTransaksi)
 
                 // for (let i = 0; i < parseJsonTransaksi.length; i++) {
                 //     let StatusData = '';

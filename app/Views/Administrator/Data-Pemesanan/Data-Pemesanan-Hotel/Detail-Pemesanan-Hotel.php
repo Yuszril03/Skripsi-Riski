@@ -60,15 +60,15 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">
-                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Pemesanan-Wisata`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
-                                Detail Pemesanan Wisata
+                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Pemesanan-Hotel`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
+                                Detail Pemesanan Hotel
                             </h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Pemesanan Wisata</li>
-                                <li class="breadcrumb-item active">Detail Pemesanan Wisata</li>
+                                <li class="breadcrumb-item active">Pemesanan Hotel</li>
+                                <li class="breadcrumb-item active">Detail Pemesanan Hotel</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -83,25 +83,23 @@
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
                             <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
-                                <i class="bi bi-card-text text-primary"></i> Data Wisata
+                                <i class="bi bi-card-text text-primary"></i> Data Hotel
                             </div>
-                            <img id="fotoWisata" src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="300" alt="">
-                            <h4 class="mt-2 font-weight-bold" id="namaWisataa">Nama Wisata</h4>
+                            <img id="fotokamar" src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="300" alt="">
+                            <h4 class="mt-2 font-weight-bold" id="namaKamardanHotel">Nama Kamar - Nama Hotel</h4>
 
 
                             <p>
                                 <i class="fa fa-map-pin"></i>
-                                <span id="alamatWisata">
+                                <span id="alamatHotel">
                                     Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock
 
                                 </span>
                             </p>
-
-                            <p> <b>Harga Tiket</b></p>
-                            <ul>
-                                <li>Tiket Anak-Anak : Rp. <span id="hargaAnak"></span></li>
-                                <li>Tiket Dewasa : Rp. <span id="hargaDewasa"></span></li>
-                            </ul>
+                            <p>
+                                <b>Harga Kamar</b><br>
+                                <span id="hargaKamar">Tidak ada</span>
+                            </p>
 
                             <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
                                 <i class="bi bi-card-text text-primary"></i> Detail Pemesanan
@@ -125,12 +123,16 @@
                                 <div class="col-lg col-4">
 
                                     <p>
-                                        <b>Pengunjung Dewasa</b><br>
-                                        <span id="pengunjungDewasa">Tidak ada</span>
+                                        <b>Jenis Kamar</b><br>
+                                        <span id="jenisKamar">Tidak ada</span>
                                     </p>
                                     <p>
-                                        <b>Pengunjung Anak - Anak</b><br>
-                                        <span id="pengunjungAnak">Tidak ada</span>
+                                        <b>Jumlah Kamar</b><br>
+                                        <span id="jumlahKamar">Tidak ada</span>
+                                    </p>
+                                    <p>
+                                        <b>Lama Menginap</b><br>
+                                        <span id="lamaMenginap">Tidak ada</span>
                                     </p>
                                     <p>
                                         <b>Total Pembayaran</b><br>
@@ -138,6 +140,14 @@
                                     </p>
                                 </div>
                                 <div class="col-lg col-4">
+                                    <p>
+                                        <b>Check In</b><br>
+                                        <span id="In">Tidak ada</span>
+                                    </p>
+                                    <p>
+                                        <b>Check Out</b><br>
+                                        <span id="Out">Tidak ada</span>
+                                    </p>
                                     <p>
                                         <b>Tanggal Pemesanan</b><br>
                                         <span id="tanggalPemesanan">Tidak ada</span>
@@ -298,25 +308,31 @@
         $('#noneUlasan').hide()
         $('#ulasan').hide()
 
-        const ValueItem = ref(db, 'Master-Data-Wisata/<?= $DataIDMitra ?>');
+        const ValueItem = ref(db, 'Master-Data-Hotel/<?= $DataIDMitra ?>');
         onValue(ValueItem, (kontenn) => {
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
-            document.getElementById('namaWisataa').innerHTML = kontenn.val().NamaWisata
-            document.getElementById('alamatWisata').innerHTML = kontenn.val().AlamatWisata
-            document.getElementById('hargaDewasa').innerHTML = kontenn.val().HargaDewasa
-            document.getElementById('hargaAnak').innerHTML = kontenn.val().HargaAnak
+            const dataHotel = kontenn.val();
 
-            if (kontenn.val().fotoWisata != "") {
-                document.getElementById('fotoWisata').src = kontenn.val().fotoWisata
-            }
+            const ValueItemKamar = ref(db, 'Master-Data-Hotel-Detail/<?= $DataIDKamar ?>');
+            onValue(ValueItemKamar, (kontennn) => {
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+                document.getElementById('namaKamardanHotel').innerHTML = kontennn.val().NamaKamar + ' - ' + kontenn.val().NamaHotel
+                document.getElementById('alamatHotel').innerHTML = kontenn.val().AlamatHotel
+                document.getElementById('hargaKamar').innerHTML = 'Rp. ' + kontennn.val().HargaKamar
+
+                if (kontenn.val().fotoKamar != "") {
+                    document.getElementById('fotokamar').src = kontennn.val().fotoKamar
+                }
+
+                document.getElementById('jenisKamar').innerHTML = kontennn.val().NamaKamar
+            })
         })
 
-        const ValueItem1 = ref(db, 'Transaction-Wisata/<?= $DataID ?>');
+        const ValueItem1 = ref(db, 'Transaction-Hotel/<?= $DataID ?>');
         onValue(ValueItem1, (kontens) => {
             let jumlah = 5;
             const options = {
@@ -325,9 +341,12 @@
                 month: 'long',
                 day: 'numeric'
             };
-            document.getElementById('pengunjungDewasa').innerHTML = kontens.val().JumlahDewasa + ' Orang = Rp. ' + kontens.val().TotalDewasa
-            document.getElementById('pengunjungAnak').innerHTML = kontens.val().JumlahAnak + ' Orang = Rp. ' + kontens.val().TotalAnak
+
             document.getElementById('tanggalPemesanan').innerHTML = kontens.val().TanggalBuat
+            document.getElementById('In').innerHTML = kontens.val().CheckIn
+            document.getElementById('Out').innerHTML = kontens.val().CheckOut
+            document.getElementById('jumlahKamar').innerHTML = kontens.val().JumlahKamar + ' Kamar'
+            document.getElementById('lamaMenginap').innerHTML = kontens.val().JumlahHari + ' Hari'
             document.getElementById('TotalHarga').innerHTML = 'Rp. ' + kontens.val().TotalSemua
 
             let tempoo = ``
@@ -365,14 +384,14 @@
                 document.getElementById('tanggapan').innerHTML = kontens.val().UlasanMitra
             }
 
-            if (kontens.val().StatusTransaksi == 1) {
+            if (Number(kontens.val().StatusTransaksi) == 1) {
                 document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`
-            } else if (kontens.val().StatusTransaksi == 2) {
+            } else if (Number(kontens.val().StatusTransaksi) == 2) {
                 document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`
-            } else if (kontens.val().StatusTransaksi == 3) {
+            } else if (Number(kontens.val().StatusTransaksi) == 3) {
                 document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-success">Sudah Terbayar</span>`
             } else {
-                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-secondary">Tiket Sudah Digunakan</span>`
+                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-secondary">Tiket Pemesanan Sudah Digunakan</span>`
                 $('#rate').show()
             }
 

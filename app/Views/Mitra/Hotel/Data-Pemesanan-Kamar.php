@@ -33,15 +33,12 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
-
-
         <!-- Navbar -->
-        <?= view('Administrator/Template-Admin/Header') ?>
+        <?= view('Mitra/Template-Mitra/Header') ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?= view('Administrator/Template-Admin/Sidebar') ?>
+        <?= view('Mitra/Template-Mitra/Sidebar') ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -50,12 +47,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Pemesanan Wisata</h1>
+                            <h1 class="m-0">Pemesanan Kamar Hotel</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Pemesanan Wisata</li>
+                                <li class="breadcrumb-item active">Pemesanan Kamar Hotel</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -75,11 +72,11 @@
                                     <thead>
                                         <tr>
                                             <th>Kode Pemesanan</th>
-                                            <th>Nama Wisata</th>
+                                            <th>Nama Hotel</th>
+                                            <th>Jenis Kamar</th>
                                             <th>Nama Pemesan</th>
                                             <th>Tanggal Pemesanan</th>
-                                            <th>Pengunjung Dewasa</th>
-                                            <th>Pengunjung Anak - Anak</th>
+                                            <th>Jumlah Kamar</th>
                                             <th>Total Harga</th>
                                             <th>Status Pemesan</th>
                                             <th>Aksi</th>
@@ -109,10 +106,10 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <?= view('Administrator/Template-Admin/Footer') ?>
+        <?= view('Mitra/Template-Mitra/Footer') ?>
 
         <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
+        <aside class=" control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
@@ -188,8 +185,8 @@
                 search: '',
                 searchPlaceholder: "Pencarian...",
                 "paginate": {
-                    "next": "Selanjutnya",
-                    "previous": "Sebelumnya"
+                    "next": `<i class="bi bi-chevron-right"></i>`,
+                    "previous": `<i class="bi bi-chevron-left"></i>`
                 },
                 "info": "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri",
                 "lengthMenu": "Tampilkan _MENU_ entri",
@@ -200,77 +197,82 @@
             }
         });
 
-        const database1 = ref(db, 'Transaction-Wisata');
+        const database1 = ref(db, 'Transaction-Hotel');
         onValue(database1, (snapshot1) => {
             const dataTransaksi = snapshot1.val();
             const keysTransaksi = Object.keys(dataTransaksi);
 
             for (const isi in keysTransaksi) {
-                const database2 = ref(db, 'Transaction-Wisata/' + keysTransaksi[isi]);
+                const database2 = ref(db, 'Transaction-Hotel/' + keysTransaksi[isi]);
                 onValue(database2, (snapshot2) => {
-                    const dataWisata = snapshot2.val();
+                    const dataHotel = snapshot2.val();
 
                     //User
-                    const database3 = ref(db, 'Master-Data-Customer/' + dataWisata.IdCutomer);
+                    const database3 = ref(db, 'Master-Data-Customer/' + dataHotel.IdCutomer);
                     onValue(database3, (snapshot3) => {
                         const dataCustomer = snapshot3.val();
 
-
-
                         //Nama Wisata
-                        const database4 = ref(db, 'Master-Data-Wisata/' + dataWisata.IdMitra);
+                        const database4 = ref(db, 'Master-Data-Hotel/' + dataHotel.IdMitra);
                         onValue(database4, (snapshot4) => {
+                            const masterDataHotel = snapshot4.val();
 
+                            const database5 = ref(db, 'Master-Data-Hotel-Detail/' + dataHotel.IdKamar);
+                            onValue(database5, (snapshot5) => {
 
-                            let PostData = {
-                                IDKey: keysTransaksi[isi],
-                                NamaWisata: snapshot4.val().NamaWisata,
-                                NamaCustomer: snapshot3.val().NamaCustomer,
-                                TanggalBuat: snapshot2.val().TanggalBuat,
-                                JumlahDewasa: snapshot2.val().JumlahDewasa,
-                                JumlahAnak: snapshot2.val().JumlahAnak,
-                                TotalSemua: snapshot2.val().TotalSemua,
-                                StatusTransaksi: Number(snapshot2.val().StatusTransaksi)
+                                if (snapshot2.val().IdMitra == "<?= session()->get('IDKelola') ?>") {
 
-                            }
+                                    let PostData = {
+                                        IDKey: keysTransaksi[isi],
+                                        NamaHotel: snapshot4.val().NamaHotel,
+                                        NamaKamar: snapshot5.val().NamaKamar,
+                                        NamaCustomer: snapshot3.val().NamaCustomer,
+                                        TanggalBuat: snapshot2.val().TanggalBuat,
+                                        JumlahKamar: snapshot2.val().JumlahKamar,
+                                        TotalSemua: snapshot2.val().TotalSemua,
+                                        StatusTransaksi: Number(snapshot2.val().StatusTransaksi)
 
-                            let StatusData = '';
-                            let ActionData =
-                                // `<button type="button"  class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
-                                `<button type="button" onclick="location.href='<?= base_url() ?>/Detail-Pemesanan-Wisata/${keysTransaksi[isi]}/${dataWisata.IdCutomer}/${dataWisata.IdMitra}/${dataWisata.JenisPembayaran}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                    }
+
+                                    let StatusData = '';
+                                    let ActionData =
+                                        // `<button type="button"  class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                        `<button type="button" onclick="location.href='<?= base_url() ?>/Detail-Pemesanan-Kamar/${keysTransaksi[isi]}/${dataHotel.IdCutomer}/${dataHotel.IdMitra}/${dataHotel.JenisPembayaran}/${dataHotel.IdKamar}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                     `;
 
-                            const options = {
-                                weekday: 'long',
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                            };
+                                    const options = {
+                                        weekday: 'long',
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    };
 
-                            if (Number(snapshot2.val().StatusTransaksi) == 1) {
-                                StatusData = `<span class="badge badge-warning">Belum Terbayar</span>`;
-                            } else if (Number(snapshot2.val().StatusTransaksi) == 2) {
-                                StatusData = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`;
-                            } else if (Number(snapshot2.val().StatusTransaksi) == 3) {
-                                StatusData = `<span class="badge badge-success">Sudah Terbayar</span>`;
-                            } else {
-                                StatusData = `<span class="badge badge-secondary">Tiket Sudah Digunakan</span>`;
-                            }
+                                    if (Number(snapshot2.val().StatusTransaksi) == 1) {
+                                        StatusData = `<span class="badge badge-warning">Belum Terbayar</span>`;
+                                    } else if (Number(snapshot2.val().StatusTransaksi) == 2) {
+                                        StatusData = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`;
+                                    } else if (Number(snapshot2.val().StatusTransaksi) == 3) {
+                                        StatusData = `<span class="badge badge-success">Sudah Terbayar</span>`;
+                                    } else {
+                                        StatusData = `<span class="badge badge-secondary">Tiket Sudah Digunakan</span>`;
+                                    }
 
-                            table.row.add([
-                                keysTransaksi[isi],
-                                snapshot4.val().NamaWisata,
-                                snapshot3.val().NamaCustomer,
-                                snapshot2.val().TanggalBuat,
-                                snapshot2.val().JumlahDewasa + ' orang',
-                                snapshot2.val().JumlahAnak + ' orang',
-                                'Rp. ' + snapshot2.val().TotalSemua,
-                                StatusData,
-                                ActionData
-                            ]).draw(false)
+                                    table.row.add([
+                                        keysTransaksi[isi],
+                                        snapshot4.val().NamaHotel,
+                                        snapshot5.val().NamaKamar,
+                                        snapshot3.val().NamaCustomer,
+                                        snapshot2.val().TanggalBuat,
+                                        snapshot2.val().JumlahKamar + ' Kamar',
+                                        'Rp. ' + snapshot2.val().TotalSemua,
+                                        StatusData,
+                                        ActionData
+                                    ]).draw(false)
 
-                            parseJsonTransaksi.push(PostData)
+                                    parseJsonTransaksi.push(PostData)
 
+                                }
+                            })
                         })
                     })
                 })

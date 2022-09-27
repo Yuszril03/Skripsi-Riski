@@ -46,11 +46,11 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <!-- Navbar -->
-        <?= view('Administrator/Template-Admin/Header') ?>
+        <?= view('Mitra/Template-Mitra/Header') ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?= view('Administrator/Template-Admin/Sidebar') ?>
+        <?= view('Mitra/Template-Mitra/Sidebar') ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -60,15 +60,15 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">
-                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Pemesanan-Wisata`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
-                                Detail Pemesanan Wisata
+                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Data-Pemesanan-Kamar`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
+                                Detail Pemesanan Kamar Hotel
                             </h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Pemesanan Wisata</li>
-                                <li class="breadcrumb-item active">Detail Pemesanan Wisata</li>
+                                <li class="breadcrumb-item active">Pemesanan Kamar Hotel</li>
+                                <li class="breadcrumb-item active">Detail Pemesanan Kamar Hotel</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -83,25 +83,23 @@
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
                             <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
-                                <i class="bi bi-card-text text-primary"></i> Data Wisata
+                                <i class="bi bi-card-text text-primary"></i> Data Kamar
                             </div>
-                            <img id="fotoWisata" src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="300" alt="">
-                            <h4 class="mt-2 font-weight-bold" id="namaWisataa">Nama Wisata</h4>
+                            <img id="fotokamar" src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="300" alt="">
+                            <h4 class="mt-2 font-weight-bold" id="namaKamardanHotel">Nama Kamar - Nama Hotel</h4>
 
 
                             <p>
                                 <i class="fa fa-map-pin"></i>
-                                <span id="alamatWisata">
+                                <span id="alamatHotel">
                                     Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock
 
                                 </span>
                             </p>
-
-                            <p> <b>Harga Tiket</b></p>
-                            <ul>
-                                <li>Tiket Anak-Anak : Rp. <span id="hargaAnak"></span></li>
-                                <li>Tiket Dewasa : Rp. <span id="hargaDewasa"></span></li>
-                            </ul>
+                            <p>
+                                <b>Harga Kamar</b><br>
+                                <span id="hargaKamar">Tidak ada</span>
+                            </p>
 
                             <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
                                 <i class="bi bi-card-text text-primary"></i> Detail Pemesanan
@@ -125,12 +123,16 @@
                                 <div class="col-lg col-4">
 
                                     <p>
-                                        <b>Pengunjung Dewasa</b><br>
-                                        <span id="pengunjungDewasa">Tidak ada</span>
+                                        <b>Jenis Kamar</b><br>
+                                        <span id="jenisKamar">Tidak ada</span>
                                     </p>
                                     <p>
-                                        <b>Pengunjung Anak - Anak</b><br>
-                                        <span id="pengunjungAnak">Tidak ada</span>
+                                        <b>Jumlah Kamar</b><br>
+                                        <span id="jumlahKamar">Tidak ada</span>
+                                    </p>
+                                    <p>
+                                        <b>Lama Menginap</b><br>
+                                        <span id="lamaMenginap">Tidak ada</span>
                                     </p>
                                     <p>
                                         <b>Total Pembayaran</b><br>
@@ -138,6 +140,14 @@
                                     </p>
                                 </div>
                                 <div class="col-lg col-4">
+                                    <p>
+                                        <b>Check In</b><br>
+                                        <span id="In">Tidak ada</span>
+                                    </p>
+                                    <p>
+                                        <b>Check Out</b><br>
+                                        <span id="Out">Tidak ada</span>
+                                    </p>
                                     <p>
                                         <b>Tanggal Pemesanan</b><br>
                                         <span id="tanggalPemesanan">Tidak ada</span>
@@ -149,84 +159,80 @@
                                 </div>
                             </div>
 
-
+                            <!-- Rating & Ulasan -->
                             <div id="rate">
                                 <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
                                     <i class="bi bi-card-text text-primary"></i> Rating & Ulasan
                                 </div>
+
+                                <!-- tidak ada Ulasan -->
                                 <div id="noneUlasan">
                                     <br>
-                                    <span>
-                                        Tidak Ada Ulasan..
-                                    </span>
+                                    <p style="background-color: #ffc107;  max-width: 150px;">
+                                        <span style="margin-left: 5px;">
+                                            Tidak Ada Ulasan !!!
+                                        </span>
+                                    </p>
                                 </div>
+
+                                <!-- ada Ulasan -->
                                 <div id="ulasan">
                                     <div>
                                         <b>Komentar Customer</b>
                                         <div style="border: 1.5px solid #7FFF00; border-radius: 10px; max-width: 450px;">
-                                            <div class="row" style="margin-top: 10px;  margin-left: 5px; margin-right: 5px;">
+                                            <div class="row" style="margin-top: 10px;  margin-left: 5px; margin-right: 5px; ">
                                                 <div class="col-1">
                                                     <p>
                                                         <img id="fotoUser" src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="30" height="30" style="border-radius: 360px;" alt="">
                                                     </p>
                                                 </div>
                                                 <div class="col-8">
-                                                    <p style="margin-top: 1px;">
+                                                    <p>
                                                         <span id="namaCustomer"></span>
                                                     </p>
                                                 </div>
                                                 <div class="col-3">
-                                                    <p style="margin-top: 1px;">
+                                                    <p>
                                                         <span id="rating"></span>
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div style="margin-left: 12px; margin-right: 15px;">
+                                            <div style="margin-left: 14px; margin-right: 14px;">
                                                 <p>
                                                     <span id="komentar">none</span>
                                                 </p>
                                             </div>
-
                                         </div>
                                     </div>
-                                    <!-- <div>
-                                <p>
-                                    <b>Tanggapan Mitra</b><br>
-                                    <span id="tanggapan">none</span>
-                                </p>
-                            </div> -->
                                     <div id="tanggapanmitra" class="row">
                                         <div class=" col-1 "></div>
-
                                         <div class=" col-11">
                                             <b>Tanggapan Mitra</b>
-                                            <div style="border: 1.5px solid #7FFFD4; border-radius: 10px; max-width: 450px;">
+                                            <div style="border: 1.5px solid #7FFFD4; border-radius: 10px; max-width: 450px; ">
                                                 <div style="margin-left: 12px; margin-right: 12px; margin-top: 10px;">
                                                     <p>
                                                         <span id="tanggapan">none</span>
                                                     </p>
                                                 </div>
                                             </div>
+                                            <div class="float-right">
+                                                <button type="button" id="submitData" class="btn btn-primary m-1" style="border-radius: 15px;">Submit</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
-
-
                         </div>
                     </div>
-
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <?= view('Administrator/Template-Admin/Footer') ?>
+        <?= view('Mitra/Template-Mitra/Footer') ?>
 
         <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
+        <aside class=" control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
@@ -293,41 +299,81 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase();
 
+        var parseJsonMitra = {};
+
+        $('#submitData').hide()
         $('#rate').hide()
         $('#tanggapanmitra').hide()
         $('#noneUlasan').hide()
         $('#ulasan').hide()
 
-        const ValueItem = ref(db, 'Master-Data-Wisata/<?= $DataIDMitra ?>');
-        onValue(ValueItem, (kontenn) => {
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
-            document.getElementById('namaWisataa').innerHTML = kontenn.val().NamaWisata
-            document.getElementById('alamatWisata').innerHTML = kontenn.val().AlamatWisata
-            document.getElementById('hargaDewasa').innerHTML = kontenn.val().HargaDewasa
-            document.getElementById('hargaAnak').innerHTML = kontenn.val().HargaAnak
+        // Menampung Data Transaksi
+        const ValueItem11 = ref(db, 'Transaction-Hotel/<?= $DataID ?>');
+        onValue(ValueItem11, (kontenns) => {
+            let PostD = {
 
-            if (kontenn.val().fotoWisata != "") {
-                document.getElementById('fotoWisata').src = kontenn.val().fotoWisata
-            }
+                BuktiTraksaksi: kontenns.val().BuktiTraksaksi,
+                CheckIn: kontenns.val().CheckIn,
+                CheckOut: kontenns.val().CheckOut,
+                HargaKamar: kontenns.val().HargaKamar,
+                IdCutomer: kontenns.val().IdCutomer,
+                IdKamar: kontenns.val().IdKamar,
+                IdMitra: kontenns.val().IdMitra,
+                JenisPembayaran: kontenns.val().JenisPembayaran,
+                JumlahHari: kontenns.val().JumlahHari,
+                JumlahKamar: kontenns.val().JumlahKamar,
+                Rating: kontenns.val().Rating,
+                StatusTransaksi: kontenns.val().StatusTransaksi,
+                TotalSemua: kontenns.val().TotalSemua,
+                UlasanCustomer: kontenns.val().UlasanCustomer,
+                TanggalBuat: kontenns.val().TanggalBuat,
+                TanggalUpdate: kontenns.val().TanggalUpdate
+
+            };
+            parseJsonMitra = (PostD)
         })
 
-        const ValueItem1 = ref(db, 'Transaction-Wisata/<?= $DataID ?>');
+        //Mengambil Data Master Wisata
+        const ValueItem = ref(db, 'Master-Data-Hotel/<?= $DataIDMitra ?>');
+        onValue(ValueItem, (kontenn) => {
+            const dataHotel = kontenn.val();
+
+            const ValueItemKamar = ref(db, 'Master-Data-Hotel-Detail/<?= $DataIDKamar ?>');
+            onValue(ValueItemKamar, (kontennn) => {
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+                document.getElementById('namaKamardanHotel').innerHTML = kontennn.val().NamaKamar + ' - ' + kontenn.val().NamaHotel
+                document.getElementById('alamatHotel').innerHTML = kontenn.val().AlamatHotel
+                document.getElementById('hargaKamar').innerHTML = 'Rp. ' + kontennn.val().HargaKamar
+
+                if (kontenn.val().fotoKamar != "") {
+                    document.getElementById('fotokamar').src = kontennn.val().fotoKamar
+                }
+
+                document.getElementById('jenisKamar').innerHTML = kontennn.val().NamaKamar
+            })
+        })
+
+        //Mengambil Data Transaksi
+        const ValueItem1 = ref(db, 'Transaction-Hotel/<?= $DataID ?>');
         onValue(ValueItem1, (kontens) => {
             let jumlah = 5;
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
-            document.getElementById('pengunjungDewasa').innerHTML = kontens.val().JumlahDewasa + ' Orang = Rp. ' + kontens.val().TotalDewasa
-            document.getElementById('pengunjungAnak').innerHTML = kontens.val().JumlahAnak + ' Orang = Rp. ' + kontens.val().TotalAnak
+            // const options = {
+            //     weekday: 'long',
+            //     year: 'numeric',
+            //     month: 'long',
+            //     day: 'numeric'
+            // };
+
             document.getElementById('tanggalPemesanan').innerHTML = kontens.val().TanggalBuat
+            document.getElementById('In').innerHTML = kontens.val().CheckIn
+            document.getElementById('Out').innerHTML = kontens.val().CheckOut
+            document.getElementById('jumlahKamar').innerHTML = kontens.val().JumlahKamar + ' Kamar'
+            document.getElementById('lamaMenginap').innerHTML = kontens.val().JumlahHari + ' Hari'
             document.getElementById('TotalHarga').innerHTML = 'Rp. ' + kontens.val().TotalSemua
 
             let tempoo = ``
@@ -358,11 +404,15 @@
             }
 
             if (kontens.val().UlasanMitra == "" && kontens.val().UlasanCustomer == "") {
-                document.getElementById('tanggapan').innerHTML = `<span>Tidak Ada Tanggapan</span>`
+                document.getElementById('tanggapan').innerHTML = `<span>Tidak Dapat Memberikan tanggapan dikarenakan Belum Ada Komentar</span>`
+                $('#submitData').hide()
             } else if (kontens.val().UlasanMitra == "") {
-                document.getElementById('tanggapan').innerHTML = `<span>Belum Ada Tanggapan</span>`
+                document.getElementById('tanggapan').innerHTML = `<textarea class="form-control" style="border-radius: 10px;" placeholder="Ketik di sini..." name="tanggapan" id="tanggapanMitra" cols="10"></textarea>
+                `
+                $('#submitData').show()
             } else {
                 document.getElementById('tanggapan').innerHTML = kontens.val().UlasanMitra
+                $('#submitData').hide()
             }
 
             if (kontens.val().StatusTransaksi == 1) {
@@ -381,32 +431,84 @@
             }
         })
 
+        //Mengambil Data Customer
         const ValueItem2 = ref(db, 'Master-Data-Customer/<?= $DataIDCustomer ?>');
         onValue(ValueItem2, (kontein) => {
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
+
             document.getElementById('namaPemesan').innerHTML = kontein.val().NamaCustomer
             document.getElementById('namaCustomer').innerHTML = kontein.val().NamaCustomer
 
             if (kontein.val().fotoCustomer != "") {
                 document.getElementById('fotoUser').src = kontein.val().fotoCustomer
             }
+
         })
 
+        //Mengambil Data Bank
         const ValueItem3 = ref(db, 'Master-Data-Bank/<?= $DataIDBank ?>');
         onValue(ValueItem3, (konteins) => {
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
+
             document.getElementById('jenisPembayaran').innerHTML = 'Transfer ' + konteins.val().NamaBank
 
+        })
+
+        // Submit Data Tanggapan Komentar ke Firebase
+        document.getElementById('submitData').addEventListener('click', function() {
+            let form = ['tanggapanMitra'];
+            var angka = 0;
+
+            for (let i = 0; i < form.length; i++) {
+                if (document.getElementById(form[i]).value == "") {
+                    angka++;
+                    $('#' + form[i]).addClass('is-invalid')
+                } else {
+                    $('#' + form[i]).removeClass('is-invalid')
+                }
+            }
+            if (angka == 0) {
+                let PostD = {
+
+                    BuktiTraksaksi: parseJsonMitra.BuktiTraksaksi,
+                    CheckIn: parseJsonMitra.CheckIn,
+                    CheckOut: parseJsonMitra.CheckOut,
+                    HargaKamar: parseJsonMitra.HargaKamar,
+                    IdCutomer: parseJsonMitra.IdCutomer,
+                    IdKamar: parseJsonMitra.IdKamar,
+                    IdMitra: parseJsonMitra.IdMitra,
+                    JenisPembayaran: parseJsonMitra.JenisPembayaran,
+                    JumlahHari: parseJsonMitra.JumlahHari,
+                    JumlahKamar: parseJsonMitra.JumlahKamar,
+                    Rating: parseJsonMitra.Rating,
+                    StatusTransaksi: parseJsonMitra.StatusTransaksi,
+                    TotalSemua: parseJsonMitra.TotalSemua,
+                    UlasanCustomer: parseJsonMitra.UlasanCustomer,
+                    UlasanMitra: document.getElementById('tanggapanMitra').value,
+                    TanggalBuat: parseJsonMitra.TanggalBuat,
+                    TanggalUpdate: new Date().toString("ID")
+
+                };
+                const updates = {};
+                updates['Transaction-Hotel/<?= $DataID ?>'] = PostD;
+                update(ref(db), updates);
+
+                Swal.fire({
+                    title: 'Berhasil',
+                    text: "Data Berhasil Tersimpan",
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href = "<?= base_url() ?>/Detail-Pemesanan-Kamar"
+                    }
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Form Tidak Boleh Kosong!'
+                })
+            }
         })
     </script>
 </body>

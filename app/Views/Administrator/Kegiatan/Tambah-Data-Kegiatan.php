@@ -460,7 +460,6 @@
                                 if (parseJsonAdmin.length == 0) {
                                     set(ref(db, 'Data-Kegiatan/' + "BE-1"), {
 
-
                                         Judul: document.getElementById('judul').value,
                                         TanggalMulai: document.getElementById('tanggalMulai').value,
                                         TanggalAkhir: document.getElementById('tanggalAkhir').value,
@@ -474,7 +473,6 @@
                                         Latitute: document.getElementById('latitute').value,
                                         TanggalBuat: new Date().toString("ID"),
                                         TanggalUpdate: new Date().toString("ID")
-
 
                                     });
 

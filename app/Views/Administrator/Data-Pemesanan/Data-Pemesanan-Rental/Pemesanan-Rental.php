@@ -31,7 +31,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-        
+
 
         <!-- Navbar -->
         <?= view('Administrator/Template-Admin/Header') ?>
@@ -87,7 +87,7 @@
                                             <td>Text</td>
                                             <td>Text</td>
                                             <td>
-                                                <button onclick="location.href='<?= base_url() ?>/Detail-Mitra-Rental'" class="btn btn-info btn-sm" title="Detail Data"><i class="fa fa-info-circle"></i></button>
+                                                <button onclick="location.href='<?= base_url() ?>/Detail-Pemesanan-Rental'" class="btn btn-info btn-sm" title="Detail Data"><i class="fa fa-info-circle"></i></button>
 
                                             </td>
                                         </tr>

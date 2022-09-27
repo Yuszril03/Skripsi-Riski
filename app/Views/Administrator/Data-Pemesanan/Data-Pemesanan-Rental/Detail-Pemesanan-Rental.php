@@ -60,15 +60,15 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">
-                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Pemesanan-Wisata`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
-                                Detail Pemesanan Wisata
+                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Pemesanan-Hotel`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
+                                Detail Pemesanan Rental
                             </h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Pemesanan Wisata</li>
-                                <li class="breadcrumb-item active">Detail Pemesanan Wisata</li>
+                                <li class="breadcrumb-item active">Pemesanan Rental</li>
+                                <li class="breadcrumb-item active">Detail Pemesanan Rental</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -268,147 +268,7 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
 
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import {
-            initializeApp
-        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
-        import {
-            getDatabase,
-            ref,
-            onValue,
-            set,
-            update
-        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
-            authDomain: "traveland-429a6.firebaseapp.com",
-            databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "traveland-429a6",
-            storageBucket: "traveland-429a6.appspot.com",
-            messagingSenderId: "569185605053",
-            appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
-        };
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase();
 
-        $('#rate').hide()
-        $('#tanggapanmitra').hide()
-        $('#noneUlasan').hide()
-        $('#ulasan').hide()
-
-        const ValueItem = ref(db, 'Master-Data-Wisata/<?= $DataIDMitra ?>');
-        onValue(ValueItem, (kontenn) => {
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
-            document.getElementById('namaWisataa').innerHTML = kontenn.val().NamaWisata
-            document.getElementById('alamatWisata').innerHTML = kontenn.val().AlamatWisata
-            document.getElementById('hargaDewasa').innerHTML = kontenn.val().HargaDewasa
-            document.getElementById('hargaAnak').innerHTML = kontenn.val().HargaAnak
-
-            if (kontenn.val().fotoWisata != "") {
-                document.getElementById('fotoWisata').src = kontenn.val().fotoWisata
-            }
-        })
-
-        const ValueItem1 = ref(db, 'Transaction-Wisata/<?= $DataID ?>');
-        onValue(ValueItem1, (kontens) => {
-            let jumlah = 5;
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
-            document.getElementById('pengunjungDewasa').innerHTML = kontens.val().JumlahDewasa + ' Orang = Rp. ' + kontens.val().TotalDewasa
-            document.getElementById('pengunjungAnak').innerHTML = kontens.val().JumlahAnak + ' Orang = Rp. ' + kontens.val().TotalAnak
-            document.getElementById('tanggalPemesanan').innerHTML = kontens.val().TanggalBuat
-            document.getElementById('TotalHarga').innerHTML = 'Rp. ' + kontens.val().TotalSemua
-
-            let tempoo = ``
-            for (let i = 1; i <= jumlah; i++) {
-                if (Number(kontens.val().Rating) >= i) {
-                    tempoo += `<i class="bi bi-star-fill chacked"></i>`
-                } else {
-                    tempoo += `<i class="bi bi-star"></i>`
-                }
-            }
-            document.getElementById('rating').innerHTML = tempoo;
-
-            if (kontens.val().Rating == "") {
-                $('#noneUlasan').show()
-                $('#ulasan').hide()
-            } else {
-                $('#noneUlasan').hide()
-                $('#ulasan').show()
-
-            }
-
-            if (kontens.val().UlasanCustomer == "") {
-                document.getElementById('komentar').innerHTML = `<span>Tidak Ada Komentar</span>`
-                $('#tanggapanmitra').hide()
-            } else {
-                document.getElementById('komentar').innerHTML = kontens.val().UlasanCustomer
-                $('#tanggapanmitra').show()
-            }
-
-            if (kontens.val().UlasanMitra == "" && kontens.val().UlasanCustomer == "") {
-                document.getElementById('tanggapan').innerHTML = `<span>Tidak Ada Tanggapan</span>`
-            } else if (kontens.val().UlasanMitra == "") {
-                document.getElementById('tanggapan').innerHTML = `<span>Belum Ada Tanggapan</span>`
-            } else {
-                document.getElementById('tanggapan').innerHTML = kontens.val().UlasanMitra
-            }
-
-            if (kontens.val().StatusTransaksi == 1) {
-                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`
-            } else if (kontens.val().StatusTransaksi == 2) {
-                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`
-            } else if (kontens.val().StatusTransaksi == 3) {
-                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-success">Sudah Terbayar</span>`
-            } else {
-                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-secondary">Tiket Sudah Digunakan</span>`
-                $('#rate').show()
-            }
-
-            if (kontens.val().BuktiTraksaksi != "") {
-                document.getElementById('fotoBuktiTransaksi').src = kontens.val().BuktiTraksaksi
-            }
-        })
-
-        const ValueItem2 = ref(db, 'Master-Data-Customer/<?= $DataIDCustomer ?>');
-        onValue(ValueItem2, (kontein) => {
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
-            document.getElementById('namaPemesan').innerHTML = kontein.val().NamaCustomer
-            document.getElementById('namaCustomer').innerHTML = kontein.val().NamaCustomer
-
-            if (kontein.val().fotoCustomer != "") {
-                document.getElementById('fotoUser').src = kontein.val().fotoCustomer
-            }
-        })
-
-        const ValueItem3 = ref(db, 'Master-Data-Bank/<?= $DataIDBank ?>');
-        onValue(ValueItem3, (konteins) => {
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
-            document.getElementById('jenisPembayaran').innerHTML = 'Transfer ' + konteins.val().NamaBank
-
-        })
-    </script>
 </body>
 
 </html>

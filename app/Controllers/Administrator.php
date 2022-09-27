@@ -180,6 +180,7 @@ class Administrator extends BaseController
     {
         return view('Administrator/Data-Pemesanan/Data-Pemesanan-Wisata/Pemesanan-Wisata');
     }
+
     public function detailPemesananWisata($id = false, $idcustomer = false, $idmitra = false, $idBank = false)
     {
         if (session()->get('Status') != TRUE) {
@@ -196,15 +197,47 @@ class Administrator extends BaseController
             return view('Administrator/Data-Pemesanan/Data-Pemesanan-Wisata/Detail-Pemesanan-Wisata', $data);
         }
     }
+
     //rental
     public function PemesananRental()
     {
-        return view('Administrator/Data-Pemesanan/Pemesanan-Rental');
+        return view('Administrator/Data-Pemesanan/Data-Pemesanan-Rental/Pemesanan-Rental');
     }
+
+    public function detailPemesananRental()
+    {
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+
+            return view('Administrator/Data-Pemesanan/Data-Pemesanan-Rental/Detail-Pemesanan-Rental');
+        }
+    }
+
     //hotel
     public function PemesananHotel()
     {
-        return view('Administrator/Data-Pemesanan/Pemesanan-Hotel');
+        return view('Administrator/Data-Pemesanan/Data-Pemesanan-Hotel/Pemesanan-Hotel');
+    }
+
+    public function detailPemesananHotel($id = false, $idcustomer = false, $idmitra = false, $idBank = false, $idKamar = false)
+    {
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/Masuk-Administrator'));
+        } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            $data = [
+                'DataID' => $id,
+                'DataIDCustomer' => $idcustomer,
+                'DataIDMitra' => $idmitra,
+                'DataIDBank' => $idBank,
+                'DataIDKamar' => $idKamar
+            ];
+            return view('Administrator/Data-Pemesanan/Data-Pemesanan-Hotel/Detail-Pemesanan-Hotel', $data);
+        }
     }
 
     //Berita Event

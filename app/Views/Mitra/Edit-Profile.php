@@ -846,7 +846,7 @@
                 })
             })
         <?php } ?>
-
+        
         <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
 
 
@@ -1196,6 +1196,7 @@
 
 
         <?php } ?>
+
         <?php if (session()->get('Jenis') == "Mitra-Rental") { ?>
 
             var localDataDetail = [];

@@ -734,7 +734,8 @@
                                                 if (dataIDDetails.length == 0) {
                                                     idDetails = 1
                                                 } else {
-                                                    idDetails = dataIDDetails[dataIDDetails.length] + 1
+                                                    idDetails = Number(dataIDDetails[dataIDDetails.length - 1]) + 1
+                                                    
                                                 }
 
                                                 console.log(idDetails)
