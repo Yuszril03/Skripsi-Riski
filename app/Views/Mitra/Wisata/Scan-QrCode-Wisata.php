@@ -402,13 +402,14 @@
                                             <div class="col-6">
                                                 <p> <span id="totalDewasa" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
                                                 </p>
-                                                <HR>
-                                                </HR>
                                             </div>
                                         </div>
+                                        <HR>
+                                        </HR>
                                         <div class="row">
                                             <div class="col-6">
-
+                                                <p><span class="text-muted" style="font-size: 14px;">Total Keseluruhan</span>
+                                                </p>
                                             </div>
                                             <div class="col-6">
                                                 <p> <span id="totalSemua" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>

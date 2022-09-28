@@ -415,14 +415,16 @@
                 $('#submitData').hide()
             }
 
-            if (kontens.val().StatusTransaksi == 1) {
+            if (Number(kontens.val().StatusTransaksi) == 1) {
                 document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`
-            } else if (kontens.val().StatusTransaksi == 2) {
+            } else if (Number(kontens.val().StatusTransaksi) == 2) {
                 document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`
-            } else if (kontens.val().StatusTransaksi == 3) {
+            } else if (Number(kontens.val().StatusTransaksi) == 3) {
                 document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-success">Sudah Terbayar</span>`
+            } else if (Number(kontens.val().StatusTransaksi) == 4) {
+                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-primary">Check In</span>`;
             } else {
-                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-secondary">Tiket Sudah Digunakan</span>`
+                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-secondary">Check Out</span>`
                 $('#rate').show()
             }
 

@@ -448,7 +448,8 @@
                                             </div>
                                         </div>
 
-                                        <button id="verifikasi" class="btn btn-primary btn-block">Verifikasi Tiket</button>
+                                        <button id="verifikasi" class="btn btn-primary btn-block">Verifikasi Check In</button>
+                                        <button id="verifikasiCheckOut" class="btn btn-primary btn-block">Verifikasi Check Out</button>
 
                                     </div>
                                 </div>
@@ -584,18 +585,42 @@
                             document.getElementById('tanggalBuat').innerHTML = snapShot.val().TanggalBuat;
                             document.getElementById('tanggalUpdate').innerHTML = snapShot.val().TanggalUpdate;
 
+                            const tanggalHariIni = new Date();
+                            const tanggalCheckIn = new Date(snapShot.val().CheckIn);
+                            const tanggalCheckOut = new Date(snapShot.val().CheckOut);
+
                             if (snapShot.val().StatusTransaksi == "1") {
                                 document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`;
                                 $('#verifikasi').hide();
+                                $('#verifikasiCheckOut').hide();
                             } else if (snapShot.val().StatusTransaksi == "2") {
                                 $('#verifikasi').hide();
+                                $('#verifikasiCheckOut').hide();
                                 document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-danger">Dibatalkan</span>`;
                             } else if (snapShot.val().StatusTransaksi == "3") {
-                                $('#verifikasi').show();
+                                console.log(tanggalHariIni);
+                                console.log(tanggalCheckIn);
+                                if (tanggalCheckIn < tanggalHariIni) {
+                                    $('#verifikasi').hide();
+                                    $('#verifikasiCheckOut').hide();
+                                } else {
+                                    $('#verifikasi').show();
+                                    $('#verifikasiCheckOut').hide();
+                                }
                                 document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-success">Sudah Terbayar</span>`;
                             } else if (snapShot.val().StatusTransaksi == "4") {
+                                if (tanggalCheckOut > tanggalHariIni) {
+                                    $('#verifikasi').hide();
+                                    $('#verifikasiCheckOut').hide();
+                                } else {
+                                    $('#verifikasi').hide();
+                                    $('#verifikasiCheckOut').show();
+                                }
+                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-primary">Check In</span>`;
+                            } else if (snapShot.val().StatusTransaksi == "5") {
                                 $('#verifikasi').hide();
-                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-primary">Sudah Diverifikasi</span>`;
+                                $('#verifikasiCheckOut').hide();
+                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-secondary">Check Out</span>`;
                             }
 
 
@@ -675,6 +700,30 @@
 
         })
 
+        document.getElementById('verifikasiCheckOut').addEventListener('click', function() {
+
+            DataTransaksiWisata.StatusTransaksi = "5"
+            DataTransaksiWisata.TanggalUpdate = new Date().toString("ID")
+            console.log(DataTransaksiWisata)
+            const updateWisata = {};
+            updateWisata['/Transaction-Hotel/' + document.getElementById('kodeTransaksi').innerHTML] = DataTransaksiWisata;
+            update(ref(db), updateWisata);
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: "Data berhasil terverifikasi!",
+                showConfirmButton: false,
+                timer: 1500
+            })
+
+            document.getElementById('pencarianData').value = ""
+            pencarian = false
+            document.getElementById('textEMpty').innerHTML = "Silakan Lakukan Pencarian Kode Pemesanan"
+            $("#dataEmpty").show()
+            $("#DataTransaksi").hide()
+
+        })
+
         document.getElementById('jadiCari').addEventListener('click', function() {
             if (document.getElementById('pencarianData').value == "") {
 
@@ -708,20 +757,43 @@
                         document.getElementById('tanggalBuat').innerHTML = snapShot.val().TanggalBuat;
                         document.getElementById('tanggalUpdate').innerHTML = snapShot.val().TanggalUpdate;
 
+                        const tanggalHariIni = new Date();
+                        const tanggalCheckIn = new Date(snapShot.val().CheckIn);
+                        const tanggalCheckOut = new Date(snapShot.val().CheckOut);
+
                         if (snapShot.val().StatusTransaksi == "1") {
                             document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`;
                             $('#verifikasi').hide();
+                            $('#verifikasiCheckOut').hide();
                         } else if (snapShot.val().StatusTransaksi == "2") {
                             $('#verifikasi').hide();
+                            $('#verifikasiCheckOut').hide();
                             document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-danger">Dibatalkan</span>`;
                         } else if (snapShot.val().StatusTransaksi == "3") {
-                            $('#verifikasi').show();
+                            console.log(tanggalHariIni);
+                            console.log(tanggalCheckIn);
+                            if (tanggalCheckIn < tanggalHariIni) {
+                                $('#verifikasi').hide();
+                                $('#verifikasiCheckOut').hide();
+                            } else {
+                                $('#verifikasi').show();
+                                $('#verifikasiCheckOut').hide();
+                            }
                             document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-success">Sudah Terbayar</span>`;
                         } else if (snapShot.val().StatusTransaksi == "4") {
+                            if (tanggalCheckOut > tanggalHariIni) {
+                                $('#verifikasi').hide();
+                                $('#verifikasiCheckOut').hide();
+                            } else {
+                                $('#verifikasi').hide();
+                                $('#verifikasiCheckOut').show();
+                            }
+                            document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-primary">Check In</span>`;
+                        } else if (snapShot.val().StatusTransaksi == "5") {
                             $('#verifikasi').hide();
-                            document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-primary">Sudah Diverifikasi</span>`;
+                            $('#verifikasiCheckOut').hide();
+                            document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-secondary">Check Out</span>`;
                         }
-
 
                         document.getElementById('jumlahKamar').innerHTML = snapShot.val().JumlahKamar + " Kamar";
                         document.getElementById('jumlahHari').innerHTML = snapShot.val().JumlahHari + " Hari";

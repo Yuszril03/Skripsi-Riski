@@ -246,8 +246,10 @@
                                     StatusData = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`;
                                 } else if (Number(snapshot2.val().StatusTransaksi) == 3) {
                                     StatusData = `<span class="badge badge-success">Sudah Terbayar</span>`;
+                                } else if (Number(snapshot2.val().StatusTransaksi) == 4) {
+                                    StatusData = `<span class="badge badge-primary">Check In</span>`;
                                 } else {
-                                    StatusData = `<span class="badge badge-secondary">Tiket Sudah Digunakan</span>`;
+                                    StatusData = `<span class="badge badge-secondary">Check Out</span>`;
                                 }
 
                                 table.row.add([
