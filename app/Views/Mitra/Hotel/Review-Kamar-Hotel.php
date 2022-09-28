@@ -80,7 +80,7 @@
                                             <th>Kode Pemesanan</th>
                                             <th>Nama Hotel</th>
                                             <th>Jenis Kamar</th>
-                                            <th>Rating</th>
+                                            <th style="width: 68px;">Rating</th>
                                             <th>Nama Pemesan</th>
                                             <th>Komentar</th>
                                             <th>Tanggapan</th>
