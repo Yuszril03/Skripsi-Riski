@@ -266,12 +266,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Scan Qr Code Wisata</h1>
+                            <h1 class="m-0">Scan Qr Code Hotel</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="<?= base_url() ?>/Beranda-Admin">Beranda</a></li>
-                                <li class="breadcrumb-item active">Scan Qr Code Wisata</li>
+                                <li class="breadcrumb-item active">Scan Qr Code Hotel</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -294,7 +294,7 @@
                                 </div>
                                 <div class="col-lg">
                                     <div class="input-group mb-3">
-                                        <input id="pencarianData" type="text" class="form-control" placeholder="Masukan kode pemesanan wisata" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        <input id="pencarianData" type="text" class="form-control" placeholder="Masukan kode pemesanan Hotel" aria-label="Recipient's username" aria-describedby="button-addon2">
                                         <div class="input-group-append">
                                             <button id="jadiCari" class="btn btn-primary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
                                             <button id="batalCari" class="btn btn-danger" type="button"><i class="bi bi-x-circle"></i></button>
@@ -371,6 +371,19 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
+                                                <p><span class="text-muted" style="font-size: 14px;">Jenis kamar</span> <br>
+                                                    <span id="jenisKamar" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+
+                                            </div>
+                                            <div class="col-6">
+                                                <p><span class="text-muted" style="font-size: 14px;">Harga Kamar</span> <br>
+                                                    <span id="hargaKamar" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
                                                 <p><span class="text-muted" style="font-size: 14px;">Check In</span> <br>
                                                     <span id="checkIn" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
                                                 </p>
@@ -382,7 +395,7 @@
                                                 <p><span class="text-muted" style="font-size: 14px;">Check Out</span> <br>
                                                     <span id="checkOut" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
                                                 </p>
-                                                <p><span class="text-muted" style="font-size: 14px;">Jumlah Hari</span> <br>
+                                                <p><span class="text-muted" style="font-size: 14px;">Lama Menginap</span> <br>
                                                     <span id="jumlahHari" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
                                                 </p>
                                             </div>
@@ -391,32 +404,44 @@
                                         <HR style="margin-top: -10px;">
                                         </HR>
                                         <div class="row">
-                                            <div class="col-6">
-                                                <p><span class="text-muted" style="font-size: 14px;">Total Anak-Anak</span>
+                                            <div class="col-4">
+                                                <p><span class="text-muted" style="font-size: 14px;">Total Harga Kamar</span>
                                                 </p>
                                             </div>
-                                            <div class="col-6">
-                                                <p> <span id="totalAnak" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                            <div class="col-4">
+                                                <p> <span id="totalHargaKamar" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-4">
+                                                <p> <span id="total" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-6">
-                                                <p><span class="text-muted" style="font-size: 14px;">Total Dewasa</span>
+                                            <div class="col-4">
+                                                <p><span class="text-muted" style="font-size: 14px;">Lama Menginap</span>
                                                 </p>
                                             </div>
-                                            <div class="col-6">
-                                                <p> <span id="totalDewasa" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
-                                                </p>
-                                                <HR>
-                                                </HR>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">
+                                            <div class="col-4">
 
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-4">
+                                                <p> <span id="lamaMenginap" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                        <HR>
+                                        </HR>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <p><span class="text-muted" style="font-size: 14px;">Total Keseluruhan</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-4">
+
+                                            </div>
+                                            <div class="col-4">
                                                 <p> <span id="totalSemua" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
                                                 </p>
 
@@ -536,13 +561,13 @@
                 pencarian = true
                 // console.log(`Scan result: ${decodedText}`, decodedResult);
                 let myArray22 = decodedText.split("-");
-                console.log(decodedText.search("Wisata"))
+                console.log(decodedText.search("Hotel"))
                 document.getElementById('pencarianData').value = myArray22[0]
-                if (decodedText.search("Wisata") > -1) {
+                if (decodedText.search("Hotel") >= -1) {
                     document.getElementById('textEMpty').innerHTML = "Kode Pemesanan Sedang Dicari"
 
                     // Menampung Data Transaksi
-                    let ValueItemTransaksi = ref(db, 'Transaction-Wisata/' + myArray22[0]);
+                    let ValueItemTransaksi = ref(db, 'Transaction-Hotel/' + myArray22[0]);
                     onValue(ValueItemTransaksi, (snapShot) => {
                         // console.log(snapShot.val())
                         DataTransaksiWisata = snapShot.val();
@@ -574,14 +599,24 @@
                             }
 
 
-                            document.getElementById('jumlahAnak').innerHTML = "Rp. " + snapShot.val().HargaAnak + " x " + snapShot.val().JumlahAnak;
-                            document.getElementById('jumlahDewasa').innerHTML = "Rp. " + snapShot.val().HargaDewasa + " x " + snapShot.val().JumlahDewasa;
+                            document.getElementById('jumlahKamar').innerHTML = snapShot.val().JumlahKamar + " Kamar";
+                            document.getElementById('jumlahHari').innerHTML = snapShot.val().JumlahHari + " Hari";
+                            document.getElementById('checkIn').innerHTML = snapShot.val().CheckIn;
+                            document.getElementById('checkOut').innerHTML = snapShot.val().CheckOut;
+                            document.getElementById('hargaKamar').innerHTML = 'Rp. ' + snapShot.val().HargaKamar;
 
-                            document.getElementById('totalAnak').innerHTML = "Rp. " + snapShot.val().TotalAnak;
-                            document.getElementById('totalDewasa').innerHTML = "Rp. " + snapShot.val().TotalDewasa;
+                            document.getElementById('totalHargaKamar').innerHTML = 'Rp. ' + snapShot.val().HargaKamar + ' X ' + snapShot.val().JumlahKamar + ' Kamar'
+
+                            let perkalian = snapShot.val().HargaKamar * snapShot.val().JumlahKamar;
+                            document.getElementById('total').innerHTML = 'Rp. ' + perkalian;
+
+                            document.getElementById('lamaMenginap').innerHTML = snapShot.val().JumlahHari + ' Hari';
                             document.getElementById('totalSemua').innerHTML = "Rp. " + snapShot.val().TotalSemua;
 
-
+                            let DetailKamar = ref(db, 'Master-Data-Hotel-Detail/' + snapShot.val().IdKamar);
+                            onValue(DetailKamar, (postDetailKamar) => {
+                                document.getElementById('jenisKamar').innerHTML = postDetailKamar.val().NamaKamar;
+                            })
 
                             let ValueBank = ref(db, 'Master-Data-Bank/' + snapShot.val().JenisPembayaran);
                             onValue(ValueBank, (postBank) => {
@@ -622,7 +657,7 @@
             DataTransaksiWisata.TanggalUpdate = new Date().toString("ID")
             console.log(DataTransaksiWisata)
             const updateWisata = {};
-            updateWisata['/Transaction-Wisata/' + document.getElementById('kodeTransaksi').innerHTML] = DataTransaksiWisata;
+            updateWisata['/Transaction-Hotel/' + document.getElementById('kodeTransaksi').innerHTML] = DataTransaksiWisata;
             update(ref(db), updateWisata);
             Swal.fire({
                 icon: 'success',
@@ -656,7 +691,7 @@
                 document.getElementById('textEMpty').innerHTML = "Kode Pemesanan Sedang Dicari"
 
                 // Menampung Data Transaksi
-                let ValueItemTransaksi = ref(db, 'Transaction-Wisata/' + document.getElementById('pencarianData').value);
+                let ValueItemTransaksi = ref(db, 'Transaction-Hotel/' + document.getElementById('pencarianData').value);
                 onValue(ValueItemTransaksi, (snapShot) => {
                     // console.log(snapShot.val())
                     DataTransaksiWisata = snapShot.val();
@@ -688,12 +723,24 @@
                         }
 
 
-                        document.getElementById('jumlahAnak').innerHTML = "Rp. " + snapShot.val().HargaAnak + " x " + snapShot.val().JumlahAnak;
-                        document.getElementById('jumlahDewasa').innerHTML = "Rp. " + snapShot.val().HargaDewasa + " x " + snapShot.val().JumlahDewasa;
+                        document.getElementById('jumlahKamar').innerHTML = snapShot.val().JumlahKamar + " Kamar";
+                        document.getElementById('jumlahHari').innerHTML = snapShot.val().JumlahHari + " Hari";
+                        document.getElementById('checkIn').innerHTML = snapShot.val().CheckIn;
+                        document.getElementById('checkOut').innerHTML = snapShot.val().CheckOut;
+                        document.getElementById('hargaKamar').innerHTML = 'Rp. ' + snapShot.val().HargaKamar;
 
-                        document.getElementById('totalAnak').innerHTML = "Rp. " + snapShot.val().TotalAnak;
-                        document.getElementById('totalDewasa').innerHTML = "Rp. " + snapShot.val().TotalDewasa;
+                        document.getElementById('totalHargaKamar').innerHTML = 'Rp. ' + snapShot.val().HargaKamar + ' X ' + snapShot.val().JumlahKamar + ' Kamar'
+
+                        let perkalian = snapShot.val().HargaKamar * snapShot.val().JumlahKamar;
+                        document.getElementById('total').innerHTML = 'Rp. ' + perkalian;
+
+                        document.getElementById('lamaMenginap').innerHTML = snapShot.val().JumlahHari + ' Hari';
                         document.getElementById('totalSemua').innerHTML = "Rp. " + snapShot.val().TotalSemua;
+
+                        let DetailKamar = ref(db, 'Master-Data-Hotel-Detail/' + snapShot.val().IdKamar);
+                        onValue(DetailKamar, (postDetailKamar) => {
+                            document.getElementById('jenisKamar').innerHTML = postDetailKamar.val().NamaKamar;
+                        })
 
 
 
