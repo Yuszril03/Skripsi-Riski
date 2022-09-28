@@ -347,7 +347,7 @@
                                         </p>
                                         <div class="row">
                                             <div class="col-6">
-                                                <p><span class="text-muted" style="font-size: 14px;"> Pembuatan Transaksi</span> <br>
+                                                <p><span class="text-muted" style="font-size: 14px;"> Tanggal Pemesanan</span> <br>
                                                     <span id="tanggalBuat" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
                                                 </p>
                                             </div>
