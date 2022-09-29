@@ -113,7 +113,7 @@ $routes->get('/Data-Pemesanan-Tiket', 'Mitra::DataPemesananWisata');
 $routes->get('/Detail-Pemesanan-Tiket' . '/(:any)', 'Mitra::DeteilPemesananWisata/$1');
 
 //Pemesanan Kamar Hotel
-$routes->get('/Data-Pemesanan-Kamar', 'Mitra::DataPemesananKamar');
+$routes->get('/Pemesanan-Kamar', 'Mitra::DataPemesananKamar');
 $routes->get('/Detail-Pemesanan-Kamar' . '/(:any)' . '/(:any)' . '/(:any)' . '/(:any)', 'Mitra::DeteilPemesananKamar/$1/$2/$3/$4');
 
 //Kamar Hotel

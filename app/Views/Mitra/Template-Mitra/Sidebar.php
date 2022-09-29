@@ -85,7 +85,7 @@
                  </li> -->
                  <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
                      <li class="nav-item">
-                         <a href="<?= base_url() ?>/Data-Kamar" class="nav-link <?= (in_array("Kamar", $tempData) && in_array("Data", $tempData) ? 'active' : '') ?>">
+                         <a href="<?= base_url() ?>/Data-Kamar" class="nav-link <?= (in_array("Data", $tempData) ? 'active' : '') ?>">
                              <i class="nav-icon bi bi-journal-bookmark"></i>
                              <p>Data Kamar</p>
                          </a>
@@ -111,9 +111,9 @@
                  <?php } ?>
                  <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
                      <li class="nav-item">
-                         <a href="<?= base_url() ?>/Data-Pemesanan-Kamar" class="nav-link <?= (in_array("PemesananHotel", $tempData) && in_array("Data", $tempData) ? 'active' : '') ?>">
+                         <a href="<?= base_url() ?>/Pemesanan-Kamar" class="nav-link <?= (in_array("Pemesanan", $tempData) ? 'active' : '') ?>">
                              <i class="nav-icon bi bi-book"></i>
-                             <p>Pemesanan Kamar</p>
+                             <p>Pemesanan Kamar Hotel</p>
                          </a>
                      </li>
                  <?php } ?>
