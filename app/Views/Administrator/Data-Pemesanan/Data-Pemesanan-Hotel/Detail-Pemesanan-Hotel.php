@@ -100,6 +100,10 @@
                                 <b>Harga Kamar</b><br>
                                 <span id="hargaKamar">Tidak ada</span>
                             </p>
+                            <p>
+                                <b>Fasilitas Kamar</b><br>
+                                <span id="fasilitasKamar">Tidak ada</span>
+                            </p>
 
                             <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
                                 <i class="bi bi-card-text text-primary"></i> Detail Pemesanan
@@ -329,6 +333,7 @@
                 }
 
                 document.getElementById('jenisKamar').innerHTML = kontennn.val().NamaKamar
+                document.getElementById('fasilitasKamar').innerHTML = kontennn.val().FasilitasKamar
             })
         })
 
