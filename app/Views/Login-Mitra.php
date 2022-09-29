@@ -55,7 +55,7 @@
                         <span class="label-input100">Kata Sandi</span>
                     </div>
 
-                    <div class="flex-sb-m w-full p-t-3 p-b-32">
+                    <!-- <div class="flex-sb-m w-full p-t-3 p-b-32">
                         <div class="contact100-form-checkbox">
 
                         </div>
@@ -65,7 +65,7 @@
                                 Lupa Kata Sandi
                             </a>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <div class="container-login100-form-btn">
