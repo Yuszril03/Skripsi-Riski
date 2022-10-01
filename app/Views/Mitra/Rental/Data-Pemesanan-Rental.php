@@ -33,15 +33,12 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
-
-
         <!-- Navbar -->
-        <?= view('Administrator/Template-Admin/Header') ?>
+        <?= view('Mitra/Template-Mitra/Header') ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?= view('Administrator/Template-Admin/Sidebar') ?>
+        <?= view('Mitra/Template-Mitra/Sidebar') ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -50,12 +47,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Pemesanan Rental</h1>
+                            <h1 class="m-0">Pemesanan Kendaraan</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Pemesanan Rental</li>
+                                <li class="breadcrumb-item active">Pemesanan Kendaraan</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -88,7 +85,15 @@
 
                                     <!-- <tbody>
                                         <tr>
-                                            
+                                            <td>Text</td>
+                                            <td>Text</td>
+                                            <td>Text</td>
+                                            <td>Text</td>
+                                            <td>Text</td>
+                                            <td>
+                                                <button onclick="location.href='<?= base_url() ?>/Detail-Mitra-Rental'" class="btn btn-info btn-sm" title="Detail Data"><i class="fa fa-info-circle"></i></button>
+                                                
+                                            </td>
                                         </tr>
                                     </tbody> -->
                                 </table>
@@ -101,10 +106,10 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <?= view('Administrator/Template-Admin/Footer') ?>
+        <?= view('Mitra/Template-Mitra/Footer') ?>
 
         <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
+        <aside class=" control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
@@ -180,8 +185,8 @@
                 search: '',
                 searchPlaceholder: "Pencarian...",
                 "paginate": {
-                    "next": "Selanjutnya",
-                    "previous": "Sebelumnya"
+                    "next": `<i class="bi bi-chevron-right"></i>`,
+                    "previous": `<i class="bi bi-chevron-left"></i>`
                 },
                 "info": "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri",
                 "lengthMenu": "Tampilkan _MENU_ entri",
@@ -215,57 +220,60 @@
                             const database5 = ref(db, 'Master-Data-Rental-Detail/' + dataRental.IdMobil);
                             onValue(database5, (snapshot5) => {
 
-                                let PostData = {
-                                    IDKey: keysTransaksi[isi],
-                                    NamaRental: snapshot4.val().NamaRental,
-                                    NamaKendaraan: snapshot5.val().NamaKendaraan,
-                                    NamaCustomer: snapshot3.val().NamaCustomer,
-                                    TanggalBuat: snapshot2.val().TanggalBuat,
-                                    JumlahHari: snapshot2.val().JumlahHari,
-                                    TotalSemua: snapshot2.val().TotalSemua,
-                                    StatusTransaksi: Number(snapshot2.val().StatusTransaksi)
+                                if (snapshot2.val().IdMitra == "<?= session()->get('IDKelola') ?>") {
 
-                                }
+                                    let PostData = {
+                                        IDKey: keysTransaksi[isi],
+                                        NamaRental: snapshot4.val().NamaRental,
+                                        NamaKendaraan: snapshot5.val().NamaKendaraan,
+                                        NamaCustomer: snapshot3.val().NamaCustomer,
+                                        TanggalBuat: snapshot2.val().TanggalBuat,
+                                        JumlahHari: snapshot2.val().JumlahHari,
+                                        TotalSemua: snapshot2.val().TotalSemua,
+                                        StatusTransaksi: Number(snapshot2.val().StatusTransaksi)
 
-                                let StatusData = '';
-                                let ActionData =
-                                    // `<button type="button"  class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
-                                    `<button type="button" onclick="location.href='<?= base_url() ?>/Detail-Pemesanan-Rental/${keysTransaksi[isi]}/${dataRental.IdCutomer}/${dataRental.IdMitra}/${dataRental.JenisPembayaran}/${dataRental.IdMobil}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                    }
+
+                                    let StatusData = '';
+                                    let ActionData =
+                                        // `<button type="button"  class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                        `<button type="button" onclick="location.href='<?= base_url() ?>/Detail-Pemesanan-Kendaraan/${keysTransaksi[isi]}/${dataRental.IdCutomer}/${dataRental.IdMitra}/${dataRental.JenisPembayaran}/${dataRental.IdMobil}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                     `;
 
-                                const options = {
-                                    weekday: 'long',
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                };
+                                    const options = {
+                                        weekday: 'long',
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    };
 
-                                if (Number(snapshot2.val().StatusTransaksi) == 1) {
-                                    StatusData = `<span class="badge badge-warning">Belum Terbayar</span>`;
-                                } else if (Number(snapshot2.val().StatusTransaksi) == 2) {
-                                    StatusData = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`;
-                                } else if (Number(snapshot2.val().StatusTransaksi) == 3) {
-                                    StatusData = `<span class="badge badge-success">Sudah Terbayar</span>`;
-                                } else if (Number(snapshot2.val().StatusTransaksi) == 4) {
-                                    StatusData = `<span class="badge badge-primary">Mulai Sewa</span>`;
-                                } else {
-                                    StatusData = `<span class="badge badge-secondary">Sewa Berakhir</span>`;
+                                    if (Number(snapshot2.val().StatusTransaksi) == 1) {
+                                        StatusData = `<span class="badge badge-warning">Belum Terbayar</span>`;
+                                    } else if (Number(snapshot2.val().StatusTransaksi) == 2) {
+                                        StatusData = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`;
+                                    } else if (Number(snapshot2.val().StatusTransaksi) == 3) {
+                                        StatusData = `<span class="badge badge-success">Sudah Terbayar</span>`;
+                                    } else if (Number(snapshot2.val().StatusTransaksi) == 4) {
+                                        StatusData = `<span class="badge badge-primary">Mulai Sewa</span>`;
+                                    } else {
+                                        StatusData = `<span class="badge badge-secondary">Akhir Sewa</span>`;
+                                    }
+
+                                    table.row.add([
+                                        keysTransaksi[isi],
+                                        snapshot4.val().NamaRental,
+                                        snapshot5.val().NamaKendaraan,
+                                        snapshot3.val().NamaCustomer,
+                                        snapshot2.val().TanggalBuat,
+                                        snapshot2.val().JumlahHari + ' hari',
+                                        'Rp. ' + snapshot2.val().TotalSemua,
+                                        StatusData,
+                                        ActionData
+                                    ]).draw(false)
+
+                                    parseJsonTransaksi.push(PostData)
+
                                 }
-
-                                table.row.add([
-                                    keysTransaksi[isi],
-                                    snapshot4.val().NamaRental,
-                                    snapshot5.val().NamaKendaraan,
-                                    snapshot3.val().NamaCustomer,
-                                    snapshot2.val().TanggalBuat,
-                                    snapshot2.val().JumlahHari + ' Hari',
-                                    'Rp. ' + snapshot2.val().TotalSemua,
-                                    StatusData,
-                                    ActionData
-                                ]).draw(false)
-
-                                parseJsonTransaksi.push(PostData)
-
                             })
                         })
                     })

@@ -237,7 +237,7 @@
                                     let StatusData = '';
                                     let ActionData =
                                         // `<button type="button"  class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
-                                        `<button type="button" onclick="location.href='<?= base_url() ?>/Detail-Pemesanan-Kamar/${keysTransaksi[isi]}/${dataHotel.IdCutomer}/${dataHotel.IdMitra}/${dataHotel.JenisPembayaran}/${dataHotel.IdKamar}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                        `<button type="button" onclick="location.href='<?= base_url() ?>/Detail-Pemesanan/${keysTransaksi[isi]}/${dataHotel.IdCutomer}/${dataHotel.IdMitra}/${dataHotel.JenisPembayaran}/${dataHotel.IdKamar}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                     `;
 
                                     const options = {

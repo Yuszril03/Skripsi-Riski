@@ -78,6 +78,18 @@ class Mitra extends BaseController
         }
     }
 
+    public function DataPemesananRental()
+    {
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+            return view('Mitra/Rental/Data-Pemesanan-Rental');
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            
+            return redirect()->to(base_url('/'));
+        }
+    }
+
     //Detail Pemesanan
     public function DeteilPemesananWisata($id = false, $idcustomer = false, $idmitra = false, $idBank = false)
     {
@@ -112,6 +124,26 @@ class Mitra extends BaseController
                 'DataIDKamar' => $idKamar
             ];
             return view('Mitra/Hotel/Detail-Pemesanan-Kamar', $data);
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+
+            return redirect()->to(base_url('/'));
+        }
+    }
+
+    public function DeteilPemesananMobil($id = false, $idcustomer = false, $idmitra = false, $idBank = false, $idMobil = false)
+    {
+
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+            $data = [
+                'DataID' => $id,
+                'DataIDCustomer' => $idcustomer,
+                'DataIDMitra' => $idmitra,
+                'DataIDBank' => $idBank,
+                'DataIDMobil' => $idMobil
+            ];
+            return view('Mitra/Rental/Detail-Pemesanan-Rental', $data);
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
 
             return redirect()->to(base_url('/'));

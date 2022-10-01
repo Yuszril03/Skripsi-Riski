@@ -204,15 +204,21 @@ class Administrator extends BaseController
         return view('Administrator/Data-Pemesanan/Data-Pemesanan-Rental/Pemesanan-Rental');
     }
 
-    public function detailPemesananRental()
+    public function detailPemesananRental($id = false, $idcustomer = false, $idmitra = false, $idBank = false, $idMobil = false)
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/Masuk-Administrator'));
         } else  if ((session()->get('Status') == TRUE || session()->get('Status') != TRUE) && session()->get('Jenis') != 'Admin') {
             return redirect()->to(base_url('/'));
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
-
-            return view('Administrator/Data-Pemesanan/Data-Pemesanan-Rental/Detail-Pemesanan-Rental');
+            $data = [
+                'DataID' => $id,
+                'DataIDCustomer' => $idcustomer,
+                'DataIDMitra' => $idmitra,
+                'DataIDBank' => $idBank,
+                'DataIDMobil' => $idMobil
+            ];
+            return view('Administrator/Data-Pemesanan/Data-Pemesanan-Rental/Detail-Pemesanan-Kendaraan', $data);
         }
     }
 

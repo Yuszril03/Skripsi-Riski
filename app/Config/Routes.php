@@ -71,7 +71,7 @@ $routes->get('/Detail-Mitra-Rental' . '/(:any)' . '/(:any)', 'Administrator::Det
 $routes->get('/Pemesanan-Wisata', 'Administrator::PemesananWisata');
 $routes->get('/Detail-Pemesanan-Wisata' . '/(:any)' . '/(:any)' . '/(:any)' . '/(:any)', 'Administrator::detailPemesananWisata/$1/$2/$3/$4');
 $routes->get('/Pemesanan-Rental', 'Administrator::PemesananRental');
-$routes->get('/Detail-Pemesanan-Rental', 'Administrator::detailPemesananRental');
+$routes->get('/Detail-Pemesanan-Rental' . '/(:any)' . '/(:any)' . '/(:any)' . '/(:any)' . '/(:any)', 'Administrator::detailPemesananRental/$1/$2/$3/$4/$5');
 $routes->get('/Pemesanan-Hotel', 'Administrator::PemesananHotel');
 $routes->get('/Detail-Pemesanan-Hotel' . '/(:any)' . '/(:any)' . '/(:any)' . '/(:any)' . '/(:any)', 'Administrator::detailPemesananHotel/$1/$2/$3/$4/$5');
 
@@ -113,8 +113,12 @@ $routes->get('/Data-Pemesanan-Tiket', 'Mitra::DataPemesananWisata');
 $routes->get('/Detail-Pemesanan-Tiket' . '/(:any)', 'Mitra::DeteilPemesananWisata/$1');
 
 //Pemesanan Kamar Hotel
-$routes->get('/Pemesanan-Kamar', 'Mitra::DataPemesananKamar');
-$routes->get('/Detail-Pemesanan-Kamar' . '/(:any)' . '/(:any)' . '/(:any)' . '/(:any)', 'Mitra::DeteilPemesananKamar/$1/$2/$3/$4');
+$routes->get('/Pemesanan', 'Mitra::DataPemesananKamar');
+$routes->get('/Detail-Pemesanan' . '/(:any)' . '/(:any)' . '/(:any)' . '/(:any)', 'Mitra::DeteilPemesananKamar/$1/$2/$3/$4');
+
+//Pemesanan Mobil Rental
+$routes->get('/Pemesanan-rental', 'Mitra::DataPemesananRental');
+$routes->get('/Detail-Pemesanan-Kendaraan' . '/(:any)' . '/(:any)' . '/(:any)' . '/(:any)', 'Mitra::DeteilPemesananMobil/$1/$2/$3/$4');
 
 //Kamar Hotel
 $routes->get('/Data-Kamar', 'Mitra::DataKamar');
@@ -122,7 +126,7 @@ $routes->get('/Detail-Kamar-Mitra' . '/(:any)', 'Mitra::DeteilkamarMitra/$1');
 
 //Mobil Rental
 $routes->get('/Data-Mobil-Rental', 'Mitra::DataMobilRental');
-$routes->get('/Detail-Mobil' . '/(:any)' . '/(:any)' . '/(:any)' . '/(:any)' . '/(:any)', 'Mitra::DetailMobil/$1/$2/$3/$4/5');
+$routes->get('/Detail-Mobil' . '/(:any)', 'Mitra::DetailMobil/$1');
 
 //scan QrCode
 $routes->get('/Scan-QrCode-Wisata', 'Mitra::QrCodeWisata');
@@ -131,7 +135,7 @@ $routes->get('/Scan-QrCode-Rental', 'Mitra::QrCodeRental');
 
 //Review
 $routes->get('/Review-Wisata', 'Mitra::ReviewWisata');
-$routes->get('/Review-Kamar-Hotel', 'Mitra::ReviewKamarHotel');
+$routes->get('/Review-Hotel', 'Mitra::ReviewKamarHotel');
 
 
 

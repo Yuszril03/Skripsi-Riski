@@ -83,8 +83,8 @@
 
                      </ul>
                  </li>
-                 <li class="nav-item">
-                     <a href="#" class="nav-link">
+                 <li class="nav-item <?= (in_array("Pemesanan", $tempData)  ? 'menu-is-opening menu-open' : '') ?>">
+                     <a href="#" class="nav-link <?= (in_array("Pemesanan", $tempData)  ? 'active' : '') ?>">
                          <i class="nav-icon bi bi-layout-text-window-reverse"></i>
                          <p>
                              Data Pemesanan
@@ -93,19 +93,19 @@
                      </a>
                      <ul class="nav nav-treeview">
                          <li class="nav-item">
-                             <a href="<?= base_url() ?>/Pemesanan-Hotel" class="nav-link">
+                             <a href="<?= base_url() ?>/Pemesanan-Hotel" class="nav-link <?= (in_array("Hotel", $tempData)  ? 'active' : '') ?>">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Pemesanan Hotel</p>
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="<?= base_url() ?>/Pemesanan-Rental" class="nav-link">
+                             <a href="<?= base_url() ?>/Pemesanan-Rental" class="nav-link <?= (in_array("Rental", $tempData)  ? 'active' : '') ?>">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Pemesanan Rental</p>
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="<?= base_url() ?>/Pemesanan-Wisata" class="nav-link">
+                             <a href="<?= base_url() ?>/Pemesanan-Wisata" class="nav-link <?= (in_array("Wisata", $tempData)  ? 'active' : '') ?>">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Pemesanan Wisata</p>
                              </a>

@@ -85,7 +85,7 @@
                  </li> -->
                  <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
                      <li class="nav-item">
-                         <a href="<?= base_url() ?>/Data-Kamar" class="nav-link <?= (in_array("Data", $tempData) ? 'active' : '') ?>">
+                         <a href="<?= base_url() ?>/Data-Kamar" class="nav-link <?= (in_array("Kamar", $tempData) ? 'active' : '') ?>">
                              <i class="nav-icon bi bi-journal-bookmark"></i>
                              <p>Data Kamar</p>
                          </a>
@@ -94,7 +94,7 @@
 
                  <?php if (session()->get('Jenis') == "Mitra-Rental") { ?>
                      <li class="nav-item">
-                         <a href="<?= base_url() ?>/Data-Mobil-Rental" class="nav-link <?= (in_array("Rental", $tempData) && in_array("Data", $tempData) ? 'active' : '') ?>">
+                         <a href="<?= base_url() ?>/Data-Mobil-Rental" class="nav-link <?= (in_array("Mobil", $tempData) ? 'active' : '') ?>">
                              <i class="nav-icon bi bi-journal-bookmark"></i>
                              <p>Data Mobil Rental</p>
                          </a>
@@ -111,7 +111,7 @@
                  <?php } ?>
                  <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
                      <li class="nav-item">
-                         <a href="<?= base_url() ?>/Pemesanan-Kamar" class="nav-link <?= (in_array("Pemesanan", $tempData) ? 'active' : '') ?>">
+                         <a href="<?= base_url() ?>/Pemesanan" class="nav-link <?= (in_array("Pemesanan", $tempData) ? 'active' : '') ?>">
                              <i class="nav-icon bi bi-book"></i>
                              <p>Pemesanan Kamar Hotel</p>
                          </a>
@@ -119,7 +119,7 @@
                  <?php } ?>
                  <?php if (session()->get('Jenis') == "Mitra-Rental") { ?>
                      <li class="nav-item">
-                         <a href="<?= base_url() ?>/Data-Pemesanan-Tiket" class="nav-link <?= (in_array("PemesananRental", $tempData) && in_array("Data", $tempData) ? 'active' : '') ?>">
+                         <a href="<?= base_url() ?>/Pemesanan-rental" class="nav-link <?= (in_array("Pemesanan", $tempData)  ? 'active' : '') ?>">
                              <i class="nav-icon bi bi-book"></i>
                              <p>Pemesanan Rental</p>
                          </a>
@@ -191,7 +191,7 @@
 
                  <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
                      <li class="nav-item">
-                         <a href="<?= base_URL() ?>/Review-Kamar-Hotel" class="nav-link <?= (in_array("Review", $tempData) ? 'active' : '') ?>">
+                         <a href="<?= base_URL() ?>/Review-Hotel" class="nav-link <?= (in_array("Review", $tempData) ? 'active' : '') ?>">
                              <i class="nav-icon bi bi-layout-text-sidebar"></i>
                              <p>Review</p>
                          </a>

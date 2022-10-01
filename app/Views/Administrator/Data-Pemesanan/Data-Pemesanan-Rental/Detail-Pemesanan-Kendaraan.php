@@ -60,7 +60,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">
-                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Pemesanan-Hotel`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
+                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Pemesanan-Rental`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
                                 Detail Pemesanan Rental
                             </h1>
                         </div><!-- /.col -->
@@ -83,25 +83,39 @@
                     <div class="card card-outline card-warning" style="border-radius: 15px;">
                         <div class="card-body">
                             <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
-                                <i class="bi bi-card-text text-primary"></i> Data Wisata
+                                <i class="bi bi-card-text text-primary"></i> Data Rental
                             </div>
-                            <img id="fotoWisata" src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="300" alt="">
-                            <h4 class="mt-2 font-weight-bold" id="namaWisataa">Nama Wisata</h4>
+                            <img id="fotoMobil" src="https://firebasestorage.googleapis.com/v0/b/traveland-429a6.appspot.com/o/images-customer%2Fno-image.png?alt=media&token=87603e1a-2c32-488c-81a6-ad35ce8619a4" width="300" alt="">
+                            <h4 class="mt-2 font-weight-bold" id="namaKendaraandanRental">Nama Kendaraan - Nama Rental</h4>
 
 
                             <p>
                                 <i class="fa fa-map-pin"></i>
-                                <span id="alamatWisata">
+                                <span id="alamatRental">
                                     Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock
 
                                 </span>
                             </p>
-
-                            <p> <b>Harga Tiket</b></p>
-                            <ul>
-                                <li>Tiket Anak-Anak : Rp. <span id="hargaAnak"></span></li>
-                                <li>Tiket Dewasa : Rp. <span id="hargaDewasa"></span></li>
-                            </ul>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p>
+                                        <b>Ukuran kendaraan</b><br>
+                                        <span id="ukuranKendaraan">Tidak ada</span>
+                                    </p>
+                                </div>
+                                <div class="col-3">
+                                    <p>
+                                        <b>Harga Sewa Mobil</b><br>
+                                        <span id="hargaSewa">Tidak ada</span>
+                                    </p>
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-3"></div>
+                            </div>
+                            <p>
+                                <b>Deskripsi Kendaraan</b><br>
+                                <span id="deskripsiMobil">Tidak ada</span>
+                            </p>
 
                             <div style="background-color: #f7f7f7;" class="p-1 mb-2 rounded">
                                 <i class="bi bi-card-text text-primary"></i> Detail Pemesanan
@@ -125,19 +139,32 @@
                                 <div class="col-lg col-4">
 
                                     <p>
-                                        <b>Pengunjung Dewasa</b><br>
-                                        <span id="pengunjungDewasa">Tidak ada</span>
+                                        <b>Nama Mobil</b><br>
+                                        <span id="namaMobil">Tidak ada</span>
                                     </p>
                                     <p>
-                                        <b>Pengunjung Anak - Anak</b><br>
-                                        <span id="pengunjungAnak">Tidak ada</span>
+                                        <b>Ukuran kendaraan</b><br>
+                                        <span id="ukuran">Tidak ada</span>
+                                    </p>
+                                    <p>
+                                        <b>Lama Sewa</b><br>
+                                        <span id="lamaSewa">Tidak ada</span>
                                     </p>
                                     <p>
                                         <b>Total Pembayaran</b><br>
                                         <span id="TotalHarga">Tidak ada</span>
                                     </p>
+
                                 </div>
                                 <div class="col-lg col-4">
+                                    <p>
+                                        <b>Mulai Sewa</b><br>
+                                        <span id="In">Tidak ada</span>
+                                    </p>
+                                    <p>
+                                        <b>Akhir Sewa</b><br>
+                                        <span id="Out">Tidak ada</span>
+                                    </p>
                                     <p>
                                         <b>Tanggal Pemesanan</b><br>
                                         <span id="tanggalPemesanan">Tidak ada</span>
@@ -268,7 +295,161 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
 
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            set,
+            update
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+            authDomain: "traveland-429a6.firebaseapp.com",
+            databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "traveland-429a6",
+            storageBucket: "traveland-429a6.appspot.com",
+            messagingSenderId: "569185605053",
+            appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
 
+        $('#rate').hide()
+        $('#tanggapanmitra').hide()
+        $('#noneUlasan').hide()
+        $('#ulasan').hide()
+
+        const ValueItem = ref(db, 'Master-Data-Rental/<?= $DataIDMitra ?>');
+        onValue(ValueItem, (kontenn) => {
+            const dataHotel = kontenn.val();
+
+            const ValueItemKamar = ref(db, 'Master-Data-Rental-Detail/<?= $DataIDMobil ?>');
+            onValue(ValueItemKamar, (kontennn) => {
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+                document.getElementById('namaKendaraandanRental').innerHTML = kontennn.val().NamaKendaraan + ' - ' + kontenn.val().NamaRental
+                document.getElementById('alamatRental').innerHTML = kontenn.val().AlamatRental
+                document.getElementById('hargaSewa').innerHTML = 'Rp. ' + kontennn.val().HargaSewa
+
+                if (kontenn.val().fotoKendaraan != "") {
+                    document.getElementById('fotoMobil').src = kontennn.val().fotoKendaraan
+                }
+
+                document.getElementById('namaMobil').innerHTML = kontennn.val().NamaKendaraan
+                document.getElementById('deskripsiMobil').innerHTML = kontennn.val().deskripsiKendaraan
+
+            })
+        })
+
+        const ValueItem1 = ref(db, 'Transaction-Rental/<?= $DataID ?>');
+        onValue(ValueItem1, (kontens) => {
+            let jumlah = 5;
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+
+            document.getElementById('tanggalPemesanan').innerHTML = kontens.val().TanggalBuat;
+            document.getElementById('In').innerHTML = kontens.val().CheckIn;
+            document.getElementById('Out').innerHTML = kontens.val().CheckOut;
+            document.getElementById('lamaSewa').innerHTML = kontens.val().JumlahHari + ' Hari';
+            document.getElementById('TotalHarga').innerHTML = 'Rp. ' + kontens.val().TotalSemua;
+            document.getElementById('ukuranKendaraan').innerHTML = kontens.val().UkuranMobil;
+            document.getElementById('ukuran').innerHTML = kontens.val().UkuranMobil;
+
+            let tempoo = ``
+            for (let i = 1; i <= jumlah; i++) {
+                if (Number(kontens.val().Rating) >= i) {
+                    tempoo += `<i class="bi bi-star-fill chacked"></i>`
+                } else {
+                    tempoo += `<i class="bi bi-star"></i>`
+                }
+            }
+            document.getElementById('rating').innerHTML = tempoo;
+
+            if (kontens.val().Rating == "") {
+                $('#noneUlasan').show()
+                $('#ulasan').hide()
+            } else {
+                $('#noneUlasan').hide()
+                $('#ulasan').show()
+
+            }
+
+            if (kontens.val().UlasanCustomer == "") {
+                document.getElementById('komentar').innerHTML = `<span>Tidak Ada Komentar</span>`
+                $('#tanggapanmitra').hide()
+            } else {
+                document.getElementById('komentar').innerHTML = kontens.val().UlasanCustomer
+                $('#tanggapanmitra').show()
+            }
+
+            if (kontens.val().UlasanMitra == "" && kontens.val().UlasanCustomer == "") {
+                document.getElementById('tanggapan').innerHTML = `<span>Tidak Ada Tanggapan !!!</span>`
+            } else if (kontens.val().UlasanMitra == "") {
+                document.getElementById('tanggapan').innerHTML = `<span>Belum Ada Tanggapan !!!</span>`
+            } else {
+                document.getElementById('tanggapan').innerHTML = kontens.val().UlasanMitra
+            }
+
+            if (Number(kontens.val().StatusTransaksi) == 1) {
+                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`
+            } else if (Number(kontens.val().StatusTransaksi) == 2) {
+                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`
+            } else if (Number(kontens.val().StatusTransaksi) == 3) {
+                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-success">Sudah Terbayar</span>`
+            } else if (Number(kontens.val().StatusTransaksi) == 4) {
+                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-primary">Mulai Sewa</span>`;
+            } else {
+                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-secondary">Sewa Berakhir</span>`
+                $('#rate').show()
+            }
+
+            if (kontens.val().BuktiTraksaksi != "") {
+                document.getElementById('fotoBuktiTransaksi').src = kontens.val().BuktiTraksaksi
+            }
+        })
+
+        const ValueItem2 = ref(db, 'Master-Data-Customer/<?= $DataIDCustomer ?>');
+        onValue(ValueItem2, (kontein) => {
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            document.getElementById('namaPemesan').innerHTML = kontein.val().NamaCustomer
+            document.getElementById('namaCustomer').innerHTML = kontein.val().NamaCustomer
+
+            if (kontein.val().fotoCustomer != "") {
+                document.getElementById('fotoUser').src = kontein.val().fotoCustomer
+            }
+        })
+
+        const ValueItem3 = ref(db, 'Master-Data-Bank/<?= $DataIDBank ?>');
+        onValue(ValueItem3, (konteins) => {
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            document.getElementById('jenisPembayaran').innerHTML = 'Transfer ' + konteins.val().NamaBank
+
+        })
+    </script>
 </body>
 
 </html>
