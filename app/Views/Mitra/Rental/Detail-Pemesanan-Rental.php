@@ -60,7 +60,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">
-                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Pemesanan-Mobil`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
+                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Pemesanan-rental`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
                                 Detail Pemesanan Kendaraan
                             </h1>
                         </div><!-- /.col -->
@@ -127,7 +127,7 @@
                                         <span id="namaPemesan">Tidak ada</span>
                                     </p>
                                     <p>
-                                        <b>Status Pembayaran</b><br>
+                                        <b>Status</b><br>
                                         <span id="statusPembayaran">Tidak ada</span>
                                     </p>
                                     <p>

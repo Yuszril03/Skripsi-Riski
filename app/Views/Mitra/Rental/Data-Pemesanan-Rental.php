@@ -78,7 +78,7 @@
                                             <th>Tanggal Pemesanan</th>
                                             <th>Lama Sewa</th>
                                             <th>Total Harga</th>
-                                            <th>Status Pemesan</th>
+                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>

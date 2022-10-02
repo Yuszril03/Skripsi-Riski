@@ -78,7 +78,7 @@
                                             <th>Pengunjung Dewasa</th>
                                             <th>Pengunjung Anak - Anak</th>
                                             <th>Total Harga</th>
-                                            <th>Status Pemesan</th>
+                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>

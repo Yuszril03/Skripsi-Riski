@@ -364,7 +364,7 @@
                                                 </p>
                                             </div>
                                             <div class="col-6">
-                                                <p><span class="text-muted" style="font-size: 14px;"> Status Transaksi</span> <br>
+                                                <p><span class="text-muted" style="font-size: 14px;">Status</span> <br>
                                                     <span id="StatusTransaksi" style="font-size: 16px;">Percoban Pemesanan</span>
                                                 </p>
                                             </div>

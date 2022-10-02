@@ -113,7 +113,7 @@
                                         <span id="namaPemesan">Tidak ada</span>
                                     </p>
                                     <p>
-                                        <b>Status Pembayaran</b><br>
+                                        <b>Status</b><br>
                                         <span id="statusPembayaran">Tidak ada</span>
                                     </p>
                                     <p>
