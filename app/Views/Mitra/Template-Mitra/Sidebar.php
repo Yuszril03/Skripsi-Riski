@@ -197,6 +197,15 @@
                          </a>
                      </li>
                  <?php } ?>
+
+                 <?php if (session()->get('Jenis') == "Mitra-Rental") { ?>
+                     <li class="nav-item">
+                         <a href="<?= base_URL() ?>/Review-Rental" class="nav-link <?= (in_array("Review", $tempData) ? 'active' : '') ?>">
+                             <i class="nav-icon bi bi-layout-text-sidebar"></i>
+                             <p>Review</p>
+                         </a>
+                     </li>
+                 <?php } ?>
              </ul>
          </nav>
          <!-- /.sidebar-menu -->

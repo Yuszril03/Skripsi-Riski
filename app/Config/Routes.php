@@ -136,7 +136,7 @@ $routes->get('/Scan-QrCode-Rental', 'Mitra::QrCodeRental');
 //Review
 $routes->get('/Review-Wisata', 'Mitra::ReviewWisata');
 $routes->get('/Review-Hotel', 'Mitra::ReviewKamarHotel');
-
+$routes->get('/Review-Rental', 'Mitra::ReviewRentalMobil');
 
 
 

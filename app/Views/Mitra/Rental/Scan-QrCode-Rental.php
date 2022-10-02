@@ -131,6 +131,7 @@
                 position: relative;
             }
 
+
             .blockImage {
                 width: 250px;
                 position: absolute;
@@ -146,6 +147,10 @@
                 top: 65%;
                 left: 50%;
                 transform: translate(-50%, -50%);
+            }
+
+            .sizeEMpty {
+                width: 250px;
             }
         }
 
@@ -177,6 +182,64 @@
                 left: 55%;
                 transform: translate(-50%, -50%);
             }
+
+            .sizeEMpty {
+                width: 200px;
+            }
+        }
+
+        /* #reader div img {
+            display: none;
+
+        } */
+        #reader {
+            border-radius: 10px;
+        }
+
+        #reader__camera_permission_button {
+            content: "Reference ";
+            box-shadow: none;
+            background-color: #007bff;
+            color: #fff;
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding-top: 0.375rem;
+            padding-bottom: 0.375rem;
+            padding-right: 0.75rem;
+            padding-left: 0.75rem;
+            border-radius: 10px;
+
+        }
+
+        #reader__dashboard_section_csr span {
+            margin: 10px;
+        }
+
+        #reader__dashboard_section_csr span button {
+            box-shadow: none;
+            background-color: #dc3545;
+            color: #fff;
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding-top: 0.375rem;
+            padding-bottom: 0.375rem;
+            padding-right: 0.75rem;
+            padding-left: 0.75rem;
+            border-radius: 10px;
         }
     </style>
 
@@ -203,12 +266,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Scan Qr Code Rental</h1>
+                            <h1 class="m-0">Scan Qr Code Hotel</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="<?= base_url() ?>/Beranda-Admin">Beranda</a></li>
-                                <li class="breadcrumb-item active">Scan Qr Code Rental</li>
+                                <li class="breadcrumb-item active">Scan Qr Code Hotel</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -224,14 +287,158 @@
                         <div class="card-body">
 
                             <div class="row">
-                                <div class="col">
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <div style="width: 500px" id="reader"></div>
-
+                                        <div style="width: 300px;" id="reader"></div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div id="HasilScan">
+                                <div class="col-lg">
+                                    <div class="input-group mb-3">
+                                        <input id="pencarianData" type="text" class="form-control" placeholder="Masukan kode pemesanan Hotel" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button id="jadiCari" class="btn btn-primary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+                                            <button id="batalCari" class="btn btn-danger" type="button"><i class="bi bi-x-circle"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div id="dataEmpty">
+                                        <center>
+                                            <img class="sizeEMpty" src="<?= base_url() ?>/Image/Icon/nulldatatransaksi.svg" alt="">
+                                            <p id="textEMpty" style="font-size: 18px;">Data tidak .</p>
+                                        </center>
+                                    </div>
+
+                                    <div id="DataTransaksi">
+                                        <p class="font-weight-bold">Data Pemesan</p>
+                                        <HR style="margin-top: -10px;">
+                                        </HR>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img id="profil" class="rounded" width="200" src="" alt="">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <p><span class="text-muted" style="font-size: 14px;"> Nama Pemesan</span> <br>
+                                                    <span id="nama" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <p><span class="text-muted" style="font-size: 14px;"> Email</span> <br>
+                                                            <span id="Email" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <p><span class="text-muted" style="font-size: 14px;"> Nomor Telefon</span> <br>
+                                                            <span id="nomor" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <p><span class="text-muted" style="font-size: 14px;"> Alamat</span> <br>
+                                                    <span id="Alamat" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+
+                                            </div>
+
+                                        </div>
+                                        <p class="font-weight-bold" style="margin-top: 20px;">Detail Pemesanan</p>
+                                        <HR style="margin-top: -10px;">
+                                        </HR>
+                                        <p><span class="text-muted" style="font-size: 14px;"> Kode Transaksi</span> <br>
+                                            <span id="kodeTransaksi" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                        </p>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p><span class="text-muted" style="font-size: 14px;"> Tanggal Pemesanan</span> <br>
+                                                    <span id="tanggalBuat" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p><span class="text-muted" style="font-size: 14px;"> Terakhir Pembaruan Transaksi</span> <br>
+                                                    <span id="tanggalUpdate" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p><span class="text-muted" style="font-size: 14px;"> Pembayaran Transaksi</span> <br>
+                                                    <span id="pembayaran" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p><span class="text-muted" style="font-size: 14px;"> Status Transaksi</span> <br>
+                                                    <span id="StatusTransaksi" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p><span class="text-muted" style="font-size: 14px;">Nama Kendaraan</span> <br>
+                                                    <span id="namaKendaraan" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+
+                                            </div>
+                                            <div class="col-6">
+                                                <p><span class="text-muted" style="font-size: 14px;">Harga Sewa</span> <br>
+                                                    <span id="hargaSewa" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p><span class="text-muted" style="font-size: 14px;">Check In</span> <br>
+                                                    <span id="checkIn" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                                <p><span class="text-muted" style="font-size: 14px;">Ukuran Kendaraan</span> <br>
+                                                    <span id="ukuranKendaraan" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p><span class="text-muted" style="font-size: 14px;">Check Out</span> <br>
+                                                    <span id="checkOut" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                                <p><span class="text-muted" style="font-size: 14px;">Lama Menginap</span> <br>
+                                                    <span id="jumlahHari" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <p class="font-weight-bold" style="margin-top: 20px;">Total Pemesanan</p>
+                                        <HR style="margin-top: -10px;">
+                                        </HR>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p><span class="text-muted" style="font-size: 14px;">Harga Sewa</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p> <span id="total" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p><span class="text-muted" style="font-size: 14px;">Lama Sewa</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p> <span id="lamaMenginap" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <HR>
+                                        </HR>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p><span class="text-muted" style="font-size: 14px;">Total Keseluruhan</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p> <span id="totalSemua" class="text-black" style="font-size: 16px;">Percoban Pemesanan</span>
+                                                </p>
+
+                                            </div>
+                                        </div>
+
+                                        <button id="verifikasi" class="btn btn-primary btn-block">Verifikasi Check In</button>
+                                        <button id="verifikasiCheckOut" class="btn btn-primary btn-block">Verifikasi Check Out</button>
 
                                     </div>
                                 </div>
@@ -293,29 +500,343 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
-    <script>
-        function onScanSuccess(decodedText, decodedResult) {
-            // Handle on success condition with the decoded text or result.
-            console.log(`Scan result: ${decodedText}`, decodedResult);
-        }
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            set,
+            update
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+            authDomain: "traveland-429a6.firebaseapp.com",
+            databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "traveland-429a6",
+            storageBucket: "traveland-429a6.appspot.com",
+            messagingSenderId: "569185605053",
+            appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
 
+        let DataTransaksiWisata = {};
+
+        document.getElementById('textEMpty').innerHTML = "Silakan Lakukan Pencarian Kode Pemesanan"
+        $("#dataEmpty").show()
+        $("#DataTransaksi").hide()
+        var pencarian = false;
         var html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", {
                 fps: 60,
-                qrbox: 300
+                qrbox: {
+                    width: 150,
+                    height: 150
+                },
+                // rememberLastUsedCamera: true,
+                // Only support camera scan type.
+                supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
             });
         html5QrcodeScanner.render(onScanSuccess);
 
 
         function onScanSuccess(decodedText, decodedResult) {
             // Handle on success condition with the decoded text or result.
-            console.log(`Scan result: ${decodedText}`, decodedResult);
-            document.getElementById('HasilScan').innerHTML = decodedText
+            if (pencarian == false) {
+                pencarian = true
+                // console.log(`Scan result: ${decodedText}`, decodedResult);
+                let myArray22 = decodedText.split("-");
+                console.log(decodedText.search("Hotel"))
+                document.getElementById('pencarianData').value = myArray22[0]
+                if (decodedText.search("Hotel") >= -1) {
+                    document.getElementById('textEMpty').innerHTML = "Kode Pemesanan Sedang Dicari"
+
+                    // Menampung Data Transaksi
+                    let ValueItemTransaksi = ref(db, 'Transaction-Rental/' + myArray22[0]);
+                    onValue(ValueItemTransaksi, (snapShot) => {
+                        // console.log(snapShot.val())
+                        DataTransaksiWisata = snapShot.val();
+                        if (snapShot.val()) {
+                            const options = {
+                                weekday: 'long',
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            };
+                            $("#dataEmpty").hide()
+                            $("#DataTransaksi").show()
+                            document.getElementById('kodeTransaksi').innerHTML = myArray22[0];
+                            document.getElementById('tanggalBuat').innerHTML = snapShot.val().TanggalBuat;
+                            document.getElementById('tanggalUpdate').innerHTML = snapShot.val().TanggalUpdate;
+
+                            const tanggalHariIni = new Date().getDate();
+                            const tanggalCheckIn = new Date(snapShot.val().CheckIn).getDate();
+                            const tanggalCheckOut = new Date(snapShot.val().CheckOut).getDate();
+
+                            if (snapShot.val().StatusTransaksi == "1") {
+                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`;
+                                $('#verifikasi').hide();
+                                $('#verifikasiCheckOut').hide();
+                            } else if (snapShot.val().StatusTransaksi == "2") {
+                                $('#verifikasi').hide();
+                                $('#verifikasiCheckOut').hide();
+                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-danger">Dibatalkan</span>`;
+                            } else if (snapShot.val().StatusTransaksi == "3") {
+                                console.log(tanggalHariIni);
+                                console.log(tanggalCheckIn);
+                                if (tanggalCheckIn < tanggalHariIni) {
+                                    $('#verifikasi').hide();
+                                    $('#verifikasiCheckOut').hide();
+                                } else {
+                                    $('#verifikasi').show();
+                                    $('#verifikasiCheckOut').hide();
+                                }
+                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-success">Sudah Terbayar</span>`;
+                            } else if (snapShot.val().StatusTransaksi == "4") {
+                                if (tanggalCheckOut > tanggalHariIni) {
+                                    $('#verifikasi').hide();
+                                    $('#verifikasiCheckOut').hide();
+                                } else {
+                                    $('#verifikasi').hide();
+                                    $('#verifikasiCheckOut').show();
+                                }
+                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-primary">Mulai Sewa</span>`;
+                            } else if (snapShot.val().StatusTransaksi == "5") {
+                                $('#verifikasi').hide();
+                                $('#verifikasiCheckOut').hide();
+                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-secondary">Sewa Berakhir</span>`;
+                            }
+
+
+                            document.getElementById('ukuranKendaraan').innerHTML = snapShot.val().UkuranMobil;
+                            document.getElementById('jumlahHari').innerHTML = snapShot.val().JumlahHari + " Hari";
+                            document.getElementById('checkIn').innerHTML = snapShot.val().CheckIn;
+                            document.getElementById('checkOut').innerHTML = snapShot.val().CheckOut;
+                            document.getElementById('hargaSewa').innerHTML = 'Rp. ' + snapShot.val().HargaMobil;
+
+
+
+
+                            document.getElementById('total').innerHTML = 'Rp. ' + snapShot.val().HargaMobil;
+
+                            document.getElementById('lamaMenginap').innerHTML = snapShot.val().JumlahHari + ' Hari';
+                            document.getElementById('totalSemua').innerHTML = "Rp. " + snapShot.val().TotalSemua;
+
+                            let DetailKamar = ref(db, 'Master-Data-Rental-Detail/' + snapShot.val().IdMobil);
+                            onValue(DetailKamar, (postDetailKamar) => {
+                                document.getElementById('namaKendaraan').innerHTML = postDetailKamar.val().NamaKendaraan;
+                            })
+
+                            let ValueBank = ref(db, 'Master-Data-Bank/' + snapShot.val().JenisPembayaran);
+                            onValue(ValueBank, (postBank) => {
+                                document.getElementById('pembayaran').innerHTML = postBank.val().NamaBank;
+                            })
+
+
+                            let ValueCustomer = ref(db, 'Master-Data-Customer/' + snapShot.val().IdCutomer);
+                            onValue(ValueCustomer, (postData) => {
+                                document.getElementById('profil').src = postData.val().fotoCustomer;
+                                document.getElementById('nama').innerHTML = postData.val().NamaCustomer;
+                                document.getElementById('Email').innerHTML = postData.val().EmailCustomer;
+                                document.getElementById('nomor').innerHTML = postData.val().TelefonCustomer;
+                                document.getElementById('Alamat').innerHTML = postData.val().AlamatCustomer;
+
+                            })
+                        } else {
+                            document.getElementById('textEMpty').innerHTML = "Kode Pemesanan Tidak Ditemukan"
+                        }
+
+
+                    })
+
+                } else {
+                    document.getElementById('textEMpty').innerHTML = "Kode Pemesanan Tidak Valid"
+                }
+
+            }
+
             // ...
             // html5QrcodeScanner.clear();
             // ^ this will stop the scanner (video feed) and clear the scan area.
         }
+
+        document.getElementById('verifikasi').addEventListener('click', function() {
+
+            DataTransaksiWisata.StatusTransaksi = "4"
+            DataTransaksiWisata.TanggalUpdate = new Date().toString("ID")
+            console.log(DataTransaksiWisata)
+            const updateWisata = {};
+            updateWisata['/Transaction-Rental/' + document.getElementById('kodeTransaksi').innerHTML] = DataTransaksiWisata;
+            update(ref(db), updateWisata);
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: "Data berhasil terverifikasi!",
+                showConfirmButton: false,
+                timer: 1500
+            })
+
+            document.getElementById('pencarianData').value = ""
+            pencarian = false
+            document.getElementById('textEMpty').innerHTML = "Silakan Lakukan Pencarian Kode Pemesanan"
+            $("#dataEmpty").show()
+            $("#DataTransaksi").hide()
+
+        })
+
+        document.getElementById('verifikasiCheckOut').addEventListener('click', function() {
+
+            DataTransaksiWisata.StatusTransaksi = "5"
+            DataTransaksiWisata.TanggalUpdate = new Date().toString("ID")
+            console.log(DataTransaksiWisata)
+            const updateWisata = {};
+            updateWisata['/Transaction-Rental/' + document.getElementById('kodeTransaksi').innerHTML] = DataTransaksiWisata;
+            update(ref(db), updateWisata);
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: "Data berhasil terverifikasi!",
+                showConfirmButton: false,
+                timer: 1500
+            })
+
+            document.getElementById('pencarianData').value = ""
+            pencarian = false
+            document.getElementById('textEMpty').innerHTML = "Silakan Lakukan Pencarian Kode Pemesanan"
+            $("#dataEmpty").show()
+            $("#DataTransaksi").hide()
+
+        })
+
+        document.getElementById('jadiCari').addEventListener('click', function() {
+            if (document.getElementById('pencarianData').value == "") {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Kolom kode pemesanan harus terisi!',
+                })
+                document.getElementById('textEMpty').innerHTML = "Silakan Lakukan Pencarian Kode Pemesanan"
+                $("#dataEmpty").show()
+                $("#DataTransaksi").hide()
+
+            } else {
+                document.getElementById('textEMpty').innerHTML = "Kode Pemesanan Sedang Dicari"
+
+                // Menampung Data Transaksi
+                let ValueItemTransaksi = ref(db, 'Transaction-Rental/' + document.getElementById('pencarianData').value);
+                onValue(ValueItemTransaksi, (snapShot) => {
+                    // console.log(snapShot.val())
+                    DataTransaksiWisata = snapShot.val();
+                    if (snapShot.val()) {
+                        const options = {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        };
+                        $("#dataEmpty").hide()
+                        $("#DataTransaksi").show()
+                        document.getElementById('kodeTransaksi').innerHTML = document.getElementById('pencarianData').value;
+                        document.getElementById('tanggalBuat').innerHTML = snapShot.val().TanggalBuat;
+                        document.getElementById('tanggalUpdate').innerHTML = snapShot.val().TanggalUpdate;
+
+                        const tanggalHariIni = new Date().getDate();
+                        const tanggalCheckIn = new Date(snapShot.val().CheckIn).getDate();
+                        const tanggalCheckOut = new Date(snapShot.val().CheckOut).getDate();
+
+                        if (snapShot.val().StatusTransaksi == "1") {
+                            document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`;
+                            $('#verifikasi').hide();
+                            $('#verifikasiCheckOut').hide();
+                        } else if (snapShot.val().StatusTransaksi == "2") {
+                            $('#verifikasi').hide();
+                            $('#verifikasiCheckOut').hide();
+                            document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-danger">Dibatalkan</span>`;
+                        } else if (snapShot.val().StatusTransaksi == "3") {
+                            console.log(tanggalHariIni);
+                            console.log(tanggalCheckIn);
+                            if (tanggalCheckIn < tanggalHariIni) {
+                                $('#verifikasi').hide();
+                                $('#verifikasiCheckOut').hide();
+                            } else {
+                                $('#verifikasi').show();
+                                $('#verifikasiCheckOut').hide();
+                            }
+                            document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-success">Sudah Terbayar</span>`;
+                        } else if (snapShot.val().StatusTransaksi == "4") {
+                            if (tanggalCheckOut > tanggalHariIni) {
+                                $('#verifikasi').hide();
+                                $('#verifikasiCheckOut').hide();
+                            } else {
+                                $('#verifikasi').hide();
+                                $('#verifikasiCheckOut').show();
+                            }
+                            document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-primary">Mulai Sewa</span>`;
+                        } else if (snapShot.val().StatusTransaksi == "5") {
+                            $('#verifikasi').hide();
+                            $('#verifikasiCheckOut').hide();
+                            document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-secondary">Sewa Berakhir</span>`;
+                        }
+
+                        document.getElementById('ukuranKendaraan').innerHTML = snapShot.val().UkuranMobil;
+                        document.getElementById('jumlahHari').innerHTML = snapShot.val().JumlahHari + " Hari";
+                        document.getElementById('checkIn').innerHTML = snapShot.val().CheckIn;
+                        document.getElementById('checkOut').innerHTML = snapShot.val().CheckOut;
+                        document.getElementById('hargaSewa').innerHTML = 'Rp. ' + snapShot.val().HargaMobil;
+
+                        document.getElementById('total').innerHTML = 'Rp. ' + snapShot.val().HargaMobil;
+
+                        document.getElementById('lamaMenginap').innerHTML = snapShot.val().JumlahHari + ' Hari';
+                        document.getElementById('totalSemua').innerHTML = "Rp. " + snapShot.val().TotalSemua;
+
+                        let DetailKamar = ref(db, 'Master-Data-Rental-Detail/' + snapShot.val().IdMobil);
+                        onValue(DetailKamar, (postDetailMobil) => {
+                            document.getElementById('namaKendaraan').innerHTML = postDetailMobil.val().NamaKendaraan;
+                        })
+
+
+
+                        let ValueBank = ref(db, 'Master-Data-Bank/' + snapShot.val().JenisPembayaran);
+                        onValue(ValueBank, (postBank) => {
+                            document.getElementById('pembayaran').innerHTML = postBank.val().NamaBank;
+                        })
+
+
+                        let ValueCustomer = ref(db, 'Master-Data-Customer/' + snapShot.val().IdCutomer);
+                        onValue(ValueCustomer, (postData) => {
+                            document.getElementById('profil').src = postData.val().fotoCustomer;
+                            document.getElementById('nama').innerHTML = postData.val().NamaCustomer;
+                            document.getElementById('Email').innerHTML = postData.val().EmailCustomer;
+                            document.getElementById('nomor').innerHTML = postData.val().TelefonCustomer;
+                            document.getElementById('Alamat').innerHTML = postData.val().AlamatCustomer;
+
+                        })
+                    } else {
+                        $("#dataEmpty").show()
+                        $("#DataTransaksi").hide()
+                        document.getElementById('textEMpty').innerHTML = "Kode Pemesanan Tidak Ditemukan"
+                    }
+
+
+                })
+            }
+        })
+
+        document.getElementById('batalCari').addEventListener('click', function() {
+            document.getElementById('pencarianData').value = ""
+            pencarian = false
+            document.getElementById('textEMpty').innerHTML = "Silakan Lakukan Pencarian Kode Pemesanan"
+            $("#dataEmpty").show()
+            $("#DataTransaksi").hide()
+        })
     </script>
+
 </body>
 
 </html>

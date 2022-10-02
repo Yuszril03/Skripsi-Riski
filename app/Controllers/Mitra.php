@@ -262,4 +262,15 @@ class Mitra extends BaseController
             return redirect()->to(base_url('/'));
         }
     }
+
+    public function ReviewRentalMobil()
+    {
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+            return view('Mitra/Rental/Review-Rental');
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            return redirect()->to(base_url('/'));
+        }
+    }
 }

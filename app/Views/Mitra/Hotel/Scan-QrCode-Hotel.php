@@ -585,9 +585,9 @@
                             document.getElementById('tanggalBuat').innerHTML = snapShot.val().TanggalBuat;
                             document.getElementById('tanggalUpdate').innerHTML = snapShot.val().TanggalUpdate;
 
-                            const tanggalHariIni = new Date();
-                            const tanggalCheckIn = new Date(snapShot.val().CheckIn);
-                            const tanggalCheckOut = new Date(snapShot.val().CheckOut);
+                            const tanggalHariIni = new Date().getDate();
+                            const tanggalCheckIn = new Date(snapShot.val().CheckIn).getDate();
+                            const tanggalCheckOut = new Date(snapShot.val().CheckOut).getDate();
 
                             if (snapShot.val().StatusTransaksi == "1") {
                                 document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`;
