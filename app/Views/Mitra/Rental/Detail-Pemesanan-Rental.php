@@ -443,7 +443,7 @@
             } else if (Number(kontens.val().StatusTransaksi) == 4) {
                 document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-primary">Mulai Sewa</span>`;
             } else {
-                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-secondary">Akhir Sewa</span>`;
+                document.getElementById('statusPembayaran').innerHTML = `<span class="badge badge-secondary">Sewa Berakhir</span>`;
                 $('#rate').show()
             }
 

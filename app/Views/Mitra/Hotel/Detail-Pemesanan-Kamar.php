@@ -60,7 +60,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">
-                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Pemesanan-Kamar`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
+                                <button class="btn" onclick="location.href=`<?= base_url() ?>/Pemesanan`" title="Kembali"><i class="fa fa-angle-left fa-2x"></i></button>
                                 Detail Pemesanan Kamar Hotel
                             </h1>
                         </div><!-- /.col -->

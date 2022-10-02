@@ -256,7 +256,7 @@
                                     } else if (Number(snapshot2.val().StatusTransaksi) == 4) {
                                         StatusData = `<span class="badge badge-primary">Mulai Sewa</span>`;
                                     } else {
-                                        StatusData = `<span class="badge badge-secondary">Akhir Sewa</span>`;
+                                        StatusData = `<span class="badge badge-secondary">Sewa Berakhir</span>`;
                                     }
 
                                     table.row.add([
