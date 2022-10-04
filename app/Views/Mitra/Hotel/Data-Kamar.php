@@ -552,14 +552,15 @@
             for (const isi in keys) {
                 const ValueItem = ref(db, 'Master-Data-Hotel-Detail/' + keys[isi]);
                 onValue(ValueItem, (kontenn2) => {
+                    
                     if (kontenn2.val().IdHotel == "<?= session()->get('IDKelola') ?>") {
-
 
                         if (localDataDetail.length == 0) {
                             NoUrut = 1;
                         } else {
                             NoUrut = localDataDetail[localDataDetail.length - 1].idDetail + 1
                         }
+
                         let dataDetailsTemp = {
                             fotoDB: kontenn2.val().fotoKamar,
                             foto: null,

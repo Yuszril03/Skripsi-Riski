@@ -537,6 +537,7 @@
         const db = getDatabase();
 
         let DataTransaksiWisata = {};
+        let DataJumlahKamar = {};
 
         document.getElementById('textEMpty').innerHTML = "Silakan Lakukan Pencarian Kode Pemesanan"
         $("#dataEmpty").show()
@@ -572,97 +573,101 @@
                     onValue(ValueItemTransaksi, (snapShot) => {
                         // console.log(snapShot.val())
                         DataTransaksiWisata = snapShot.val();
-                        if (snapShot.val()) {
-                            const options = {
-                                weekday: 'long',
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                            };
-                            $("#dataEmpty").hide()
-                            $("#DataTransaksi").show()
-                            document.getElementById('kodeTransaksi').innerHTML = myArray22[0];
-                            document.getElementById('tanggalBuat').innerHTML = snapShot.val().TanggalBuat;
-                            document.getElementById('tanggalUpdate').innerHTML = snapShot.val().TanggalUpdate;
+                        let DetailKamar = ref(db, 'Master-Data-Hotel-Detail/' + snapShot.val().IdKamar);
+                        onValue(DetailKamar, (postDetailKamar) => {
+                            DataJumlahKamar = postDetailKamar.val();
+                            document.getElementById('jenisKamar').innerHTML = postDetailKamar.val().NamaKamar;
 
-                            const tanggalHariIni = new Date().getDate();
-                            const tanggalCheckIn = new Date(snapShot.val().CheckIn).getDate();
-                            const tanggalCheckOut = new Date(snapShot.val().CheckOut).getDate();
+                            if (snapShot.val()) {
+                                const options = {
+                                    weekday: 'long',
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                };
+                                $("#dataEmpty").hide()
+                                $("#DataTransaksi").show()
+                                document.getElementById('kodeTransaksi').innerHTML = myArray22[0];
+                                document.getElementById('tanggalBuat').innerHTML = snapShot.val().TanggalBuat;
+                                document.getElementById('tanggalUpdate').innerHTML = snapShot.val().TanggalUpdate;
 
-                            if (snapShot.val().StatusTransaksi == "1") {
-                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`;
-                                $('#verifikasi').hide();
-                                $('#verifikasiCheckOut').hide();
-                            } else if (snapShot.val().StatusTransaksi == "2") {
-                                $('#verifikasi').hide();
-                                $('#verifikasiCheckOut').hide();
-                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-danger">Dibatalkan</span>`;
-                            } else if (snapShot.val().StatusTransaksi == "3") {
-                                console.log(tanggalHariIni);
-                                console.log(tanggalCheckIn);
-                                if (tanggalCheckIn < tanggalHariIni) {
+                                const tanggalHariIni = new Date().getDate();
+                                const tanggalCheckIn = new Date(snapShot.val().CheckIn).getDate();
+                                const tanggalCheckOut = new Date(snapShot.val().CheckOut).getDate();
+
+                                if (snapShot.val().StatusTransaksi == "1") {
+                                    document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`;
                                     $('#verifikasi').hide();
                                     $('#verifikasiCheckOut').hide();
-                                } else {
-                                    $('#verifikasi').show();
+                                } else if (snapShot.val().StatusTransaksi == "2") {
+                                    $('#verifikasi').hide();
                                     $('#verifikasiCheckOut').hide();
+                                    document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-danger">Dibatalkan</span>`;
+                                } else if (snapShot.val().StatusTransaksi == "3") {
+                                    console.log(tanggalHariIni);
+                                    console.log(tanggalCheckIn);
+                                    if (tanggalCheckIn < tanggalHariIni) {
+                                        $('#verifikasi').hide();
+                                        $('#verifikasiCheckOut').hide();
+                                    } else {
+                                        $('#verifikasi').show();
+                                        $('#verifikasiCheckOut').hide();
+                                    }
+                                    document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-success">Sudah Terbayar</span>`;
+                                } else if (snapShot.val().StatusTransaksi == "4") {
+                                    if (tanggalCheckOut > tanggalHariIni) {
+                                        $('#verifikasi').hide();
+                                        $('#verifikasiCheckOut').hide();
+                                    } else {
+                                        $('#verifikasi').hide();
+                                        $('#verifikasiCheckOut').show();
+                                    }
+                                    document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-primary">Check In</span>`;
+                                } else if (snapShot.val().StatusTransaksi == "5") {
+                                    $('#verifikasi').hide();
+                                    $('#verifikasiCheckOut').hide();
+                                    document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-secondary">Check Out</span>`;
                                 }
-                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-success">Sudah Terbayar</span>`;
-                            } else if (snapShot.val().StatusTransaksi == "4") {
-                                if (tanggalCheckOut > tanggalHariIni) {
-                                    $('#verifikasi').hide();
-                                    $('#verifikasiCheckOut').hide();
-                                } else {
-                                    $('#verifikasi').hide();
-                                    $('#verifikasiCheckOut').show();
-                                }
-                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-primary">Check In</span>`;
-                            } else if (snapShot.val().StatusTransaksi == "5") {
-                                $('#verifikasi').hide();
-                                $('#verifikasiCheckOut').hide();
-                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-secondary">Check Out</span>`;
+
+
+                                document.getElementById('jumlahKamar').innerHTML = snapShot.val().JumlahKamar + " Kamar";
+                                document.getElementById('jumlahHari').innerHTML = snapShot.val().JumlahHari + " Hari";
+                                document.getElementById('checkIn').innerHTML = snapShot.val().CheckIn;
+                                document.getElementById('checkOut').innerHTML = snapShot.val().CheckOut;
+                                document.getElementById('hargaKamar').innerHTML = 'Rp. ' + snapShot.val().HargaKamar;
+
+                                document.getElementById('totalHargaKamar').innerHTML = 'Rp. ' + snapShot.val().HargaKamar + ' x ' + snapShot.val().JumlahKamar + ' Kamar'
+
+                                let perkalian = snapShot.val().HargaKamar * snapShot.val().JumlahKamar;
+                                document.getElementById('total').innerHTML = 'Rp. ' + perkalian;
+
+                                document.getElementById('lamaMenginap').innerHTML = snapShot.val().JumlahHari + ' Hari';
+                                document.getElementById('totalSemua').innerHTML = "Rp. " + snapShot.val().TotalSemua;
+
+                                let DetailKamar = ref(db, 'Master-Data-Hotel-Detail/' + snapShot.val().IdKamar);
+                                onValue(DetailKamar, (postDetailKamar) => {
+                                    document.getElementById('jenisKamar').innerHTML = postDetailKamar.val().NamaKamar;
+                                })
+
+                                let ValueBank = ref(db, 'Master-Data-Bank/' + snapShot.val().JenisPembayaran);
+                                onValue(ValueBank, (postBank) => {
+                                    document.getElementById('pembayaran').innerHTML = postBank.val().NamaBank;
+                                })
+
+
+                                let ValueCustomer = ref(db, 'Master-Data-Customer/' + snapShot.val().IdCutomer);
+                                onValue(ValueCustomer, (postData) => {
+                                    document.getElementById('profil').src = postData.val().fotoCustomer;
+                                    document.getElementById('nama').innerHTML = postData.val().NamaCustomer;
+                                    document.getElementById('Email').innerHTML = postData.val().EmailCustomer;
+                                    document.getElementById('nomor').innerHTML = postData.val().TelefonCustomer;
+                                    document.getElementById('Alamat').innerHTML = postData.val().AlamatCustomer;
+
+                                })
+                            } else {
+                                document.getElementById('textEMpty').innerHTML = "Kode Pemesanan Tidak Ditemukan"
                             }
-
-
-                            document.getElementById('jumlahKamar').innerHTML = snapShot.val().JumlahKamar + " Kamar";
-                            document.getElementById('jumlahHari').innerHTML = snapShot.val().JumlahHari + " Hari";
-                            document.getElementById('checkIn').innerHTML = snapShot.val().CheckIn;
-                            document.getElementById('checkOut').innerHTML = snapShot.val().CheckOut;
-                            document.getElementById('hargaKamar').innerHTML = 'Rp. ' + snapShot.val().HargaKamar;
-
-                            document.getElementById('totalHargaKamar').innerHTML = 'Rp. ' + snapShot.val().HargaKamar + ' X ' + snapShot.val().JumlahKamar + ' Kamar'
-
-                            let perkalian = snapShot.val().HargaKamar * snapShot.val().JumlahKamar;
-                            document.getElementById('total').innerHTML = 'Rp. ' + perkalian;
-
-                            document.getElementById('lamaMenginap').innerHTML = snapShot.val().JumlahHari + ' Hari';
-                            document.getElementById('totalSemua').innerHTML = "Rp. " + snapShot.val().TotalSemua;
-
-                            let DetailKamar = ref(db, 'Master-Data-Hotel-Detail/' + snapShot.val().IdKamar);
-                            onValue(DetailKamar, (postDetailKamar) => {
-                                document.getElementById('jenisKamar').innerHTML = postDetailKamar.val().NamaKamar;
-                            })
-
-                            let ValueBank = ref(db, 'Master-Data-Bank/' + snapShot.val().JenisPembayaran);
-                            onValue(ValueBank, (postBank) => {
-                                document.getElementById('pembayaran').innerHTML = postBank.val().NamaBank;
-                            })
-
-
-                            let ValueCustomer = ref(db, 'Master-Data-Customer/' + snapShot.val().IdCutomer);
-                            onValue(ValueCustomer, (postData) => {
-                                document.getElementById('profil').src = postData.val().fotoCustomer;
-                                document.getElementById('nama').innerHTML = postData.val().NamaCustomer;
-                                document.getElementById('Email').innerHTML = postData.val().EmailCustomer;
-                                document.getElementById('nomor').innerHTML = postData.val().TelefonCustomer;
-                                document.getElementById('Alamat').innerHTML = postData.val().AlamatCustomer;
-
-                            })
-                        } else {
-                            document.getElementById('textEMpty').innerHTML = "Kode Pemesanan Tidak Ditemukan"
-                        }
-
-
+                        })
                     })
 
                 } else {
@@ -677,10 +682,9 @@
         }
 
         document.getElementById('verifikasi').addEventListener('click', function() {
-
             DataTransaksiWisata.StatusTransaksi = "4"
             DataTransaksiWisata.TanggalUpdate = new Date().toString("ID")
-            console.log(DataTransaksiWisata)
+            // console.log(DataTransaksiWisata)
             const updateWisata = {};
             updateWisata['/Transaction-Hotel/' + document.getElementById('kodeTransaksi').innerHTML] = DataTransaksiWisata;
             update(ref(db), updateWisata);
@@ -702,9 +706,17 @@
 
         document.getElementById('verifikasiCheckOut').addEventListener('click', function() {
 
+            let Jumlah = Number(DataJumlahKamar.JumlahKamar) + Number(DataTransaksiWisata.JumlahKamar);
+            let ConvertAngkatoString = Jumlah.toString();
+            // console.log(ConvertAngkatoString);
+            DataJumlahKamar.JumlahKamar = ConvertAngkatoString;
+            const updateDetail = {};
+            updateDetail['/Master-Data-Hotel-Detail/' + DataTransaksiWisata.IdKamar] = DataJumlahKamar;
+            update(ref(db), updateDetail);
+
             DataTransaksiWisata.StatusTransaksi = "5"
             DataTransaksiWisata.TanggalUpdate = new Date().toString("ID")
-            console.log(DataTransaksiWisata)
+            // console.log(DataTransaksiWisata)
             const updateWisata = {};
             updateWisata['/Transaction-Hotel/' + document.getElementById('kodeTransaksi').innerHTML] = DataTransaksiWisata;
             update(ref(db), updateWisata);
@@ -744,100 +756,106 @@
                 onValue(ValueItemTransaksi, (snapShot) => {
                     // console.log(snapShot.val())
                     DataTransaksiWisata = snapShot.val();
-                    if (snapShot.val()) {
-                        const options = {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        };
-                        $("#dataEmpty").hide()
-                        $("#DataTransaksi").show()
-                        document.getElementById('kodeTransaksi').innerHTML = document.getElementById('pencarianData').value;
-                        document.getElementById('tanggalBuat').innerHTML = snapShot.val().TanggalBuat;
-                        document.getElementById('tanggalUpdate').innerHTML = snapShot.val().TanggalUpdate;
+                    let DetailKamar = ref(db, 'Master-Data-Hotel-Detail/' + snapShot.val().IdKamar);
+                    onValue(DetailKamar, (postDetailKamar) => {
+                        DataJumlahKamar = postDetailKamar.val();
 
-                        const tanggalHariIni = new Date();
-                        const tanggalCheckIn = new Date(snapShot.val().CheckIn);
-                        const tanggalCheckOut = new Date(snapShot.val().CheckOut);
+                        // console.log(DataJumlahKamar.JumlahKamar);
+                        // console.log(DataTransaksiWisata.JumlahKamar);
 
-                        if (snapShot.val().StatusTransaksi == "1") {
-                            document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`;
-                            $('#verifikasi').hide();
-                            $('#verifikasiCheckOut').hide();
-                        } else if (snapShot.val().StatusTransaksi == "2") {
-                            $('#verifikasi').hide();
-                            $('#verifikasiCheckOut').hide();
-                            document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-danger">Dibatalkan</span>`;
-                        } else if (snapShot.val().StatusTransaksi == "3") {
-                            console.log(tanggalHariIni);
-                            console.log(tanggalCheckIn);
-                            if (tanggalCheckIn < tanggalHariIni) {
+                        document.getElementById('jenisKamar').innerHTML = postDetailKamar.val().NamaKamar;
+
+                        if (snapShot.val()) {
+                            const options = {
+                                weekday: 'long',
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            };
+                            $("#dataEmpty").hide()
+                            $("#DataTransaksi").show()
+                            document.getElementById('kodeTransaksi').innerHTML = document.getElementById('pencarianData').value;
+                            document.getElementById('tanggalBuat').innerHTML = snapShot.val().TanggalBuat;
+                            document.getElementById('tanggalUpdate').innerHTML = snapShot.val().TanggalUpdate;
+
+                            const tanggalHariIni = new Date().getDate();
+                            const tanggalCheckIn = new Date(snapShot.val().CheckIn).getDate();
+                            const tanggalCheckOut = new Date(snapShot.val().CheckOut).getDate();
+
+                            if (snapShot.val().StatusTransaksi == "1") {
+                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`;
                                 $('#verifikasi').hide();
                                 $('#verifikasiCheckOut').hide();
-                            } else {
-                                $('#verifikasi').show();
+                            } else if (snapShot.val().StatusTransaksi == "2") {
+                                $('#verifikasi').hide();
                                 $('#verifikasiCheckOut').hide();
+                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-danger">Dibatalkan</span>`;
+                            } else if (snapShot.val().StatusTransaksi == "3") {
+                                if (tanggalCheckIn < tanggalHariIni) {
+                                    $('#verifikasi').hide();
+                                    $('#verifikasiCheckOut').hide();
+                                } else {
+                                    $('#verifikasi').show();
+                                    $('#verifikasiCheckOut').hide();
+                                }
+                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-success">Sudah Terbayar</span>`;
+                            } else if (snapShot.val().StatusTransaksi == "4") {
+                                if (tanggalCheckOut > tanggalHariIni) {
+                                    $('#verifikasi').hide();
+                                    $('#verifikasiCheckOut').hide();
+                                } else {
+                                    $('#verifikasi').hide();
+                                    $('#verifikasiCheckOut').show();
+                                }
+                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-primary">Check In</span>`;
+                            } else if (snapShot.val().StatusTransaksi == "5") {
+                                $('#verifikasi').hide();
+                                $('#verifikasiCheckOut').hide();
+                                document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-secondary">Check Out</span>`;
                             }
-                            document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-success">Sudah Terbayar</span>`;
-                        } else if (snapShot.val().StatusTransaksi == "4") {
-                            if (tanggalCheckOut > tanggalHariIni) {
-                                $('#verifikasi').hide();
-                                $('#verifikasiCheckOut').hide();
-                            } else {
-                                $('#verifikasi').hide();
-                                $('#verifikasiCheckOut').show();
-                            }
-                            document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-primary">Check In</span>`;
-                        } else if (snapShot.val().StatusTransaksi == "5") {
-                            $('#verifikasi').hide();
-                            $('#verifikasiCheckOut').hide();
-                            document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-secondary">Check Out</span>`;
+
+                            document.getElementById('jumlahKamar').innerHTML = snapShot.val().JumlahKamar + " Kamar";
+                            document.getElementById('jumlahHari').innerHTML = snapShot.val().JumlahHari + " Hari";
+                            document.getElementById('checkIn').innerHTML = snapShot.val().CheckIn;
+                            document.getElementById('checkOut').innerHTML = snapShot.val().CheckOut;
+                            document.getElementById('hargaKamar').innerHTML = 'Rp. ' + snapShot.val().HargaKamar;
+
+                            document.getElementById('totalHargaKamar').innerHTML = 'Rp. ' + snapShot.val().HargaKamar + ' x ' + snapShot.val().JumlahKamar + ' Kamar'
+
+                            let perkalian = snapShot.val().HargaKamar * snapShot.val().JumlahKamar;
+                            document.getElementById('total').innerHTML = 'Rp. ' + perkalian;
+
+                            document.getElementById('lamaMenginap').innerHTML = snapShot.val().JumlahHari + ' Hari';
+                            document.getElementById('totalSemua').innerHTML = "Rp. " + snapShot.val().TotalSemua;
+
+                            let DetailKamar = ref(db, 'Master-Data-Hotel-Detail/' + snapShot.val().IdKamar);
+                            onValue(DetailKamar, (postDetailKamar) => {
+                                document.getElementById('jenisKamar').innerHTML = postDetailKamar.val().NamaKamar;
+                            })
+
+
+
+                            let ValueBank = ref(db, 'Master-Data-Bank/' + snapShot.val().JenisPembayaran);
+                            onValue(ValueBank, (postBank) => {
+                                document.getElementById('pembayaran').innerHTML = postBank.val().NamaBank;
+                            })
+
+
+                            let ValueCustomer = ref(db, 'Master-Data-Customer/' + snapShot.val().IdCutomer);
+                            onValue(ValueCustomer, (postData) => {
+                                document.getElementById('profil').src = postData.val().fotoCustomer;
+                                document.getElementById('nama').innerHTML = postData.val().NamaCustomer;
+                                document.getElementById('Email').innerHTML = postData.val().EmailCustomer;
+                                document.getElementById('nomor').innerHTML = postData.val().TelefonCustomer;
+                                document.getElementById('Alamat').innerHTML = postData.val().AlamatCustomer;
+
+                            })
+                        } else {
+                            $("#dataEmpty").show()
+                            $("#DataTransaksi").hide()
+                            document.getElementById('textEMpty').innerHTML = "Kode Pemesanan Tidak Ditemukan"
                         }
-
-                        document.getElementById('jumlahKamar').innerHTML = snapShot.val().JumlahKamar + " Kamar";
-                        document.getElementById('jumlahHari').innerHTML = snapShot.val().JumlahHari + " Hari";
-                        document.getElementById('checkIn').innerHTML = snapShot.val().CheckIn;
-                        document.getElementById('checkOut').innerHTML = snapShot.val().CheckOut;
-                        document.getElementById('hargaKamar').innerHTML = 'Rp. ' + snapShot.val().HargaKamar;
-
-                        document.getElementById('totalHargaKamar').innerHTML = 'Rp. ' + snapShot.val().HargaKamar + ' X ' + snapShot.val().JumlahKamar + ' Kamar'
-
-                        let perkalian = snapShot.val().HargaKamar * snapShot.val().JumlahKamar;
-                        document.getElementById('total').innerHTML = 'Rp. ' + perkalian;
-
-                        document.getElementById('lamaMenginap').innerHTML = snapShot.val().JumlahHari + ' Hari';
-                        document.getElementById('totalSemua').innerHTML = "Rp. " + snapShot.val().TotalSemua;
-
-                        let DetailKamar = ref(db, 'Master-Data-Hotel-Detail/' + snapShot.val().IdKamar);
-                        onValue(DetailKamar, (postDetailKamar) => {
-                            document.getElementById('jenisKamar').innerHTML = postDetailKamar.val().NamaKamar;
-                        })
-
-
-
-                        let ValueBank = ref(db, 'Master-Data-Bank/' + snapShot.val().JenisPembayaran);
-                        onValue(ValueBank, (postBank) => {
-                            document.getElementById('pembayaran').innerHTML = postBank.val().NamaBank;
-                        })
-
-
-                        let ValueCustomer = ref(db, 'Master-Data-Customer/' + snapShot.val().IdCutomer);
-                        onValue(ValueCustomer, (postData) => {
-                            document.getElementById('profil').src = postData.val().fotoCustomer;
-                            document.getElementById('nama').innerHTML = postData.val().NamaCustomer;
-                            document.getElementById('Email').innerHTML = postData.val().EmailCustomer;
-                            document.getElementById('nomor').innerHTML = postData.val().TelefonCustomer;
-                            document.getElementById('Alamat').innerHTML = postData.val().AlamatCustomer;
-
-                        })
-                    } else {
-                        $("#dataEmpty").show()
-                        $("#DataTransaksi").hide()
-                        document.getElementById('textEMpty').innerHTML = "Kode Pemesanan Tidak Ditemukan"
-                    }
-
-
+                    })
                 })
             }
         })
