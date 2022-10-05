@@ -576,6 +576,7 @@
                         let DetailKamar = ref(db, 'Master-Data-Hotel-Detail/' + snapShot.val().IdKamar);
                         onValue(DetailKamar, (postDetailKamar) => {
                             DataJumlahKamar = postDetailKamar.val();
+                            
                             document.getElementById('jenisKamar').innerHTML = postDetailKamar.val().NamaKamar;
 
                             if (snapShot.val()) {
@@ -604,8 +605,7 @@
                                     $('#verifikasiCheckOut').hide();
                                     document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-danger">Dibatalkan</span>`;
                                 } else if (snapShot.val().StatusTransaksi == "3") {
-                                    console.log(tanggalHariIni);
-                                    console.log(tanggalCheckIn);
+
                                     if (tanggalCheckIn < tanggalHariIni) {
                                         $('#verifikasi').hide();
                                         $('#verifikasiCheckOut').hide();
@@ -627,6 +627,7 @@
                                     $('#verifikasi').hide();
                                     $('#verifikasiCheckOut').hide();
                                     document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-secondary">Check Out</span>`;
+
                                 }
 
 
@@ -781,7 +782,8 @@
                             const tanggalHariIni = new Date().getDate();
                             const tanggalCheckIn = new Date(snapShot.val().CheckIn).getDate();
                             const tanggalCheckOut = new Date(snapShot.val().CheckOut).getDate();
-
+                            console.log(tanggalHariIni);
+                            console.log(tanggalCheckIn);
                             if (snapShot.val().StatusTransaksi == "1") {
                                 document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-warning">Belum Terbayar</span>`;
                                 $('#verifikasi').hide();

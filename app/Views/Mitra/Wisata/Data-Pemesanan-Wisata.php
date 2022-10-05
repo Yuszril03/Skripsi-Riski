@@ -178,6 +178,52 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase();
 
+        CekData()
+
+        function CekData() {
+            const cekData1 = ref(db, 'Transaction-Wisata');
+            onValue(cekData1, (snapshot) => {
+                const cek = snapshot.val();
+                const keys = Object.keys(cek);
+
+                for (const isi in keys) {
+                    const cekData2 = ref(db, 'Transaction-Wisata/' + keys[isi]);
+                    onValue(cekData2, (snapshoot) => {
+                        const cek1 = snapshoot.val();
+                        if (snapshoot.val().IdMitra == "<?= session()->get('IDKelola') ?>") {
+
+                            const tanggalHariIni = new Date().toLocaleDateString();
+                            let datehariini = tanggalHariIni.split("/");
+
+                            const tanggalBuat = snapshoot.val().TanggalBuat;
+                            let dateBuatArray = tanggalBuat.split("/");
+
+                            // console.log(Number(tanggalHariIni[0]));
+                            // console.log(Number(dateBuatArray[0]));
+
+                            if (snapshoot.val().StatusTransaksi == "1") {
+                                // console.log(tanggalHariIni);
+                                // console.log(tanggalBuat);
+                                if (Number(tanggalHariIni[0]) > Number(dateBuatArray[0])) {
+                                    // console.log("aaaa");
+                                    cek1.StatusTransaksi = "2";
+                                    cek1.TanggalUpdate = new Date().toString("ID");
+
+                                    const loadData = {};
+                                    loadData['/Transaction-Wisata/' + keys[isi]] = cek1;
+                                    update(ref(db), loadData);
+
+                                } else {
+                                    // console.log("bbbb");
+                                }
+                            }
+
+                        }
+                    })
+                }
+            })
+        }
+
         var parseJsonTransaksi = [];
         var table = $('#Table').DataTable({
             "lengthChange": false,

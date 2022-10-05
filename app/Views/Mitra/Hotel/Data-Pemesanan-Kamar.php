@@ -178,6 +178,71 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase();
 
+
+
+
+        CekData();
+
+        function CekData() {
+            const cekData1 = ref(db, 'Transaction-Hotel');
+            onValue(cekData1, (snapshot) => {
+                const cek = snapshot.val();
+                const keys = Object.keys(cek);
+
+                for (const isi in keys) {
+                    const cekData2 = ref(db, 'Transaction-Hotel/' + keys[isi]);
+                    onValue(cekData2, (snapshoot) => {
+                        const cek1 = snapshoot.val();
+                        const cekData33 = ref(db, 'Master-Data-Hotel-Detail/' + snapshoot.val().IdKamar);
+                        onValue(cekData33, (snapshoott1) => {
+                            const DataJumlahKamar = snapshoott1.val();
+                            if (snapshoot.val().IdMitra == "<?= session()->get('IDKelola') ?>") {
+
+
+                                const tanggalHariIni = new Date().toLocaleDateString();
+                                let datehariini = tanggalHariIni.split("/");
+
+                                const tanggalBuat = snapshoot.val().TanggalBuat;
+                                let dateBuatArray = tanggalBuat.split("/");
+
+                                // console.log(Number(tanggalHariIni[0]));
+                                // console.log(Number(dateBuatArray[0]));
+
+                                if (snapshoot.val().StatusTransaksi == "1") {
+
+                                    if (Number(tanggalHariIni[0]) > Number(dateBuatArray[0])) {
+
+                                        //update data status transaksi welewati batas tanggal
+                                        cek1.StatusTransaksi = "2";
+                                        cek1.TanggalUpdate = new Date().toString("ID");
+                                        const loadData = {};
+                                        loadData['/Transaction-Hotel/' + keys[isi]] = cek1;
+                                        update(ref(db), loadData);
+
+                                        let Jumlah = Number(DataJumlahKamar.JumlahKamar) + Number(cek1.JumlahKamar);
+                                        let ConvertAngkatoString = Jumlah.toString();
+                                        console.log(ConvertAngkatoString);
+                                        DataJumlahKamar.JumlahKamar = ConvertAngkatoString;
+                                        const updateDetail = {};
+                                        updateDetail['/Master-Data-Hotel-Detail/' + cek1.IdKamar] = DataJumlahKamar;
+                                        update(ref(db), updateDetail);
+
+
+                                    } else {
+                                        console.log("bbbb");
+
+                                    }
+                                }
+
+                            }
+                        })
+                    })
+                }
+            })
+        }
+
+
+
         var parseJsonTransaksi = [];
         var table = $('#Table').DataTable({
             "lengthChange": false,
