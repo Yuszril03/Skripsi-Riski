@@ -179,7 +179,8 @@
         const db = getDatabase();
 
 
-
+        var parseJsonTransaksiUPDATEEE = [];
+        var parseJsonTransaksiUPDATEEEIDD = [];
 
         CekData();
 
@@ -203,29 +204,35 @@
                                 let datehariini = tanggalHariIni.split("/");
 
                                 const tanggalBuat = snapshoot.val().TanggalBuat;
-                                let dateBuatArray = tanggalBuat.split("/");
+                                let dateBuatArray = tanggalBuat.split(" ");
+                                let onlyTanggal = dateBuatArray[0].split("/");
+                                let nowTrans = new Date(Number(onlyTanggal[2]), Number(onlyTanggal[1]) - 1, Number(onlyTanggal[0]))
 
-                                // console.log(Number(tanggalHariIni[0]));
-                                // console.log(Number(dateBuatArray[0]));
+                                // console.log(nowTrans.toLocaleDateString() < tanggalHariIni);
+
 
                                 if (snapshoot.val().StatusTransaksi == "1") {
 
-                                    if (Number(tanggalHariIni[0]) > Number(dateBuatArray[0])) {
+                                    if (nowTrans.toLocaleDateString() < tanggalHariIni) {
 
                                         //update data status transaksi welewati batas tanggal
                                         cek1.StatusTransaksi = "2";
                                         cek1.TanggalUpdate = new Date().toString("ID");
                                         const loadData = {};
-                                        loadData['/Transaction-Hotel/' + keys[isi]] = cek1;
-                                        update(ref(db), loadData);
+                                        // loadData['/Transaction-Hotel/' + keys[isi]] = cek1;
+                                        // update(ref(db), loadData);
 
                                         let Jumlah = Number(DataJumlahKamar.JumlahKamar) + Number(cek1.JumlahKamar);
                                         let ConvertAngkatoString = Jumlah.toString();
-                                        console.log(ConvertAngkatoString);
+                                        // console.log(Jumlah);
                                         DataJumlahKamar.JumlahKamar = ConvertAngkatoString;
-                                        const updateDetail = {};
-                                        updateDetail['/Master-Data-Hotel-Detail/' + cek1.IdKamar] = DataJumlahKamar;
-                                        update(ref(db), updateDetail);
+                                        parseJsonTransaksiUPDATEEE.push(DataJumlahKamar);
+                                        parseJsonTransaksiUPDATEEEIDD.push(cek1.IdKamar)
+                                        // console.log(DataJumlahKamar)
+                                        // const updateDetail = {};
+                                        // updateDetail['/Master-Data-Hotel-Detail/' + snapshoot.val().IdKamar] = DataJumlahKamar;
+                                        // update(ref(db), updateDetail);
+
 
 
                                     } else {
@@ -238,6 +245,14 @@
                         })
                     })
                 }
+                //LOOP
+                console.log(parseJsonTransaksiUPDATEEEIDD[0])
+                for (let i = 0; i < parseJsonTransaksiUPDATEEE.length; i++) {
+                    let updateDetailNEW = {};
+                    updateDetailNEW['/Master-Data-Hotel-Detail/' + parseJsonTransaksiUPDATEEEIDD[i]] = parseJsonTransaksiUPDATEEE[i];
+                    update(ref(db), updateDetailNEW);
+                }
+
             })
         }
 
