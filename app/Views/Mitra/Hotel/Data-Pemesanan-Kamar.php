@@ -181,6 +181,7 @@
 
         var parseJsonTransaksiUPDATEEE = [];
         var parseJsonTransaksiUPDATEEEIDD = [];
+        var Tampungan = [];
 
         CekData();
 
@@ -219,21 +220,21 @@
                                         cek1.StatusTransaksi = "2";
                                         cek1.TanggalUpdate = new Date().toString("ID");
                                         const loadData = {};
-                                        // loadData['/Transaction-Hotel/' + keys[isi]] = cek1;
-                                        // update(ref(db), loadData);
+                                        loadData['/Transaction-Hotel/' + keys[isi]] = cek1;
+                                        update(ref(db), loadData);
 
                                         let Jumlah = Number(DataJumlahKamar.JumlahKamar) + Number(cek1.JumlahKamar);
                                         let ConvertAngkatoString = Jumlah.toString();
                                         // console.log(Jumlah);
                                         DataJumlahKamar.JumlahKamar = ConvertAngkatoString;
-                                        parseJsonTransaksiUPDATEEE.push(DataJumlahKamar);
+                                        parseJsonTransaksiUPDATEEE.push(DataJumlahKamar.JumlahKamar);
                                         parseJsonTransaksiUPDATEEEIDD.push(cek1.IdKamar)
                                         // console.log(DataJumlahKamar)
                                         // const updateDetail = {};
                                         // updateDetail['/Master-Data-Hotel-Detail/' + snapshoot.val().IdKamar] = DataJumlahKamar;
                                         // update(ref(db), updateDetail);
 
-
+                                        // console.log(ConvertAngkatoString);
 
                                     } else {
                                         console.log("bbbb");
@@ -246,8 +247,9 @@
                     })
                 }
                 //LOOP
-                console.log(parseJsonTransaksiUPDATEEEIDD[0])
-                for (let i = 0; i < parseJsonTransaksiUPDATEEE.length; i++) {
+
+                for (let i = 0; i < parseJsonTransaksiUPDATEEEIDD.length; i++) {
+                    console.log(parseJsonTransaksiUPDATEEE)
                     let updateDetailNEW = {};
                     updateDetailNEW['/Master-Data-Hotel-Detail/' + parseJsonTransaksiUPDATEEEIDD[i]] = parseJsonTransaksiUPDATEEE[i];
                     update(ref(db), updateDetailNEW);
