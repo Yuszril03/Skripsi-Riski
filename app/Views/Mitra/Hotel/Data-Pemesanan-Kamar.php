@@ -181,7 +181,10 @@
 
         CekData();
 
+        // all private  : - cekData():void
 
+        // Misal tidak ada return : void
+        // Ada retrun : String/INT
         function CekData() {
             let tanggalHariIni = new Date().getTime();
             let tableTransaksi = ref(db, 'Transaction-Hotel');
