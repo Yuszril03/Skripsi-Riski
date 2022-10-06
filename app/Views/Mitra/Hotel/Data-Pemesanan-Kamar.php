@@ -179,82 +179,123 @@
         const db = getDatabase();
 
 
-        var parseJsonTransaksiUPDATEEE = [];
-        var parseJsonTransaksiUPDATEEEIDD = [];
-        var Tampungan = [];
-
         CekData();
 
+
         function CekData() {
-            const cekData1 = ref(db, 'Transaction-Hotel');
-            onValue(cekData1, (snapshot) => {
-                const cek = snapshot.val();
-                const keys = Object.keys(cek);
+            let tanggalHariIni = new Date().getTime();
+            let tableTransaksi = ref(db, 'Transaction-Hotel');
+            onValue(tableTransaksi, (snapTrans) => {
+                let posData = snapTrans.val();
+                let keysID = Object.keys(posData);
+                let couns = [];
+                let counsTRANSAKSI = [];
+                for (let loop in keysID) {
+                    let tableDetailTransaksi = ref(db, 'Transaction-Hotel/' + keysID[loop]);
+                    onValue(tableDetailTransaksi, (snapDetailTrans) => {
+                        let postDataDetilTransaksi = snapDetailTrans.val();
+                        let tanggalBuat = postDataDetilTransaksi.TanggalBuat;
+                        let dateBuatArray = tanggalBuat.split(" ");
+                        let onlyTanggal = dateBuatArray[0].split("/");
+                        let nowTrans = new Date(Number(onlyTanggal[2]), Number(onlyTanggal[1]) - 1, Number(onlyTanggal[0]))
 
-                for (const isi in keys) {
-                    const cekData2 = ref(db, 'Transaction-Hotel/' + keys[isi]);
-                    onValue(cekData2, (snapshoot) => {
-                        const cek1 = snapshoot.val();
-                        const cekData33 = ref(db, 'Master-Data-Hotel-Detail/' + snapshoot.val().IdKamar);
-                        onValue(cekData33, (snapshoott1) => {
-                            const DataJumlahKamar = snapshoott1.val();
-                            if (snapshoot.val().IdMitra == "<?= session()->get('IDKelola') ?>") {
+                        if (nowTrans.getTime() < tanggalHariIni && postDataDetilTransaksi.StatusTransaksi == "1" && postDataDetilTransaksi.IdMitra == "<?= session()->get('IDKelola') ?>") {
 
+                            // postDataDetilTransaksi.StatusTransaksi = "2";
+                            // postDataDetilTransaksi.TanggalUpdate = new Date().toString("ID");
+                            // const loadData = {};
+                            // loadData['/Transaction-Hotel/' + keysID[loop]] = postDataDetilTransaksi;
+                            // update(ref(db), loadData);
+                            counsTRANSAKSI.push(keysID[loop])
 
-                                const tanggalHariIni = new Date().toLocaleDateString();
-                                let datehariini = tanggalHariIni.split("/");
-
-                                const tanggalBuat = snapshoot.val().TanggalBuat;
-                                let dateBuatArray = tanggalBuat.split(" ");
-                                let onlyTanggal = dateBuatArray[0].split("/");
-                                let nowTrans = new Date(Number(onlyTanggal[2]), Number(onlyTanggal[1]) - 1, Number(onlyTanggal[0]))
-
-                                // console.log(nowTrans.toLocaleDateString() < tanggalHariIni);
-
-
-                                if (snapshoot.val().StatusTransaksi == "1") {
-
-                                    if (nowTrans.toLocaleDateString() < tanggalHariIni) {
-
-                                        //update data status transaksi welewati batas tanggal
-                                        cek1.StatusTransaksi = "2";
-                                        cek1.TanggalUpdate = new Date().toString("ID");
-                                        const loadData = {};
-                                        loadData['/Transaction-Hotel/' + keys[isi]] = cek1;
-                                        update(ref(db), loadData);
-
-                                        let Jumlah = Number(DataJumlahKamar.JumlahKamar) + Number(cek1.JumlahKamar);
-                                        let ConvertAngkatoString = Jumlah.toString();
-                                        // console.log(Jumlah);
-                                        DataJumlahKamar.JumlahKamar = ConvertAngkatoString;
-                                        parseJsonTransaksiUPDATEEE.push(DataJumlahKamar.JumlahKamar);
-                                        parseJsonTransaksiUPDATEEEIDD.push(cek1.IdKamar)
-                                        // console.log(DataJumlahKamar)
-                                        // const updateDetail = {};
-                                        // updateDetail['/Master-Data-Hotel-Detail/' + snapshoot.val().IdKamar] = DataJumlahKamar;
-                                        // update(ref(db), updateDetail);
-
-                                        // console.log(ConvertAngkatoString);
-
-                                    } else {
-                                        console.log("bbbb");
-
-                                    }
+                            if (couns.length == 0) {
+                                let objData = {
+                                    idKamar: postDataDetilTransaksi.IdKamar,
+                                    jumlah: (Number(postDataDetilTransaksi.JumlahKamar)),
+                                    idTrans: couns.length
                                 }
+                                couns.push(objData)
+                            } else if (couns.find(c => c.idKamar == postDataDetilTransaksi.IdKamar)) {
+                                let TempSementara = couns.find(c => c.idKamar == postDataDetilTransaksi.IdKamar);
+                                let index = couns.indexOf(TempSementara);
+                                TempSementara.jumlah = "" + (Number(TempSementara.jumlah) + Number(postDataDetilTransaksi.JumlahKamar))
+                                couns[index] = TempSementara;
 
+                            } else {
+                                let objData = {
+                                    idKamar: postDataDetilTransaksi.IdKamar,
+                                    jumlah: (Number(postDataDetilTransaksi.JumlahKamar)),
+                                    idTrans: couns.length
+                                }
+                                couns.push(objData)
                             }
-                        })
+
+
+                        }
                     })
                 }
-                //LOOP
+                console.log(counsTRANSAKSI)
+                let arrayCountTRANS = []
+                let hha = 0;
+                for (let h = 0; h < counsTRANSAKSI.length; h++) {
+                    let tempsUPDATEETRANS = {};
+                    let dbTRAS = ref(db, 'Transaction-Hotel/' + counsTRANSAKSI[h]);
+                    onValue(dbTRAS, (snaptransaksiii) => {
+                        let tam = snaptransaksiii.val();
 
-                for (let i = 0; i < parseJsonTransaksiUPDATEEEIDD.length; i++) {
-                    console.log(parseJsonTransaksiUPDATEEE)
-                    let updateDetailNEW = {};
-                    updateDetailNEW['/Master-Data-Hotel-Detail/' + parseJsonTransaksiUPDATEEEIDD[i]] = parseJsonTransaksiUPDATEEE[i];
-                    update(ref(db), updateDetailNEW);
+                        if (arrayCountTRANS.includes(counsTRANSAKSI[h]) == false) {
+
+                            tam.StatusTransaksi = "2";
+                            tam.TanggalUpdate = new Date().toString("ID");
+
+
+                            arrayCountTRANS.push(counsTRANSAKSI[h])
+                            tempsUPDATEETRANS['/Transaction-Hotel/' + counsTRANSAKSI[h]] = tam;
+                            update(ref(db), tempsUPDATEETRANS);
+                        }
+                    })
                 }
 
+                let arrayCount = []
+                let gg = 0;
+                for (let i = 0; i < couns.length; i++) {
+                    gg = 0;
+                    let updateCount = {}
+                    let tableMaster = ref(db, 'Master-Data-Hotel-Detail/' + couns[i].idKamar);
+                    onValue(tableMaster, (snapMS) => {
+                        let temp = snapMS.val();
+
+                        if (arrayCount.includes(couns[i].idTrans) == false) {
+                            let jumlahData = Number(temp.JumlahKamar) + Number(couns[i].jumlah)
+
+                            let temss = {
+                                FasilitasKamar: temp.FasilitasKamar,
+                                HargaKamar: temp.HargaKamar,
+                                IdHotel: temp.IdHotel,
+                                JumlahKamar: "" + jumlahData,
+                                MaksimalMenginap: temp.MaksimalMenginap,
+                                NamaKamar: temp.NamaKamar,
+                                StatusKamar: temp.StatusKamar,
+                                TanggalBuat: temp.TanggalBuat,
+                                TanggalUpdate: new Date().toString("ID"),
+                                fotoKamar: temp.fotoKamar
+                            }
+
+                            arrayCount.push(couns[i].idTrans)
+                            // console.log(couns[i].idTrans)
+                            updateCount['/Master-Data-Hotel-Detail/' + couns[i].idKamar] = temss;
+                            update(ref(db), updateCount);
+                        } else {
+                            // console.log(couns[i].idTrans)
+                        }
+
+
+
+                    })
+
+                    // update(ref(db), updateCount);
+                }
+                // update(ref(db), updateCount);
             })
         }
 
