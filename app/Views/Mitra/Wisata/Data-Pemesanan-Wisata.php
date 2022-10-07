@@ -179,6 +179,7 @@
         const db = getDatabase();
 
         CekData()
+        LoadData()
 
         function CekData() {
             const cekData1 = ref(db, 'Transaction-Wisata');
@@ -242,7 +243,7 @@
                 "emptyTable": "Tidak ada data di dalam tabel",
             }
         });
-        LoadData()
+
 
         function LoadData() {
             const database1 = ref(db, 'Transaction-Wisata');

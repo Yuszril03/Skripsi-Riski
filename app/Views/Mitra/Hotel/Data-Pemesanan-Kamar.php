@@ -180,6 +180,7 @@
 
 
         CekData();
+        LoadData();
 
         // all private  : - cekData():void
 
@@ -323,90 +324,92 @@
             }
         });
 
-        const database1 = ref(db, 'Transaction-Hotel');
-        onValue(database1, (snapshot1) => {
-            const dataTransaksi = snapshot1.val();
-            const keysTransaksi = Object.keys(dataTransaksi);
+        function LoadData() {
+            const database1 = ref(db, 'Transaction-Hotel');
+            onValue(database1, (snapshot1) => {
+                const dataTransaksi = snapshot1.val();
+                const keysTransaksi = Object.keys(dataTransaksi);
 
-            for (const isi in keysTransaksi) {
-                const database2 = ref(db, 'Transaction-Hotel/' + keysTransaksi[isi]);
-                onValue(database2, (snapshot2) => {
-                    const dataHotel = snapshot2.val();
+                for (const isi in keysTransaksi) {
+                    const database2 = ref(db, 'Transaction-Hotel/' + keysTransaksi[isi]);
+                    onValue(database2, (snapshot2) => {
+                        const dataHotel = snapshot2.val();
 
-                    //User
-                    const database3 = ref(db, 'Master-Data-Customer/' + dataHotel.IdCutomer);
-                    onValue(database3, (snapshot3) => {
-                        const dataCustomer = snapshot3.val();
+                        //User
+                        const database3 = ref(db, 'Master-Data-Customer/' + dataHotel.IdCutomer);
+                        onValue(database3, (snapshot3) => {
+                            const dataCustomer = snapshot3.val();
 
-                        //Nama Wisata
-                        const database4 = ref(db, 'Master-Data-Hotel/' + dataHotel.IdMitra);
-                        onValue(database4, (snapshot4) => {
-                            const masterDataHotel = snapshot4.val();
+                            //Nama Wisata
+                            const database4 = ref(db, 'Master-Data-Hotel/' + dataHotel.IdMitra);
+                            onValue(database4, (snapshot4) => {
+                                const masterDataHotel = snapshot4.val();
 
-                            const database5 = ref(db, 'Master-Data-Hotel-Detail/' + dataHotel.IdKamar);
-                            onValue(database5, (snapshot5) => {
+                                const database5 = ref(db, 'Master-Data-Hotel-Detail/' + dataHotel.IdKamar);
+                                onValue(database5, (snapshot5) => {
 
-                                if (snapshot2.val().IdMitra == "<?= session()->get('IDKelola') ?>") {
+                                    if (snapshot2.val().IdMitra == "<?= session()->get('IDKelola') ?>") {
 
-                                    let PostData = {
-                                        IDKey: keysTransaksi[isi],
-                                        NamaHotel: snapshot4.val().NamaHotel,
-                                        NamaKamar: snapshot5.val().NamaKamar,
-                                        NamaCustomer: snapshot3.val().NamaCustomer,
-                                        TanggalBuat: snapshot2.val().TanggalBuat,
-                                        JumlahKamar: snapshot2.val().JumlahKamar,
-                                        TotalSemua: snapshot2.val().TotalSemua,
-                                        StatusTransaksi: Number(snapshot2.val().StatusTransaksi)
+                                        let PostData = {
+                                            IDKey: keysTransaksi[isi],
+                                            NamaHotel: snapshot4.val().NamaHotel,
+                                            NamaKamar: snapshot5.val().NamaKamar,
+                                            NamaCustomer: snapshot3.val().NamaCustomer,
+                                            TanggalBuat: snapshot2.val().TanggalBuat,
+                                            JumlahKamar: snapshot2.val().JumlahKamar,
+                                            TotalSemua: snapshot2.val().TotalSemua,
+                                            StatusTransaksi: Number(snapshot2.val().StatusTransaksi)
 
-                                    }
+                                        }
 
-                                    let StatusData = '';
-                                    let ActionData =
-                                        // `<button type="button"  class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
-                                        `<button type="button" onclick="location.href='<?= base_url() ?>/Detail-Pemesanan/${keysTransaksi[isi]}/${dataHotel.IdCutomer}/${dataHotel.IdMitra}/${dataHotel.JenisPembayaran}/${dataHotel.IdKamar}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                        let StatusData = '';
+                                        let ActionData =
+                                            // `<button type="button"  class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
+                                            `<button type="button" onclick="location.href='<?= base_url() ?>/Detail-Pemesanan/${keysTransaksi[isi]}/${dataHotel.IdCutomer}/${dataHotel.IdMitra}/${dataHotel.JenisPembayaran}/${dataHotel.IdKamar}'" class="btn btn-info btn-sm m-1"><i class="bi bi-info-circle"></i></button>
                     `;
 
-                                    const options = {
-                                        weekday: 'long',
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric'
-                                    };
+                                        const options = {
+                                            weekday: 'long',
+                                            year: 'numeric',
+                                            month: 'long',
+                                            day: 'numeric'
+                                        };
 
-                                    if (Number(snapshot2.val().StatusTransaksi) == 1) {
-                                        StatusData = `<span class="badge badge-warning">Belum Terbayar</span>`;
-                                    } else if (Number(snapshot2.val().StatusTransaksi) == 2) {
-                                        StatusData = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`;
-                                    } else if (Number(snapshot2.val().StatusTransaksi) == 3) {
-                                        StatusData = `<span class="badge badge-success">Sudah Terbayar</span>`;
-                                    } else if (Number(snapshot2.val().StatusTransaksi) == 4) {
-                                        StatusData = `<span class="badge badge-primary">Check In</span>`;
-                                    } else {
-                                        StatusData = `<span class="badge badge-secondary">Check Out</span>`;
+                                        if (Number(snapshot2.val().StatusTransaksi) == 1) {
+                                            StatusData = `<span class="badge badge-warning">Belum Terbayar</span>`;
+                                        } else if (Number(snapshot2.val().StatusTransaksi) == 2) {
+                                            StatusData = `<span class="badge badge-danger">Pembayaran Dibatalkan</span>`;
+                                        } else if (Number(snapshot2.val().StatusTransaksi) == 3) {
+                                            StatusData = `<span class="badge badge-success">Sudah Terbayar</span>`;
+                                        } else if (Number(snapshot2.val().StatusTransaksi) == 4) {
+                                            StatusData = `<span class="badge badge-primary">Check In</span>`;
+                                        } else {
+                                            StatusData = `<span class="badge badge-secondary">Check Out</span>`;
+                                        }
+
+                                        table.row.add([
+                                            keysTransaksi[isi],
+                                            snapshot4.val().NamaHotel,
+                                            snapshot5.val().NamaKamar,
+                                            snapshot3.val().NamaCustomer,
+                                            snapshot2.val().TanggalBuat,
+                                            snapshot2.val().JumlahKamar + ' Kamar',
+                                            'Rp. ' + snapshot2.val().TotalSemua,
+                                            StatusData,
+                                            ActionData
+                                        ]).draw(false)
+
+                                        parseJsonTransaksi.push(PostData)
+
                                     }
-
-                                    table.row.add([
-                                        keysTransaksi[isi],
-                                        snapshot4.val().NamaHotel,
-                                        snapshot5.val().NamaKamar,
-                                        snapshot3.val().NamaCustomer,
-                                        snapshot2.val().TanggalBuat,
-                                        snapshot2.val().JumlahKamar + ' Kamar',
-                                        'Rp. ' + snapshot2.val().TotalSemua,
-                                        StatusData,
-                                        ActionData
-                                    ]).draw(false)
-
-                                    parseJsonTransaksi.push(PostData)
-
-                                }
+                                })
                             })
                         })
                     })
-                })
-            }
-            // console.log(parseJsonTransaksi)
-        })
+                }
+                // console.log(parseJsonTransaksi)
+            })
+        }
     </script>
 </body>
 

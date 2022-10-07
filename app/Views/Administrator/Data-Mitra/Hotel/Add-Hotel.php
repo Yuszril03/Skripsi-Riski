@@ -696,7 +696,7 @@
                     } else {
                         $('#' + idDetails[i]).removeClass('is-invalid')
                     }
-                    
+
                 } else if (document.getElementById(idDetails[i]).value == "") {
                     jumlahDetails++;
                     $('#' + idDetails[i]).addClass('is-invalid')
@@ -920,7 +920,7 @@
                                 // console.log(arraykey)
                                 let tep = arraykey.sort((a, b) => (a > b ? -1 : 1));
 
-                                let lastID = tep[0]
+                                let lastID = tep[0];
 
                                 CodeIDMitra = "Mitra-" + (lastID + 1)
 
@@ -991,19 +991,28 @@
                                                 const starCountRef = ref(db, 'Master-Data-Hotel-Detail/');
                                                 onValue(starCountRef, (snapshot) => {
                                                     const data = snapshot.val();
-                                                    dataIDDetails = Object.keys(data);
-                                                });
-                                                let idDetails = 0;
-                                                if (dataIDDetails.length == 0) {
-                                                    idDetails = 1
-                                                } else {
-                                                    idDetails = Number(dataIDDetails[dataIDDetails.length - 1]) + 1
-                                                }
+                                                    // dataIDDetails = Object.keys(data);
+                                                    let TempsData = Object.keys(data);
+                                                    let noUrut = 0;
+                                                    if (TempsData.length == 0) {
+                                                        noUrut = 1;
+                                                    } else {
+                                                        noUrut = Number(TempsData[TempsData.length - 1]) + 1;
+                                                    }
+                                                    dataIDDetails.push(noUrut);
 
-                                                console.log(idDetails)
+                                                });
+                                                // let idDetails = 0;
+                                                // if (dataIDDetails.length == 0) {
+                                                //     idDetails = 1;
+                                                // } else {
+                                                //     idDetails = Number(dataIDDetails[dataIDDetails.length - 1]) + 1;
+                                                // }
+
+                                                // console.log(dataIDDetails)
 
                                                 //Data Master Details
-                                                set(ref(db, 'Master-Data-Hotel-Detail/' + idDetails), {
+                                                set(ref(db, 'Master-Data-Hotel-Detail/' + dataIDDetails[dataIDDetails.length-1]), {
                                                     NamaKamar: localDataDetail[h].namaKamar,
                                                     HargaKamar: localDataDetail[h].HargaKamar,
                                                     StatusKamar: 1,
@@ -1023,19 +1032,20 @@
 
 
                                 }
-                                Swal.fire({
-                                    title: 'Berhasil',
-                                    text: 'Data berhasil tersimpan.',
-                                    icon: 'success',
-                                    showCancelButton: false,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Okey'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        location.href = "<?= base_url() ?>/Mitra-Hotel"
-                                    }
-                                })
+                                // Swal.fire({
+                                //     title: 'Berhasil',
+                                //     text: 'Data berhasil tersimpan.',
+                                //     icon: 'success',
+                                //     timer: 5000,
+                                //     showCancelButton: false,
+                                //     confirmButtonColor: '#3085d6',
+                                //     cancelButtonColor: '#d33',
+                                //     confirmButtonText: 'Okey'
+                                // }).then((result) => {
+                                //     if (result.isConfirmed) {
+                                //         location.href = "<?= base_url() ?>/Mitra-Hotel"
+                                //     }
+                                // })
 
 
                             } else {
@@ -1139,9 +1149,9 @@
                                                             });
                                                             let idDetails = 0;
                                                             if (dataIDDetails.length == 0) {
-                                                                idDetails = 1
+                                                                idDetails = 1;
                                                             } else {
-                                                                idDetails = Number(dataIDDetails[dataIDDetails.length - 1]) + 1
+                                                                idDetails = Number(dataIDDetails[dataIDDetails.length - 1]) + 1;
                                                             }
 
                                                             console.log(idDetails)
@@ -1172,11 +1182,13 @@
                                                 text: 'Data berhasil tersimpan.',
                                                 icon: 'success',
                                                 showCancelButton: false,
+                                                showConfirmButton: false,
                                                 confirmButtonColor: '#3085d6',
                                                 cancelButtonColor: '#d33',
-                                                confirmButtonText: 'Okey'
+                                                confirmButtonText: 'Okey',
+                                                timer: 5000
                                             }).then((result) => {
-                                                if (result.isConfirmed) {
+                                                if (result.dismiss === Swal.DismissReason.timer) {
                                                     location.href = "<?= base_url() ?>/Mitra-Hotel"
                                                 }
                                             })
