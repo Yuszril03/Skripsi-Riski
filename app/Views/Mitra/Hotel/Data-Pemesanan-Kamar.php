@@ -238,6 +238,7 @@
                         }
                     })
                 }
+                
                 console.log(counsTRANSAKSI)
                 let arrayCountTRANS = []
                 let hha = 0;

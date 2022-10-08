@@ -640,11 +640,13 @@
                                         text: 'Data berhasil tersimpan.',
                                         icon: 'success',
                                         showCancelButton: false,
+                                        showConfirmButton: false,
                                         confirmButtonColor: '#3085d6',
                                         cancelButtonColor: '#d33',
-                                        confirmButtonText: 'Okey'
+                                        confirmButtonText: 'Okey',
+                                        timer: 3000
                                     }).then((result) => {
-                                        if (result.isConfirmed) {
+                                        if (result.dismiss === Swal.DismissReason.timer) {
                                             location.href = "<?= base_url() ?>/Mitra-Wisata"
                                         }
                                     })
@@ -728,11 +730,13 @@
                                         text: 'Data berhasil tersimpan.',
                                         icon: 'success',
                                         showCancelButton: false,
+                                        showConfirmButton: false,
                                         confirmButtonColor: '#3085d6',
                                         cancelButtonColor: '#d33',
-                                        confirmButtonText: 'Okey'
+                                        confirmButtonText: 'Okey',
+                                        timer: 3000
                                     }).then((result) => {
-                                        if (result.isConfirmed) {
+                                        if (result.dismiss === Swal.DismissReason.timer) {
                                             location.href = "<?= base_url() ?>/Mitra-Wisata"
                                         }
                                     })
@@ -818,11 +822,13 @@
                                             text: 'Data berhasil tersimpan.',
                                             icon: 'success',
                                             showCancelButton: false,
+                                            showConfirmButton: false,
                                             confirmButtonColor: '#3085d6',
                                             cancelButtonColor: '#d33',
-                                            confirmButtonText: 'Okey'
+                                            confirmButtonText: 'Okey',
+                                            timer: 3000
                                         }).then((result) => {
-                                            if (result.isConfirmed) {
+                                            if (result.dismiss === Swal.DismissReason.timer) {
                                                 location.href = "<?= base_url() ?>/Mitra-Wisata"
                                             }
                                         })
@@ -916,11 +922,13 @@
                                             text: 'Data berhasil tersimpan.',
                                             icon: 'success',
                                             showCancelButton: false,
+                                            showConfirmButton: false,
                                             confirmButtonColor: '#3085d6',
                                             cancelButtonColor: '#d33',
-                                            confirmButtonText: 'Okey'
+                                            confirmButtonText: 'Okey',
+                                            timer: 3000
                                         }).then((result) => {
-                                            if (result.isConfirmed) {
+                                            if (result.dismiss === Swal.DismissReason.timer) {
                                                 location.href = "<?= base_url() ?>/Mitra-Wisata"
                                             }
                                         })

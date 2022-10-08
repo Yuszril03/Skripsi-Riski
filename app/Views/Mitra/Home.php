@@ -218,7 +218,7 @@
                                     <div class="icon">
                                         <i class="ion ion-pie-graph"></i>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <!-- ./col -->
@@ -458,6 +458,249 @@
     <script src="<?= base_url() ?>/AdminLTE/dists/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
+
+    <Script type="module">
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            set,
+            update
+        } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBM7EKr0XU_nbfbX9vAliU9gPBTlgBhNw",
+            authDomain: "traveland-429a6.firebaseapp.com",
+            databaseURL: "https://traveland-429a6-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "traveland-429a6",
+            storageBucket: "traveland-429a6.appspot.com",
+            messagingSenderId: "569185605053",
+            appId: "1:569185605053:web:b8bfa6b71ff890fe98eed4"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+
+        <?php if (session()->get('Jenis') == "Mitra-Wisata") { ?>
+            CekDataWisata();
+
+            function CekDataWisata() {
+                const cekData1 = ref(db, 'Transaction-Wisata');
+                onValue(cekData1, (snapshot) => {
+                    const cek = snapshot.val();
+                    const keys = Object.keys(cek);
+
+                    for (const isi in keys) {
+                        const cekData2 = ref(db, 'Transaction-Wisata/' + keys[isi]);
+                        onValue(cekData2, (snapshoot) => {
+                            const cek1 = snapshoot.val();
+                            if (snapshoot.val().IdMitra == "<?= session()->get('IDKelola') ?>") {
+
+                                const tanggalHariIni = new Date().toLocaleDateString();
+                                let datehariini = tanggalHariIni.split("/");
+
+                                const tanggalBuat = snapshoot.val().TanggalBuat;
+                                let dateBuatArray = tanggalBuat.split("/");
+
+                                // console.log(Number(tanggalHariIni[0]));
+                                // console.log(Number(dateBuatArray[0]));
+
+                                if (snapshoot.val().StatusTransaksi == "1") {
+                                    // console.log(tanggalHariIni);
+                                    // console.log(tanggalBuat);
+                                    if (Number(tanggalHariIni[0]) > Number(dateBuatArray[0])) {
+                                        // console.log("aaaa");
+                                        cek1.StatusTransaksi = "2";
+                                        cek1.TanggalUpdate = new Date().toString("ID");
+
+                                        const loadData = {};
+                                        loadData['/Transaction-Wisata/' + keys[isi]] = cek1;
+                                        update(ref(db), loadData);
+
+                                    } else {
+                                        // console.log("bbbb");
+                                    }
+                                }
+
+                            }
+                        })
+                    }
+                })
+            }
+        <?php } ?>
+
+        <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
+            CekDataHotel();
+
+            function CekDataHotel() {
+                let tanggalHariIni = new Date().getTime();
+                let tableTransaksi = ref(db, 'Transaction-Hotel');
+                onValue(tableTransaksi, (snapTrans) => {
+                    let posData = snapTrans.val();
+                    let keysID = Object.keys(posData);
+                    let couns = [];
+                    let counsTRANSAKSI = [];
+                    for (let loop in keysID) {
+                        let tableDetailTransaksi = ref(db, 'Transaction-Hotel/' + keysID[loop]);
+                        onValue(tableDetailTransaksi, (snapDetailTrans) => {
+                            let postDataDetilTransaksi = snapDetailTrans.val();
+                            let tanggalBuat = postDataDetilTransaksi.TanggalBuat;
+                            let dateBuatArray = tanggalBuat.split(" ");
+                            let onlyTanggal = dateBuatArray[0].split("/");
+                            let nowTrans = new Date(Number(onlyTanggal[2]), Number(onlyTanggal[1]) - 1, Number(onlyTanggal[0]))
+
+                            if (nowTrans.getTime() < tanggalHariIni && postDataDetilTransaksi.StatusTransaksi == "1" && postDataDetilTransaksi.IdMitra == "<?= session()->get('IDKelola') ?>") {
+
+                                // postDataDetilTransaksi.StatusTransaksi = "2";
+                                // postDataDetilTransaksi.TanggalUpdate = new Date().toString("ID");
+                                // const loadData = {};
+                                // loadData['/Transaction-Hotel/' + keysID[loop]] = postDataDetilTransaksi;
+                                // update(ref(db), loadData);
+                                counsTRANSAKSI.push(keysID[loop])
+
+                                if (couns.length == 0) {
+                                    let objData = {
+                                        idKamar: postDataDetilTransaksi.IdKamar,
+                                        jumlah: (Number(postDataDetilTransaksi.JumlahKamar)),
+                                        idTrans: couns.length
+                                    }
+                                    couns.push(objData)
+                                } else if (couns.find(c => c.idKamar == postDataDetilTransaksi.IdKamar)) {
+                                    let TempSementara = couns.find(c => c.idKamar == postDataDetilTransaksi.IdKamar);
+                                    let index = couns.indexOf(TempSementara);
+                                    TempSementara.jumlah = "" + (Number(TempSementara.jumlah) + Number(postDataDetilTransaksi.JumlahKamar))
+                                    couns[index] = TempSementara;
+
+                                } else {
+                                    let objData = {
+                                        idKamar: postDataDetilTransaksi.IdKamar,
+                                        jumlah: (Number(postDataDetilTransaksi.JumlahKamar)),
+                                        idTrans: couns.length
+                                    }
+                                    couns.push(objData)
+                                }
+
+
+                            }
+                        })
+                    }
+
+                    console.log(counsTRANSAKSI)
+                    let arrayCountTRANS = []
+                    let hha = 0;
+                    for (let h = 0; h < counsTRANSAKSI.length; h++) {
+                        let tempsUPDATEETRANS = {};
+                        let dbTRAS = ref(db, 'Transaction-Hotel/' + counsTRANSAKSI[h]);
+                        onValue(dbTRAS, (snaptransaksiii) => {
+                            let tam = snaptransaksiii.val();
+
+                            if (arrayCountTRANS.includes(counsTRANSAKSI[h]) == false) {
+
+                                tam.StatusTransaksi = "2";
+                                tam.TanggalUpdate = new Date().toString("ID");
+
+
+                                arrayCountTRANS.push(counsTRANSAKSI[h])
+                                tempsUPDATEETRANS['/Transaction-Hotel/' + counsTRANSAKSI[h]] = tam;
+                                update(ref(db), tempsUPDATEETRANS);
+                            }
+                        })
+                    }
+
+                    let arrayCount = []
+                    let gg = 0;
+                    for (let i = 0; i < couns.length; i++) {
+                        gg = 0;
+                        let updateCount = {}
+                        let tableMaster = ref(db, 'Master-Data-Hotel-Detail/' + couns[i].idKamar);
+                        onValue(tableMaster, (snapMS) => {
+                            let temp = snapMS.val();
+
+                            if (arrayCount.includes(couns[i].idTrans) == false) {
+                                let jumlahData = Number(temp.JumlahKamar) + Number(couns[i].jumlah)
+
+                                let temss = {
+                                    FasilitasKamar: temp.FasilitasKamar,
+                                    HargaKamar: temp.HargaKamar,
+                                    IdHotel: temp.IdHotel,
+                                    JumlahKamar: "" + jumlahData,
+                                    MaksimalMenginap: temp.MaksimalMenginap,
+                                    NamaKamar: temp.NamaKamar,
+                                    StatusKamar: temp.StatusKamar,
+                                    TanggalBuat: temp.TanggalBuat,
+                                    TanggalUpdate: new Date().toString("ID"),
+                                    fotoKamar: temp.fotoKamar
+                                }
+
+                                arrayCount.push(couns[i].idTrans)
+                                // console.log(couns[i].idTrans)
+                                updateCount['/Master-Data-Hotel-Detail/' + couns[i].idKamar] = temss;
+                                update(ref(db), updateCount);
+                            } else {
+                                // console.log(couns[i].idTrans)
+                            }
+
+
+
+                        })
+
+                        // update(ref(db), updateCount);
+                    }
+                    // update(ref(db), updateCount);
+                })
+            }
+        <?php } ?>
+
+        <?php if (session()->get('Jenis') == "Mitra-Rental") { ?>
+            CekDataRental();
+
+            function CekDataRental() {
+                const cekData1 = ref(db, 'Transaction-Rental');
+                onValue(cekData1, (snapshot) => {
+                    const cek = snapshot.val();
+                    const keys = Object.keys(cek);
+
+                    for (const isi in keys) {
+                        const cekData2 = ref(db, 'Transaction-Rental/' + keys[isi]);
+                        onValue(cekData2, (snapshoot) => {
+                            const cek1 = snapshoot.val();
+                            if (snapshoot.val().IdMitra == "<?= session()->get('IDKelola') ?>") {
+
+                                const tanggalHariIni = new Date().toLocaleDateString();
+                                let datehariini = tanggalHariIni.split("/");
+
+                                const tanggalBuat = snapshoot.val().TanggalBuat;
+                                let dateBuatArray = tanggalBuat.split("/");
+
+                                // console.log(Number(tanggalHariIni[0]));
+                                // console.log(Number(dateBuatArray[0]));
+
+                                if (snapshoot.val().StatusTransaksi == "1") {
+                                    // console.log(tanggalHariIni);
+                                    // console.log(tanggalBuat);
+                                    if (Number(tanggalHariIni[0]) > Number(dateBuatArray[0])) {
+                                        // console.log("aaaa");
+                                        cek1.StatusTransaksi = "2";
+                                        cek1.TanggalUpdate = new Date().toString("ID");
+
+                                        const loadData = {};
+                                        loadData['/Transaction-Rental/' + keys[isi]] = cek1;
+                                        update(ref(db), loadData);
+
+                                    } else {
+                                        // console.log("bbbb");
+                                    }
+                                }
+
+                            }
+                        })
+                    }
+                })
+            }
+        <?php } ?>
+    </Script>
 </body>
 
 </html>

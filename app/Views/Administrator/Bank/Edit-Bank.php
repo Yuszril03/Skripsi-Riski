@@ -437,103 +437,107 @@
 
                      if (jumlah == 0) {
                          console.log(data);
-                          if (Boolean(fileupload) == false) {
-                              let PostD = {
-                                  NamaBank: document.getElementById('namaBank').value,
-                                  RekeningBank: document.getElementById('rekeningBank').value,
-                                  CaraPembayaran: data,
-                                  GambarBank: parseJsonAdmin.GambarBank,
-                                  StatusBank: parseJsonAdmin.Status,
-                                  TanggalBuat: parseJsonAdmin.TanggalBuat,
-                                  TanggalUpdate: new Date().toString("ID")
+                         if (Boolean(fileupload) == false) {
+                             let PostD = {
+                                 NamaBank: document.getElementById('namaBank').value,
+                                 RekeningBank: document.getElementById('rekeningBank').value,
+                                 CaraPembayaran: data,
+                                 GambarBank: parseJsonAdmin.GambarBank,
+                                 StatusBank: parseJsonAdmin.Status,
+                                 TanggalBuat: parseJsonAdmin.TanggalBuat,
+                                 TanggalUpdate: new Date().toString("ID")
 
-                              };
-                              const updates = {};
-                              updates['/Master-Data-Bank/<?= $DataID ?>'] = PostD;
-                              update(ref(db), updates);
+                             };
+                             const updates = {};
+                             updates['/Master-Data-Bank/<?= $DataID ?>'] = PostD;
+                             update(ref(db), updates);
 
-                              Swal.fire({
-                                  title: 'Berhasil',
-                                  text: 'Data berhasil tersimpan.',
-                                  icon: 'success',
-                                  showCancelButton: false,
-                                  confirmButtonColor: '#3085d6',
-                                  cancelButtonColor: '#d33',
-                                  confirmButtonText: 'Okey'
-                              }).then((result) => {
-                                  if (result.isConfirmed) {
-                                      location.href = "<?= base_url() ?>/Daftar-Bank"
-                                  }
-                              })
+                             Swal.fire({
+                                 title: 'Berhasil',
+                                 text: 'Data berhasil tersimpan.',
+                                 icon: 'success',
+                                 showCancelButton: false,
+                                 showConfirmButton: false,
+                                 confirmButtonColor: '#3085d6',
+                                 cancelButtonColor: '#d33',
+                                 confirmButtonText: 'Okey',
+                                 timer: 3000
+                             }).then((result) => {
+                                 if (result.dismiss === Swal.DismissReason.timer) {
+                                     location.href = "<?= base_url() ?>/Daftar-Bank"
+                                 }
+                             })
 
-                          } else {
+                         } else {
 
-                              const storageRef = refImage(storage, 'images-bank/' + new Date().getTime() + ' - ' + fileupload.name);
+                             const storageRef = refImage(storage, 'images-bank/' + new Date().getTime() + ' - ' + fileupload.name);
 
-                              // Upload the file and metadata
-                              const uploadTask = uploadBytesResumable(storageRef, fileupload);
+                             // Upload the file and metadata
+                             const uploadTask = uploadBytesResumable(storageRef, fileupload);
 
-                              // Register three observers:
-                              // 1. 'state_changed' observer, called any time the state changes
-                              // 2. Error observer, called on failure
-                              // 3. Completion observer, called on successful completion
-                              uploadTask.on('state_changed',
-                                  (snapshot) => {
-                                      // Observe state change events such as progress, pause, and resume
-                                      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                                      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                      console.log('Upload is ' + progress + '% done');
-                                      switch (snapshot.state) {
-                                          case 'paused':
-                                              console.log('Upload is paused');
-                                              break;
-                                          case 'running':
-                                              console.log('Upload is running');
-                                              break;
-                                      }
-                                  },
-                                  (error) => {
-                                      // Handle unsuccessful uploads
-                                  },
-                                  () => {
-                                      // Handle successful uploads on complete
-                                      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                                      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                                          console.log('File available at', downloadURL);
-                                          let PostD = {
-                                              NamaBank: document.getElementById('namaBank').value,
-                                              RekeningBank: document.getElementById('rekeningBank').value,
-                                              CaraPembayaran: data,
-                                              GambarBank: downloadURL,
-                                              StatusBank: parseJsonAdmin.Status,
-                                              TanggalBuat: parseJsonAdmin.TanggalBuat,
-                                              TanggalUpdate: new Date().toString("ID")
-                                          };
-                                          const updates = {};
-                                          updates['/Master-Data-Bank/<?= $DataID ?>'] = PostD;
-                                          update(ref(db), updates);
-
-
-                                      });
-                                  }
-                              );
+                             // Register three observers:
+                             // 1. 'state_changed' observer, called any time the state changes
+                             // 2. Error observer, called on failure
+                             // 3. Completion observer, called on successful completion
+                             uploadTask.on('state_changed',
+                                 (snapshot) => {
+                                     // Observe state change events such as progress, pause, and resume
+                                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                     console.log('Upload is ' + progress + '% done');
+                                     switch (snapshot.state) {
+                                         case 'paused':
+                                             console.log('Upload is paused');
+                                             break;
+                                         case 'running':
+                                             console.log('Upload is running');
+                                             break;
+                                     }
+                                 },
+                                 (error) => {
+                                     // Handle unsuccessful uploads
+                                 },
+                                 () => {
+                                     // Handle successful uploads on complete
+                                     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                         console.log('File available at', downloadURL);
+                                         let PostD = {
+                                             NamaBank: document.getElementById('namaBank').value,
+                                             RekeningBank: document.getElementById('rekeningBank').value,
+                                             CaraPembayaran: data,
+                                             GambarBank: downloadURL,
+                                             StatusBank: parseJsonAdmin.Status,
+                                             TanggalBuat: parseJsonAdmin.TanggalBuat,
+                                             TanggalUpdate: new Date().toString("ID")
+                                         };
+                                         const updates = {};
+                                         updates['/Master-Data-Bank/<?= $DataID ?>'] = PostD;
+                                         update(ref(db), updates);
 
 
-                              Swal.fire({
-                                  title: 'Berhasil',
-                                  text: 'Data berhasil tersimpan.',
-                                  icon: 'success',
-                                  showCancelButton: false,
-                                  confirmButtonColor: '#3085d6',
-                                  cancelButtonColor: '#d33',
-                                  confirmButtonText: 'Okey'
-                              }).then((result) => {
-                                  if (result.isConfirmed) {
-                                      location.href = "<?= base_url() ?>/Daftar-Bank"
-                                  }
-                              })
+                                     });
+                                 }
+                             );
 
-                          }
+
+                             Swal.fire({
+                                 title: 'Berhasil',
+                                 text: 'Data berhasil tersimpan.',
+                                 icon: 'success',
+                                 showCancelButton: false,
+                                 showConfirmButton: false,
+                                 confirmButtonColor: '#3085d6',
+                                 cancelButtonColor: '#d33',
+                                 confirmButtonText: 'Okey',
+                                 timer: 3000
+                             }).then((result) => {
+                                 if (result.dismiss === Swal.DismissReason.timer) {
+                                     location.href = "<?= base_url() ?>/Daftar-Bank"
+                                 }
+                             })
+
+                         }
                      } else {
                          Swal.fire({
                              icon: 'error',

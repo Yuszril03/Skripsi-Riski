@@ -780,11 +780,13 @@
                                     text: 'Data berhasil tersimpan.',
                                     icon: 'success',
                                     showCancelButton: false,
+                                    showConfirmButton: false,
                                     confirmButtonColor: '#3085d6',
                                     cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Okey'
+                                    confirmButtonText: 'Okey',
+                                    timer: 4000
                                 }).then((result) => {
-                                    if (result.isConfirmed) {
+                                    if (result.dismiss === Swal.DismissReason.timer) {
                                         location.href = "<?= base_url() ?>/Mitra-Rental"
                                     }
                                 })
@@ -892,7 +894,7 @@
                                                             if (dataIDDetails.length == 0) {
                                                                 idDetails = 1
                                                             } else {
-                                                                idDetails = dataIDDetails[dataIDDetails.length] + 1
+                                                                idDetails = Number(dataIDDetails[dataIDDetails.length - 1]) + 1
                                                             }
 
                                                             console.log(idDetails)
@@ -924,11 +926,13 @@
                                                 text: 'Data berhasil tersimpan.',
                                                 icon: 'success',
                                                 showCancelButton: false,
+                                                showConfirmButton: false,
                                                 confirmButtonColor: '#3085d6',
                                                 cancelButtonColor: '#d33',
-                                                confirmButtonText: 'Okey'
+                                                confirmButtonText: 'Okey',
+                                                timer: 4000
                                             }).then((result) => {
-                                                if (result.isConfirmed) {
+                                                if (result.dismiss === Swal.DismissReason.timer) {
                                                     location.href = "<?= base_url() ?>/Mitra-Rental"
                                                 }
                                             })

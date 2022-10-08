@@ -391,7 +391,7 @@
                         title: 'Oops...',
                         text: 'Gambar Tidak Boleh Kosong!'
                     })
-                    
+
                 } else {
 
                     const storageRef = refImage(storage, 'images-bank/' + fileupload.name);
@@ -470,10 +470,14 @@
                         title: 'Berhasil',
                         text: "Data Berhasil Tersimpan",
                         icon: 'success',
+                        showCancelButton: false,
+                        showConfirmButton: false,
                         confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK'
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Okey',
+                        timer: 4000
                     }).then((result) => {
-                        if (result.isConfirmed) {
+                        if (result.dismiss === Swal.DismissReason.timer) {
                             location.href = "<?= base_url() ?>/Daftar-Bank"
                         }
                     })
