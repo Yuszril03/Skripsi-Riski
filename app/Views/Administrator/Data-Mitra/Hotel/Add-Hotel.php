@@ -486,6 +486,28 @@
         var parseJsonHotel = [];
         var parseJsonPartner = [];
         var parseJsonEmailPartner = [];
+        let dataIDDetails = [];
+
+        triggerData()
+
+        function triggerData() {
+            const starCountRef = ref(db, 'Master-Data-Hotel-Detail/');
+            onValue(starCountRef, (snapshot) => {
+                const data = snapshot.val();
+                dataIDDetails = Object.keys(data);
+                // let TempsData = Object.keys(data);
+                // let noUrut = 0;
+                // if (TempsData.length == 0) {
+                //     noUrut = 1;
+                // } else {
+                //     noUrut = Number(TempsData[TempsData.length - 1]) + 1;
+                // }
+                // dataIDDetails.push(noUrut);
+
+            });
+
+        }
+
 
         const starCountRef = ref(db, 'Master-Data-Hotel/');
         onValue(starCountRef, (snapshot) => {
@@ -986,33 +1008,33 @@
                                             getDownloadURL(uploadTaskDetail.snapshot.ref).then((downloadURL) => {
                                                 console.log('File available at', downloadURL);
 
-                                                let dataIDDetails = [];
+
 
                                                 const starCountRef = ref(db, 'Master-Data-Hotel-Detail/');
                                                 onValue(starCountRef, (snapshot) => {
                                                     const data = snapshot.val();
-                                                    // dataIDDetails = Object.keys(data);
-                                                    let TempsData = Object.keys(data);
-                                                    let noUrut = 0;
-                                                    if (TempsData.length == 0) {
-                                                        noUrut = 1;
-                                                    } else {
-                                                        noUrut = Number(TempsData[TempsData.length - 1]) + 1;
-                                                    }
-                                                    dataIDDetails.push(noUrut);
+                                                    dataIDDetails = Object.keys(data);
+                                                    // let TempsData = Object.keys(data);
+                                                    // let noUrut = 0;
+                                                    // if (TempsData.length == 0) {
+                                                    //     noUrut = 1;
+                                                    // } else {
+                                                    //     noUrut = Number(TempsData[TempsData.length - 1]) + 1;
+                                                    // }
+                                                    // dataIDDetails.push(noUrut);
 
                                                 });
-                                                // let idDetails = 0;
-                                                // if (dataIDDetails.length == 0) {
-                                                //     idDetails = 1;
-                                                // } else {
-                                                //     idDetails = Number(dataIDDetails[dataIDDetails.length - 1]) + 1;
-                                                // }
+                                                let idDetails = 0;
+                                                if (dataIDDetails.length == 0) {
+                                                    idDetails = 1;
+                                                } else {
+                                                    idDetails = Number(dataIDDetails[dataIDDetails.length - 1]) + 1;
+                                                }
 
-                                                // console.log(dataIDDetails)
+                                                console.log(dataIDDetails)
 
-                                                //Data Master Details
-                                                set(ref(db, 'Master-Data-Hotel-Detail/' + dataIDDetails[dataIDDetails.length-1]), {
+                                                // Data Master Details
+                                                set(ref(db, 'Master-Data-Hotel-Detail/' + idDetails), {
                                                     NamaKamar: localDataDetail[h].namaKamar,
                                                     HargaKamar: localDataDetail[h].HargaKamar,
                                                     StatusKamar: 1,
@@ -1032,20 +1054,20 @@
 
 
                                 }
-                                // Swal.fire({
-                                //     title: 'Berhasil',
-                                //     text: 'Data berhasil tersimpan.',
-                                //     icon: 'success',
-                                //     timer: 5000,
-                                //     showCancelButton: false,
-                                //     confirmButtonColor: '#3085d6',
-                                //     cancelButtonColor: '#d33',
-                                //     confirmButtonText: 'Okey'
-                                // }).then((result) => {
-                                //     if (result.isConfirmed) {
-                                //         location.href = "<?= base_url() ?>/Mitra-Hotel"
-                                //     }
-                                // })
+                                Swal.fire({
+                                    title: 'Berhasil',
+                                    text: 'Data berhasil tersimpan.',
+                                    icon: 'success',
+                                    timer: 5000,
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Okey'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.href = "<?= base_url() ?>/Mitra-Hotel"
+                                    }
+                                })
 
 
                             } else {
@@ -1140,7 +1162,7 @@
                                                         getDownloadURL(uploadTaskDetail.snapshot.ref).then((downloadURL2) => {
                                                             console.log('File available at', downloadURL2);
 
-                                                            let dataIDDetails = [];
+
 
                                                             const starCountRef = ref(db, 'Master-Data-Hotel-Detail/');
                                                             onValue(starCountRef, (snapshot) => {

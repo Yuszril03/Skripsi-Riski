@@ -499,6 +499,20 @@
         var parseJsonPartner = [];
         var parseJsonEmailPartner = [];
 
+        let dataIDDetails = [];
+
+        triggerData();
+
+        function triggerData() {
+            const starCountRef = ref(db, 'Master-Data-Rental-Detail/');
+            onValue(starCountRef, (snapshot) => {
+                const data = snapshot.val();
+                dataIDDetails = Object.keys(data);
+            });
+        }
+
+
+
         const starCountRef = ref(db, 'Master-Data-Rental/');
         onValue(starCountRef, (snapshot) => {
             const data = snapshot.val();
@@ -723,7 +737,6 @@
                                             getDownloadURL(uploadTaskDetail.snapshot.ref).then((downloadURL) => {
                                                 console.log('File available at', downloadURL);
 
-                                                let dataIDDetails = [];
 
                                                 const starCountRef = ref(db, 'Master-Data-Rental-Detail/');
                                                 onValue(starCountRef, (snapshot) => {
@@ -735,7 +748,7 @@
                                                     idDetails = 1
                                                 } else {
                                                     idDetails = Number(dataIDDetails[dataIDDetails.length - 1]) + 1
-                                                    
+
                                                 }
 
                                                 console.log(idDetails)
@@ -869,7 +882,6 @@
                                                         getDownloadURL(uploadTaskDetail.snapshot.ref).then((downloadURL2) => {
                                                             console.log('File available at', downloadURL2);
 
-                                                            let dataIDDetails = [];
 
                                                             const starCountRef = ref(db, 'Master-Data-Rental-Detail/');
                                                             onValue(starCountRef, (snapshot) => {
