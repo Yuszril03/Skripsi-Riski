@@ -71,7 +71,7 @@
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <h3>150</h3>
+                                    <h3 id="jum-cus">150</h3>
 
                                     <p>User</p>
                                 </div>
@@ -86,7 +86,7 @@
                             <!-- small box -->
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>53</h3>
+                                    <h3 id="jum-mit-wis">53</h3>
 
                                     <p>Mitra Wisata</p>
                                 </div>
@@ -101,7 +101,7 @@
                             <!-- small box -->
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <h3>44</h3>
+                                    <h3 id="jum-mit-hot">44</h3>
 
                                     <p>Mitra Hotel</p>
                                 </div>
@@ -116,7 +116,7 @@
                             <!-- small box -->
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3>65</h3>
+                                    <h3 id="jum-mit-ren">65</h3>
 
                                     <p>Mitra Rental</p>
                                 </div>
@@ -715,6 +715,7 @@
         CekDataWisata();
         CekDataHotel();
         CekDataRental();
+        jumlahData();
 
         function CekDataWisata() {
             const cekData1 = ref(db, 'Transaction-Wisata');
@@ -913,6 +914,42 @@
                         }
                     })
                 }
+            })
+        }
+
+        function jumlahData() {
+            const customer = ref(db, 'Master-Data-Customer');
+            onValue(customer, (snapshotCustomer) => {
+                const wisata = snapshotCustomer.val();
+                const keys = Object.keys(wisata);
+                let jum = keys.length;
+                // console.log(jum);
+                document.getElementById("jum-cus").innerHTML = jum;
+            })
+
+            const mitraWisata = ref(db, 'Master-Data-Wisata');
+            onValue(mitraWisata, (snapshotWisata) => {
+                const wisata = snapshotWisata.val();
+                const keys = Object.keys(wisata);
+                let jum1 = keys.length;
+                // console.log(jum1);
+                document.getElementById("jum-mit-wis").innerHTML = jum1;
+            })
+
+            const mitraHotel = ref(db, 'Master-Data-Hotel');
+            onValue(mitraHotel, (snapshotHotel) => {
+                const hotel = snapshotHotel.val();
+                const keys = Object.keys(hotel);
+                let jum2 = keys.length;
+                document.getElementById("jum-mit-hot").innerHTML = jum2;
+            })
+
+            const mitraRental = ref(db, 'Master-Data-Rental');
+            onValue(mitraRental, (snapshotRental) => {
+                const rental = snapshotRental.val();
+                const keys = Object.keys(rental);
+                let jum3 = keys.length;
+                document.getElementById("jum-mit-ren").innerHTML = jum3;
             })
         }
     </Script>
