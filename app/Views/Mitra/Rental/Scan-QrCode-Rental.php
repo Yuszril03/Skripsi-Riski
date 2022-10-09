@@ -439,7 +439,9 @@
 
                                         <button id="verifikasi" class="btn btn-primary btn-block">Verifikasi Check In</button>
                                         <button id="verifikasiCheckOut" class="btn btn-primary btn-block">Verifikasi Check Out</button>
-
+                                        <p>
+                                            <span id="alertCheckIN" class="text-danger" style="font-size: 16px;">Belum Dapat Melakukan Check-in !!!</span>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -570,6 +572,7 @@
                             };
                             $("#dataEmpty").hide()
                             $("#DataTransaksi").show()
+                            $("#alertCheckIN").hide()
                             document.getElementById('kodeTransaksi').innerHTML = myArray22[0];
                             document.getElementById('tanggalBuat').innerHTML = snapShot.val().TanggalBuat;
                             document.getElementById('tanggalUpdate').innerHTML = snapShot.val().TanggalUpdate;
@@ -587,20 +590,27 @@
                                 $('#verifikasiCheckOut').hide();
                                 document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-danger">Dibatalkan</span>`;
                             } else if (snapShot.val().StatusTransaksi == "3") {
-                                console.log(tanggalHariIni);
-                                console.log(tanggalCheckIn);
+                                // console.log(tanggalHariIni);
+                                // console.log(tanggalCheckIn);
+
                                 if (tanggalCheckIn < tanggalHariIni) {
                                     $('#verifikasi').hide();
                                     $('#verifikasiCheckOut').hide();
+                                    $("#alertCheckIN").show();
+                                } else if (tanggalHariIni != tanggalCheckIn) {
+                                    $('#verifikasi').hide();
+                                    $('#verifikasiCheckOut').hide();
+                                    $("#alertCheckIN").show();
                                 } else {
                                     $('#verifikasi').show();
                                     $('#verifikasiCheckOut').hide();
+                                    $("#alertCheckIN").hide();
                                 }
                                 document.getElementById('StatusTransaksi').innerHTML = `<span class="badge badge-success">Sudah Terbayar</span>`;
                             } else if (snapShot.val().StatusTransaksi == "4") {
                                 if (tanggalCheckOut > tanggalHariIni) {
                                     $('#verifikasi').hide();
-                                    $('#verifikasiCheckOut').hide();
+                                    $('#verifikasiCheckOut').show();
                                 } else {
                                     $('#verifikasi').hide();
                                     $('#verifikasiCheckOut').show();
