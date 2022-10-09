@@ -69,13 +69,39 @@
                     <!-- Small boxes (Stat box) -->
                     <?php if (session()->get('Jenis') == "Mitra-Wisata") { ?>
                         <div class="row">
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-success">
+                                    <div class="inner">
+                                        <h3 id="sudah-terbayar">0</h3>
+                                        <p>Pemesanan yang Terbayar</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-person"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-warning">
+                                    <div class="inner">
+                                        <h3 id="belum-terbayar">0</h3>
+                                        <p>Pemesan belum Terbayar</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-person"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ./col -->
                             <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-info">
                                     <div class="inner">
-                                        <h3>150</h3>
-
-                                        <p>Pembelian Tiket</p>
+                                        <h3 id="jum-trans">0</h3>
+                                        <p>Total Pembelian Tiket</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-ios-cart"></i>
@@ -86,23 +112,9 @@
                             <!-- ./col -->
                             <div class="col-lg-3 col-6">
                                 <!-- small box -->
-                                <div class="small-box bg-success">
-                                    <div class="inner">
-                                        <h3>53<sup style="font-size: 20px">%</sup></h3>
-                                        <p>Pengunjung</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="ion ion-person"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- ./col -->
-
-                            <div class="col-lg-3 col-6">
-                                <!-- small box -->
                                 <div class="small-box bg-danger">
                                     <div class="inner">
-                                        <h3>65</h3>
+                                        <h3 id="jum-bulanan">0</h3>
 
                                         <p>Penjualan Tiket Perbulan</p>
                                     </div>
@@ -112,10 +124,7 @@
 
                                 </div>
                             </div>
-                            <!-- ./col -->
-                            <div class="col-lg-3 col-6">
 
-                            </div>
                             <!-- ./col -->
                         </div>
                     <?php } ?>
@@ -486,6 +495,7 @@
         <?php if (session()->get('Jenis') == "Mitra-Wisata") { ?>
             CekDataWisata();
 
+
             function CekDataWisata() {
                 const cekData1 = ref(db, 'Transaction-Wisata');
                 onValue(cekData1, (snapshot) => {
@@ -529,6 +539,8 @@
                     }
                 })
             }
+
+
         <?php } ?>
 
         <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
@@ -581,8 +593,6 @@
                                     }
                                     couns.push(objData)
                                 }
-
-
                             }
                         })
                     }
