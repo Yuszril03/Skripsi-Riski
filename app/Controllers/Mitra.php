@@ -60,11 +60,11 @@ class Mitra extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Wisata') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Wisata') {
             return view('Mitra/Wisata/Data-Pemesanan-Wisata');
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Wisata') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Wisata') {
             return redirect()->to(base_url('/Beranda-Mitra'));
         }
     }
@@ -73,10 +73,12 @@ class Mitra extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Hotel') {
             return view('Mitra/Hotel/Data-Pemesanan-Kamar');
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Hotel') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
         }
     }
 
@@ -84,11 +86,12 @@ class Mitra extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Rental') {
             return view('Mitra/Rental/Data-Pemesanan-Rental');
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
-
             return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Rental') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
         }
     }
 
@@ -98,7 +101,7 @@ class Mitra extends BaseController
 
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Wisata') {
             $data = [
                 'DataID' => $id,
                 'DataIDCustomer' => $idcustomer,
@@ -109,6 +112,8 @@ class Mitra extends BaseController
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
 
             return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Wisata') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
         }
     }
 
@@ -117,7 +122,7 @@ class Mitra extends BaseController
 
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Hotel') {
             $data = [
                 'DataID' => $id,
                 'DataIDCustomer' => $idcustomer,
@@ -129,6 +134,8 @@ class Mitra extends BaseController
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
 
             return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Hotel') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
         }
     }
 
@@ -137,7 +144,7 @@ class Mitra extends BaseController
 
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Rental') {
             $data = [
                 'DataID' => $id,
                 'DataIDCustomer' => $idcustomer,
@@ -149,6 +156,8 @@ class Mitra extends BaseController
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
 
             return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Rental') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
         }
     }
 
@@ -157,10 +166,12 @@ class Mitra extends BaseController
         // echo $detailkamar;
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Hotel') {
             return view('Mitra/Hotel/Data-Kamar');
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Hotel') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
         }
     }
 
@@ -169,7 +180,7 @@ class Mitra extends BaseController
         // echo $detailkamar;
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Hotel') {
             $data = [
                 'DataID' => $detailkamar
             ];
@@ -177,6 +188,8 @@ class Mitra extends BaseController
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
 
             return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Hotel') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
         }
     }
 
@@ -185,7 +198,7 @@ class Mitra extends BaseController
 
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Rental') {
             $data = [
                 'IDData' => $detailmobil
             ];
@@ -193,12 +206,22 @@ class Mitra extends BaseController
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
 
             return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Rental') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
         }
     }
 
     public function DataMobilRental()
     {
-        return view('Mitra/Rental/Data-Rental-Mobil');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Rental') {
+            return view('Mitra/Rental/Data-Rental-Mobil');
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Rental') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
+        }
     }
 
     public function UpNameProfileWisata()
@@ -232,25 +255,54 @@ class Mitra extends BaseController
     //scan QrCode Wisata
     public function QrCodeWisata()
     {
-        return view('Mitra/Wisata/Scan-QrCode-Wisata');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Wisata') {
+            return view('Mitra/Wisata/Scan-QrCode-Wisata');
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Wisata') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
+        }
     }
+
     public function QrCodeHotel()
     {
-        return view('Mitra/Hotel/Scan-QrCode-Hotel');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Hotel') {
+            return view('Mitra/Hotel/Scan-QrCode-Hotel');
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Hotel') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
+        }
     }
+
     public function QrCodeRental()
     {
-        return view('Mitra/Rental/Scan-QrCode-Rental');
+        if (session()->get('Status') != TRUE) {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Rental') {
+            return view('Mitra/Rental/Scan-QrCode-Rental');
+        } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
+            return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Rental') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
+        }
     }
+
     //Review
     public function ReviewWisata()
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Wisata') {
             return view('Mitra/Wisata/Review-Wisata');
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Wisata') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
         }
     }
 
@@ -258,10 +310,12 @@ class Mitra extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Hotel') {
             return view('Mitra/Hotel/Review-Kamar-Hotel');
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Hotel') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
         }
     }
 
@@ -269,10 +323,12 @@ class Mitra extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Mitra-Rental') {
             return view('Mitra/Rental/Review-Rental');
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Mitra-Rental') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
         }
     }
 }
