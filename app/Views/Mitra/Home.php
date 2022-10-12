@@ -131,7 +131,7 @@
 
                     <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
                         <div class="row">
-                            <div class="col-lg-3 col-6">
+                            <div class="col-lg-4 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-info">
                                     <div class="inner">
@@ -146,7 +146,7 @@
                                 </div>
                             </div>
                             <!-- ./col -->
-                            <div class="col-lg-3 col-6">
+                            <div class="col-lg-4 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-success">
                                     <div class="inner">
@@ -160,7 +160,7 @@
                                 </div>
                             </div>
                             <!-- ./col -->
-                            <div class="col-lg-3 col-6">
+                            <div class="col-lg-4 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-danger">
                                     <div class="inner">
@@ -184,7 +184,7 @@
 
                     <?php if (session()->get('Jenis') == "Mitra-Rental") { ?>
                         <div class="row">
-                            <div class="col-lg-3 col-6">
+                            <div class="col-lg-4 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-info">
                                     <div class="inner">
@@ -200,7 +200,7 @@
                                 </div>
                             </div>
                             <!-- ./col -->
-                            <div class="col-lg-3 col-6">
+                            <div class="col-lg-4 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-success">
                                     <div class="inner">
@@ -216,7 +216,7 @@
                             </div>
                             <!-- ./col -->
 
-                            <div class="col-lg-3 col-6">
+                            <div class="col-lg-4 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-danger">
                                     <div class="inner">
@@ -243,178 +243,24 @@
                     <!-- Main row -->
                     <div class="row">
                         <!-- Left col -->
-                        <section class="col-lg-7 connectedSortable">
-                            <!-- Custom tabs (Charts with tabs)-->
+                        <section class="col connectedSortable">
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">
                                         <i class="fas fa-chart-pie mr-1"></i>
-                                        Sales
+                                        Grafik Transaksi Tahun <?= date('Y') ?>
                                     </h3>
-                                    <div class="card-tools">
-                                        <ul class="nav nav-pills ml-auto">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+
                                 </div><!-- /.card-header -->
                                 <div class="card-body">
-                                    <div class="tab-content p-0">
-                                        <!-- Morris chart - Sales -->
-                                        <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;">
-                                            <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                                        </div>
-                                        <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                                            <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                                        </div>
+                                    <div>
+                                        <canvas id="myChart"></canvas>
                                     </div>
                                 </div><!-- /.card-body -->
                             </div>
-                            <!-- /.card -->
-
-
                         </section>
                         <!-- /.Left col -->
-                        <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                        <section class="col-lg-5 connectedSortable">
 
-                            <!-- Map card -->
-                            <div class="card bg-gradient-primary">
-                                <div class="card-header border-0">
-                                    <h3 class="card-title">
-                                        <i class="fas fa-map-marker-alt mr-1"></i>
-                                        Visitors
-                                    </h3>
-                                    <!-- card tools -->
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <!-- /.card-tools -->
-                                </div>
-                                <div class="card-body">
-                                    <div id="world-map" style="height: 250px; width: 100%;"></div>
-                                </div>
-                                <!-- /.card-body-->
-                                <div class="card-footer bg-transparent">
-                                    <div class="row">
-                                        <div class="col-4 text-center">
-                                            <div id="sparkline-1"></div>
-                                            <div class="text-white">Visitors</div>
-                                        </div>
-                                        <!-- ./col -->
-                                        <div class="col-4 text-center">
-                                            <div id="sparkline-2"></div>
-                                            <div class="text-white">Online</div>
-                                        </div>
-                                        <!-- ./col -->
-                                        <div class="col-4 text-center">
-                                            <div id="sparkline-3"></div>
-                                            <div class="text-white">Sales</div>
-                                        </div>
-                                        <!-- ./col -->
-                                    </div>
-                                    <!-- /.row -->
-                                </div>
-                            </div>
-                            <!-- /.card -->
-
-                            <!-- solid sales graph -->
-                            <div class="card bg-gradient-info">
-                                <div class="card-header border-0">
-                                    <h3 class="card-title">
-                                        <i class="fas fa-th mr-1"></i>
-                                        Sales Graph
-                                    </h3>
-
-                                    <div class="card-tools">
-                                        <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                </div>
-                                <!-- /.card-body -->
-                                <div class="card-footer bg-transparent">
-                                    <div class="row">
-                                        <div class="col-4 text-center">
-                                            <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60" data-fgColor="#39CCCC">
-
-                                            <div class="text-white">Mail-Orders</div>
-                                        </div>
-                                        <!-- ./col -->
-                                        <div class="col-4 text-center">
-                                            <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60" data-fgColor="#39CCCC">
-
-                                            <div class="text-white">Online</div>
-                                        </div>
-                                        <!-- ./col -->
-                                        <div class="col-4 text-center">
-                                            <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60" data-fgColor="#39CCCC">
-
-                                            <div class="text-white">In-Store</div>
-                                        </div>
-                                        <!-- ./col -->
-                                    </div>
-                                    <!-- /.row -->
-                                </div>
-                                <!-- /.card-footer -->
-                            </div>
-                            <!-- /.card -->
-
-                            <!-- Calendar -->
-                            <div class="card bg-gradient-success">
-                                <div class="card-header border-0">
-
-                                    <h3 class="card-title">
-                                        <i class="far fa-calendar-alt"></i>
-                                        Calendar
-                                    </h3>
-                                    <!-- tools card -->
-                                    <div class="card-tools">
-                                        <!-- button with a dropdown -->
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
-                                                <i class="fas fa-bars"></i>
-                                            </button>
-                                            <div class="dropdown-menu" role="menu">
-                                                <a href="#" class="dropdown-item">Add new event</a>
-                                                <a href="#" class="dropdown-item">Clear events</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item">View calendar</a>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>
-                                    <!-- /. tools -->
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body pt-0">
-                                    <!--The calendar -->
-                                    <div id="calendar" style="width: 100%"></div>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-                        </section>
                         <!-- right col -->
                     </div>
                     <!-- /.row (main row) -->
@@ -468,6 +314,8 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url() ?>/AdminLTE/dists/js/pages/dashboard.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <Script type="module">
         import {
             initializeApp
@@ -492,6 +340,29 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase();
 
+        let myTanggal = new Date()
+
+        console.log(myTanggal.getMonth())
+
+        const labels = [
+            'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember',
+        ];
+
+        let dataListWIsata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let dataListHotel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let dataListRental = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
         <?php if (session()->get('Jenis') == "Mitra-Wisata") { ?>
             CekDataWisata();
 
@@ -513,6 +384,39 @@
 
                                 const tanggalBuat = snapshoot.val().TanggalBuat;
                                 let dateBuatArray = tanggalBuat.split("/");
+
+
+                                let tanggalBuat2 = snapshoot.val().TanggalBuat;
+                                let dateBuatArray2 = tanggalBuat2.split(" ");
+                                let onlyTanggal = dateBuatArray2[0].split("/");
+
+                                if (Number(onlyTanggal[2]) == myTanggal.getFullYear()) {
+                                    if ((Number(onlyTanggal[1]) - 1) == 0) {
+                                        dataListWIsata[0] = dataListWIsata[0] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 1) {
+                                        dataListWIsata[1] = dataListWIsata[1] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 2) {
+                                        dataListWIsata[2] = dataListWIsata[2] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 3) {
+                                        dataListWIsata[3] = dataListWIsata[3] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 4) {
+                                        dataListWIsata[4] = dataListWIsata[4] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 5) {
+                                        dataListWIsata[5] = dataListWIsata[5] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 6) {
+                                        dataListWIsata[6] = dataListWIsata[6] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 7) {
+                                        dataListWIsata[7] = dataListWIsata[7] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 8) {
+                                        dataListWIsata[8] = dataListWIsata[8] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 9) {
+                                        dataListWIsata[9] = dataListWIsata[9] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 10) {
+                                        dataListWIsata[10] = dataListWIsata[10] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 11) {
+                                        dataListWIsata[11] = dataListWIsata[11] + 1;
+                                    }
+                                }
 
                                 // console.log(Number(tanggalHariIni[0]));
                                 // console.log(Number(dateBuatArray[0]));
@@ -537,6 +441,28 @@
                             }
                         })
                     }
+
+                    const data = {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Wisata',
+                            backgroundColor: 'rgb(23, 162, 184)',
+                            borderColor: 'rgb(23, 162, 184)',
+                            data: dataListWIsata,
+                        }]
+                    };
+
+                    const config = {
+                        type: 'line',
+                        data: data,
+                        options: {}
+                    };
+                    const myChart = new Chart(
+                        document.getElementById('myChart'),
+                        config
+                    );
+
+
                 })
             }
 
@@ -563,7 +489,39 @@
                             let onlyTanggal = dateBuatArray[0].split("/");
                             let nowTrans = new Date(Number(onlyTanggal[2]), Number(onlyTanggal[1]) - 1, Number(onlyTanggal[0]))
 
+                            if (Number(onlyTanggal[2]) == myTanggal.getFullYear() && postDataDetilTransaksi.IdMitra == "<?= session()->get('IDKelola') ?>") {
+                                if ((Number(onlyTanggal[1]) - 1) == 0) {
+                                    dataListHotel[0] = dataListHotel[0] + 1;
+                                } else if ((Number(onlyTanggal[1]) - 1) == 1) {
+                                    dataListHotel[1] = dataListHotel[1] + 1;
+                                } else if ((Number(onlyTanggal[1]) - 1) == 2) {
+                                    dataListHotel[2] = dataListHotel[2] + 1;
+                                } else if ((Number(onlyTanggal[1]) - 1) == 3) {
+                                    dataListHotel[3] = dataListHotel[3] + 1;
+                                } else if ((Number(onlyTanggal[1]) - 1) == 4) {
+                                    dataListHotel[4] = dataListHotel[4] + 1;
+                                } else if ((Number(onlyTanggal[1]) - 1) == 5) {
+                                    dataListHotel[5] = dataListHotel[5] + 1;
+                                } else if ((Number(onlyTanggal[1]) - 1) == 6) {
+                                    dataListHotel[6] = dataListHotel[6] + 1;
+                                } else if ((Number(onlyTanggal[1]) - 1) == 7) {
+                                    dataListHotel[7] = dataListHotel[7] + 1;
+                                } else if ((Number(onlyTanggal[1]) - 1) == 8) {
+                                    dataListHotel[8] = dataListHotel[8] + 1;
+                                } else if ((Number(onlyTanggal[1]) - 1) == 9) {
+                                    dataListHotel[9] = dataListHotel[9] + 1;
+                                } else if ((Number(onlyTanggal[1]) - 1) == 10) {
+                                    dataListHotel[10] = dataListHotel[10] + 1;
+                                } else if ((Number(onlyTanggal[1]) - 1) == 11) {
+                                    dataListHotel[11] = dataListHotel[11] + 1;
+                                }
+                            }
+
                             if (nowTrans.getTime() < tanggalHariIni && postDataDetilTransaksi.StatusTransaksi == "1" && postDataDetilTransaksi.IdMitra == "<?= session()->get('IDKelola') ?>") {
+
+
+
+
 
                                 // postDataDetilTransaksi.StatusTransaksi = "2";
                                 // postDataDetilTransaksi.TanggalUpdate = new Date().toString("ID");
@@ -596,6 +554,26 @@
                             }
                         })
                     }
+
+                    const data = {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Hotel',
+                            backgroundColor: 'rgb(23, 162, 184)',
+                            borderColor: 'rgb(23, 162, 184)',
+                            data: dataListHotel,
+                        }]
+                    };
+
+                    const config = {
+                        type: 'line',
+                        data: data,
+                        options: {}
+                    };
+                    const myChart = new Chart(
+                        document.getElementById('myChart'),
+                        config
+                    );
 
                     console.log(counsTRANSAKSI)
                     let arrayCountTRANS = []
@@ -683,6 +661,36 @@
 
                                 const tanggalBuat = snapshoot.val().TanggalBuat;
                                 let dateBuatArray = tanggalBuat.split("/");
+                                let dateBuatArray2 = tanggalBuat.split(" ");
+                                let onlyTanggal = dateBuatArray2[0].split("/");
+
+                                if (Number(onlyTanggal[2]) == myTanggal.getFullYear()) {
+                                    if ((Number(onlyTanggal[1]) - 1) == 0) {
+                                        dataListRental[0] = dataListRental[0] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 1) {
+                                        dataListRental[1] = dataListRental[1] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 2) {
+                                        dataListRental[2] = dataListRental[2] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 3) {
+                                        dataListRental[3] = dataListRental[3] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 4) {
+                                        dataListRental[4] = dataListRental[4] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 5) {
+                                        dataListRental[5] = dataListRental[5] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 6) {
+                                        dataListRental[6] = dataListRental[6] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 7) {
+                                        dataListRental[7] = dataListRental[7] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 8) {
+                                        dataListRental[8] = dataListRental[8] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 9) {
+                                        dataListRental[9] = dataListRental[9] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 10) {
+                                        dataListRental[10] = dataListRental[10] + 1;
+                                    } else if ((Number(onlyTanggal[1]) - 1) == 11) {
+                                        dataListRental[11] = dataListRental[11] + 1;
+                                    }
+                                }
 
                                 // console.log(Number(tanggalHariIni[0]));
                                 // console.log(Number(dateBuatArray[0]));
@@ -707,6 +715,27 @@
                             }
                         })
                     }
+
+                    const data = {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Rental',
+                            backgroundColor: 'rgb(23, 162, 184)',
+                            borderColor: 'rgb(23, 162, 184)',
+                            data: dataListRental,
+                        }]
+                    };
+
+                    const config = {
+                        type: 'line',
+                        data: data,
+                        options: {}
+                    };
+                    const myChart = new Chart(
+                        document.getElementById('myChart'),
+                        config
+                    );
+
                 })
             }
         <?php } ?>
