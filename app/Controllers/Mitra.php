@@ -60,10 +60,12 @@ class Mitra extends BaseController
     {
         if (session()->get('Status') != TRUE) {
             return redirect()->to(base_url('/'));
-        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') == 'Wisata') {
             return view('Mitra/Wisata/Data-Pemesanan-Wisata');
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
             return redirect()->to(base_url('/'));
+        } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin' && session()->get('Jenis') != 'Wisata') {
+            return redirect()->to(base_url('/Beranda-Mitra'));
         }
     }
 
@@ -85,7 +87,7 @@ class Mitra extends BaseController
         } else  if ((session()->get('Status') == TRUE) && session()->get('Jenis') != 'Admin') {
             return view('Mitra/Rental/Data-Pemesanan-Rental');
         } else  if (session()->get('Status') == TRUE && session()->get('Jenis') == 'Admin') {
-            
+
             return redirect()->to(base_url('/'));
         }
     }
@@ -110,7 +112,7 @@ class Mitra extends BaseController
         }
     }
 
-    public function DeteilPemesananKamar($id = false, $idcustomer = false, $idmitra = false, $idBank = false, $idKamar = false )
+    public function DeteilPemesananKamar($id = false, $idcustomer = false, $idmitra = false, $idBank = false, $idKamar = false)
     {
 
         if (session()->get('Status') != TRUE) {
@@ -240,7 +242,7 @@ class Mitra extends BaseController
     {
         return view('Mitra/Rental/Scan-QrCode-Rental');
     }
-//Review
+    //Review
     public function ReviewWisata()
     {
         if (session()->get('Status') != TRUE) {

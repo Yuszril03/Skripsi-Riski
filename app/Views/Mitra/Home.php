@@ -131,42 +131,42 @@
 
                     <?php if (session()->get('Jenis') == "Mitra-Hotel") { ?>
                         <div class="row">
-                            <div class="col-lg-4 col-6">
+                            <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-info">
                                     <div class="inner">
-                                        <h3>150</h3>
+                                        <h3 id="jum-trans-hotel">150</h3>
 
-                                        <p>Pemesanan Kamar</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="ion bi bi-door-open-fill"></i>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!-- ./col -->
-                            <div class="col-lg-4 col-6">
-                                <!-- small box -->
-                                <div class="small-box bg-success">
-                                    <div class="inner">
-                                        <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                                        <p>Pengunjung</p>
+                                        <p>Total Traksaksi</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-person"></i>
                                     </div>
+
                                 </div>
                             </div>
                             <!-- ./col -->
-                            <div class="col-lg-4 col-6">
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-success">
+                                    <div class="inner">
+                                        <h3 id="jum-bayar-hotel">53<sup style="font-size: 20px">%</sup></h3>
+
+                                        <p>Transaksi Terbayar</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion bi bi-cash"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-danger">
                                     <div class="inner">
-                                        <h3>65</h3>
+                                        <h3 id="jum-belum-hotel">65</h3>
 
-                                        <p>Pengunjung Perbulan</p>
+                                        <p>Transaksi Belum Terbayar</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion bi bi-cash"></i>
@@ -176,7 +176,18 @@
                             <!-- ./col -->
 
                             <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-warning">
+                                    <div class="inner">
+                                        <h3 id="jum-pengunjung-hotel">0</h3>
 
+                                        <p>Pengunjung Perbulan</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-pie-graph"></i>
+                                    </div>
+
+                                </div>
                             </div>
                             <!-- ./col -->
                         </div>
@@ -184,11 +195,11 @@
 
                     <?php if (session()->get('Jenis') == "Mitra-Rental") { ?>
                         <div class="row">
-                            <div class="col-lg-4 col-6">
+                            <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-info">
                                     <div class="inner">
-                                        <h3>150</h3>
+                                        <h3 id="juml-trans-rental">150</h3>
 
                                         <p>Pemesanan Mobil</p>
                                     </div>
@@ -200,27 +211,40 @@
                                 </div>
                             </div>
                             <!-- ./col -->
-                            <div class="col-lg-4 col-6">
+                            <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-success">
                                     <div class="inner">
-                                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                        <h3 id="jum-bayar-rental">53<sup style="font-size: 20px">%</sup></h3>
 
-                                        <p>Penyewa</p>
+                                        <p>Transaksi Terbayar</p>
                                     </div>
                                     <div class="icon">
-                                        <i class="ion ion ion-person"></i>
+                                        <i class="ion bi bi-cash"></i>
                                     </div>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-danger">
+                                    <div class="inner">
+                                        <h3 id="jum-belum-rental">65</h3>
 
+                                        <p>Transaksi Belum Terbayar</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion bi bi-cash"></i>
+                                    </div>
                                 </div>
                             </div>
                             <!-- ./col -->
 
-                            <div class="col-lg-4 col-6">
+                            <div class="col-lg-3 col-6">
                                 <!-- small box -->
-                                <div class="small-box bg-danger">
+                                <div class="small-box bg-warning">
                                     <div class="inner">
-                                        <h3>65</h3>
+                                        <h3 id="jum-bulan-rental">65</h3>
 
                                         <p>Penyewa perbulan</p>
                                     </div>
@@ -230,12 +254,7 @@
 
                                 </div>
                             </div>
-                            <!-- ./col -->
-                            <div class="col-lg-3 col-6">
-                                <!-- small box -->
 
-                            </div>
-                            <!-- ./col -->
                         </div>
                     <?php } ?>
 
@@ -373,11 +392,18 @@
                     const cek = snapshot.val();
                     const keys = Object.keys(cek);
 
+                    let sudahBayar = 0;
+                    let belumBayar = 0;
+                    let totalTransaksi = 0;
+                    let totalTransaksiBulanINI = 0;
+
                     for (const isi in keys) {
                         const cekData2 = ref(db, 'Transaction-Wisata/' + keys[isi]);
                         onValue(cekData2, (snapshoot) => {
                             const cek1 = snapshoot.val();
                             if (snapshoot.val().IdMitra == "<?= session()->get('IDKelola') ?>") {
+
+                                totalTransaksi++;
 
                                 const tanggalHariIni = new Date().toLocaleDateString();
                                 let datehariini = tanggalHariIni.split("/");
@@ -391,6 +417,11 @@
                                 let onlyTanggal = dateBuatArray2[0].split("/");
 
                                 if (Number(onlyTanggal[2]) == myTanggal.getFullYear()) {
+
+                                    if ((Number(onlyTanggal[1]) - 1) == myTanggal.getMonth()) {
+                                        totalTransaksiBulanINI++;
+                                    }
+
                                     if ((Number(onlyTanggal[1]) - 1) == 0) {
                                         dataListWIsata[0] = dataListWIsata[0] + 1;
                                     } else if ((Number(onlyTanggal[1]) - 1) == 1) {
@@ -421,7 +452,12 @@
                                 // console.log(Number(tanggalHariIni[0]));
                                 // console.log(Number(dateBuatArray[0]));
 
+                                if (snapshoot.val().StatusTransaksi == "3" || snapshoot.val().StatusTransaksi == "4") {
+                                    sudahBayar++;
+                                }
+
                                 if (snapshoot.val().StatusTransaksi == "1") {
+                                    belumBayar++;
                                     // console.log(tanggalHariIni);
                                     // console.log(tanggalBuat);
                                     if (Number(tanggalHariIni[0]) > Number(dateBuatArray[0])) {
@@ -441,6 +477,11 @@
                             }
                         })
                     }
+
+                    document.getElementById('jum-bulanan').innerHTML = totalTransaksiBulanINI
+                    document.getElementById('sudah-terbayar').innerHTML = sudahBayar
+                    document.getElementById('jum-trans').innerHTML = totalTransaksi
+                    document.getElementById('belum-terbayar').innerHTML = belumBayar
 
                     const data = {
                         labels: labels,
@@ -480,6 +521,12 @@
                     let keysID = Object.keys(posData);
                     let couns = [];
                     let counsTRANSAKSI = [];
+
+                    let sudahBayar = 0;
+                    let belumBayar = 0;
+                    let totalTransaksi = 0;
+                    let totalTransaksiBulanINI = 0;
+
                     for (let loop in keysID) {
                         let tableDetailTransaksi = ref(db, 'Transaction-Hotel/' + keysID[loop]);
                         onValue(tableDetailTransaksi, (snapDetailTrans) => {
@@ -490,6 +537,10 @@
                             let nowTrans = new Date(Number(onlyTanggal[2]), Number(onlyTanggal[1]) - 1, Number(onlyTanggal[0]))
 
                             if (Number(onlyTanggal[2]) == myTanggal.getFullYear() && postDataDetilTransaksi.IdMitra == "<?= session()->get('IDKelola') ?>") {
+                                if ((Number(onlyTanggal[1]) - 1) == myTanggal.getMonth()) {
+                                    totalTransaksiBulanINI++;
+                                }
+
                                 if ((Number(onlyTanggal[1]) - 1) == 0) {
                                     dataListHotel[0] = dataListHotel[0] + 1;
                                 } else if ((Number(onlyTanggal[1]) - 1) == 1) {
@@ -515,6 +566,17 @@
                                 } else if ((Number(onlyTanggal[1]) - 1) == 11) {
                                     dataListHotel[11] = dataListHotel[11] + 1;
                                 }
+                            }
+
+                            if (postDataDetilTransaksi.IdMitra == "<?= session()->get('IDKelola') ?>") {
+                                totalTransaksi++;
+                            }
+
+                            if (postDataDetilTransaksi.StatusTransaksi == "1" && postDataDetilTransaksi.IdMitra == "<?= session()->get('IDKelola') ?>") {
+                                belumBayar++;
+                            }
+                            if ((postDataDetilTransaksi.StatusTransaksi == "3" || postDataDetilTransaksi.StatusTransaksi == "4" || postDataDetilTransaksi.StatusTransaksi == "5") && postDataDetilTransaksi.IdMitra == "<?= session()->get('IDKelola') ?>") {
+                                sudahBayar++;
                             }
 
                             if (nowTrans.getTime() < tanggalHariIni && postDataDetilTransaksi.StatusTransaksi == "1" && postDataDetilTransaksi.IdMitra == "<?= session()->get('IDKelola') ?>") {
@@ -554,6 +616,11 @@
                             }
                         })
                     }
+
+                    document.getElementById('jum-trans-hotel').innerHTML = totalTransaksi
+                    document.getElementById('jum-bayar-hotel').innerHTML = sudahBayar
+                    document.getElementById('jum-belum-hotel').innerHTML = belumBayar
+                    document.getElementById('jum-pengunjung-hotel').innerHTML = totalTransaksiBulanINI
 
                     const data = {
                         labels: labels,
@@ -650,11 +717,18 @@
                     const cek = snapshot.val();
                     const keys = Object.keys(cek);
 
+                    let sudahBayar = 0;
+                    let belumBayar = 0;
+                    let totalTransaksi = 0;
+                    let totalTransaksiBulanINI = 0;
+
                     for (const isi in keys) {
                         const cekData2 = ref(db, 'Transaction-Rental/' + keys[isi]);
                         onValue(cekData2, (snapshoot) => {
                             const cek1 = snapshoot.val();
                             if (snapshoot.val().IdMitra == "<?= session()->get('IDKelola') ?>") {
+
+                                totalTransaksi++;
 
                                 const tanggalHariIni = new Date().toLocaleDateString();
                                 let datehariini = tanggalHariIni.split("/");
@@ -665,6 +739,9 @@
                                 let onlyTanggal = dateBuatArray2[0].split("/");
 
                                 if (Number(onlyTanggal[2]) == myTanggal.getFullYear()) {
+                                    if ((Number(onlyTanggal[1]) - 1) == myTanggal.getMonth()) {
+                                        totalTransaksiBulanINI++;
+                                    }
                                     if ((Number(onlyTanggal[1]) - 1) == 0) {
                                         dataListRental[0] = dataListRental[0] + 1;
                                     } else if ((Number(onlyTanggal[1]) - 1) == 1) {
@@ -691,11 +768,14 @@
                                         dataListRental[11] = dataListRental[11] + 1;
                                     }
                                 }
-
+                                if (snapshoot.val().StatusTransaksi == "3" || snapshoot.val().StatusTransaksi == "4" || snapshoot.val().StatusTransaksi == "5") {
+                                    sudahBayar++;
+                                }
                                 // console.log(Number(tanggalHariIni[0]));
                                 // console.log(Number(dateBuatArray[0]));
 
                                 if (snapshoot.val().StatusTransaksi == "1") {
+                                    belumBayar++;
                                     // console.log(tanggalHariIni);
                                     // console.log(tanggalBuat);
                                     if (Number(tanggalHariIni[0]) > Number(dateBuatArray[0])) {
@@ -715,6 +795,11 @@
                             }
                         })
                     }
+
+                    document.getElementById('jum-bulan-rental').innerHTML = totalTransaksiBulanINI
+                    document.getElementById('jum-bayar-rental').innerHTML = sudahBayar
+                    document.getElementById('juml-trans-rental').innerHTML = totalTransaksi
+                    document.getElementById('jum-belum-rental').innerHTML = belumBayar
 
                     const data = {
                         labels: labels,
